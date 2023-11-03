@@ -11,6 +11,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+            '@components': path.resolve(__dirname, 'resources/js/Components/'),
+            '@layouts': path.resolve(__dirname, 'resources/js/Layouts/'),
+        },
+    },
     server: {
         hmr: {
             host: 'localhost',
