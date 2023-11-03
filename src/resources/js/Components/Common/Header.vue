@@ -2,8 +2,8 @@
 import DarkModeToggle from '@components/DarkModeToggle.vue';
 </script>
 <template>
-    <div class="container flex p-2 justify-between">
-        <h1 class="text-xl font-bold text-black dark:text-white">Z</h1>
+    <div class="container flex justify-between p-2">
+        <h1 class="text-2xl font-bold text-primary dark:text-white">Z</h1>
         <DarkModeToggle />
     </div>
 </template>
