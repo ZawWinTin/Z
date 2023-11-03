@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\General;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\General\HomeService;
@@ -17,6 +18,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        //
+        $data = $this->homeService->getAll();
+
+        return Inertia::render('General/Home', [
+        ])->withViewData('meta', ['title' => '']);
     }
 }
