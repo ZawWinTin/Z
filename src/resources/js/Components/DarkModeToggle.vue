@@ -38,7 +38,7 @@ const toggleThemeMode = (mode = '') => {
     background-image: linear-gradient(90deg, #ffa670, #ffe370);
 }
 .night-mode {
-    background: linear-gradient(90deg, #393f66, #5f3966);
+    background: linear-gradient(90deg, #5f3966, #393f66);
 }
 .day-mode span {
     top: 4.5em;
@@ -64,7 +64,7 @@ const toggleThemeMode = (mode = '') => {
     transform: rotate(-75deg);
     width: 10em;
     height: 10em;
-    background: #423966;
+    background: transparent;
     box-shadow:
         3em 2.5em 0 0em #d9fbff inset,
         rgba(255, 255, 255, 0.1) 0em -7em 0 -4.5em,
