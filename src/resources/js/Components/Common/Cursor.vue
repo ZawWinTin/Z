@@ -7,18 +7,18 @@ let posY = 0;
 let mouseX = 0;
 let mouseY = 0;
 onMounted(() => {
-    $(document).on("mousemove", updateCursorPosition);
+    $(document).on('mousemove', updateCursorPosition);
 });
 
-let updateCursorPosition = (event) => {
-    let cursor = $("#cursor");
-    let cursorFollower = document.getElementById("cursor-follower");
+let updateCursorPosition = event => {
+    let cursor = $('#cursor');
+    let cursorFollower = document.getElementById('cursor-follower');
 
     mouseX = event.pageX;
     mouseY = event.pageY;
 
-    cursor.css("left",  mouseX + 'px');
-    cursor.css("top",  mouseY + 'px');
+    cursor.css('left', mouseX + 'px');
+    cursor.css('top', mouseY + 'px');
 
     // gsap.to(cursorFollower, {
     //     duration: 0.15,
@@ -26,14 +26,14 @@ let updateCursorPosition = (event) => {
     //     y: mouseY
     // });
 };
-
 </script>
 <style scoped>
 #cursor {
     position: absolute;
     border-radius: 100%;
     z-index: 1;
-    transition: 0.5s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
+    transition:
+        0.5s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
         0.2s cubic-bezier(0.75, -1.27, 0.3, 2.33) opacity;
     user-select: none;
     pointer-events: none;
@@ -72,7 +72,8 @@ let updateCursorPosition = (event) => {
     height: 40px;
     border-radius: 100%;
     z-index: 1;
-    transition: 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
+    transition:
+        0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
         0.4s cubic-bezier(0.75, -1.27, 0.3, 2.33) opacity;
     user-select: none;
     pointer-events: none;
@@ -86,7 +87,7 @@ let updateCursorPosition = (event) => {
 </style>
 <template>
     <div>
-        <div id="cursor" class="bg-white border-2 border-black/70 absolute w-3 h-3"></div>
+        <div id="cursor" class="absolute h-3 w-3 border-2 border-black/70 bg-white"></div>
         <div id="cursor-follower" class="bg-primary/60"></div>
     </div>
 </template>
