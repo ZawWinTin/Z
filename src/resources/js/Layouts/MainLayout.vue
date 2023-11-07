@@ -1,8 +1,8 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import Header from '@components/Common/Header.vue';
-import Footer from '@components/Common/Footer.vue';
-import Cursor from '@components/Common/Cursor.vue';
+import Header from '@/Components/Common/Header.vue';
+import Footer from '@/Components/Common/Footer.vue';
+import Cursor from '@/Components/Common/Cursor.vue';
 </script>
 <template>
     <main

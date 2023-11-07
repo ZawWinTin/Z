@@ -1,5 +1,5 @@
 <script setup>
-import DarkModeToggle from '@components/DarkModeToggle.vue';
+import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 </script>
 <template>
     <div class="container flex justify-between p-2">
