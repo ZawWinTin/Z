@@ -9,10 +9,10 @@ import Card from '@/Components/Elements/Card.vue';
         <h1 class="tw-text-2xl tw-font-bold tw-text-primary">Hello from Vue!</h1>
         <p class="tw-text-slate-500 dark:tw-text-slate-400">This is a Vue component in a Laravel app using Inertia.js.</p>
         <CardContainer>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card class="article1" />
+            <Card class="article2" />
+            <Card class="article3" />
+            <Card class="article4" />
         </CardContainer>
     </section>
 </template>
