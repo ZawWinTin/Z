@@ -19,11 +19,13 @@
         <div
             class="tw-relative tw-max-w-sm tw-rounded-lg tw-shadow-[1rem_0_2rem_0_rgba(0,0,0,0.5)] tw-overflow-hidden tw-bg-white"
         >
-            <img
-                class="tw-rounded-t-lg"
-                src="https://picsum.photos/500/300"
-                alt=""
-            />
+            <div class="tw-w-full tw-h-1/2">
+                <img
+                    class="tw-rounded-t-lg tw-w-full tw-h-full tw-object-cover"
+                    src="https://picsum.photos/500/300"
+                    alt=""
+                />
+            </div>
             <div
                 class="card-background tw-absolute w-full tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-rounded-3xl"
             ></div>
