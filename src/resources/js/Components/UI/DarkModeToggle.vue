@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
-const DARK_MODE = 'dark';
-const LIGHT_MODE = 'light';
+const DARK_MODE = 'tw-dark';
+const LIGHT_MODE = 'tw-light';
 const THEME_KEY = 'theme';
 onMounted(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -81,8 +81,8 @@ const toggleThemeMode = (mode = '') => {
     <div
         id="dark-mode-toggle-btn"
         @click="toggleThemeMode()"
-        class="relative h-[16em] w-[30em] rounded-full text-[12%] transition-all duration-500 ease-in-out"
+        class="tw-relative tw-h-[16em] tw-w-[30em] tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
     >
-        <span class="absolute rounded-full transition-all duration-500 ease-in-out"></span>
+        <span class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"></span>
     </div>
 </template>
