@@ -6,7 +6,7 @@ import Cursor from '@/Components/UI/Cursor.vue';
 </script>
 <template>
     <main
-        class="flex min-h-screen flex-col scroll-smooth duration-300 ease-in-out selection:bg-primary/80 selection:text-white dark:bg-black"
+        class="tw-flex tw-min-h-screen tw-flex-col tw-scroll-smooth tw-duration-300 tw-ease-in-out selection:tw-bg-primary/80 selection:tw-text-white dark:tw-bg-black"
     >
         <Header></Header>
         <article>

@@ -87,7 +87,7 @@ let updateCursorPosition = event => {
 </style>
 <template>
     <div>
-        <div id="cursor" class="absolute h-3 w-3 border-2 border-black/70 bg-white"></div>
-        <div id="cursor-follower" class="bg-primary/60"></div>
+        <div id="cursor" class="tw-absolute tw-h-3 tw-w-3 tw-border-2 tw-border-black/70 tw-bg-white"></div>
+        <div id="cursor-follower" class="tw-bg-primary/60"></div>
     </div>
 </template>
