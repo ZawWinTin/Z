@@ -8,11 +8,11 @@ import Cursor from '@/Components/UI/Cursor.vue';
     <main
         class="tw-flex tw-min-h-screen tw-flex-col tw-scroll-smooth tw-duration-300 tw-ease-in-out selection:tw-bg-primary/80 selection:tw-text-white dark:tw-bg-black"
     >
+        <Cursor />
         <Header></Header>
         <article>
             <slot />
         </article>
-        <Cursor />
         <Footer></Footer>
     </main>
 </template>

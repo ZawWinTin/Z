@@ -11,8 +11,8 @@ import Card from '@/Components/Elements/Card.vue';
         <CardContainer>
             <Card class="article1" data-cursor-type="project" />
             <Card class="article2" data-cursor-type="link" />
-            <Card class="article3" data-cursor-type="xxx" />
-            <Card class="article4" data-cursor-type="project" />
+            <Card class="article3" data-cursor-type="project" />
+            <Card class="article4" data-cursor-type="link" />
         </CardContainer>
     </section>
 </template>

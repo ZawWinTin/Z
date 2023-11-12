@@ -10,9 +10,14 @@ let isInteracting = false;
 let keyframes = {};
 let cursorText = '';
 
+let cursorLight = null;
+let lightX = 0;
+let lightY = 0;
+
 onMounted(() => {
     window.onmousemove = event => {
         updateCursor(event);
+        updateCursorLight(event);
     };
 });
 
@@ -54,12 +59,54 @@ let getCursorText = type => {
 
     return updatedCursorText;
 };
+
+let updateCursorLight = event => {
+    cursorLight = document.getElementById('cursor-light');
+    lightX = event.clientX - cursorLight.offsetWidth / 2;
+    lightY = event.clientY - cursorLight.offsetHeight / 2;
+
+    cursorLight.animate({
+        left: `${lightX}px`,
+        top: `${lightY}px`,
+    }, {
+        duration: 10000,
+        fill: 'forwards',
+    });
+};
 </script>
+<style scoped>
+#cursor-light {
+    animation: rotate 20s infinite;
+}
+
+body:hover #cursor-light {
+    opacity: 0.6;
+}
+
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    50% {
+        scale: 1 1.35;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
+</style>
 <template>
-    <div
-        id="cursor"
-        class="tw-opacity-1 tw-pointer-events-none tw-fixed tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-p-1 tw-shadow-lg tw-transition-opacity tw-duration-500"
-    >
-        <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
+    <div class="tw-absolute">
+        <div
+            id="cursor-light"
+            class="tw-blur-3xl tw-pointer-events-none tw-fixed tw-w-2/5 tw-aspect-square tw-select-none tw-rounded-full tw-bg-white tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-opacity-0 tw-transition-opacity tw-duration-500 tw-left-1/2 tw-top-1/2"
+        ></div>
+        <div class="tw-w-full tw-h-full tw-fixed tw-backdrop-blur-3xl"></div>
+        <div
+            id="cursor"
+            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-p-1 tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500"
+        >
+            <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
+        </div>
     </div>
 </template>

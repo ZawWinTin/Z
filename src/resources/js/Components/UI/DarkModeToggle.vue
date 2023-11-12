@@ -7,7 +7,8 @@ onMounted(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (
         localStorage.theme === DARK_MODE ||
-        (!(THEME_KEY in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        (!(THEME_KEY in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
         toggleThemeMode(DARK_MODE);
     } else {
@@ -81,8 +82,10 @@ const toggleThemeMode = (mode = '') => {
     <div
         id="dark-mode-toggle-btn"
         @click="toggleThemeMode()"
-        class="tw-relative tw-h-[16em] tw-w-[30em] tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
+        class="tw-relative tw-h-[16em] tw-w-[30em] tw-cursor-pointer tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
     >
-        <span class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"></span>
+        <span
+            class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"
+        ></span>
     </div>
 </template>
