@@ -12,7 +12,7 @@ import Cursor from '@/Components/UI/Cursor.vue';
         <article>
             <slot />
         </article>
-        <!-- <Cursor /> -->
+        <Cursor />
         <Footer></Footer>
     </main>
 </template>

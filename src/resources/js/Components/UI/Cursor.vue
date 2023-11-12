@@ -2,92 +2,64 @@
 import { onMounted } from 'vue';
 const { gsap, CircleType } = window;
 
-let posX = 0;
-let posY = 0;
+let cursor = null;
 let mouseX = 0;
 let mouseY = 0;
+let interactable = null;
+let isInteracting = false;
+let keyframes = {};
+let cursorText = '';
+
 onMounted(() => {
-    $(document).on('mousemove', updateCursorPosition);
+    window.onmousemove = event => {
+        updateCursor(event);
+    };
 });
 
-let updateCursorPosition = event => {
-    let cursor = $('#cursor');
-    let cursorFollower = document.getElementById('cursor-follower');
+let updateCursor = event => {
+    interactable = event.target.closest('.interactable-js');
+    isInteracting = interactable !== null;
 
-    mouseX = event.pageX;
-    mouseY = event.pageY;
+    cursor = document.getElementById('cursor');
+    mouseX = event.clientX - cursor.offsetWidth / 2;
+    mouseY = event.clientY - cursor.offsetHeight / 2;
 
-    cursor.css('left', mouseX + 'px');
-    cursor.css('top', mouseY + 'px');
+    keyframes = {
+        transform: `translate(${mouseX}px, ${mouseY}px) scale(${
+            isInteracting ? 8 : 1
+        })`,
+        opacity: isInteracting ? '1' : '0',
+    };
+    cursor.animate(keyframes, {
+        duration: 800,
+        fill: 'forwards',
+    });
 
-    // gsap.to(cursorFollower, {
-    //     duration: 0.15,
-    //     x: mouseX,
-    //     y: mouseY
-    // });
+    cursorText = cursor.querySelector('span');
+    cursorText.textContent = isInteracting
+        ? getCursorText(interactable.dataset.cursorType)
+        : '';
+};
+
+let getCursorText = type => {
+    let updatedCursorText = '';
+    switch (type) {
+        case 'project':
+            updatedCursorText = 'View Project';
+            break;
+        case 'link':
+            updatedCursorText = 'Open Link';
+            break;
+    }
+
+    return updatedCursorText;
 };
 </script>
-<style scoped>
-#cursor {
-    position: absolute;
-    border-radius: 100%;
-    z-index: 1;
-    transition:
-        0.5s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
-        0.2s cubic-bezier(0.75, -1.27, 0.3, 2.33) opacity;
-    user-select: none;
-    pointer-events: none;
-    transform: scale(0.8);
-}
-
-#cursor::before {
-    /* content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    background-image: url("http://mirkozeppieri.emanuelepapale.com/wp-content/uploads/2018/07/project-hover-cursor.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%;
-    opacity: 0; */
-}
-
-#cursor.active {
-    opacity: 1;
-    transform: scale(12);
-}
-
-#cursor.active::before {
-    opacity: 1;
-}
-
-#cursor-follower {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    z-index: 1;
-    transition:
-        0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform,
-        0.4s cubic-bezier(0.75, -1.27, 0.3, 2.33) opacity;
-    user-select: none;
-    pointer-events: none;
-    transform: translate(4px, 4px);
-}
-
-#cursor-follower.active {
-    opacity: 0.3;
-    transform: scale(0);
-}
-</style>
 <template>
-    <div>
-        <div id="cursor" class="tw-absolute tw-h-3 tw-w-3 tw-border-2 tw-border-black/70 tw-bg-white"></div>
-        <div id="cursor-follower" class="tw-bg-primary/60"></div>
+    <div
+        id="cursor"
+        class="tw-opacity-1 tw-pointer-events-none tw-fixed tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-p-1 tw-shadow-lg tw-transition-opacity tw-duration-500"
+    >
+        <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
     </div>
 </template>
