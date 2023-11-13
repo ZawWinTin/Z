@@ -65,13 +65,16 @@ let updateCursorLight = event => {
     lightX = event.clientX - cursorLight.offsetWidth / 2;
     lightY = event.clientY - cursorLight.offsetHeight / 2;
 
-    cursorLight.animate({
-        left: `${lightX}px`,
-        top: `${lightY}px`,
-    }, {
-        duration: 10000,
-        fill: 'forwards',
-    });
+    cursorLight.animate(
+        {
+            left: `${lightX}px`,
+            top: `${lightY}px`,
+        },
+        {
+            duration: 10000,
+            fill: 'forwards',
+        },
+    );
 };
 </script>
 <style scoped>
@@ -99,12 +102,12 @@ body:hover #cursor-light {
     <div class="tw-absolute">
         <div
             id="cursor-light"
-            class="tw-blur-3xl tw-pointer-events-none tw-fixed tw-w-2/5 tw-aspect-square tw-select-none tw-rounded-full tw-bg-white tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-opacity-0 tw-transition-opacity tw-duration-500 tw-left-1/2 tw-top-1/2"
+            class="tw-pointer-events-none tw-fixed tw-left-1/2 tw-top-1/2 tw-aspect-square tw-w-2/5 tw-select-none tw-rounded-full tw-bg-white tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-opacity-0 tw-blur-3xl tw-transition-opacity tw-duration-500"
         ></div>
-        <div class="tw-w-full tw-h-full tw-fixed tw-backdrop-blur-3xl"></div>
+        <div class="tw-fixed tw-h-full tw-w-full tw-backdrop-blur-3xl"></div>
         <div
             id="cursor"
-            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-black/90 tw-text-white dark:tw-bg-white/90 dark:tw-text-black tw-p-1 tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500"
+            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-gray-800/90 tw-p-1 tw-text-white tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500 dark:tw-bg-white/90 dark:tw-text-black"
         >
             <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
         </div>
