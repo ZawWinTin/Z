@@ -104,7 +104,7 @@ body:hover #cursor-light {
         <div class="tw-w-full tw-h-full tw-fixed tw-backdrop-blur-3xl"></div>
         <div
             id="cursor"
-            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-p-1 tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500"
+            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-black/90 tw-text-white dark:tw-bg-white/90 dark:tw-text-black tw-p-1 tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500"
         >
             <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
         </div>
