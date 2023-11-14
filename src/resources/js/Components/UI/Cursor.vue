@@ -77,7 +77,7 @@ let updateCursorLight = event => {
     );
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 #cursor-light {
     animation: rotate 20s infinite;
 }

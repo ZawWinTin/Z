@@ -1,22 +1,24 @@
 <script setup></script>
-<style>
-.card-container .card {
-    position: relative;
-    right: 0;
-    margin-top: 0;
-}
+<style lang="scss">
+.card-container {
+    .card {
+        position: relative;
+        right: 0;
+        margin-top: 0;
 
-.card-container .card:not(:first-child) {
-    margin-right: -5rem;
-}
+        &:not(:first-child) {
+            margin-right: -5rem;
+        }
 
-.card-container .card:hover {
-    margin-top: -1rem;
-    transition: 0.4s ease-out;
-}
+        &:hover {
+            margin-top: -1rem;
+            transition: 0.4s ease-out;
+        }
 
-.card-container .card:hover ~ .card {
-    right: 5rem;
+        &:hover ~ .card {
+            right: 5rem;
+        }
+    }
 }
 </style>
 <template>

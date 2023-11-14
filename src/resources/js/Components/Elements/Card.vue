@@ -21,7 +21,7 @@ let loadImage = () => {
     imageContainer.value.appendChild(uploadImage);
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .card-background {
     top: 8%;
     left: -43%;
@@ -46,7 +46,7 @@ let loadImage = () => {
                 class="tw-relative tw-mt-[-3.3rem] tw-transition tw-duration-500 group-hover:tw-translate-y-[-5.5rem]"
             >
                 <div
-                    class="card-background w-full tw-absolute tw-rounded-2xl tw-bg-white dark:tw-bg-slate-900 tw-duration-300 tw-ease-in-out"
+                    class="card-background w-full tw-absolute tw-rounded-2xl tw-bg-white tw-duration-300 tw-ease-in-out dark:tw-bg-slate-900"
                 ></div>
                 <div class="tw-relative tw-flex tw-flex-col tw-gap-2 tw-p-5">
                     <p
