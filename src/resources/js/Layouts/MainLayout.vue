@@ -9,10 +9,10 @@ import Cursor from '@/Components/UI/Cursor.vue';
         class="tw-flex tw-min-h-screen tw-flex-col tw-scroll-smooth tw-duration-300 tw-ease-in-out selection:tw-bg-primary/80 selection:tw-text-white dark:tw-bg-black"
     >
         <Cursor />
-        <Header></Header>
-        <article>
+        <Header class="tw-z-[1]"></Header>
+        <article class="tw-z-[1]">
             <slot />
         </article>
-        <Footer></Footer>
+        <Footer class="tw-z-[1]"></Footer>
     </main>
 </template>
