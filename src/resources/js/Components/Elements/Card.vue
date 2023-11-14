@@ -46,7 +46,7 @@ let loadImage = () => {
                 class="tw-relative tw-mt-[-3.3rem] tw-transition tw-duration-500 group-hover:tw-translate-y-[-5.5rem]"
             >
                 <div
-                    class="card-background w-full tw-absolute tw-rounded-2xl tw-bg-white dark:tw-bg-gray-800 tw-duration-300 tw-ease-in-out"
+                    class="card-background w-full tw-absolute tw-rounded-2xl tw-bg-white dark:tw-bg-slate-900 tw-duration-300 tw-ease-in-out"
                 ></div>
                 <div class="tw-relative tw-flex tw-flex-col tw-gap-2 tw-p-5">
                     <p
@@ -60,7 +60,7 @@ let loadImage = () => {
                         Noteworthy technology acquisitions 2021
                     </h5>
                     <p
-                        class="tw-line-clamp-3 tw-text-justify tw-tracking-tight tw-text-gray-700 dark:tw-text-gray-400"
+                        class="tw-line-clamp-3 tw-text-justify tw-tracking-tight tw-text-slate-700 dark:tw-text-slate-400"
                     >
                         Lorem ipsum dolor sit amet consectetur, adipisicing
                         elit. Quae, doloribus, nemo odit quod tempore cum,

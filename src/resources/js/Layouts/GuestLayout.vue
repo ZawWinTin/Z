@@ -6,8 +6,9 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <div class="tw-min-h-screen tw-flex tw-flex-col sm:tw-justify-center tw-items-center tw-pt-6 sm:tw-pt-0 tw-bg-gray-100 dark:tw-bg-gray-900">
         <div>
-            <Link href="/">
-                <ApplicationLogo class="tw-w-20 tw-h-20 tw-fill-current tw-text-gray-500" />
+            <Link class="tw-relative tw-group" :href="route('home')">
+                <ApplicationLogo class="tw-w-10 tw-h-10" />
+                <ApplicationLogo class="tw-top-0 tw-absolute tw-w-10 tw-h-10 group-hover:tw-animate-ping" />
             </Link>
         </div>
 
