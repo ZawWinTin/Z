@@ -7,7 +7,8 @@ onMounted(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (
         localStorage.theme === DARK_MODE ||
-        (!(THEME_KEY in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        (!(THEME_KEY in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
         toggleThemeMode(DARK_MODE);
     } else {
@@ -33,56 +34,60 @@ const toggleThemeMode = (mode = '') => {
     }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .day-mode {
     background-image: linear-gradient(90deg, #ffa670, #ffe370);
+
+    span {
+        top: 4.5em;
+        left: 18em;
+        transform: rotate(0deg);
+        width: 7em;
+        height: 7em;
+        background: #fff;
+        box-shadow:
+            3em 3em 0 5em #fff inset,
+            0 -5em 0 -2.7em #fff,
+            3.5em -3.5em 0 -3em #fff,
+            5em 0 0 -2.7em #fff,
+            3.5em 3.5em 0 -3em #fff,
+            0 5em 0 -2.7em #fff,
+            -3.5em 3.5em 0 -3em #fff,
+            -5em 0 0 -2.7em #fff,
+            -3.5em -3.5em 0 -3em #fff;
+    }
 }
 .night-mode {
     background: linear-gradient(90deg, #5f3966, #393f66);
-}
-.day-mode span {
-    top: 4.5em;
-    left: 18em;
-    transform: rotate(0deg);
-    width: 7em;
-    height: 7em;
-    background: #fff;
-    box-shadow:
-        3em 3em 0 5em #fff inset,
-        0 -5em 0 -2.7em #fff,
-        3.5em -3.5em 0 -3em #fff,
-        5em 0 0 -2.7em #fff,
-        3.5em 3.5em 0 -3em #fff,
-        0 5em 0 -2.7em #fff,
-        -3.5em 3.5em 0 -3em #fff,
-        -5em 0 0 -2.7em #fff,
-        -3.5em -3.5em 0 -3em #fff;
-}
-.night-mode span {
-    top: 3em;
-    left: 3em;
-    transform: rotate(-75deg);
-    width: 10em;
-    height: 10em;
-    background: transparent;
-    box-shadow:
-        3em 2.5em 0 0em #d9fbff inset,
-        rgba(255, 255, 255, 0.1) 0em -7em 0 -4.5em,
-        rgba(255, 255, 255, 0.1) 3em 7em 0 -4.5em,
-        rgba(255, 255, 255, 0.1) 2em 13em 0 -4em,
-        rgba(255, 255, 255, 0.1) 6em 2em 0 -4.1em,
-        rgba(255, 255, 255, 0.1) 8em 8em 0 -4.5em,
-        rgba(255, 255, 255, 0.1) 6em 13em 0 -4.5em,
-        rgba(255, 255, 255, 0.1) -4em 7em 0 -4.5em,
-        rgba(255, 255, 255, 0.1) -1em 10em 0 -4.5em;
+
+    span {
+        top: 3em;
+        left: 3em;
+        transform: rotate(-75deg);
+        width: 10em;
+        height: 10em;
+        background: transparent;
+        box-shadow:
+            3em 2.5em 0 0em #d9fbff inset,
+            rgba(255, 255, 255, 0.1) 0em -7em 0 -4.5em,
+            rgba(255, 255, 255, 0.1) 3em 7em 0 -4.5em,
+            rgba(255, 255, 255, 0.1) 2em 13em 0 -4em,
+            rgba(255, 255, 255, 0.1) 6em 2em 0 -4.1em,
+            rgba(255, 255, 255, 0.1) 8em 8em 0 -4.5em,
+            rgba(255, 255, 255, 0.1) 6em 13em 0 -4.5em,
+            rgba(255, 255, 255, 0.1) -4em 7em 0 -4.5em,
+            rgba(255, 255, 255, 0.1) -1em 10em 0 -4.5em;
+    }
 }
 </style>
 <template>
     <div
         id="dark-mode-toggle-btn"
         @click="toggleThemeMode()"
-        class="tw-relative tw-h-[16em] tw-w-[30em] tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
+        class="tw-relative tw-h-[16em] tw-w-[30em] tw-cursor-pointer tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
     >
-        <span class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"></span>
+        <span
+            class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"
+        ></span>
     </div>
 </template>

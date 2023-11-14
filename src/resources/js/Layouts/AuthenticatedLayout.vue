@@ -20,9 +20,9 @@ const showingNavigationDropdown = ref(false);
                         <div class="tw-flex">
                             <!-- Logo -->
                             <div class="tw-shrink-0 tw-flex tw-items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                     <ApplicationLogo
-                                        class="tw-block tw-h-9 tw-w-auto tw-fill-current tw-text-gray-800 dark:tw-text-gray-200"
+                                        class="tw-w-6 tw-h-6"
                                     />
                                 </Link>
                             </div>
