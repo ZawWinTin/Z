@@ -22,15 +22,22 @@ const toggleThemeMode = (mode = '') => {
         setMode = mode;
     }
 
+    let darkModeToggleBtn = $('#dark-mode-toggle-btn');
+    let favicon = $('#favicon');
+    let faviconPath = favicon.attr('href');
+    let faviconPathPattern = /light|dark/g;
+
     localStorage.theme = setMode;
     if (setMode === DARK_MODE) {
         document.documentElement.classList.add(DARK_MODE);
-        $('#dark-mode-toggle-btn').removeClass('day-mode');
-        $('#dark-mode-toggle-btn').addClass('night-mode');
+        darkModeToggleBtn.removeClass('day-mode');
+        darkModeToggleBtn.addClass('night-mode');
+        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'dark'));
     } else {
         document.documentElement.classList.remove(DARK_MODE);
-        $('#dark-mode-toggle-btn').removeClass('night-mode');
-        $('#dark-mode-toggle-btn').addClass('day-mode');
+        darkModeToggleBtn.removeClass('night-mode');
+        darkModeToggleBtn.addClass('day-mode');
+        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'light'));
     }
 };
 </script>

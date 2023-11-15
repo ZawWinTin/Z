@@ -9,9 +9,9 @@
             tw-ease-in-out
             tw-font-bold
             tw-select-none
-            tw-stroke-black
+            tw-stroke-slate-900
             tw-text-2xl
-            tw-text-black
+            tw-text-slate-900
             "
     >
         <text

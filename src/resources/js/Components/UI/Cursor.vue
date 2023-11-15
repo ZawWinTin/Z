@@ -105,7 +105,7 @@ let updateCursorLight = event => {
             class="
                 tw-bg-slate-800/90
                 dark:tw-bg-white/90
-                dark:tw-text-black
+                dark:tw-text-slate-950
                 tw-duration-500
                 tw-fixed
                 tw-flex

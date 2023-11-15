@@ -67,13 +67,7 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="
-                    tw-absolute
-                    tw-mt-2
-                    tw-rounded-md
-                    tw-shadow-lg
-                    tw-z-50
-                    "
+                class="tw-absolute tw-mt-2 tw-rounded-md tw-shadow-lg tw-z-50"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
                 @click="open = false"
@@ -81,8 +75,8 @@ const open = ref(false);
                 <div
                     class="
                         tw-ring-1
-                        tw-ring-black
                         tw-ring-opacity-5
+                        tw-ring-slate-950
                         tw-rounded-md
                         "
                     :class="contentClasses"

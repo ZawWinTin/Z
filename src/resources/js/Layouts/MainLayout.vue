@@ -7,7 +7,7 @@ import Cursor from '@/Components/UI/Cursor.vue';
     <main
         class="
             tw-duration-300
-            dark:tw-bg-black
+            dark:tw-bg-slate-950
             selection:tw-bg-primary/80
             selection:tw-text-white
             tw-ease-in-out
