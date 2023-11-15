@@ -41,9 +41,9 @@ const submit = () => {
 
                 <TextInput
                     id="email"
-                    type="email"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.email"
+                    type="email"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autofocus
                     autocomplete="username"
@@ -57,9 +57,9 @@ const submit = () => {
 
                 <TextInput
                     id="password"
-                    type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.password"
+                    type="password"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="new-password"
                 />
@@ -68,22 +68,36 @@ const submit = () => {
             </div>
 
             <div class="tw-mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel
+                    for="password_confirmation"
+                    value="Confirm Password"
+                />
 
                 <TextInput
                     id="password_confirmation"
-                    type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.password_confirmation"
+                    type="password"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="new-password"
                 />
 
-                <InputError class="tw-mt-2" :message="form.errors.password_confirmation" />
+                <InputError
+                    class="tw-mt-2"
+                    :message="form.errors.password_confirmation"
+                />
             </div>
 
-            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
-                <PrimaryButton :class="{ 'tw-opacity-25': form.processing }" :disabled="form.processing">
+            <div class="
+                tw-flex
+                tw-items-center
+                tw-justify-end
+                tw-mt-4
+                ">
+                <PrimaryButton
+                    :class="{ 'tw-opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
                     Reset Password
                 </PrimaryButton>
             </div>

@@ -8,13 +8,44 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="tw-font-semibold tw-text-xl tw-text-gray-800 dark:tw-text-gray-200 tw-leading-tight">Dashboard</h2>
+            <h2
+                class="
+                    tw-font-semibold
+                    dark:tw-text-slate-200
+                    tw-leading-tight
+                    tw-text-slate-800
+                    tw-text-xl
+                    "
+            >
+                Dashboard
+            </h2>
         </template>
 
         <div class="tw-py-12">
-            <div class="tw-max-w-7xl tw-mx-auto sm:tw-px-6 lg:tw-px-8">
-                <div class="tw-bg-white dark:tw-bg-gray-800 tw-overflow-hidden tw-shadow-sm sm:tw-rounded-lg">
-                    <div class="tw-p-6 tw-text-gray-900 dark:tw-text-gray-100">You're logged in!</div>
+            <div class="
+                tw-max-w-7xl
+                sm:tw-px-6
+                lg:tw-px-8
+                tw-mx-auto
+                ">
+                <div
+                    class="
+                        tw-bg-white
+                        dark:tw-bg-slate-800
+                        sm:tw-rounded-lg
+                        tw-overflow-hidden
+                        tw-shadow-sm
+                        "
+                >
+                    <div
+                        class="
+                            tw-p-6
+                            dark:tw-text-slate-100
+                            tw-text-slate-900
+                            "
+                    >
+                        You're logged in!
+                    </div>
                 </div>
             </div>
         </div>

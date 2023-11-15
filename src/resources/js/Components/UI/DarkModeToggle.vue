@@ -34,6 +34,33 @@ const toggleThemeMode = (mode = '') => {
     }
 };
 </script>
+<template>
+    <div
+        id="dark-mode-toggle-btn"
+        class="
+            tw-cursor-pointer
+            tw-duration-500
+            tw-ease-in-out
+            tw-h-[16em]
+            tw-relative
+            tw-rounded-full
+            tw-text-[12%]
+            tw-transition-all
+            tw-w-[30em]
+            "
+        @click="toggleThemeMode()"
+    >
+        <span
+            class="
+                tw-absolute
+                tw-duration-500
+                tw-ease-in-out
+                tw-rounded-full
+                tw-transition-all
+                "
+        ></span>
+    </div>
+</template>
 <style lang="scss" scoped>
 .day-mode {
     background-image: linear-gradient(90deg, #ffa670, #ffe370);
@@ -80,14 +107,3 @@ const toggleThemeMode = (mode = '') => {
     }
 }
 </style>
-<template>
-    <div
-        id="dark-mode-toggle-btn"
-        @click="toggleThemeMode()"
-        class="tw-relative tw-h-[16em] tw-w-[30em] tw-cursor-pointer tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
-    >
-        <span
-            class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"
-        ></span>
-    </div>
-</template>

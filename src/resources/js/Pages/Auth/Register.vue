@@ -30,9 +30,9 @@ const submit = () => {
 
                 <TextInput
                     id="name"
-                    type="text"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.name"
+                    type="text"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autofocus
                     autocomplete="name"
@@ -46,9 +46,9 @@ const submit = () => {
 
                 <TextInput
                     id="email"
-                    type="email"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.email"
+                    type="email"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="username"
                 />
@@ -61,9 +61,9 @@ const submit = () => {
 
                 <TextInput
                     id="password"
-                    type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.password"
+                    type="password"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="new-password"
                 />
@@ -72,29 +72,57 @@ const submit = () => {
             </div>
 
             <div class="tw-mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel
+                    for="password_confirmation"
+                    value="Confirm Password"
+                />
 
                 <TextInput
                     id="password_confirmation"
-                    type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.password_confirmation"
+                    type="password"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="new-password"
                 />
 
-                <InputError class="tw-mt-2" :message="form.errors.password_confirmation" />
+                <InputError
+                    class="tw-mt-2"
+                    :message="form.errors.password_confirmation"
+                />
             </div>
 
-            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
+            <div class="
+                tw-flex
+                tw-items-center
+                tw-justify-end
+                tw-mt-4
+                ">
                 <Link
                     :href="route('login')"
-                    class="tw-underline tw-text-sm tw-text-gray-600 dark:tw-text-gray-400 hover:tw-text-gray-900 dark:hover:tw-text-gray-100 tw-rounded-md focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-2 focus:tw-ring-indigo-500 dark:focus:tw-ring-offset-gray-800"
+                    class="
+                        tw-rounded-md
+                        dark:focus:tw-ring-offset-slate-800
+                        dark:hover:tw-text-slate-100
+                        dark:tw-text-slate-400
+                        focus:tw-outline-none
+                        focus:tw-ring-2
+                        focus:tw-ring-indigo-500
+                        focus:tw-ring-offset-2
+                        hover:tw-text-slate-900
+                        tw-text-slate-600
+                        tw-text-sm
+                        tw-underline
+                        "
                 >
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="tw-ml-4" :class="{ 'tw-opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton
+                    class="tw-ml-4"
+                    :class="{ 'tw-opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
                     Register
                 </PrimaryButton>
             </div>

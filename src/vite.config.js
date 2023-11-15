@@ -1,4 +1,3 @@
-import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
@@ -23,6 +22,6 @@ export default defineConfig({
         hmr: {
             host: 'localhost',
         },
-        host: '0.0.0.0'
+        host: '0.0.0.0',
     },
 });

@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted } from 'vue';
-const { gsap, CircleType } = window;
 
 let cursor = null;
 let mouseX = 0;
@@ -77,6 +76,62 @@ let updateCursorLight = event => {
     );
 };
 </script>
+<template>
+    <div class="tw-absolute">
+        <div
+            id="cursor-light"
+            class="
+                tw-aspect-square
+                tw-bg-gradient-to-r
+                tw-bg-white
+                tw-blur-3xl
+                tw-duration-500
+                tw-fixed
+                tw-from-indigo-500
+                tw-left-1/2
+                tw-opacity-0
+                tw-pointer-events-none
+                tw-rounded-full
+                tw-select-none
+                tw-to-primary
+                tw-top-1/2
+                tw-transition-opacity
+                tw-w-2/5
+                "
+        ></div>
+        <div class="tw-backdrop-blur-3xl tw-fixed tw-h-full tw-w-full"></div>
+        <div
+            id="cursor"
+            class="
+                tw-bg-slate-800/90
+                dark:tw-bg-white/90
+                dark:tw-text-black
+                tw-duration-500
+                tw-fixed
+                tw-flex
+                tw-h-3
+                tw-items-center
+                tw-justify-center
+                tw-opacity-0
+                tw-p-1
+                tw-pointer-events-none
+                tw-rounded-full
+                tw-select-none
+                tw-shadow-lg
+                tw-text-white
+                tw-transition-opacity
+                tw-w-3
+                tw-z-10
+                "
+        >
+            <span class="
+                tw-font-extrabold
+                tw-text-[2px]
+                tw-text-center
+                "></span>
+        </div>
+    </div>
+</template>
 <style lang="scss" scoped>
 #cursor-light {
     animation: rotate 20s infinite;
@@ -98,18 +153,3 @@ body:hover #cursor-light {
     }
 }
 </style>
-<template>
-    <div class="tw-absolute">
-        <div
-            id="cursor-light"
-            class="tw-pointer-events-none tw-fixed tw-left-1/2 tw-top-1/2 tw-aspect-square tw-w-2/5 tw-select-none tw-rounded-full tw-bg-white tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-opacity-0 tw-blur-3xl tw-transition-opacity tw-duration-500"
-        ></div>
-        <div class="tw-fixed tw-h-full tw-w-full tw-backdrop-blur-3xl"></div>
-        <div
-            id="cursor"
-            class="tw-pointer-events-none tw-fixed tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-gray-800/90 tw-p-1 tw-text-white tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500 dark:tw-bg-white/90 dark:tw-text-black"
-        >
-            <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
-        </div>
-    </div>
-</template>

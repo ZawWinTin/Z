@@ -25,12 +25,29 @@ const submit = () => {
     <GuestLayout>
         <Head title="Forgot Password" />
 
-        <div class="tw-mb-4 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-            link that will allow you to choose a new one.
+        <div
+            class="
+                tw-mb-4
+                dark:tw-text-slate-400
+                tw-text-slate-600
+                tw-text-sm
+                "
+        >
+            Forgot your password? No problem. Just let us know your email
+            address and we will email you a password reset link that will allow
+            you to choose a new one.
         </div>
 
-        <div v-if="status" class="tw-mb-4 tw-font-medium tw-text-sm tw-text-green-600 dark:tw-text-green-400">
+        <div
+            v-if="status"
+            class="
+                tw-font-medium
+                dark:tw-text-green-400
+                tw-mb-4
+                tw-text-green-600
+                tw-text-sm
+                "
+        >
             {{ status }}
         </div>
 
@@ -40,9 +57,9 @@ const submit = () => {
 
                 <TextInput
                     id="email"
-                    type="email"
-                    class="tw-mt-1 tw-block tw-w-full"
                     v-model="form.email"
+                    type="email"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autofocus
                     autocomplete="username"
@@ -51,8 +68,16 @@ const submit = () => {
                 <InputError class="tw-mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
-                <PrimaryButton :class="{ 'tw-opacity-25': form.processing }" :disabled="form.processing">
+            <div class="
+                tw-flex
+                tw-items-center
+                tw-justify-end
+                tw-mt-4
+                ">
+                <PrimaryButton
+                    :class="{ 'tw-opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
                     Email Password Reset Link
                 </PrimaryButton>
             </div>

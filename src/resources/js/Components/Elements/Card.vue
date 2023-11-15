@@ -21,46 +21,94 @@ let loadImage = () => {
     imageContainer.value.appendChild(uploadImage);
 };
 </script>
-<style lang="scss" scoped>
-.card-background {
-    top: 8%;
-    left: -43%;
-    height: 120%;
-    width: 150%;
-    transform: skew(19deg, -9deg);
-}
-</style>
 <template>
     <a
         href="#"
-        class="card interactable-js tw-group tw-transition-all tw-duration-300 tw-ease-in-out"
+        class="
+            card
+            interactable-js
+            tw-duration-300
+            tw-ease-in-out
+            tw-group
+            tw-transition-all
+            "
     >
         <div
-            class="tw-relative tw-h-[17.5rem] tw-w-80 tw-overflow-hidden tw-rounded-lg tw-shadow-[1rem_0_2rem_0_rgba(0,0,0,0.5)]"
+            class="
+                tw-h-[17.5rem]
+                tw-overflow-hidden
+                tw-relative
+                tw-rounded-lg
+                tw-shadow-[1rem_0_2rem_0_rgba(0,0,0,0.5)]
+                tw-w-80
+                "
         >
             <div
                 ref="imageContainer"
-                class="tw-relative tw-h-52 tw-w-full"
+                class="tw-h-52 tw-relative tw-w-full"
             ></div>
             <div
-                class="tw-relative tw-mt-[-3.3rem] tw-transition tw-duration-500 group-hover:tw-translate-y-[-5.5rem]"
+                class="
+                    group-hover:tw-translate-y-[-5.5rem]
+                    tw-duration-500
+                    tw-mt-[-3.3rem]
+                    tw-relative
+                    tw-transition
+                    "
             >
                 <div
-                    class="card-background w-full tw-absolute tw-rounded-2xl tw-bg-white tw-duration-300 tw-ease-in-out dark:tw-bg-slate-900"
+                    class="
+                        card-background
+                        tw-absolute
+                        dark:tw-bg-slate-900
+                        tw-bg-white
+                        tw-duration-300
+                        tw-ease-in-out
+                        tw-rounded-2xl
+                        w-full
+                        "
                 ></div>
-                <div class="tw-relative tw-flex tw-flex-col tw-gap-2 tw-p-5">
+                <div class="
+                    tw-flex
+                    tw-flex-col
+                    tw-gap-2
+                    tw-p-5
+                    tw-relative
+                    ">
                     <p
-                        class="tw-text-right tw-text-sm tw-text-slate-400 dark:tw-text-slate-500"
+                        class="
+                            tw-text-right
+                            dark:tw-text-slate-500
+                            tw-text-slate-400
+                            tw-text-sm
+                            "
                     >
                         {{ createdDate }}
                     </p>
                     <h5
-                        class="card-title tw-line-clamp-2 tw-bg-gradient-to-r tw-from-indigo-500 tw-to-primary tw-bg-clip-text tw-text-2xl tw-font-bold tw-tracking-tight tw-text-transparent"
+                        class="
+                            card-title
+                            tw-bg-clip-text
+                            tw-bg-gradient-to-r
+                            tw-font-bold
+                            tw-from-indigo-500
+                            tw-line-clamp-2
+                            tw-text-2xl
+                            tw-text-transparent
+                            tw-to-primary
+                            tw-tracking-tight
+                            "
                     >
                         Noteworthy technology acquisitions 2021
                     </h5>
                     <p
-                        class="tw-line-clamp-3 tw-text-justify tw-tracking-tight tw-text-slate-700 dark:tw-text-slate-400"
+                        class="
+                            tw-line-clamp-3
+                            dark:tw-text-slate-400
+                            tw-text-justify
+                            tw-text-slate-700
+                            tw-tracking-tight
+                            "
                     >
                         Lorem ipsum dolor sit amet consectetur, adipisicing
                         elit. Quae, doloribus, nemo odit quod tempore cum,
@@ -96,3 +144,12 @@ let loadImage = () => {
         </div>
     </a>
 </template>
+<style lang="scss" scoped>
+.card-background {
+    top: 8%;
+    left: -43%;
+    height: 120%;
+    width: 150%;
+    transform: skew(19deg, -9deg);
+}
+</style>
