@@ -69,7 +69,7 @@ const updatePassword = () => {
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
+                    class="tw-block tw-mt-1 tw-w-full"
                     autocomplete="current-password"
                 />
 
@@ -87,7 +87,7 @@ const updatePassword = () => {
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
+                    class="tw-block tw-mt-1 tw-w-full"
                     autocomplete="new-password"
                 />
 
@@ -104,7 +104,7 @@ const updatePassword = () => {
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
+                    class="tw-block tw-mt-1 tw-w-full"
                     autocomplete="new-password"
                 />
 
@@ -114,7 +114,7 @@ const updatePassword = () => {
                 />
             </div>
 
-            <div class="tw-flex tw-items-center tw-gap-4">
+            <div class="tw-flex tw-gap-4 tw-items-center">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition

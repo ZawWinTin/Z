@@ -99,7 +99,7 @@ let updateCursorLight = event => {
                 tw-w-2/5
                 "
         ></div>
-        <div class="tw-fixed tw-h-full tw-w-full tw-backdrop-blur-3xl"></div>
+        <div class="tw-backdrop-blur-3xl tw-fixed tw-h-full tw-w-full"></div>
         <div
             id="cursor"
             class="

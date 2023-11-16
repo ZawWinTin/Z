@@ -30,7 +30,7 @@ import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
             </Link>
             <MainMenuButton />
         </div>
-        <div class="tw-container tw-flex tw-h-full tw-flex-row-reverse">
+        <div class="tw-container tw-flex tw-flex-row-reverse tw-h-full">
             <section
                 class="
                     tw-flex

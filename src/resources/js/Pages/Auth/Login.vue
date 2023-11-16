@@ -53,7 +53,7 @@ const submit = () => {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="tw-mt-1 tw-block tw-w-full"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autofocus
                     autocomplete="username"
@@ -69,7 +69,7 @@ const submit = () => {
                     id="password"
                     v-model="form.password"
                     type="password"
-                    class="tw-mt-1 tw-block tw-w-full"
+                    class="tw-block tw-mt-1 tw-w-full"
                     required
                     autocomplete="current-password"
                 />
@@ -77,7 +77,7 @@ const submit = () => {
                 <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-mt-4 tw-block">
+            <div class="tw-block tw-mt-4">
                 <label class="tw-flex tw-items-center">
                     <Checkbox v-model:checked="form.remember" name="remember" />
                     <span

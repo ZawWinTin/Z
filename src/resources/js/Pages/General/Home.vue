@@ -7,7 +7,7 @@ import Card from '@/Components/Elements/Card.vue';
     <section class="tw-container">
         <Head title="Home" />
         <div class="tw-text-center">
-            <h1 class="tw-text-2xl tw-font-bold tw-text-primary">
+            <h1 class="tw-font-bold tw-text-2xl tw-text-primary">
                 Hello from Vue!
             </h1>
             <p class="tw-text-slate-500 dark:tw-text-slate-400">

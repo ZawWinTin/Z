@@ -45,7 +45,7 @@ let loadImage = () => {
         >
             <div
                 ref="imageContainer"
-                class="tw-relative tw-h-52 tw-w-full"
+                class="tw-h-52 tw-relative tw-w-full"
             ></div>
             <div
                 class="

@@ -20,7 +20,7 @@ import Cursor from '@/Components/UI/Cursor.vue';
     >
         <Cursor />
         <Header class="tw-z-[1]"></Header>
-        <article class="tw-z-[1] tw-pt-4">
+        <article class="tw-pt-4 tw-z-[1]">
             <slot />
         </article>
         <Footer class="tw-z-[1]"></Footer>

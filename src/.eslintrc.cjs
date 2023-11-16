@@ -3,13 +3,13 @@
 
 module.exports = {
     root: true,
-    plugins: ['@kalimahapps/eslint-plugin-tailwind'],
     extends: [
         'plugin:vue/vue3-essential',
         'eslint:recommended',
         '@vue/eslint-config-prettier',
         'prettier',
     ],
+    plugins: ['@kalimahapps/eslint-plugin-tailwind'],
     parserOptions: {
         ecmaVersion: 'latest',
     },
