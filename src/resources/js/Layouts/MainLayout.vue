@@ -19,10 +19,10 @@ import Cursor from '@/Components/UI/Cursor.vue';
             "
     >
         <Cursor />
-        <Header class="tw-z-[1]"></Header>
+        <Header></Header>
         <article class="tw-pt-4 tw-z-[1]">
             <slot />
+            <Footer></Footer>
         </article>
-        <Footer class="tw-z-[1]"></Footer>
     </main>
 </template>

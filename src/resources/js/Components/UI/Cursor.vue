@@ -6,7 +6,6 @@ let mouseX = 0;
 let mouseY = 0;
 let interactable = null;
 let isInteracting = false;
-let keyframes = {};
 let cursorText = '';
 
 let cursorLight = null;
@@ -28,16 +27,18 @@ let updateCursor = event => {
     mouseX = event.clientX - cursor.offsetWidth / 2;
     mouseY = event.clientY - cursor.offsetHeight / 2;
 
-    keyframes = {
-        transform: `translate(${mouseX}px, ${mouseY}px) scale(${
-            isInteracting ? 8 : 1
-        })`,
-        opacity: isInteracting ? '1' : '0',
-    };
-    cursor.animate(keyframes, {
-        duration: 800,
-        fill: 'forwards',
-    });
+    cursor.animate(
+        {
+            left: `${mouseX}px`,
+            top: `${mouseY}px`,
+            scale: isInteracting ? 8 : 1,
+            opacity: isInteracting ? '1' : '0',
+        },
+        {
+            duration: 800,
+            fill: 'forwards',
+        },
+    );
 
     cursorText = cursor.querySelector('span');
     cursorText.textContent = isInteracting

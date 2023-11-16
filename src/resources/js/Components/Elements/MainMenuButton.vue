@@ -3,14 +3,13 @@
     <button
         class="
             tw-bg-transparent
-            active:tw-bg-primary
             dark:hover:tw-bg-slate-50
             dark:hover:tw-text-slate-900
             dark:tw-border-slate-50
             dark:tw-text-slate-50
-            hover:tw-bg-slate-900
+            hover:tw-bg-slate-50
             hover:tw-border-transparent
-            hover:tw-text-slate-50
+            hover:tw-text-slate-900
             tw-border-2
             tw-border-slate-900
             tw-duration-300
