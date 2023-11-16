@@ -32,7 +32,7 @@ const submit = () => {
                     id="name"
                     v-model="form.name"
                     type="text"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autofocus
                     autocomplete="name"
@@ -48,7 +48,7 @@ const submit = () => {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autocomplete="username"
                 />
@@ -63,7 +63,7 @@ const submit = () => {
                     id="password"
                     v-model="form.password"
                     type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autocomplete="new-password"
                 />
@@ -81,7 +81,7 @@ const submit = () => {
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autocomplete="new-password"
                 />

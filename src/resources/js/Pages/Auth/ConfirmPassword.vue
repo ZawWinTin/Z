@@ -40,7 +40,7 @@ const submit = () => {
                     id="password"
                     v-model="form.password"
                     type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autocomplete="current-password"
                     autofocus
@@ -48,7 +48,7 @@ const submit = () => {
                 <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-flex tw-justify-end tw-mt-4">
+            <div class="tw-mt-4 tw-flex tw-justify-end">
                 <PrimaryButton
                     class="tw-ml-4"
                     :class="{ 'tw-opacity-25': form.processing }"

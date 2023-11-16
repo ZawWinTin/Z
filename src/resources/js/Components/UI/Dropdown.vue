@@ -12,7 +12,7 @@ const props = defineProps({
     },
     contentClasses: {
         type: String,
-        default: 'tw-py-1 tw-bg-white dark:tw-bg-slate-700',
+        default: 'tw-py-1 tw-bg-slate-50 dark:tw-bg-slate-700',
     },
 });
 
@@ -67,7 +67,13 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="tw-absolute tw-mt-2 tw-rounded-md tw-shadow-lg tw-z-50"
+                class="
+                    tw-absolute
+                    tw-mt-2
+                    tw-rounded-md
+                    tw-shadow-lg
+                    tw-z-50
+                    "
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
                 @click="open = false"

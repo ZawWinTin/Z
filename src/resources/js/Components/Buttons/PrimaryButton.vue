@@ -4,9 +4,9 @@
             tw-bg-slate-800
             active:tw-bg-slate-900
             dark:active:tw-bg-slate-300
-            dark:focus:tw-bg-white
+            dark:focus:tw-bg-slate-50
             dark:focus:tw-ring-offset-slate-800
-            dark:hover:tw-bg-white
+            dark:hover:tw-bg-slate-50
             dark:tw-bg-slate-200
             dark:tw-text-slate-800
             focus:tw-bg-slate-700
@@ -25,7 +25,7 @@
             tw-px-4
             tw-py-2
             tw-rounded-md
-            tw-text-white
+            tw-text-slate-50
             tw-text-xs
             tw-tracking-widest
             tw-transition

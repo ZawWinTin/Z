@@ -45,7 +45,7 @@ let loadImage = () => {
         >
             <div
                 ref="imageContainer"
-                class="tw-h-52 tw-relative tw-w-full"
+                class="tw-relative tw-h-52 tw-w-full"
             ></div>
             <div
                 class="
@@ -61,7 +61,7 @@ let loadImage = () => {
                         card-background
                         tw-absolute
                         dark:tw-bg-slate-900
-                        tw-bg-white
+                        tw-bg-slate-50
                         tw-duration-300
                         tw-ease-in-out
                         tw-rounded-2xl

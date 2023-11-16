@@ -19,7 +19,7 @@
             tw-px-4
             tw-py-2
             tw-rounded-md
-            tw-text-white
+            tw-text-slate-50
             tw-text-xs
             tw-tracking-widest
             tw-transition

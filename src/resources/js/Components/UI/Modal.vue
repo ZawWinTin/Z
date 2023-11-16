@@ -111,7 +111,7 @@ const maxWidthClass = computed(() => {
                     <div
                         v-show="show"
                         class="
-                            tw-bg-white
+                            tw-bg-slate-50
                             dark:tw-bg-slate-800
                             sm:tw-mx-auto
                             sm:tw-w-full

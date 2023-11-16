@@ -4,8 +4,8 @@
         viewBox="0 0 24 24"
         class="
             tw-duration-300
-            dark:tw-stroke-white
-            dark:tw-text-white
+            dark:tw-stroke-slate-50
+            dark:tw-text-slate-50
             tw-ease-in-out
             tw-font-bold
             tw-select-none

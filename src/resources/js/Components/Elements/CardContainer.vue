@@ -3,7 +3,6 @@
     <div
         class="
             card-container
-            container
             tw-flex
             tw-flex-row-reverse
             tw-gap-2

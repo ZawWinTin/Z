@@ -30,7 +30,7 @@ import { Head } from '@inertiajs/vue3';
                 ">
                 <div
                     class="
-                        tw-bg-white
+                        tw-bg-slate-50
                         dark:tw-bg-slate-800
                         sm:tw-rounded-lg
                         tw-overflow-hidden

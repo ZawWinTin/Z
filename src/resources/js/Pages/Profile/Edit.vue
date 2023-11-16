@@ -45,7 +45,7 @@ defineProps({
             >
                 <div
                     class="
-                        tw-bg-white
+                        tw-bg-slate-50
                         dark:tw-bg-slate-800
                         sm:tw-p-8
                         sm:tw-rounded-lg
@@ -62,7 +62,7 @@ defineProps({
 
                 <div
                     class="
-                        tw-bg-white
+                        tw-bg-slate-50
                         dark:tw-bg-slate-800
                         sm:tw-p-8
                         sm:tw-rounded-lg
@@ -75,7 +75,7 @@ defineProps({
 
                 <div
                     class="
-                        tw-bg-white
+                        tw-bg-slate-50
                         dark:tw-bg-slate-800
                         sm:tw-p-8
                         sm:tw-rounded-lg

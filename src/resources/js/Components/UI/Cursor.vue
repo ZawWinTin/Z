@@ -83,7 +83,7 @@ let updateCursorLight = event => {
             class="
                 tw-aspect-square
                 tw-bg-gradient-to-r
-                tw-bg-white
+                tw-bg-slate-50
                 tw-blur-3xl
                 tw-duration-500
                 tw-fixed
@@ -99,12 +99,12 @@ let updateCursorLight = event => {
                 tw-w-2/5
                 "
         ></div>
-        <div class="tw-backdrop-blur-3xl tw-fixed tw-h-full tw-w-full"></div>
+        <div class="tw-fixed tw-h-full tw-w-full tw-backdrop-blur-3xl"></div>
         <div
             id="cursor"
             class="
                 tw-bg-slate-800/90
-                dark:tw-bg-white/90
+                dark:tw-bg-slate-50/90
                 dark:tw-text-slate-950
                 tw-duration-500
                 tw-fixed
@@ -118,7 +118,7 @@ let updateCursorLight = event => {
                 tw-rounded-full
                 tw-select-none
                 tw-shadow-lg
-                tw-text-white
+                tw-text-slate-50
                 tw-transition-opacity
                 tw-w-3
                 tw-z-10

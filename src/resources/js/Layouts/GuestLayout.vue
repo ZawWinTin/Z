@@ -34,7 +34,7 @@ import { Link } from '@inertiajs/vue3';
 
         <div
             class="
-                tw-bg-white
+                tw-bg-slate-50
                 dark:tw-bg-slate-800
                 sm:tw-max-w-md
                 sm:tw-rounded-lg

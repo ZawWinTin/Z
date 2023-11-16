@@ -19,7 +19,7 @@ const showingNavigationDropdown = ref(false);
             ">
             <nav
                 class="
-                    tw-bg-white
+                    tw-bg-slate-50
                     dark:tw-bg-slate-800
                     dark:tw-border-slate-700
                     tw-border-b
@@ -89,7 +89,7 @@ const showingNavigationDropdown = ref(false);
                                             <button
                                                 type="button"
                                                 class="
-                                                    tw-bg-white
+                                                    tw-bg-slate-50
                                                     dark:hover:tw-text-slate-300
                                                     dark:tw-bg-slate-800
                                                     dark:tw-text-slate-400
@@ -297,7 +297,7 @@ const showingNavigationDropdown = ref(false);
             <header
                 v-if="$slots.header"
                 class="
-                    tw-bg-white
+                    tw-bg-slate-50
                     dark:tw-bg-slate-800
                     tw-shadow
                     "

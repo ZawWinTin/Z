@@ -120,7 +120,7 @@ const closeModal = () => {
                     />
                 </div>
 
-                <div class="tw-flex tw-justify-end tw-mt-6">
+                <div class="tw-mt-6 tw-flex tw-justify-end">
                     <SecondaryButton @click="closeModal">
                         Cancel
                     </SecondaryButton>

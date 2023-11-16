@@ -6,10 +6,11 @@ import Cursor from '@/Components/UI/Cursor.vue';
 <template>
     <main
         class="
-            tw-duration-300
+            tw-bg-slate-50
             dark:tw-bg-slate-950
             selection:tw-bg-primary/80
-            selection:tw-text-white
+            selection:tw-text-slate-50
+            tw-duration-300
             tw-ease-in-out
             tw-flex
             tw-flex-col
@@ -19,7 +20,7 @@ import Cursor from '@/Components/UI/Cursor.vue';
     >
         <Cursor />
         <Header class="tw-z-[1]"></Header>
-        <article class="tw-z-[1]">
+        <article class="tw-z-[1] tw-pt-4">
             <slot />
         </article>
         <Footer class="tw-z-[1]"></Footer>

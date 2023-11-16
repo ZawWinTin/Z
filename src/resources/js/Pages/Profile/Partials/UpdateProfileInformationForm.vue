@@ -59,7 +59,7 @@ const form = useForm({
                     id="name"
                     v-model="form.name"
                     type="text"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autofocus
                     autocomplete="name"
@@ -75,7 +75,7 @@ const form = useForm({
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
+                    class="tw-mt-1 tw-block tw-w-full"
                     required
                     autocomplete="username"
                 />
@@ -130,7 +130,7 @@ const form = useForm({
                 </div>
             </div>
 
-            <div class="tw-flex tw-gap-4 tw-items-center">
+            <div class="tw-flex tw-items-center tw-gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition

@@ -11,7 +11,7 @@ defineProps({
     <button
         :type="type"
         class="
-            tw-bg-white
+            tw-bg-slate-50
             dark:focus:tw-ring-offset-slate-800
             dark:hover:tw-bg-slate-700
             dark:tw-bg-slate-800
