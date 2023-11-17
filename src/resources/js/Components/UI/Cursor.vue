@@ -20,10 +20,15 @@ onMounted(() => {
 });
 
 let updateCursor = event => {
+    cursor = document.getElementById('cursor');
+
+    if (!cursor) {
+        return;
+    }
+
     interactable = event.target.closest('.interactable-js');
     isInteracting = interactable !== null;
 
-    cursor = document.getElementById('cursor');
     mouseX = event.clientX - cursor.offsetWidth / 2;
     mouseY = event.clientY - cursor.offsetHeight / 2;
 
@@ -62,6 +67,11 @@ let getCursorText = type => {
 
 let updateCursorLight = event => {
     cursorLight = document.getElementById('cursor-light');
+
+    if (!cursorLight) {
+        return;
+    }
+
     lightX = event.clientX - cursorLight.offsetWidth / 2;
     lightY = event.clientY - cursorLight.offsetHeight / 2;
 
@@ -123,6 +133,8 @@ let updateCursorLight = event => {
                 tw-transition-opacity
                 tw-w-3
                 tw-z-10
+                tw-left-0
+                tw-top-0
                 "
         >
             <span class="

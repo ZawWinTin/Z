@@ -13,11 +13,6 @@ class HomeService
         $this->homeRepository = $homeRepository;
     }
 
-    /**
-     * Get mentorCount, questionCount, plans
-     *
-     * @return array
-     */
     public function getAll()
     {
         return $this->homeRepository->getAll();

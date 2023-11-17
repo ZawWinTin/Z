@@ -2,7 +2,8 @@ import './bootstrap';
 import '../css/app.css';
 
 import { createApp, h } from 'vue';
-import Layout from '@/Layouts/MainLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
+import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
@@ -20,9 +21,9 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         );
         page.then(module => {
-            module.default.layout = name.startsWith('General/')
-                ? Layout
-                : module.default.layout;
+            module.default.layout = name.startsWith('Admin/')
+                ? AdminLayout
+                : GeneralLayout;
         });
 
         return page;

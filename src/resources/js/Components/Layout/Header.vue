@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import MainMenuButton from '@/Components/Elements/MainMenuButton.vue';
+import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 
 // TODO:If not use, remove and background click not working
@@ -12,11 +12,15 @@ let mainMenuScreen = ref(null);
 
 let isMenuOpen = ref(false);
 
+let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
+let menuCardClasses = 'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase';
+
 onMounted(() => {
     initializeScrolling();
 });
 
 let initializeScrolling = () => {
+    isMenuOpen.value = false;
     document.querySelector('body').classList.remove('tw-overflow-hidden');
 };
 
@@ -93,28 +97,15 @@ let toggleMainMenu = () => {
             class="tw-container tw-flex-row-reverse tw-h-full"
             :class="isMenuOpen ? 'tw-flex' : 'tw-hidden'"
         >
-            <section
-                class="
-                    tw-flex
-                    tw-flex-col
-                    tw-h-full
-                    tw-pl-4
-                    tw-space-y-4
-                    tw-w-1/3
-                    "
-            >
-                <div
-                    class="
-                        tw-bg-slate-50
-                        tw-duration-300
-                        tw-flex
-                        tw-flex-col
-                        tw-p-4
-                        tw-rounded-lg
-                        tw-text-slate-900
-                        tw-transition
-                        "
-                >
+            <section :class="sectionClasses" class="tw-pl-4">
+                <div :class="menuCardClasses">
+                    <Link :href="route('home')">Home</Link>
+                    <template v-if="route().has('admin.dashboard')">
+                        <hr class="tw-h-px tw-my-8 tw-bg-slate-300 tw-border-0">
+                        <Link :href="route('admin.dashboard')">Overview Dashboard</Link>
+                    </template>
+                </div>
+                <div :class="menuCardClasses">
                     <div
                         class="
                             tw-flex
@@ -124,36 +115,13 @@ let toggleMainMenu = () => {
                             tw-w-full
                             "
                     >
-                        <span
-                            class="
-                                tw-font-semibold
-                                tw-select-none
-                                tw-uppercase
-                                "
-                            >Appearance</span
-                        >
+                        <span class="tw-select-none">Appearance</span>
                         <DarkModeToggle />
                     </div>
                 </div>
             </section>
-            <section
-                class="
-                    tw-flex
-                    tw-flex-col
-                    tw-h-full
-                    tw-px-4
-                    tw-w-1/3
-                    "
-            ></section>
-            <section
-                class="
-                    tw-flex
-                    tw-flex-col
-                    tw-h-full
-                    tw-pr-4
-                    tw-w-1/3
-                    "
-            ></section>
+            <section :class="sectionClasses" class="tw-px-4"></section>
+            <section :class="sectionClasses" class="tw-pr-4"></section>
         </div>
     </div>
 </template>
