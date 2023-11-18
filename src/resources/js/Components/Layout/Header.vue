@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
+import route from '@/Composables/Route';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
@@ -13,7 +14,8 @@ let mainMenuScreen = ref(null);
 let isMenuOpen = ref(false);
 
 let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
-let menuCardClasses = 'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase';
+let menuCardClasses =
+    'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase';
 
 onMounted(() => {
     initializeScrolling();
@@ -101,8 +103,12 @@ let toggleMainMenu = () => {
                 <div :class="menuCardClasses">
                     <Link :href="route('home')">Home</Link>
                     <template v-if="route().has('admin.dashboard')">
-                        <hr class="tw-h-px tw-my-8 tw-bg-slate-300 tw-border-0">
-                        <Link :href="route('admin.dashboard')">Overview Dashboard</Link>
+                        <hr
+                            class="tw-bg-slate-300 tw-border-0 tw-h-px tw-my-8"
+                        />
+                        <Link :href="route('admin.dashboard')"
+                            >Overview Dashboard</Link
+                        >
                     </template>
                 </div>
                 <div :class="menuCardClasses">

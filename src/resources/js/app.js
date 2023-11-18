@@ -6,7 +6,6 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import moment from 'moment';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -31,7 +30,6 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(ZiggyVue, Ziggy)
             .mount(el);
     },
     progress: {

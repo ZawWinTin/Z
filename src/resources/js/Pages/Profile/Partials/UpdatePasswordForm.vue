@@ -1,10 +1,11 @@
 <script setup>
+import { ref } from 'vue';
+import route from '@/Composables/Route';
+import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import TextInput from '@/Components/UI/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);

@@ -1,12 +1,13 @@
 <script setup>
+import { nextTick, ref } from 'vue';
+import route from '@/Composables/Route';
+import { useForm } from '@inertiajs/vue3';
 import DangerButton from '@/Components/Buttons/DangerButton.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Modal from '@/Components/UI/Modal.vue';
 import SecondaryButton from '@/Components/Buttons/SecondaryButton.vue';
 import TextInput from '@/Components/UI/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
-import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);

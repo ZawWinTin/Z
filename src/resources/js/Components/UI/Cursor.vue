@@ -123,6 +123,7 @@ let updateCursorLight = event => {
                 tw-h-3
                 tw-items-center
                 tw-justify-center
+                tw-left-0
                 tw-opacity-0
                 tw-p-1
                 tw-pointer-events-none
@@ -130,11 +131,10 @@ let updateCursorLight = event => {
                 tw-select-none
                 tw-shadow-lg
                 tw-text-slate-50
+                tw-top-0
                 tw-transition-opacity
                 tw-w-3
                 tw-z-10
-                tw-left-0
-                tw-top-0
                 "
         >
             <span class="

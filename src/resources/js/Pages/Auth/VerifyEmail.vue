@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import route from '@/Composables/Route';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';

@@ -1,4 +1,5 @@
 <script setup>
+import route from '@/Composables/Route';
 import Checkbox from '@/Components/UI/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/UI/InputError.vue';
