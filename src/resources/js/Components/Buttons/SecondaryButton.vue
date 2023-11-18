@@ -25,7 +25,7 @@ defineProps({
             hover:tw-bg-slate-50
             tw-border
             tw-border-slate-300
-            tw-duration-150
+            tw-duration-300
             tw-ease-in-out
             tw-font-semibold
             tw-inline-flex

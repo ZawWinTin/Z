@@ -15,7 +15,8 @@ let isMenuOpen = ref(false);
 
 let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
 let menuCardClasses =
-    'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase';
+    'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase tw-space-y-1';
+let menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out';
 
 onMounted(() => {
     initializeScrolling();
@@ -101,13 +102,16 @@ let toggleMainMenu = () => {
         >
             <section :class="sectionClasses" class="tw-pl-4">
                 <div :class="menuCardClasses">
-                    <Link :href="route('home')">Home</Link>
+                    <Link :class="menuLinkClasses" :href="route('home')">Home</Link>
                     <template v-if="route().has('admin.dashboard')">
                         <hr
-                            class="tw-bg-slate-300 tw-border-0 tw-h-px tw-my-8"
+                            class="tw-bg-slate-300 tw-border-0 tw-h-px"
                         />
-                        <Link :href="route('admin.dashboard')"
+                        <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
                             >Overview Dashboard</Link
+                        >
+                        <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post"
+                            >Logout</Link
                         >
                     </template>
                 </div>
@@ -119,6 +123,7 @@ let toggleMainMenu = () => {
                             tw-items-center
                             tw-justify-between
                             tw-w-full
+                            tw-px-4
                             "
                     >
                         <span class="tw-select-none">Appearance</span>

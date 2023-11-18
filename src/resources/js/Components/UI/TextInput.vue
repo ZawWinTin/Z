@@ -25,14 +25,16 @@ defineExpose({ focus: () => input.value.focus() });
     <input
         ref="input"
         class="
+            tw-duration-300
+            tw-ease-in-out
             tw-border-slate-300
-            dark:focus:tw-border-indigo-600
-            dark:focus:tw-ring-indigo-600
+            dark:focus:tw-border-primary
+            dark:focus:tw-ring-primary
             dark:tw-bg-slate-900
             dark:tw-border-slate-700
             dark:tw-text-slate-300
-            focus:tw-border-indigo-500
-            focus:tw-ring-indigo-500
+            focus:tw-border-primary
+            focus:tw-ring-primary
             tw-rounded-md
             tw-shadow-sm
             "

@@ -1,14 +1,18 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Route';
+import Cursor from '@/Components/UI/Cursor.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 </script>
 
 <template>
-    <div
+    <main
         class="
-            tw-bg-slate-100
-            dark:tw-bg-slate-900
+            tw-bg-slate-50
+            dark:tw-bg-slate-950
+            tw-duration-300
+            tw-ease-in-out
             sm:tw-justify-center
             sm:tw-pt-0
             tw-flex
@@ -18,23 +22,12 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
             tw-pt-6
             "
     >
-        <div>
-            <Link class="tw-group tw-relative" :href="route('home')">
-                <ApplicationLogo class="tw-h-10 tw-w-10" />
-                <ApplicationLogo
-                    class="
-                        group-hover:tw-animate-ping
-                        tw-absolute
-                        tw-h-10
-                        tw-top-0
-                        tw-w-10
-                        "
-                />
-            </Link>
-        </div>
+        <Cursor />
 
         <div
             class="
+                tw-duration-300
+                tw-ease-in-out
                 tw-bg-slate-50
                 dark:tw-bg-slate-800
                 sm:tw-max-w-md
@@ -45,9 +38,27 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                 tw-py-4
                 tw-shadow-md
                 tw-w-full
+                tw-z-[1]
                 "
         >
+            <div class="tw-py-6 tw-relative">
+                <div class="tw-flex tw-flex-col tw-items-center">
+                    <Link class="tw-group tw-relative" :href="route('home')">
+                        <ApplicationLogo class="tw-h-10 tw-w-10" />
+                        <ApplicationLogo
+                            class="
+                                group-hover:tw-animate-ping
+                                tw-absolute
+                                tw-h-10
+                                tw-top-0
+                                tw-w-10
+                                "
+                        />
+                    </Link>
+                </div>
+                <DarkModeToggle class="!tw-absolute tw-right-0 tw-top-0 !tw-text-[9%]" />
+            </div>
             <slot />
         </div>
-    </div>
+    </main>
 </template>

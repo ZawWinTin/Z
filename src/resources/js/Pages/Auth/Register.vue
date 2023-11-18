@@ -1,6 +1,5 @@
 <script setup>
 import route from '@/Composables/Route';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
@@ -22,7 +21,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <section>
         <Head title="Register" />
 
         <form @submit.prevent="submit">
@@ -128,5 +127,5 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+    </section>
 </template>

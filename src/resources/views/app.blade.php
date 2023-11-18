@@ -18,7 +18,7 @@
     @inertiaHead
 </head>
 
-<body class="tw-font-sans tw-antialiased">
+<body class="tw-font-sans tw-antialiased tw-scroll-smooth selection:tw-bg-primary/80 selection:tw-text-slate-50">
     @inertia
 </body>
 

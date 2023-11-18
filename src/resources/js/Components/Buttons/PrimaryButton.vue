@@ -17,7 +17,7 @@
             hover:tw-bg-slate-700
             tw-border
             tw-border-transparent
-            tw-duration-150
+            tw-duration-300
             tw-ease-in-out
             tw-font-semibold
             tw-inline-flex

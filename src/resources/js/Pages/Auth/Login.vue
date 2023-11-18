@@ -1,7 +1,6 @@
 <script setup>
 import route from '@/Composables/Route';
 import Checkbox from '@/Components/UI/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
@@ -24,14 +23,14 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(location.href, {
         onFinish: () => form.reset('password'),
     });
 };
 </script>
 
 <template>
-    <GuestLayout>
+    <section>
         <Head title="Log in" />
 
         <div
@@ -80,7 +79,7 @@ const submit = () => {
 
             <div class="tw-block tw-mt-4">
                 <label class="tw-flex tw-items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
+                    <Checkbox @checked="form.remember" name="remember" />
                     <span
                         class="
                             tw-ml-2
@@ -129,5 +128,5 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+    </section>
 </template>

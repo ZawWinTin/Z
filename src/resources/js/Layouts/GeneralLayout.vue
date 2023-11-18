@@ -8,14 +8,11 @@ import Cursor from '@/Components/UI/Cursor.vue';
         class="
             tw-bg-slate-50
             dark:tw-bg-slate-950
-            selection:tw-bg-primary/80
-            selection:tw-text-slate-50
             tw-duration-300
             tw-ease-in-out
             tw-flex
             tw-flex-col
-            tw-min-h-screen
-            tw-scroll-smooth
+            tw-h-screen
             "
     >
         <Cursor />

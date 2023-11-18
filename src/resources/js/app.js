@@ -4,6 +4,7 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import moment from 'moment';
@@ -20,9 +21,20 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         );
         page.then(module => {
-            module.default.layout = name.startsWith('Admin/')
-                ? AdminLayout
-                : GeneralLayout;
+            let layout = null;
+
+            switch (true) {
+                case name.startsWith('Admin/'):
+                    layout = AdminLayout;
+                    break;
+                case name.startsWith('Auth/'):
+                    layout = GuestLayout;
+                    break;
+                default:
+                    layout = GeneralLayout;
+                    break;
+            }
+            module.default.layout = layout;
         });
 
         return page;

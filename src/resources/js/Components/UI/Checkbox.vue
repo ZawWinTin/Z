@@ -30,15 +30,17 @@ const proxyChecked = computed({
         type="checkbox"
         :value="value"
         class="
+            tw-duration-300
+            tw-ease-in-out
             tw-border-slate-300
-            dark:focus:tw-ring-indigo-600
+            dark:focus:tw-ring-primary
             dark:focus:tw-ring-offset-slate-800
             dark:tw-bg-slate-900
             dark:tw-border-slate-700
-            focus:tw-ring-indigo-500
+            focus:tw-ring-primary/90
             tw-rounded
             tw-shadow-sm
-            tw-text-indigo-600
+            tw-text-primary
             "
     />
 </template>

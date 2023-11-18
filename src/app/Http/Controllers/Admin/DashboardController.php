@@ -19,7 +19,7 @@ class DashboardController extends Controller
     {
         $data = $this->dashboardService->getAll();
 
-        return Inertia::render('Admin/Home', [
+        return Inertia::render('Admin/Dashboard', [
         ])->withViewData('meta', ['title' => '']);
     }
 }
