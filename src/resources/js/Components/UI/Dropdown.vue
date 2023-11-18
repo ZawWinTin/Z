@@ -12,11 +12,11 @@ const props = defineProps({
     },
     contentClasses: {
         type: String,
-        default: 'tw-py-1 tw-bg-white dark:tw-bg-gray-700',
+        default: 'tw-py-1 tw-bg-slate-50 dark:tw-bg-slate-700',
     },
 });
 
-const closeOnEscape = (e) => {
+const closeOnEscape = e => {
     if (open.value && e.key === 'Escape') {
         open.value = false;
     }
@@ -51,7 +51,11 @@ const open = ref(false);
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="tw-fixed tw-inset-0 tw-z-40" @click="open = false"></div>
+        <div
+            v-show="open"
+            class="tw-fixed tw-inset-0 tw-z-40"
+            @click="open = false"
+        ></div>
 
         <Transition
             enter-active-class="tw-transition tw-ease-out tw-duration-200"
@@ -63,12 +67,26 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="tw-absolute tw-z-50 tw-mt-2 tw-rounded-md tw-shadow-lg"
+                class="
+                    tw-absolute
+                    tw-mt-2
+                    tw-rounded-md
+                    tw-shadow-lg
+                    tw-z-50
+                    "
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
                 @click="open = false"
             >
-                <div class="tw-rounded-md tw-ring-1 tw-ring-black tw-ring-opacity-5" :class="contentClasses">
+                <div
+                    class="
+                        tw-ring-1
+                        tw-ring-opacity-5
+                        tw-ring-slate-950
+                        tw-rounded-md
+                        "
+                    :class="contentClasses"
+                >
                     <slot name="content" />
                 </div>
             </div>

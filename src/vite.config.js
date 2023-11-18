@@ -19,10 +19,15 @@ export default defineConfig({
             },
         }),
     ],
+    resolve: {
+        alias: {
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
+        },
+    },
     server: {
         hmr: {
             host: 'localhost',
         },
-        host: '0.0.0.0'
+        host: '0.0.0.0',
     },
 });

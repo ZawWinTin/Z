@@ -20,12 +20,39 @@ defineProps({
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="tw-font-semibold tw-text-xl tw-text-gray-800 dark:tw-text-gray-200 tw-leading-tight">Profile</h2>
+            <h2
+                class="
+                    tw-font-semibold
+                    dark:tw-text-slate-200
+                    tw-leading-tight
+                    tw-text-slate-800
+                    tw-text-xl
+                    "
+            >
+                Profile
+            </h2>
         </template>
 
         <div class="tw-py-12">
-            <div class="tw-max-w-7xl tw-mx-auto sm:tw-px-6 lg:tw-px-8 tw-space-y-6">
-                <div class="tw-p-4 sm:tw-p-8 tw-bg-white dark:tw-bg-gray-800 tw-shadow sm:tw-rounded-lg">
+            <div
+                class="
+                    tw-max-w-7xl
+                    sm:tw-px-6
+                    lg:tw-px-8
+                    tw-mx-auto
+                    tw-space-y-6
+                    "
+            >
+                <div
+                    class="
+                        tw-bg-slate-50
+                        dark:tw-bg-slate-800
+                        sm:tw-p-8
+                        sm:tw-rounded-lg
+                        tw-p-4
+                        tw-shadow
+                        "
+                >
                     <UpdateProfileInformationForm
                         :must-verify-email="mustVerifyEmail"
                         :status="status"
@@ -33,11 +60,29 @@ defineProps({
                     />
                 </div>
 
-                <div class="tw-p-4 sm:tw-p-8 tw-bg-white dark:tw-bg-gray-800 tw-shadow sm:tw-rounded-lg">
+                <div
+                    class="
+                        tw-bg-slate-50
+                        dark:tw-bg-slate-800
+                        sm:tw-p-8
+                        sm:tw-rounded-lg
+                        tw-p-4
+                        tw-shadow
+                        "
+                >
                     <UpdatePasswordForm class="tw-max-w-xl" />
                 </div>
 
-                <div class="tw-p-4 sm:tw-p-8 tw-bg-white dark:tw-bg-gray-800 tw-shadow sm:tw-rounded-lg">
+                <div
+                    class="
+                        tw-bg-slate-50
+                        dark:tw-bg-slate-800
+                        sm:tw-p-8
+                        sm:tw-rounded-lg
+                        tw-p-4
+                        tw-shadow
+                        "
+                >
                     <DeleteUserForm class="tw-max-w-xl" />
                 </div>
             </div>

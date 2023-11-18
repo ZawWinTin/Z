@@ -1,54 +1,126 @@
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
+import route from '@/Composables/Route';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/UI/Dropdown.vue';
 import DropdownLink from '@/Components/UI/DropdownLink.vue';
 import NavLink from '@/Components/UI/NavLink.vue';
 import ResponsiveNavLink from '@/Components/UI/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
     <div>
-        <div class="tw-min-h-screen tw-bg-gray-100 dark:tw-bg-gray-900">
-            <nav class="tw-bg-white dark:tw-bg-gray-800 tw-border-b tw-border-gray-100 dark:tw-border-gray-700">
+        <div class="
+            tw-bg-slate-100
+            dark:tw-bg-slate-900
+            tw-min-h-screen
+            ">
+            <nav
+                class="
+                    tw-bg-slate-50
+                    dark:tw-bg-slate-800
+                    dark:tw-border-slate-700
+                    tw-border-b
+                    tw-border-slate-100
+                    "
+            >
                 <!-- Primary Navigation Menu -->
-                <div class="tw-max-w-7xl tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8">
-                    <div class="tw-flex tw-justify-between tw-h-16">
+                <div
+                    class="
+                        tw-max-w-7xl
+                        sm:tw-px-6
+                        lg:tw-px-8
+                        tw-mx-auto
+                        tw-px-4
+                        "
+                >
+                    <div class="tw-flex tw-h-16 tw-justify-between">
                         <div class="tw-flex">
                             <!-- Logo -->
-                            <div class="tw-shrink-0 tw-flex tw-items-center">
+                            <div class="
+                                tw-flex
+                                tw-items-center
+                                tw-shrink-0
+                                ">
                                 <Link :href="route('home')">
-                                    <ApplicationLogo
-                                        class="tw-w-6 tw-h-6"
-                                    />
+                                    <ApplicationLogo class="tw-h-6 tw-w-6" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            <div
+                                class="
+                                    tw-hidden
+                                    sm:tw--my-px
+                                    sm:tw-flex
+                                    sm:tw-ml-10
+                                    tw-space-x-8
+                                    "
+                            >
+                                <NavLink
+                                    :href="route('dashboard')"
+                                    :active="route().current('dashboard')"
+                                >
                                     Dashboard
                                 </NavLink>
                             </div>
                         </div>
 
-                        <div class="tw-hidden sm:tw-flex sm:tw-items-center sm:tw-ml-6">
+                        <div
+                            class="
+                                tw-hidden
+                                sm:tw-flex
+                                sm:tw-items-center
+                                sm:tw-ml-6
+                                "
+                        >
                             <!-- Settings Dropdown -->
-                            <div class="tw-ml-3 tw-relative">
+                            <div class="
+                                tw-ml-3
+                                tw-relative
+                                ">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
-                                        <span class="tw-inline-flex tw-rounded-md">
+                                        <span
+                                            class="tw-inline-flex tw-rounded-md"
+                                        >
                                             <button
                                                 type="button"
-                                                class="tw-inline-flex tw-items-center tw-px-3 tw-py-2 tw-border tw-border-transparent tw-text-sm tw-leading-4 tw-font-medium tw-rounded-md tw-text-gray-500 dark:tw-text-gray-400 tw-bg-white dark:tw-bg-gray-800 hover:tw-text-gray-700 dark:hover:tw-text-gray-300 focus:tw-outline-none tw-transition tw-ease-in-out tw-duration-150"
+                                                class="
+                                                    tw-bg-slate-50
+                                                    dark:hover:tw-text-slate-300
+                                                    dark:tw-bg-slate-800
+                                                    dark:tw-text-slate-400
+                                                    focus:tw-outline-none
+                                                    hover:tw-text-slate-700
+                                                    tw-border
+                                                    tw-border-transparent
+                                                    tw-duration-150
+                                                    tw-ease-in-out
+                                                    tw-font-medium
+                                                    tw-inline-flex
+                                                    tw-items-center
+                                                    tw-leading-4
+                                                    tw-px-3
+                                                    tw-py-2
+                                                    tw-rounded-md
+                                                    tw-text-slate-500
+                                                    tw-text-sm
+                                                    tw-transition
+                                                    "
                                             >
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg
-                                                    class="tw-ml-2 tw--mr-0.5 tw-h-4 tw-w-4"
+                                                    class="
+                                                        tw--mr-0.5
+                                                        tw-h-4
+                                                        tw-ml-2
+                                                        tw-w-4
+                                                        "
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -64,8 +136,16 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                        <DropdownLink
+                                            :href="route('profile.edit')"
+                                        >
+                                            Profile
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('logout')"
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </DropdownLink>
                                     </template>
@@ -74,16 +154,53 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="tw--mr-2 tw-flex tw-items-center sm:tw-hidden">
+                        <div
+                            class="
+                                tw--mr-2
+                                sm:tw-hidden
+                                tw-flex
+                                tw-items-center
+                                "
+                        >
                             <button
-                                @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                class="tw-inline-flex tw-items-center tw-justify-center tw-p-2 tw-rounded-md tw-text-gray-400 dark:tw-text-gray-500 hover:tw-text-gray-500 dark:hover:tw-text-gray-400 hover:tw-bg-gray-100 dark:hover:tw-bg-gray-900 focus:tw-outline-none focus:tw-bg-gray-100 dark:focus:tw-bg-gray-900 focus:tw-text-gray-500 dark:focus:tw-text-gray-400 tw-transition tw-duration-150 tw-ease-in-out"
+                                class="
+                                    tw-duration-150
+                                    dark:focus:tw-bg-slate-900
+                                    dark:focus:tw-text-slate-400
+                                    dark:hover:tw-bg-slate-900
+                                    dark:hover:tw-text-slate-400
+                                    dark:tw-text-slate-500
+                                    focus:tw-bg-slate-100
+                                    focus:tw-outline-none
+                                    focus:tw-text-slate-500
+                                    hover:tw-bg-slate-100
+                                    hover:tw-text-slate-500
+                                    tw-ease-in-out
+                                    tw-inline-flex
+                                    tw-items-center
+                                    tw-justify-center
+                                    tw-p-2
+                                    tw-rounded-md
+                                    tw-text-slate-400
+                                    tw-transition
+                                    "
+                                @click="
+                                    showingNavigationDropdown =
+                                        !showingNavigationDropdown
+                                "
                             >
-                                <svg class="tw-h-6 tw-w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <svg
+                                    class="tw-h-6 tw-w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
                                     <path
                                         :class="{
-                                            'tw-hidden': showingNavigationDropdown,
-                                            'tw-inline-flex': !showingNavigationDropdown,
+                                            'tw-hidden':
+                                                showingNavigationDropdown,
+                                            'tw-inline-flex':
+                                                !showingNavigationDropdown,
                                         }"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -92,8 +209,10 @@ const showingNavigationDropdown = ref(false);
                                     />
                                     <path
                                         :class="{
-                                            'tw-hidden': !showingNavigationDropdown,
-                                            'tw-inline-flex': showingNavigationDropdown,
+                                            'tw-hidden':
+                                                !showingNavigationDropdown,
+                                            'tw-inline-flex':
+                                                showingNavigationDropdown,
                                         }"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -108,27 +227,66 @@ const showingNavigationDropdown = ref(false);
 
                 <!-- Responsive Navigation Menu -->
                 <div
-                    :class="{ 'tw-block': showingNavigationDropdown, 'tw-hidden': !showingNavigationDropdown }"
+                    :class="{
+                        'tw-block': showingNavigationDropdown,
+                        'tw-hidden': !showingNavigationDropdown,
+                    }"
                     class="sm:tw-hidden"
                 >
-                    <div class="tw-pt-2 tw-pb-3 tw-space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <div class="
+                        tw-pb-3
+                        tw-pt-2
+                        tw-space-y-1
+                        ">
+                        <ResponsiveNavLink
+                            :href="route('dashboard')"
+                            :active="route().current('dashboard')"
+                        >
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="tw-pt-4 tw-pb-1 tw-border-t tw-border-gray-200 dark:tw-border-gray-600">
+                    <div
+                        class="
+                            tw-border-slate-200
+                            dark:tw-border-slate-600
+                            tw-border-t
+                            tw-pb-1
+                            tw-pt-4
+                            "
+                    >
                         <div class="tw-px-4">
-                            <div class="tw-font-medium tw-text-base tw-text-gray-800 dark:tw-text-gray-200">
+                            <div
+                                class="
+                                    tw-font-medium
+                                    dark:tw-text-slate-200
+                                    tw-text-base
+                                    tw-text-slate-800
+                                    "
+                            >
                                 {{ $page.props.auth.user.name }}
                             </div>
-                            <div class="tw-font-medium tw-text-sm tw-text-gray-500">{{ $page.props.auth.user.email }}</div>
+                            <div
+                                class="
+                                    tw-font-medium
+                                    tw-text-slate-500
+                                    tw-text-sm
+                                    "
+                            >
+                                {{ $page.props.auth.user.email }}
+                            </div>
                         </div>
 
                         <div class="tw-mt-3 tw-space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <ResponsiveNavLink :href="route('profile.edit')">
+                                Profile
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                            >
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
@@ -137,8 +295,24 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="tw-bg-white dark:tw-bg-gray-800 tw-shadow" v-if="$slots.header">
-                <div class="tw-max-w-7xl tw-mx-auto tw-py-6 tw-px-4 sm:tw-px-6 lg:tw-px-8">
+            <header
+                v-if="$slots.header"
+                class="
+                    tw-bg-slate-50
+                    dark:tw-bg-slate-800
+                    tw-shadow
+                    "
+            >
+                <div
+                    class="
+                        tw-max-w-7xl
+                        sm:tw-px-6
+                        lg:tw-px-8
+                        tw-mx-auto
+                        tw-px-4
+                        tw-py-6
+                        "
+                >
                     <slot name="header" />
                 </div>
             </header>

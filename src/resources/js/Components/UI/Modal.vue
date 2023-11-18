@@ -26,7 +26,7 @@ watch(
         } else {
             document.body.style.overflow = null;
         }
-    }
+    },
 );
 
 const close = () => {
@@ -35,7 +35,7 @@ const close = () => {
     }
 };
 
-const closeOnEscape = (e) => {
+const closeOnEscape = e => {
     if (e.key === 'Escape' && props.show) {
         close();
     }
@@ -62,7 +62,19 @@ const maxWidthClass = computed(() => {
 <template>
     <Teleport to="body">
         <Transition leave-active-class="tw-duration-200">
-            <div v-show="show" class="tw-fixed tw-inset-0 tw-overflow-y-auto tw-px-4 tw-py-6 sm:tw-px-0 tw-z-50" scroll-region>
+            <div
+                v-show="show"
+                class="
+                    tw-fixed
+                    sm:tw-px-0
+                    tw-inset-0
+                    tw-overflow-y-auto
+                    tw-px-4
+                    tw-py-6
+                    tw-z-50
+                    "
+                scroll-region
+            >
                 <Transition
                     enter-active-class="tw-ease-out tw-duration-300"
                     enter-from-class="tw-opacity-0"
@@ -71,8 +83,20 @@ const maxWidthClass = computed(() => {
                     leave-from-class="tw-opacity-100"
                     leave-to-class="tw-opacity-0"
                 >
-                    <div v-show="show" class="tw-fixed tw-inset-0 tw-transform tw-transition-all" @click="close">
-                        <div class="tw-absolute tw-inset-0 tw-bg-gray-500 dark:tw-bg-gray-900 tw-opacity-75" />
+                    <div
+                        v-show="show"
+                        class="tw-fixed tw-inset-0 tw-transform tw-transition-all"
+                        @click="close"
+                    >
+                        <div
+                            class="
+                                tw-absolute
+                                dark:tw-bg-slate-900
+                                tw-bg-slate-500
+                                tw-inset-0
+                                tw-opacity-75
+                                "
+                        />
                     </div>
                 </Transition>
 
@@ -86,7 +110,18 @@ const maxWidthClass = computed(() => {
                 >
                     <div
                         v-show="show"
-                        class="tw-mb-6 tw-bg-white dark:tw-bg-gray-800 tw-rounded-lg tw-overflow-hidden tw-shadow-xl tw-transform tw-transition-all sm:tw-w-full sm:tw-mx-auto"
+                        class="
+                            tw-bg-slate-50
+                            dark:tw-bg-slate-800
+                            sm:tw-mx-auto
+                            sm:tw-w-full
+                            tw-mb-6
+                            tw-overflow-hidden
+                            tw-rounded-lg
+                            tw-shadow-xl
+                            tw-transform
+                            tw-transition-all
+                            "
                         :class="maxWidthClass"
                     >
                         <slot v-if="show" />

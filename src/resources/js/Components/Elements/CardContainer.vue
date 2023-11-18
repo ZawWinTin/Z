@@ -1,4 +1,19 @@
 <script setup></script>
+<template>
+    <div
+        class="
+            card-container
+            tw-flex
+            tw-flex-row-reverse
+            tw-gap-2
+            tw-justify-center
+            tw-px-24
+            tw-py-4
+            "
+    >
+        <slot />
+    </div>
+</template>
 <style lang="scss">
 .card-container {
     .card {
@@ -21,10 +36,3 @@
     }
 }
 </style>
-<template>
-    <div
-        class="card-container container tw-flex tw-flex-row-reverse tw-justify-center tw-gap-2 tw-px-24 tw-py-4"
-    >
-        <slot />
-    </div>
-</template>
