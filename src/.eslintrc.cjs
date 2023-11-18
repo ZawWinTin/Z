@@ -18,6 +18,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'vue/multi-word-component-names': 'off',
         'no-undef': 'off',
+        'sort-imports': 'Off',
         '@kalimahapps/tailwind/sort': 'warn',
         '@kalimahapps/tailwind/multiline': [
             'warn',
