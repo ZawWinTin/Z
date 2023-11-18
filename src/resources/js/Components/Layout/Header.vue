@@ -36,6 +36,23 @@ let toggleMainMenu = () => {
         body.classList.remove('tw-overflow-hidden');
     }
 };
+
+let getActiveClasses = (routeName) => {
+    if (isActiveRoute(routeName)) {
+        return `tw-text-transparent
+            tw-pointer-events-none
+            tw-select-none
+            tw-bg-clip-text
+            tw-bg-gradient-to-r
+            tw-from-indigo-500
+            tw-to-primary`;
+    }
+    return '';
+};
+
+let isActiveRoute = (routeName) => {
+    return route().has(routeName) && location.pathname == new URL(route(routeName)).pathname;
+}
 </script>
 <template>
     <div
@@ -102,7 +119,7 @@ let toggleMainMenu = () => {
         >
             <section :class="sectionClasses" class="tw-pl-4">
                 <div :class="menuCardClasses">
-                    <Link :class="menuLinkClasses" :href="route('home')">Home</Link>
+                    <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
                     <template v-if="route().has('admin.dashboard')">
                         <hr
                             class="tw-bg-slate-300 tw-border-0 tw-h-px"
