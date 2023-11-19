@@ -7,6 +7,7 @@ let totalDistance = 0;
 
 let preloader = ref(null);
 let loadingBar = ref(null);
+let loadingBarContainer = ref(null);
 let counterContainer = {
     ones : ref(null),
     tens : ref(null),
@@ -34,11 +35,38 @@ let end = async () => {
             );
             counterDuration *= 0.6;
         };
+
+        let barDuration = duration * 0.5;
+        loadingBarContainer.value.animate(
+            {
+                width: '14rem',
+                transform: 'rotate(125deg)'
+            },
+            {
+                duration: barDuration,
+                fill: 'forwards'
+            },
+        );
+        let zBars = preloader.value.querySelectorAll('.z-bar-js');
+        for (let i = 0; i < zBars.length; i++) {
+            let bar = zBars[i];
+            bar.animate(
+                {
+                    opacity: 1,
+                    transform: 'translateX(0)'
+                },
+                {
+                    duration: barDuration,
+                    fill: 'forwards'
+                },
+            );
+        }
         setTimeout(() => {
             let preloaderEndAnimation = preloader.value.animate(
                 {
                     opacity: 0,
                     scale: 100,
+                    transform: 'rotate(270deg)'
                 },
                 {
                     duration: 1000,
@@ -162,16 +190,18 @@ onMounted(() => end())
 // });
 </script>
 <template>
-    <div ref="preloader" class="tw-bg-slate-950 tw-w-full tw-h-full tw-fixed tw-z-[99] tw-transition tw-ease-in-out tw-duration-300">
+    <div ref="preloader" class="tw-bg-slate-950 tw-w-full tw-h-full tw-fixed tw-z-[99] tw-transition tw-ease-in-out tw-duration-300 tw-flex tw-items-center tw-justify-center tw-overflow-hidden">
         <!-- Loading Bar -->
-        <div
-            class="tw-fixed tw-top-1/2 tw-left-1/2 tw-w-80 tw-h-12 -tw-translate-x-1/2 -tw-translate-y-1/2 tw-bg-slate-900"
+        <div ref="loadingBarContainer"
+            class="tw-bg-slate-900 tw-w-80 tw-h-12"
         >
             <div
                 ref="loadingBar"
                 class="tw-bg-slate-50 tw-w-0 tw-h-full"
             ></div>
         </div>
+        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
+        <div class="z-bar-js tw-absolute tw-translate-x-[-60vw] tw-mt-[-12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
 
         <!-- Counter -->
         <div
