@@ -2,6 +2,7 @@
 import Header from '@/Components/Layout/Header.vue';
 import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
+import Preloader from '@/Components/Elements/Preloader.vue';
 </script>
 <template>
     <main
@@ -21,5 +22,6 @@ import Cursor from '@/Components/UI/Cursor.vue';
             <slot />
             <Footer></Footer>
         </article>
+        <Preloader />
     </main>
 </template>

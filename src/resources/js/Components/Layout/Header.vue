@@ -16,7 +16,7 @@ let isMenuOpen = ref(false);
 let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
 let menuCardClasses =
     'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase tw-space-y-1';
-let menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out';
+let menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
 
 onMounted(() => {
     initializeScrolling();
@@ -71,7 +71,7 @@ let isActiveRoute = (routeName) => {
             tw-space-y-2
             tw-transition-all
             tw-w-full
-            tw-z-[99]
+            tw-z-[90]
             "
         :class="
             isMenuOpen
@@ -127,7 +127,7 @@ let isActiveRoute = (routeName) => {
                         <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
                             >Overview Dashboard</Link
                         >
-                        <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post"
+                        <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
                             >Logout</Link
                         >
                     </template>
