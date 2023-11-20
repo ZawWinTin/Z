@@ -16,7 +16,10 @@ onMounted(() => {
     }
 });
 
-const toggleThemeMode = (mode = '') => {
+const toggleThemeMode = (mode = '', event = null) => {
+    if (event) {
+        event.stopPropagation();
+    }
     let setMode = localStorage.theme === DARK_MODE ? LIGHT_MODE : DARK_MODE;
     if (mode) {
         setMode = mode;
@@ -55,7 +58,7 @@ const toggleThemeMode = (mode = '') => {
             tw-transition-all
             tw-w-[30em]
             "
-        @click="toggleThemeMode()"
+        @click="toggleThemeMode('', $event)"
     >
         <span
             class="

@@ -6,11 +6,6 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 
-// TODO:If not use, remove and background click not working
-let headerContainer = ref(null);
-let navBar = ref(null);
-let mainMenuScreen = ref(null);
-
 let isMenuOpen = ref(false);
 
 let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
@@ -27,7 +22,8 @@ let initializeScrolling = () => {
     document.querySelector('body').classList.remove('tw-overflow-hidden');
 };
 
-let toggleMainMenu = () => {
+let toggleMainMenu = (event) => {
+    event.stopPropagation();
     let body = document.querySelector('body');
     isMenuOpen.value = !isMenuOpen.value;
     if (isMenuOpen.value) {
@@ -56,8 +52,7 @@ let isActiveRoute = (routeName) => {
 </script>
 <template>
     <div
-        ref="headerContainer"
-        @click.self="toggleMainMenu"
+        @click="toggleMainMenu"
         class="
             tw-bg-slate-950
             tw-duration-300
@@ -67,8 +62,8 @@ let isActiveRoute = (routeName) => {
             tw-inset-0
             tw-overflow-hidden
             tw-pb-8
-            tw-pt-2
-            tw-space-y-2
+            tw-pt-4
+            tw-space-y-3
             tw-transition-all
             tw-w-full
             tw-z-[90]
@@ -76,18 +71,16 @@ let isActiveRoute = (routeName) => {
         :class="
             isMenuOpen
                 ? 'tw-pointer-events-auto tw-h-screen tw-bg-opacity-80'
-                : 'tw-pointer-events-none tw-h-auto tw-bg-opacity-10'
+                : 'tw-pointer-events-none tw-h-auto tw-bg-opacity-0'
         "
     >
         <!-- Navigation Bar -->
         <div
-            ref="navBar"
             class="
                 tw-container
                 tw-flex
                 tw-items-center
                 tw-justify-between
-                tw-py-2
                 "
         >
             <Link class="tw-pointer-events-auto" :href="route('home')">
@@ -113,13 +106,15 @@ let isActiveRoute = (routeName) => {
 
         <!-- Main Menu Screen -->
         <div
-            ref="mainMenuScreen"
             class="tw-container tw-flex-row-reverse tw-h-full"
             :class="isMenuOpen ? 'tw-flex' : 'tw-hidden'"
         >
             <section :class="sectionClasses" class="tw-pl-4">
                 <div :class="menuCardClasses">
                     <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
+                    <Link :class="[getActiveClasses('articles'), menuLinkClasses]" href="#">Articles</Link>
+                    <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
+                    <Link :class="[getActiveClasses('contact'), menuLinkClasses]" href="#">Contact</Link>
                     <template v-if="route().has('admin.dashboard')">
                         <hr
                             class="tw-bg-slate-300 tw-border-0 tw-h-px"
