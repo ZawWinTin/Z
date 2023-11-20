@@ -1,8 +1,12 @@
 <script setup>
-import Header from '@/Components/Layout/Header.vue';
-import Footer from '@/Components/Layout/Footer.vue';
-import Cursor from '@/Components/UI/Cursor.vue';
-import Preloader from '@/Components/Elements/Preloader.vue';
+import AdminHeader from '@/Components/Layout/AdminHeader.vue';
+import Sidebar from '@/Components/Layout/Sidebar.vue';
+import { ref } from 'vue';
+
+let isAdminMenuCollapse = ref(false);
+let setMenuCollapse = (isMenuCollapse) => {
+    isAdminMenuCollapse.value = isMenuCollapse;
+}
 </script>
 <template>
     <main
@@ -14,17 +18,17 @@ import Preloader from '@/Components/Elements/Preloader.vue';
             tw-duration-300
             tw-ease-in-out
             tw-flex
-            tw-flex-col
+            tw-flex-row
             tw-min-h-screen
             tw-scroll-smooth
             "
     >
-        <Cursor />
-        <Header></Header>
-        <article class="tw-pt-4 tw-z-[1]">
-            <slot />
-            <Footer></Footer>
-        </article>
-        <Preloader />
+        <Sidebar :class="isAdminMenuCollapse ? 'tw-w-[3.5rem]' : 'tw-w-1/6'" :isMenuCollapse="isAdminMenuCollapse" />
+        <div class="tw-relative" :class="isAdminMenuCollapse ? 'tw-w-full' : 'tw-w-5/6'">
+            <AdminHeader @isMenuCollapse="setMenuCollapse" />
+            <article class="tw-pt-4">
+                <slot />
+            </article>
+        </div>
     </main>
 </template>
