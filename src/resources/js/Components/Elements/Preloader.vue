@@ -1,6 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const props = defineProps({
+    isAdminLayout: {
+        default: false,
+    },
+})
+
 let process = 1;
 let numHeight = 0;
 let totalDistance = 0;
@@ -200,7 +206,13 @@ onMounted(() => end())
                 class="tw-bg-slate-50 tw-w-0 tw-h-full"
             ></div>
         </div>
-        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
+        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0">
+            <template v-if="props.isAdminLayout">
+                <span class="tw-italic tw-text-slate-950 tw-font-semibold tw-absolute tw-right-5 tw-bottom-0 tw-mb-[-0.6rem] tw-text-lg tw-uppercase">
+                    Admin
+                </span>
+            </template>
+        </div>
         <div class="z-bar-js tw-absolute tw-translate-x-[-60vw] tw-mt-[-12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
 
         <!-- Counter -->

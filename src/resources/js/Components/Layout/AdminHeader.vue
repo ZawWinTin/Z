@@ -19,14 +19,14 @@ let toggleAdminMenu = () => {
         tw-left-0
         tw-top-0
         tw-pt-4
-        sm:tw-px-4 tw-px-0
+        tw-px-4
         tw-w-full
         tw-duration-300
         tw-pointer-events-none
         tw-z-[90]
     ">
         <!-- Navigation Bar -->
-        <div class="tw-container tw-flex tw-items-center tw-justify-between">
+        <div class="tw-flex tw-items-center tw-justify-between">
             <AdminMenuButton  @click="toggleAdminMenu" :isMenuCollapse="isMenuCollapse" class="tw-pointer-events-auto" />
         </div>
     </div>

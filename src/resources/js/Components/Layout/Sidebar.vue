@@ -86,7 +86,7 @@ let isActiveRoute = (routeName) => {
             </span>
             <span class="tw-ml-4" :class="props.isMenuCollapse ? 'tw-hidden' : 'tw-block'">Articles</span>
         </Link>
-        <hr class="tw-bg-slate-700 tw-border-0 tw-h-px tw-mx-2"/>
+        <hr class="tw-bg-slate-700 tw-border-0 tw-h-px tw-mx-2 !tw-mt-auto"/>
         <Link class="tw-group" :class="[menuLinkClasses]" :href="route('home')">
             <span class="tw-hidden group-hover:tw-block">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="tw-w-6 tw-h-6">

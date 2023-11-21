@@ -2,6 +2,7 @@
 import AdminHeader from '@/Components/Layout/AdminHeader.vue';
 import Sidebar from '@/Components/Layout/Sidebar.vue';
 import { ref } from 'vue';
+import Preloader from '@/Components/Elements/Preloader.vue';
 
 let isAdminMenuCollapse = ref(true);
 let setMenuCollapse = (isMenuCollapse) => {
@@ -30,5 +31,6 @@ let setMenuCollapse = (isMenuCollapse) => {
                 <slot />
             </article>
         </div>
+        <Preloader :isAdminLayout="true" />
     </main>
 </template>

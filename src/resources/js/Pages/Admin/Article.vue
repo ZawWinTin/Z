@@ -5,7 +5,7 @@ import Card from '@/Components/Elements/Card.vue';
 </script>
 <template>
     <section class="tw-container">
-        <Head title="Dashboard" />
+        <Head title="Article - Admin" />
         <div class="tw-text-center">
             <h1 class="tw-font-bold tw-text-2xl tw-text-primary">
                 Hello from Article!

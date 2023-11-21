@@ -14,7 +14,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 window.moment = moment;
 
 createInertiaApp({
-    title: title => `${title} - ${appName}`,
+    title: title => `${title} | ${appName}`,
     resolve: name => {
         let page = resolvePageComponent(
             `./Pages/${name}.vue`,
