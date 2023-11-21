@@ -3,7 +3,7 @@ import AdminMenuButton from '@/Components/Buttons/AdminMenuButton.vue';
 import { ref } from 'vue';
 
 const emit = defineEmits(['isMenuCollapse']);
-let isMenuCollapse = ref(false);
+let isMenuCollapse = ref(true);
 
 let toggleAdminMenu = () => {
     isMenuCollapse.value = !isMenuCollapse.value;

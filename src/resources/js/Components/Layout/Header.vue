@@ -83,7 +83,7 @@ let isActiveRoute = (routeName) => {
                 tw-justify-between
                 "
         >
-            <Link class="tw-pointer-events-auto" :href="route('home')">
+            <Link class="tw-pointer-events-auto tw-py-0.5" :href="route('home')">
                 <ApplicationLogo
                     class="tw-h-6 tw-w-6"
                     :class="

@@ -3,7 +3,7 @@ import AdminHeader from '@/Components/Layout/AdminHeader.vue';
 import Sidebar from '@/Components/Layout/Sidebar.vue';
 import { ref } from 'vue';
 
-let isAdminMenuCollapse = ref(false);
+let isAdminMenuCollapse = ref(true);
 let setMenuCollapse = (isMenuCollapse) => {
     isAdminMenuCollapse.value = isMenuCollapse;
 }
@@ -19,7 +19,7 @@ let setMenuCollapse = (isMenuCollapse) => {
             tw-ease-in-out
             tw-flex
             tw-flex-row
-            tw-min-h-screen
+            tw-h-screen
             tw-scroll-smooth
             "
     >

@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps({
     isMenuCollapse: {
-        default: false,
+        default: true,
     },
 });
 </script>

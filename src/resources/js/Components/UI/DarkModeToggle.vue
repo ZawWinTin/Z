@@ -1,10 +1,18 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onUpdated } from 'vue';
 const DARK_MODE = 'tw-dark';
 const LIGHT_MODE = 'tw-light';
 const THEME_KEY = 'theme';
+
 onMounted(() => {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    intializeThemeMode();
+});
+
+onUpdated(() => {
+    intializeThemeMode();
+});
+
+const intializeThemeMode = () => {
     if (
         localStorage.theme === DARK_MODE ||
         (!(THEME_KEY in localStorage) &&
@@ -14,7 +22,7 @@ onMounted(() => {
     } else {
         toggleThemeMode(LIGHT_MODE);
     }
-});
+};
 
 const toggleThemeMode = (mode = '', event = null) => {
     if (event) {
