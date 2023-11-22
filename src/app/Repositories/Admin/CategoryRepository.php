@@ -2,13 +2,12 @@
 
 namespace App\Repositories\Admin;
 
+use App\Models\Category;
+
 class CategoryRepository
 {
-    /**
-     * Get
-     */
     public function getAll()
     {
-
+        return Category::all();
     }
 }

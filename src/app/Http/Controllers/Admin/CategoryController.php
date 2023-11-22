@@ -17,6 +17,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return Inertia::render('Admin/Category');
+        $categories = $this->categoryService->getAll();
+
+        return Inertia::render('Admin/Category', ['categories' => $categories]);
     }
 }
