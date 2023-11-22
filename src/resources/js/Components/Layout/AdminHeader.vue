@@ -1,15 +1,5 @@
 <script setup>
 import AdminMenuButton from '@/Components/Buttons/AdminMenuButton.vue';
-import { ref } from 'vue';
-
-const emit = defineEmits(['isMenuCollapse']);
-let isMenuCollapse = ref(true);
-
-let toggleAdminMenu = () => {
-    isMenuCollapse.value = !isMenuCollapse.value;
-    emit('isMenuCollapse', isMenuCollapse.value);
-};
-
 </script>
 <template>
     <div class="
@@ -23,11 +13,11 @@ let toggleAdminMenu = () => {
         tw-w-full
         tw-duration-300
         tw-pointer-events-none
-        tw-z-[90]
+        tw-z-40
     ">
         <!-- Navigation Bar -->
         <div class="tw-flex tw-items-center tw-justify-between">
-            <AdminMenuButton  @click="toggleAdminMenu" :isMenuCollapse="isMenuCollapse" class="tw-pointer-events-auto" />
+            <AdminMenuButton class="tw-pointer-events-auto" />
         </div>
     </div>
 </template>

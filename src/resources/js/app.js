@@ -2,6 +2,7 @@ import './bootstrap';
 import '../css/app.css';
 
 import { createApp, h } from 'vue';
+import { createPinia } from 'pinia';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
@@ -42,6 +43,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(createPinia())
             .mount(el);
     },
     progress: {

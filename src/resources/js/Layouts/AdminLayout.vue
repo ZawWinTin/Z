@@ -1,13 +1,11 @@
 <script setup>
 import AdminHeader from '@/Components/Layout/AdminHeader.vue';
 import Sidebar from '@/Components/Layout/Sidebar.vue';
-import { ref } from 'vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
+import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
 
-let isAdminMenuCollapse = ref(true);
-let setMenuCollapse = (isMenuCollapse) => {
-    isAdminMenuCollapse.value = isMenuCollapse;
-}
+const adminMenuStore = useAdminMenuStore();
+
 </script>
 <template>
     <main
@@ -24,10 +22,10 @@ let setMenuCollapse = (isMenuCollapse) => {
             tw-scroll-smooth
             "
     >
-        <Sidebar :class="isAdminMenuCollapse ? 'tw-w-[3.5rem]' : 'tw-w-1/6'" :isMenuCollapse="isAdminMenuCollapse" />
-        <div class="tw-relative" :class="isAdminMenuCollapse ? 'tw-w-full' : 'tw-w-5/6'">
-            <AdminHeader @isMenuCollapse="setMenuCollapse" />
-            <article class="tw-pt-4">
+        <Sidebar :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden tw-w-0 sm:tw-flex sm:tw-w-[3.5rem]' : 'tw-w-2/3 sm:tw-w-1/6 tw-absolute sm:tw-static'" />
+        <div class="tw-relative tw-w-full" :class="adminMenuStore.isAdminMenuCollapse ? '' : 'sm:tw-w-5/6'">
+            <AdminHeader />
+            <article class="tw-pt-14">
                 <slot />
             </article>
         </div>

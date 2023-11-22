@@ -1,8 +1,12 @@
 <script setup>
 import { onMounted, onUpdated } from 'vue';
+import { useDarkModeStore } from '@/Composables/DarkModeStore';
+
 const DARK_MODE = 'tw-dark';
 const LIGHT_MODE = 'tw-light';
 const THEME_KEY = 'theme';
+
+let darkModeStore = useDarkModeStore();
 
 onMounted(() => {
     intializeThemeMode();
@@ -12,7 +16,7 @@ onUpdated(() => {
     intializeThemeMode();
 });
 
-const intializeThemeMode = () => {
+let intializeThemeMode = () => {
     if (
         localStorage.theme === DARK_MODE ||
         (!(THEME_KEY in localStorage) &&
@@ -24,7 +28,7 @@ const intializeThemeMode = () => {
     }
 };
 
-const toggleThemeMode = (mode = '', event = null) => {
+let toggleThemeMode = (mode = '', event = null) => {
     if (event) {
         event.stopPropagation();
     }
@@ -33,7 +37,6 @@ const toggleThemeMode = (mode = '', event = null) => {
         setMode = mode;
     }
 
-    let darkModeToggleBtn = $('#dark-mode-toggle-btn');
     let favicon = $('#favicon');
     let faviconPath = favicon.attr('href');
     let faviconPathPattern = /light|dark/g;
@@ -41,20 +44,17 @@ const toggleThemeMode = (mode = '', event = null) => {
     localStorage.theme = setMode;
     if (setMode === DARK_MODE) {
         document.documentElement.classList.add(DARK_MODE);
-        darkModeToggleBtn.removeClass('day-mode');
-        darkModeToggleBtn.addClass('night-mode');
+        darkModeStore.setDarkMode(true);
         favicon.attr('href', faviconPath.replace(faviconPathPattern, 'dark'));
     } else {
         document.documentElement.classList.remove(DARK_MODE);
-        darkModeToggleBtn.removeClass('night-mode');
-        darkModeToggleBtn.addClass('day-mode');
+        darkModeStore.setDarkMode(false);
         favicon.attr('href', faviconPath.replace(faviconPathPattern, 'light'));
     }
 };
 </script>
 <template>
     <div
-        id="dark-mode-toggle-btn"
         class="
             tw-cursor-pointer
             tw-duration-500
@@ -66,6 +66,7 @@ const toggleThemeMode = (mode = '', event = null) => {
             tw-transition-all
             tw-w-[30em]
             "
+        :class="darkModeStore.isDarkMode ? 'night-mode' : 'day-mode'"
         @click="toggleThemeMode('', $event)"
     >
         <span

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -14,7 +15,9 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
 
     Route::middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/article', [ArticleController::class, 'index'])->name('article');
+        Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
+
+        Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
