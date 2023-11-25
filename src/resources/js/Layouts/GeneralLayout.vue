@@ -3,6 +3,12 @@ import Header from '@/Components/Layout/Header.vue';
 import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
+
+const props = defineProps({
+    showFooter: {
+        default: true,
+    },
+});
 </script>
 <template>
     <main
@@ -20,7 +26,9 @@ import Preloader from '@/Components/Elements/Preloader.vue';
         <Header></Header>
         <article class="tw-pt-4 tw-z-[1]">
             <slot />
-            <Footer></Footer>
+            <template v-if="props.showFooter">
+                <Footer />
+            </template>
         </article>
         <Preloader />
     </main>

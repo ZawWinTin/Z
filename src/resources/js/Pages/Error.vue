@@ -24,7 +24,7 @@ const description = computed(() => {
 
 </script>
 <template>
-    <section class="tw-container tw-h-full -tw-mt-4">
+    <section class="tw-container tw-h-screen -tw-mt-4">
         <Head title="404" />
         <div class="tw-flex tw-h-full tw-justify-center tw-items-center tw-flex-col">
             <h1 class="tw-font-bold tw-text-2xl tw-text-primary">
