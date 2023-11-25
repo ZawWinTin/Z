@@ -17,7 +17,7 @@ class Article extends Model
      */
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->orderByPivot('priority', 'asc');
     }
 
     public function images(): MorphMany
