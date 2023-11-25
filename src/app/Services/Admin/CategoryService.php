@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use Illuminate\Http\Request;
 use App\Repositories\Admin\CategoryRepository;
 
 class CategoryService
@@ -16,5 +17,15 @@ class CategoryService
     public function getAll()
     {
         return $this->categoryRepository->getAll();
+    }
+
+    public function save(Request $request)
+    {
+        return $this->categoryRepository->save($request);
+    }
+
+    public function destroy(Request $request)
+    {
+        return $this->categoryRepository->destroy($request);
     }
 }

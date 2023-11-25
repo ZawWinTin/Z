@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -17,7 +16,7 @@ class UserSeeder extends Seeder
             'name' => config('superadmin.auth.name'),
             'email' => config('superadmin.auth.email'),
             'email_verified_at' => now(),
-            'password' => bcrypt(config('superadmin.auth.password')),
+            'password' => config('superadmin.auth.password'),
         ]);
     }
 }

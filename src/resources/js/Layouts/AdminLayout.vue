@@ -25,7 +25,7 @@ const adminMenuStore = useAdminMenuStore();
         <Sidebar :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden tw-w-0 sm:tw-flex sm:tw-w-[3.5rem]' : 'tw-w-2/3 sm:tw-w-1/6 tw-absolute sm:tw-static'" />
         <div class="tw-relative tw-w-full" :class="adminMenuStore.isAdminMenuCollapse ? '' : 'sm:tw-w-5/6'">
             <AdminHeader />
-            <article class="tw-pt-14">
+            <article class="tw-pt-14 tw-mx-4">
                 <slot />
             </article>
         </div>

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Route';
+import { isActiveRoute } from '@/Composables/Common';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
@@ -45,10 +46,6 @@ let getActiveClasses = (routeName) => {
     }
     return '';
 };
-
-let isActiveRoute = (routeName) => {
-    return route().has(routeName) && location.pathname == new URL(route(routeName)).pathname;
-}
 </script>
 <template>
     <div

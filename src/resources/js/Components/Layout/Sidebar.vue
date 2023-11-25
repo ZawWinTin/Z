@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Route';
+import { isActiveRoute } from '@/Composables/Common';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
@@ -34,10 +35,6 @@ let getActiveClasses = (routeName) => {
     }
     return '';
 };
-
-let isActiveRoute = (routeName) => {
-    return route().has(routeName) && location.pathname == new URL(route(routeName)).pathname;
-}
 </script>
 <template>
     <div class="

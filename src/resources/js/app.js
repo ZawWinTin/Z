@@ -1,14 +1,20 @@
 import './bootstrap';
 import '../css/app.css';
+// import 'primevue/resources/themes/lara-light-purple/theme.css';
+import 'primevue/resources/themes/lara-dark-purple/theme.css';
+import 'primeicons/primeicons.css';
 
 import { createApp, h } from 'vue';
 import { createPinia } from 'pinia';
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import moment from 'moment';
+import Tooltip from 'primevue/tooltip';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -17,7 +23,7 @@ window.moment = moment;
 createInertiaApp({
     title: title => `${title} | ${appName}`,
     resolve: name => {
-        let page = resolvePageComponent(
+        const page = resolvePageComponent(
             `./Pages/${name}.vue`,
             import.meta.glob('./Pages/**/*.vue'),
         );
@@ -44,6 +50,9 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(createPinia())
+            .use(PrimeVue, { unstyled: false, ripple: true })
+            .use(ToastService)
+            .directive('tooltip', Tooltip)
             .mount(el);
     },
     progress: {

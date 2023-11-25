@@ -18,6 +18,8 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
         Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
 
         Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+        Route::post('/categories', [CategoryController::class, 'save'])->name('category.save');
+        Route::delete('/categories', [CategoryController::class, 'destroy'])->name('category.destroy');
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
