@@ -3,8 +3,9 @@ import route from '@/Composables/Route';
 import Checkbox from '@/Components/UI/Checkbox.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from '@/Components/UI/Button.vue';
 import TextInput from '@/Components/UI/TextInput.vue';
+import PasswordInput from '@/Components/UI/PasswordInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -46,50 +47,49 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <TextInput
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        autofocus
+                        autocomplete="username"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-2" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="current-password"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <PasswordInput
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        autocomplete="current-password"
+                    />
+                    <InputLabel for="password" value="Password" class="tw-ml-2" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
             <div class="tw-block tw-mt-4">
-                <label class="tw-flex tw-items-center">
-                    <Checkbox @checked="form.remember" name="remember" />
-                    <span
+                <div class="tw-flex tw-flex-row-reverse tw-items-center tw-justify-end">
+                    <label for="remember"
                         class="
                             tw-ml-2
                             dark:tw-text-slate-400
                             tw-text-slate-600
                             tw-text-sm
+                            tw-cursor-pointer
                             "
-                        >Remember me</span
+                        >Remember me</label
                     >
-                </label>
+                    <Checkbox v-model="form.remember" id="remember" name="remember" :binary="true" />
+                </div>
             </div>
 
             <div class="
@@ -118,14 +118,7 @@ const submit = () => {
                 >
                     Forgot your password?
                 </Link>
-
-                <PrimaryButton
-                    class="tw-ml-4"
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
+                <Button type="submit" :loading="form.processing" label="Log In" />
             </div>
         </form>
     </section>

@@ -10,6 +10,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
+        './resources/js/**/*.js',
     ],
 
     theme: {
@@ -37,6 +38,7 @@ export default {
             colors: {
                 primary: {
                     DEFAULT: '#9400D3',
+                    dark: '#7A20A1',
                 },
             },
             fontFamily: {

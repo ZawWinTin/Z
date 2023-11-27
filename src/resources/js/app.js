@@ -1,7 +1,5 @@
 import './bootstrap';
 import '../css/app.css';
-// import 'primevue/resources/themes/lara-light-purple/theme.css';
-import 'primevue/resources/themes/lara-dark-purple/theme.css';
 import 'primeicons/primeicons.css';
 
 import { createApp, h } from 'vue';
@@ -15,6 +13,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import moment from 'moment';
 import Tooltip from 'primevue/tooltip';
+import Ripple from 'primevue/ripple';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -53,6 +52,7 @@ createInertiaApp({
             .use(PrimeVue, { unstyled: false, ripple: true })
             .use(ToastService)
             .directive('tooltip', Tooltip)
+            .directive('ripple', Ripple)
             .mount(el);
     },
     progress: {

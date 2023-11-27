@@ -1,8 +1,8 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import DataTable from 'primevue/datatable';
+import Button from '@/Components/UI/Button.vue';
+import TextInput from '@/Components/UI/TextInput.vue';
+import DataTable from '@/Components/Elements/Datatable.vue';
 import Column from 'primevue/column';
 import { FilterMatchMode } from 'primevue/api';
 import { onMounted, ref } from 'vue';
@@ -10,15 +10,15 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import route from '@/Composables/Route';
 import Badge from '@/Components/UI/Badge.vue';
-import Dialog from 'primevue/dialog';
-import Checkbox from 'primevue/checkbox';
-import ColorPicker from 'primevue/colorpicker';
+import Dialog from '@/Components/UI/Dialog.vue';
+import Checkbox from '@/Components/UI/Checkbox.vue';
+import ColorPicker from '@/Components/UI/ColorPicker.vue';
+import { tooltipTheme } from '@/Composables/Theme';
 
 const toast = useToast();
 const openCategorySaveDialog = ref(false);
 const openCategoryDeleteDialog = ref(false);
 const isSameColor = ref(false);
-const isLoading = ref(false);
 
 const BACKGROUND_COLOR = 'background_color';
 const TEXT_COLOR = 'text_color';
@@ -110,7 +110,6 @@ const changeColor = colorType => {
 };
 
 const saveCategory = () => {
-    isLoading.value = true;
     form.clearErrors();
     form.post(route('admin.category.save'), {
         preserveScroll: true,
@@ -124,9 +123,6 @@ const saveCategory = () => {
                 life: 3000,
             });
         },
-        onFinish: () => {
-            isLoading.value = false;
-        },
     });
 };
 
@@ -138,12 +134,10 @@ const openDeleteDialog = data => {
 };
 
 const deleteCategory = () => {
-    isLoading.value = true;
     form.delete(route('admin.category.destroy'), {
         preserveScroll: true,
         preserveState: false,
         onSuccess: () => {
-            isLoading.value = false;
             closeDialog(DELETE_DIALOG);
             toast.add({
                 severity: 'success',
@@ -160,9 +154,6 @@ const deleteCategory = () => {
                 life: 3000,
             });
         },
-        onFinish: () => {
-            isLoading.value = false;
-        },
     });
 };
 </script>
@@ -175,7 +166,7 @@ const deleteCategory = () => {
         </h1>
         <Toast />
         <div
-            class="tw-bg-slate-50 dark:tw-bg-slate-900 tw-shadow-lg tw-rounded-lg tw-p-6 tw-text-slate-900 dark:tw-text-slate-100">
+            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-6 tw-text-slate-900 dark:tw-text-slate-100">
             <div>
                 <DataTable
                     stripedRows
@@ -189,17 +180,15 @@ const deleteCategory = () => {
                     :globalFilterFields="['id', 'name']">
                     <template #header>
                         <div class="tw-flex tw-justify-between">
-                            <span class="p-input-icon-left">
-                                <i class="pi pi-search" />
-                                <InputText
-                                    v-model="filters['global'].value"
-                                    placeholder="Keyword Search" />
-                            </span>
-                            <Button
-                                icon="pi pi-plus"
-                                rounded
-                                raised
-                                @click="openSaveDialog()" />
+                            <div>
+                                <span class="p-input-icon-left">
+                                    <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
+                                    <TextInput class="tw-pl-10"
+                                        v-model="filters['global'].value"
+                                        placeholder="Search" />
+                                </span>
+                            </div>
+                            <Button icon="pi pi-plus" rounded @click="openSaveDialog()" />
                         </div>
                     </template>
                     <template #empty> No categories found. </template>
@@ -250,7 +239,7 @@ const deleteCategory = () => {
                     class="tw-w-3/5">
                     <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
                         <div
-                            class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50 tw-rounded-md">
+                            class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50/80 tw-rounded-md tw-border tw-shadow">
                             <Badge
                                 :content="form.name || 'Text'"
                                 :textColor="form.text_color"
@@ -259,7 +248,7 @@ const deleteCategory = () => {
                         <div class="tw-flex tw-flex-col tw-space-y-4">
                             <div class="tw-flex tw-flex-col tw-space-y-1">
                                 <label class="tw-font-bold">Name</label>
-                                <InputText
+                                <TextInput
                                     v-model.trim="form.name"
                                     autofocus />
                                 <small
@@ -271,7 +260,7 @@ const deleteCategory = () => {
                                     class="tw-flex tw-flex-row tw-justify-between">
                                     <label class="tw-font-bold">Color</label>
                                     <Checkbox
-                                        v-tooltip.left="'Set background and text Color same'"
+                                        v-tooltip.left="{ value: 'Set background and text color same', pt: tooltipTheme }"
                                         v-model="isSameColor"
                                         :binary="true"
                                         @change="setSameColor" />
@@ -288,7 +277,7 @@ const deleteCategory = () => {
                                                 @change="
                                                     changeColor(TEXT_COLOR)
                                                     " />
-                                            <InputText
+                                            <TextInput
                                                 v-model="form.text_color"
                                                 class="tw-w-full"
                                                 required="true"
@@ -312,7 +301,7 @@ const deleteCategory = () => {
                                                         BACKGROUND_COLOR,
                                                     )
                                                     " />
-                                            <InputText
+                                            <TextInput
                                                 v-model="form.background_color"
                                                 class="tw-w-full"
                                                 required="true"
@@ -333,7 +322,7 @@ const deleteCategory = () => {
                         </div>
                         <div class="tw-flex tw-flex-row tw-justify-end tw-space-x-2">
                             <Button
-                                :loading="isLoading"
+                                :loading="form.processing"
                                 type="submit"
                                 rounded
                                 label="Save"
@@ -365,7 +354,7 @@ const deleteCategory = () => {
                     </div>
                     <template #footer>
                         <Button
-                            :loading="isLoading"
+                            :loading="form.processing"
                             rounded
                             label="Delete"
                             icon="pi pi-check"

@@ -10,10 +10,10 @@ defineProps({
     <label
         class="
             tw-block
-            dark:tw-text-slate-300
-            tw-font-medium
+            dark:tw-text-slate-400
             tw-text-slate-700
-            tw-text-sm
+            tw-ease-in-out
+            tw-duration-300
             "
     >
         <span v-if="value">{{ value }}</span>

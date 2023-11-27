@@ -1,22 +1,14 @@
+<script setup>
+</script>
 <template>
     <button
         class="
-            tw-bg-slate-800
-            active:tw-bg-slate-900
-            dark:active:tw-bg-slate-300
-            dark:focus:tw-bg-slate-50
-            dark:focus:tw-ring-offset-slate-800
-            dark:hover:tw-bg-slate-50
-            dark:tw-bg-slate-200
-            dark:tw-text-slate-800
-            focus:tw-bg-slate-700
-            focus:tw-outline-none
+            tw-bg-primary
             focus:tw-ring-2
-            focus:tw-ring-indigo-500
+            focus:tw-ring-primary/80
             focus:tw-ring-offset-2
-            hover:tw-bg-slate-700
-            tw-border
-            tw-border-transparent
+            hover:tw-bg-primary-dark
+            tw-shadow
             tw-duration-300
             tw-ease-in-out
             tw-font-semibold
@@ -26,12 +18,12 @@
             tw-py-2
             tw-rounded-md
             tw-text-slate-50
-            tw-text-xs
-            tw-tracking-widest
             tw-transition
-            tw-uppercase
+            p-ripple
             "
+            :class="{ 'tw-aspect-square !tw-rounded-full': rounded, }"
+            v-ripple
     >
-        <slot />
+        <span><slot /></span>
     </button>
 </template>
