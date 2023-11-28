@@ -11,14 +11,17 @@
 
 /* Hide Scrollbar */
 /* Firefox */
-html {
+html,
+* {
     scrollbar-width: none;
 }
 /* Edge */
-body {
+body,
+* {
     -ms-overflow-style: none;
 }
 /* Chrome */
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
     display: none;
 }

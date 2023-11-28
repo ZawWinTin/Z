@@ -23,7 +23,7 @@ const props = defineProps({
                 class: [
                     'tw-items-center tw-cursor-pointer tw-inline-flex tw-overflow-hidden tw-relative tw-select-none tw-text-center tw-align-bottom',
                     'tw-transition tw-duration-300 tw-ease-in-out',
-                    'focus:tw-outline-none focus:outline-offset-0',
+                    'focus:tw-outline-none focus:tw-outline-offset-0',
                     {
                         'tw-text-slate-50 dark:tw-text-slate-50 tw-bg-primary dark:tw-bg-primary tw-border tw-border-primary dark:tw-border-primary hover:tw-bg-primary-dark dark:hover:tw-bg-primary-dark hover:tw-border-primary dark:hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
                             !props.link &&
@@ -31,7 +31,7 @@ const props = defineProps({
                             !props.text &&
                             !props.outlined &&
                             !props.plain,
-                        'tw-text-primary tw-bg-transparent tw-border-transparent focus:shadow-[0_0_0_2px_rgba(255,255,255,1),0_0_0_4px_rgba(157,193,251,1),0_1px_2px_0_rgba(0,0,0,1)] dark:focus:shadow-[0_0_0_2px_rgba(28,33,39,1),0_0_0_4px_rgba(147,197,253,0.7),0_1px_2px_0_rgba(0,0,0,0)]':
+                        'tw-text-primary tw-bg-transparent tw-border-transparent focus:tw-shadow-[0_0_0_2px_rgba(255,255,255,1),0_0_0_4px_rgba(157,193,251,1),0_1px_2px_0_rgba(0,0,0,1)] dark:focus:tw-shadow-[0_0_0_2px_rgba(28,33,39,1),0_0_0_4px_rgba(147,197,253,0.7),0_1px_2px_0_rgba(0,0,0,0)]':
                             props.link,
                     },
                     {

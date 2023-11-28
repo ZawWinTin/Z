@@ -7,13 +7,14 @@ import Column from 'primevue/column';
 import { FilterMatchMode } from 'primevue/api';
 import { onMounted, ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import Toast from 'primevue/toast';
+import Toast from '@/Components/UI/Toast.vue';
 import route from '@/Composables/Route';
 import Badge from '@/Components/UI/Badge.vue';
 import Dialog from '@/Components/UI/Dialog.vue';
 import Checkbox from '@/Components/UI/Checkbox.vue';
 import ColorPicker from '@/Components/UI/ColorPicker.vue';
 import { tooltipTheme } from '@/Composables/Theme';
+import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
 const openCategorySaveDialog = ref(false);
@@ -166,7 +167,7 @@ const deleteCategory = () => {
         </h1>
         <Toast />
         <div
-            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-6 tw-text-slate-900 dark:tw-text-slate-100">
+            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-6 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <div>
                 <DataTable
                     stripedRows
@@ -235,8 +236,7 @@ const deleteCategory = () => {
                 <Dialog
                     v-model:visible="openCategorySaveDialog"
                     modal
-                    header="Category Details"
-                    class="tw-w-3/5">
+                    header="Category Details">
                     <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
                         <div
                             class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50/80 tw-rounded-md tw-border tw-shadow">
@@ -251,9 +251,7 @@ const deleteCategory = () => {
                                 <TextInput
                                     v-model.trim="form.name"
                                     autofocus />
-                                <small
-                                    class="p-error"
-                                    v-if="form.errors.name">{{ form.errors.name }}</small>
+                                <InputError :message="form.errors.name" />
                             </div>
                             <div class="tw-flex tw-flex-col tw-space-y-1">
                                 <div
@@ -285,9 +283,7 @@ const deleteCategory = () => {
                                                     changeColor(TEXT_COLOR)
                                                     " />
                                         </div>
-                                        <small
-                                            class="p-error"
-                                            v-if="form.errors.name">{{ form.errors.text_color }}</small>
+                                        <InputError :message="form.errors.text_color" />
                                     </div>
                                     <div
                                         class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
@@ -311,11 +307,7 @@ const deleteCategory = () => {
                                                     )
                                                     " />
                                         </div>
-                                        <small
-                                            class="p-error"
-                                            v-if="form.errors.name">{{
-                                                form.errors.background_color
-                                            }}</small>
+                                        <InputError :message="form.errors.background_color" />
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +338,7 @@ const deleteCategory = () => {
                     <div
                         class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
                         <i
-                            class="pi pi-exclamation-triangle mr-3 tw-text-4xl" />
+                            class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
                         <span>
                             Are you sure you want to delete
                             <b>{{ form.name }}</b> ?
@@ -358,6 +350,7 @@ const deleteCategory = () => {
                             rounded
                             label="Delete"
                             icon="pi pi-check"
+                            autofocus
                             @click="deleteCategory"
                             severity="danger" />
                         <Button

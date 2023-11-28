@@ -31,7 +31,7 @@ import Dialog from 'primevue/dialog';
                 class: [
                     'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
                     'tw-w-8 tw-h-8 tw-text-slate-500 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
-                    'hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-800/80',
+                    'hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80',
                     'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1', // focus
                     'dark:hover:tw-text-slate-50/80 dark:hover:tw-border-transparent',
                 ],
@@ -45,7 +45,7 @@ import Dialog from 'primevue/dialog';
                     'tw-text-slate-700 tw-px-6 tw-pb-8 tw-pt-0',
                     'tw-bg-slate-50 dark:tw-bg-slate-800 dark:tw-text-slate-50/80',
                     {
-                        grow: state.maximized,
+                        'tw-grow': state.maximized,
                     },
                     {
                         'tw-rounded-bl-lg tw-rounded-br-lg':
@@ -57,7 +57,7 @@ import Dialog from 'primevue/dialog';
                 class: [
                     'tw-flex tw-gap-2 tw-shrink-0 tw-justify-end tw-align-middle',
                     'tw-border-t-0 tw-text-slate-700 tw-px-6 tw-pb-6 tw-text-right tw-rounded-b-lg',
-                    ' tw-bg-slate-50 dark:tw-bg-slate-800 dark:text-slate-50/80',
+                    'tw-bg-slate-50 dark:tw-bg-slate-800 dark:text-slate-50/80',
                 ],
             },
             mask: ({ props }) => ({
@@ -127,5 +127,8 @@ import Dialog from 'primevue/dialog';
         }"
     >
         <slot />
+        <template v-if="$slots.footer" #footer>
+            <slot name="footer" />
+        </template>
     </Dialog>
 </template>
