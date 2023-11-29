@@ -48,7 +48,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             thead: ({ context }) => ({
                 class: [
                     {
-                        'tw-bg-slate-50 tw-top-0 tw-z-[1]': context.scrollable,
+                        'tw-top-0 tw-z-[1]': context.scrollable,
                     },
                 ],
             }),

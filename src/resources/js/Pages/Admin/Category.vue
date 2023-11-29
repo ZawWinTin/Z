@@ -167,7 +167,7 @@ const deleteCategory = () => {
         </h1>
         <Toast />
         <div
-            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-6 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <div>
                 <DataTable
                     stripedRows
@@ -175,6 +175,8 @@ const deleteCategory = () => {
                     v-model:filters="filters"
                     :value="currentCategories"
                     paginator
+                    scrollable
+                    scrollHeight="60vh"
                     :rows="10"
                     :rowsPerPageOptions="[5, 10, 20, 50]"
                     dataKey="id"
@@ -189,7 +191,7 @@ const deleteCategory = () => {
                                         placeholder="Search" />
                                 </span>
                             </div>
-                            <Button icon="pi pi-plus" rounded @click="openSaveDialog()" />
+                            <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
                         </div>
                     </template>
                     <template #empty> No categories found. </template>
@@ -220,13 +222,14 @@ const deleteCategory = () => {
                                 outlined
                                 rounded
                                 severity="warning"
-                                class="mr-2"
+                                class="tw-w-10 tw-h-10"
                                 @click="openSaveDialog(slotProps.data)" />
                             <Button
                                 icon="pi pi-trash"
                                 outlined
                                 rounded
                                 severity="danger"
+                                class="tw-w-10 tw-h-10"
                                 @click="openDeleteDialog(slotProps.data)" />
                         </template>
                     </Column>

@@ -55,7 +55,7 @@ export const paginatorTheme = {
             'tw-duration-300 tw-transition',
             'tw-flex tw-items-center tw-justify-center tw-flex-wrap',
             'tw-bg-slate-50 tw-text-slate-500 tw-border-0 tw-px-4 tw-py-2 tw-rounded-md',
-            'dark:tw-bg-slate-800 dark:text-slate-50/60 dark:tw-border-primary/40', // Dark Mode
+            'dark:tw-bg-slate-800 dark:tw-text-slate-50/60 dark:tw-border-primary/40', // Dark Mode
         ],
     },
     firstpagebutton: ({ context }) => ({
@@ -67,7 +67,7 @@ export const paginatorTheme = {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:tw-outline-none focus:tw-outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]':
+                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
                     !context.disabled, // Focus
             },
         ],
@@ -81,7 +81,7 @@ export const paginatorTheme = {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:tw-outline-none focus:outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]':
+                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
                     !context.disabled, // Focus
             },
         ],
@@ -95,7 +95,7 @@ export const paginatorTheme = {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]':
+                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
                     !context.disabled, // Focus
             },
         ],
@@ -109,7 +109,7 @@ export const paginatorTheme = {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]':
+                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
                     !context.disabled, // Focus
             },
         ],
@@ -117,13 +117,14 @@ export const paginatorTheme = {
     pagebutton: ({ context }) => ({
         class: [
             'tw-relative tw-inline-flex tw-items-center tw-justify-center tw-user-none tw-overflow-hidden tw-leading-none',
-            'tw-border-0 tw-text-slate-50 tw-min-w-[3rem] tw-h-12 tw-m-[0.143rem] tw-rounded-md',
+            'tw-border-0 tw-min-w-[3rem] tw-h-12 tw-m-[0.143rem] tw-rounded-md',
             'tw-transition tw-duration-300',
             'dark:tw-border-primary/40 dark:tw-text-slate-50', // Dark Mode
             'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1', // Focus
             {
                 'tw-bg-primary/60 tw-border-primary tw-text-slate-50 dark:tw-bg-primary/60':
                     context.active,
+                'tw-text-slate-500 dark:tw-text-slate-50': !context.active,
             },
         ],
     }),
@@ -136,10 +137,10 @@ export const paginatorTheme = {
                 'tw-h-12 tw-mx-2',
                 'dark:tw-bg-slate-800 dark:tw-border-primary/40', //DarkMode
                 {
-                    'tw-outline-none tw-outline-offset-0 shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] tw-border-blue-500':
+                    'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
                         state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
-                    'hover:tw-border-blue-500': !props.disabled, //Hover
+                    'hover:tw-border-primary-dark': !props.disabled, //Hover
                 },
             ],
         }),
@@ -202,7 +203,7 @@ export const paginatorTheme = {
                 'tw-h-12 tw-mx-2',
                 'dark:bg-slate-950 dark:tw-border-blue-900/40', //DarkMode
                 {
-                    'tw-outline-none outline-offset-0 shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] tw-border-blue-500':
+                    'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
                         state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
                     'hover:tw-border-blue-500': !props.disabled, //Hover

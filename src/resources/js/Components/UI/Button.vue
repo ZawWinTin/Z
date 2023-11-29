@@ -21,7 +21,7 @@ const props = defineProps({
         :pt="{
             root: ({ props, context }) => ({
                 class: [
-                    'tw-items-center tw-cursor-pointer tw-inline-flex tw-overflow-hidden tw-relative tw-select-none tw-text-center tw-align-bottom',
+                    'tw-items-center tw-cursor-pointer tw-flex tw-overflow-hidden tw-relative tw-select-none tw-justify-center tw-align-bottom',
                     'tw-transition tw-duration-300 tw-ease-in-out',
                     'focus:tw-outline-none focus:tw-outline-offset-0',
                     {
