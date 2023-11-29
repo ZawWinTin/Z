@@ -25,7 +25,7 @@ const input = ref(null);
         :pt="{
             root: ({ props }) => ({
                 class: [
-                    'tw-inline-flex tw-relative tw-p-0 tw-rounded-md tw-border-none tw-bg-transparent',
+                    'tw-inline-flex tw-relative tw-p-0 tw-rounded-full tw-border-none tw-bg-transparent',
                     {
                         'tw-opacity-60 tw-select-none tw-pointer-events-none tw-cursor-default': props.disabled
                     }
@@ -34,7 +34,7 @@ const input = ref(null);
             input: {
                 class: [
                     'dark:tw-bg-slate-900 dark:tw-text-slate-300',
-                    'tw-w-full tw-pr-8 tw-rounded-md tw-duration-300 tw-ease-in-out tw-shadow-sm',
+                    'tw-w-full tw-pr-8 tw-rounded-full tw-duration-300 tw-ease-in-out tw-shadow-sm',
                     'tw-border-slate-300 dark:tw-border-slate-700',
                     'hover:tw-border-primary/80 dark:hover:tw-border-primary/80',
                     'focus:tw-border-primary focus:tw-ring-primary dark:focus:tw-border-primary dark:focus:tw-ring-primary'
