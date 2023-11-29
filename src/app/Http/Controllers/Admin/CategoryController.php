@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\CategoryService;
 use App\Http\Requests\Admin\CategorySaveRequest;
 use App\Http\Requests\Admin\CategoryDeleteRequest;
+use App\Http\Requests\Admin\CategoryRestoreRequest;
 
 class CategoryController extends Controller
 {
@@ -19,9 +20,9 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryService->getAll();
+        $data = $this->categoryService->getAll();
 
-        return Inertia::render('Admin/Category', ['categories' => $categories]);
+        return Inertia::render('Admin/Category', $data);
     }
 
     public function save(CategorySaveRequest $request)
@@ -34,6 +35,13 @@ class CategoryController extends Controller
     public function destroy(CategoryDeleteRequest $request)
     {
         $this->categoryService->destroy($request);
+
+        return to_route('admin.category.index');
+    }
+
+    public function restore(CategoryRestoreRequest $request)
+    {
+        $this->categoryService->restore($request);
 
         return to_route('admin.category.index');
     }

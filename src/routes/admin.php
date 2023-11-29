@@ -20,6 +20,7 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
         Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
         Route::post('/categories', [CategoryController::class, 'save'])->name('category.save');
         Route::delete('/categories', [CategoryController::class, 'destroy'])->name('category.destroy');
+        Route::put('/categories', [CategoryController::class, 'restore'])->name('category.restore');
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');

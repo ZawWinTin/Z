@@ -28,4 +28,9 @@ class CategoryService
     {
         return $this->categoryRepository->destroy($request);
     }
+
+    public function restore(Request $request)
+    {
+        return $this->categoryRepository->restore($request);
+    }
 }

@@ -13,7 +13,10 @@ class CategoryRepository
 {
     public function getAll()
     {
-        return Category::all();
+        $activeCategories = Category::all();
+        $deletedCategories = Category::onlyTrashed()->get();
+
+        return compact('activeCategories', 'deletedCategories');
     }
 
     public function save(Request $request)
@@ -53,6 +56,23 @@ class CategoryRepository
             Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
 
             throw new Exception('Category deleted failed.');
+        }
+    }
+
+    public function restore(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            Category::onlyTrashed()->findOrFail($request->id)->restore();
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
+
+            throw new Exception('Category restored failed.');
         }
     }
 }

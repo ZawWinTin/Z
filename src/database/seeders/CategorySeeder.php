@@ -15,19 +15,19 @@ class CategorySeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'name' => 'Frontend',
-                'text_color' => '#48B0EE',
-                'background_color' => '#48B0EE',
+                'name' => '🍰 Frontend',
+                'text_color' => '#C72ABF',
+                'background_color' => '#C72ABF',
             ],
             [
                 'id' => 2,
-                'name' => 'Backend',
+                'name' => '⚙ Backend',
                 'text_color' => '#FFFFFF',
                 'background_color' => '#050301',
             ],
             [
                 'id' => 3,
-                'name' => 'Productivity',
+                'name' => '💪 Productivity',
                 'text_color' => '#FF9809',
                 'background_color' => '#FF9809',
             ],
