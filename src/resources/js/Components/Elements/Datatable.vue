@@ -37,7 +37,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             header: ({ props }) => ({
                 class: [
                     'tw-duration-300 tw-transition',
-                    'tw-bg-slate-50 tw-text-slate-700 tw-border-slate-300 tw-font-bold tw-p-4',
+                    'tw-bg-slate-50 tw-text-slate-700 tw-border-slate-300 tw-font-bold tw-py-4',
                     'dark:tw-border-primary/40 dark:text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
                     props.showGridlines
                         ? 'tw-border-x tw-border-t tw-border-b-0'

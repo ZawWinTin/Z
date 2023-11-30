@@ -1,6 +1,7 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
 import Button from '@/Components/UI/Button.vue';
+import ToggleButton from '@/Components/UI/ToggleButton.vue';
 import TextInput from '@/Components/UI/TextInput.vue';
 import DataTable from '@/Components/Elements/Datatable.vue';
 import Column from 'primevue/column';
@@ -13,27 +14,35 @@ import Badge from '@/Components/UI/Badge.vue';
 import Dialog from '@/Components/UI/Dialog.vue';
 import Checkbox from '@/Components/UI/Checkbox.vue';
 import ColorPicker from '@/Components/UI/ColorPicker.vue';
-import { tooltipTheme } from '@/Composables/Theme';
+import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
 const openCategorySaveDialog = ref(false);
 const openCategoryDeleteDialog = ref(false);
+const openCategoryRestoreDialog = ref(false);
 const isSameColor = ref(false);
+
+const isActiveMode = ref(true);
 
 const BACKGROUND_COLOR = 'background_color';
 const TEXT_COLOR = 'text_color';
 const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
+const RESTORE_DIALOG = 'restore_dialog';
 
 const props = defineProps({
-    categories: {
-        type: Array,
+    activeCategories: {
+        default: [],
+    },
+    deletedCategories: {
+        default: [],
     },
     errors: Object,
 });
 
-const currentCategories = ref([]);
+const activeCategories = ref([]);
+const deletedCategories = ref([]);
 
 const form = useForm({
     id: null,
@@ -47,7 +56,8 @@ const filters = ref({
 });
 
 onMounted(() => {
-    currentCategories.value = props.categories;
+    activeCategories.value = props.activeCategories;
+    deletedCategories.value = props.deletedCategories;
 });
 
 const openSaveDialog = (data = null) => {
@@ -68,6 +78,9 @@ const closeDialog = dialogType => {
             break;
         case DELETE_DIALOG:
             openCategoryDeleteDialog.value = false;
+            break;
+        case RESTORE_DIALOG:
+            openCategoryRestoreDialog.value = false;
             break;
     }
     resetForm();
@@ -116,11 +129,19 @@ const saveCategory = () => {
         preserveScroll: true,
         preserveState: (page) => { return !(Object.keys(page.props.errors).length == 0) },
         onSuccess: () => {
-            closeDialog(SAVE_DIALOG);
             toast.add({
                 severity: 'success',
                 summary: 'Saved',
-                detail: 'Category is Saved Successfully',
+                detail: `${form.name} is Saved Successfully.`,
+                life: 3000,
+            });
+            closeDialog(SAVE_DIALOG);
+        },
+        onError: () => {
+            toast.add({
+                severity: 'error',
+                summary: 'Save Failed',
+                detail: 'Category saving failed!',
                 life: 3000,
             });
         },
@@ -139,19 +160,50 @@ const deleteCategory = () => {
         preserveScroll: true,
         preserveState: false,
         onSuccess: () => {
-            closeDialog(DELETE_DIALOG);
             toast.add({
                 severity: 'success',
                 summary: 'Deleted',
-                detail: 'Category is Deleted Successfully',
+                detail: `${form.name} is Deleted Successfully.`,
                 life: 3000,
             });
+            closeDialog(DELETE_DIALOG);
         },
         onError: () => {
             toast.add({
-                severity: 'danger',
+                severity: 'error',
                 summary: 'Delete Failed',
                 detail: 'Category deleting failed!',
+                life: 3000,
+            });
+        },
+    });
+};
+
+const openRestoreDialog = data => {
+    resetForm();
+    openCategoryRestoreDialog.value = true;
+    form.id = data.id;
+    form.name = data.name;
+};
+
+const restoreCategory = () => {
+    form.put(route('admin.category.restore'), {
+        preserveScroll: true,
+        preserveState: false,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Restore',
+                detail: `${form.name} is Restored Successfully.`,
+                life: 3000,
+            });
+            closeDialog(RESTORE_DIALOG);
+        },
+        onError: () => {
+            toast.add({
+                severity: 'error',
+                summary: 'Restore Failed',
+                detail: 'Category restoring failed!',
                 life: 3000,
             });
         },
@@ -169,11 +221,13 @@ const deleteCategory = () => {
         <div
             class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <div>
+                <ToggleButton class="tw-mb-2" v-model="isActiveMode"
+                onLabel="Active" offLabel="Trash"
+                onIcon="pi pi-check" offIcon="pi pi-trash" />
                 <DataTable
-                    stripedRows
                     removableSort
                     v-model:filters="filters"
-                    :value="currentCategories"
+                    :value="isActiveMode ? activeCategories : deletedCategories"
                     paginator
                     scrollable
                     scrollHeight="60vh"
@@ -191,10 +245,19 @@ const deleteCategory = () => {
                                         placeholder="Search" />
                                 </span>
                             </div>
-                            <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
+                            <transition
+                                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                :enter-active-class="TRANSITIONS.overlay.enterActiveClass"
+                                :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
+                                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                            >
+                                <template v-if="isActiveMode">
+                                    <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
+                                </template>
+                            </transition>
                         </div>
                     </template>
-                    <template #empty> No categories found. </template>
+                    <template #empty> No categories exist. </template>
                     <Column field="id" header="ID" class="tw-w-max" sortable>
                         <template #body="slotProps">
                             {{ slotProps.data.id }}
@@ -217,20 +280,31 @@ const deleteCategory = () => {
                         header="Options"
                         class="tw-w-full tw-flex tw-flex-row tw-space-x-2">
                         <template #body="slotProps">
-                            <Button
-                                icon="pi pi-pencil"
-                                outlined
-                                rounded
-                                severity="warning"
-                                class="tw-w-10 tw-h-10"
-                                @click="openSaveDialog(slotProps.data)" />
-                            <Button
-                                icon="pi pi-trash"
-                                outlined
-                                rounded
-                                severity="danger"
-                                class="tw-w-10 tw-h-10"
-                                @click="openDeleteDialog(slotProps.data)" />
+                            <template v-if="isActiveMode">
+                                <Button
+                                    icon="pi pi-pencil"
+                                    outlined
+                                    rounded
+                                    severity="warning"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openSaveDialog(slotProps.data)" />
+                                <Button
+                                    icon="pi pi-trash"
+                                    outlined
+                                    rounded
+                                    severity="danger"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openDeleteDialog(slotProps.data)" />
+                            </template>
+                            <template v-if="!isActiveMode">
+                                <Button
+                                    icon="pi pi-replay"
+                                    outlined
+                                    rounded
+                                    severity="success"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openRestoreDialog(slotProps.data)" />
+                            </template>
                         </template>
                     </Column>
                 </DataTable>
@@ -363,6 +437,40 @@ const deleteCategory = () => {
                             outlined
                             severity="danger"
                             @click="closeDialog(DELETE_DIALOG)" />
+                    </template>
+                </Dialog>
+
+                <!-- Restore Dialog -->
+                <Dialog
+                    v-model:visible="openCategoryRestoreDialog"
+                    modal
+                    header="Confirm"
+                    class="tw-w-2/5">
+                    <div
+                        class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                        <i
+                            class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                        <span>
+                            Are you sure you want to restore
+                            <b>{{ form.name }}</b> ?
+                        </span>
+                    </div>
+                    <template #footer>
+                        <Button
+                            :loading="form.processing"
+                            rounded
+                            label="Restore"
+                            icon="pi pi-check"
+                            autofocus
+                            @click="restoreCategory"
+                            severity="success" />
+                        <Button
+                            rounded
+                            label="Cancel"
+                            icon="pi pi-times"
+                            outlined
+                            severity="success"
+                            @click="closeDialog(RESTORE_DIALOG)" />
                     </template>
                 </Dialog>
             </div>
