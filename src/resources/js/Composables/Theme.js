@@ -1,10 +1,8 @@
 export const TRANSITIONS = {
     overlay: {
         enterFromClass: 'tw-opacity-0 tw-scale-75',
-        enterActiveClass:
-            'tw-transition-transform tw-transition-opacity tw-duration-200 tw-ease-in-out',
-        leaveActiveClass:
-            'tw-transition-transform tw-transition-opacity tw-duration-200 tw-ease-in-out',
+        enterActiveClass: 'tw-transition tw-duration-200 tw-ease-in-out',
+        leaveActiveClass: 'tw-transition tw-duration-200 tw-ease-in-out',
         leaveToClass: 'tw-opacity-0 tw-scale-75',
     },
 };
