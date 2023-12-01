@@ -40,8 +40,13 @@ class Category extends Model
     /**
      * The articles that belong to the category.
      */
-    public function categories(): BelongsToMany
+    public function articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class);
+    }
+
+    public function scopeOrderByName($query)
+    {
+        $query->orderBy('name', 'asc');
     }
 }

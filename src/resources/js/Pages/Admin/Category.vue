@@ -220,23 +220,23 @@ const restoreCategory = () => {
         <Toast />
         <div
             class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
-            <div>
-                <ToggleButton class="tw-mb-2" v-model="isActiveMode"
-                onLabel="Active" offLabel="Trash"
-                onIcon="pi pi-check" offIcon="pi pi-trash" />
-                <DataTable
-                    removableSort
-                    v-model:filters="filters"
-                    :value="isActiveMode ? activeCategories : deletedCategories"
-                    paginator
-                    scrollable
-                    scrollHeight="60vh"
-                    :rows="10"
-                    :rowsPerPageOptions="[5, 10, 20, 50]"
-                    dataKey="id"
-                    :globalFilterFields="['id', 'name']">
-                    <template #header>
-                        <div class="tw-flex tw-justify-between">
+            <DataTable
+                removableSort
+                v-model:filters="filters"
+                :value="isActiveMode ? activeCategories : deletedCategories"
+                paginator
+                scrollable
+                scrollHeight="60vh"
+                :rows="10"
+                :rowsPerPageOptions="[5, 10, 20, 50]"
+                dataKey="id"
+                :globalFilterFields="['id', 'name']">
+                <template #header>
+                    <div class="tw-flex tw-justify-between">
+                        <div class="tw-flex tw-justify-start tw-space-x-4">
+                            <ToggleButton v-model="isActiveMode"
+                                onLabel="Active" offLabel="Trash"
+                                onIcon="pi pi-check" offIcon="pi pi-trash" />
                             <div>
                                 <span class="p-input-icon-left">
                                     <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
@@ -245,235 +245,235 @@ const restoreCategory = () => {
                                         placeholder="Search" />
                                 </span>
                             </div>
-                            <transition
-                                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
-                                :enter-active-class="TRANSITIONS.overlay.enterActiveClass"
-                                :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
-                                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
-                            >
-                                <template v-if="isActiveMode">
-                                    <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
-                                </template>
-                            </transition>
                         </div>
-                    </template>
-                    <template #empty> No categories exist. </template>
-                    <Column field="id" header="ID" class="tw-w-max" sortable>
-                        <template #body="slotProps">
-                            {{ slotProps.data.id }}
-                        </template>
-                    </Column>
-                    <Column
-                        field="name"
-                        header="Name"
-                        class="tw-w-2/5"
-                        sortable>
-                        <template #body="slotProps">
-                            <Badge
-                                :content="slotProps.data.name"
-                                :textColor="slotProps.data.text_color"
-                                :backgroundColor="slotProps.data.background_color
-                                    " />
-                        </template>
-                    </Column>
-                    <Column
-                        header="Options"
-                        class="tw-w-full tw-flex tw-flex-row tw-space-x-2">
-                        <template #body="slotProps">
+                        <transition
+                            :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                            :enter-active-class="TRANSITIONS.overlay.enterActiveClass"
+                            :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
+                            :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                        >
                             <template v-if="isActiveMode">
-                                <Button
-                                    icon="pi pi-pencil"
-                                    outlined
-                                    rounded
-                                    severity="warning"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openSaveDialog(slotProps.data)" />
-                                <Button
-                                    icon="pi pi-trash"
-                                    outlined
-                                    rounded
-                                    severity="danger"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openDeleteDialog(slotProps.data)" />
+                                <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
                             </template>
-                            <template v-if="!isActiveMode">
-                                <Button
-                                    icon="pi pi-replay"
-                                    outlined
-                                    rounded
-                                    severity="success"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openRestoreDialog(slotProps.data)" />
-                            </template>
-                        </template>
-                    </Column>
-                </DataTable>
-
-                <!-- Create/Update Dialog -->
-                <Dialog
-                    v-model:visible="openCategorySaveDialog"
-                    modal
-                    header="Category Details">
-                    <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
-                        <div
-                            class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50/80 tw-rounded-md tw-border tw-shadow">
-                            <Badge
-                                :content="form.name || 'Text'"
-                                :textColor="form.text_color"
-                                :backgroundColor="form.background_color" />
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-space-y-4">
-                            <div class="tw-flex tw-flex-col tw-space-y-1">
-                                <label class="tw-font-bold">Name</label>
-                                <TextInput
-                                    v-model.trim="form.name"
-                                    autofocus />
-                                <InputError :message="form.errors.name" />
-                            </div>
-                            <div class="tw-flex tw-flex-col tw-space-y-1">
-                                <div
-                                    class="tw-flex tw-flex-row tw-justify-between">
-                                    <label class="tw-font-bold">Color</label>
-                                    <Checkbox
-                                        v-tooltip.left="{ value: 'Set background and text color same', pt: tooltipTheme }"
-                                        v-model="isSameColor"
-                                        :binary="true"
-                                        @change="setSameColor" />
-                                </div>
-                                <div
-                                    class="tw-flex tw-flex-col sm:tw-flex-row tw-space-y-2 sm:tw-space-y-0 tw-space-x-0 sm:tw-space-x-2">
-                                    <div
-                                        class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
-                                        <label class="text-sm tw-font-semibold">Text Color</label>
-                                        <div
-                                            class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
-                                            <ColorPicker
-                                                v-model="form.text_color"
-                                                @change="
-                                                    changeColor(TEXT_COLOR)
-                                                    " />
-                                            <TextInput
-                                                v-model="form.text_color"
-                                                class="tw-w-full"
-                                                required="true"
-                                                @change="
-                                                    changeColor(TEXT_COLOR)
-                                                    " />
-                                        </div>
-                                        <InputError :message="form.errors.text_color" />
-                                    </div>
-                                    <div
-                                        class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
-                                        <label class="text-sm tw-font-semibold">Background Color</label>
-                                        <div
-                                            class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
-                                            <ColorPicker
-                                                v-model="form.background_color"
-                                                @change="
-                                                    changeColor(
-                                                        BACKGROUND_COLOR,
-                                                    )
-                                                    " />
-                                            <TextInput
-                                                v-model="form.background_color"
-                                                class="tw-w-full"
-                                                required="true"
-                                                @change="
-                                                    changeColor(
-                                                        BACKGROUND_COLOR,
-                                                    )
-                                                    " />
-                                        </div>
-                                        <InputError :message="form.errors.background_color" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tw-flex tw-flex-row tw-justify-end tw-space-x-2">
+                        </transition>
+                    </div>
+                </template>
+                <template #empty> No categories exist. </template>
+                <Column field="id" header="ID" class="tw-w-max" sortable>
+                    <template #body="slotProps">
+                        {{ slotProps.data.id }}
+                    </template>
+                </Column>
+                <Column
+                    field="name"
+                    header="Name"
+                    class="tw-w-2/5"
+                    sortable>
+                    <template #body="slotProps">
+                        <Badge
+                            :content="slotProps.data.name"
+                            :textColor="slotProps.data.text_color"
+                            :backgroundColor="slotProps.data.background_color
+                                " />
+                    </template>
+                </Column>
+                <Column
+                    header="Options"
+                    class="tw-w-full tw-flex tw-flex-row tw-space-x-2">
+                    <template #body="slotProps">
+                        <template v-if="isActiveMode">
                             <Button
-                                :loading="form.processing"
-                                type="submit"
-                                rounded
-                                label="Save"
-                                icon="pi pi-check" />
-                            <Button
-                                rounded
-                                label="Cancel"
-                                icon="pi pi-times"
+                                icon="pi pi-pencil"
                                 outlined
-                                @click="closeDialog(SAVE_DIALOG)" />
+                                rounded
+                                severity="warning"
+                                class="tw-w-10 tw-h-10"
+                                @click="openSaveDialog(slotProps.data)" />
+                            <Button
+                                icon="pi pi-trash"
+                                outlined
+                                rounded
+                                severity="danger"
+                                class="tw-w-10 tw-h-10"
+                                @click="openDeleteDialog(slotProps.data)" />
+                        </template>
+                        <template v-if="!isActiveMode">
+                            <Button
+                                icon="pi pi-replay"
+                                outlined
+                                rounded
+                                severity="success"
+                                class="tw-w-10 tw-h-10"
+                                @click="openRestoreDialog(slotProps.data)" />
+                        </template>
+                    </template>
+                </Column>
+            </DataTable>
+
+            <!-- Create/Update Dialog -->
+            <Dialog
+                v-model:visible="openCategorySaveDialog"
+                modal
+                header="Category Details">
+                <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
+                    <div
+                        class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50/80 tw-rounded-md tw-border tw-shadow">
+                        <Badge
+                            :content="form.name || 'Text'"
+                            :textColor="form.text_color"
+                            :backgroundColor="form.background_color" />
+                    </div>
+                    <div class="tw-flex tw-flex-col tw-space-y-4">
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <label class="tw-font-bold">Name</label>
+                            <TextInput
+                                v-model.trim="form.name"
+                                autofocus />
+                            <InputError :message="form.errors.name" />
                         </div>
-                    </form>
-                </Dialog>
-
-                <!-- Delete Dialog -->
-                <Dialog
-                    v-model:visible="openCategoryDeleteDialog"
-                    modal
-                    header="Confirm"
-                    class="tw-w-2/5">
-                    <div
-                        class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                        <i
-                            class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
-                        <span>
-                            Are you sure you want to delete
-                            <b>{{ form.name }}</b> ?
-                        </span>
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <div
+                                class="tw-flex tw-flex-row tw-justify-between">
+                                <label class="tw-font-bold">Color</label>
+                                <Checkbox
+                                    v-tooltip.left="{ value: 'Set background and text color same', pt: tooltipTheme }"
+                                    v-model="isSameColor"
+                                    :binary="true"
+                                    @change="setSameColor" />
+                            </div>
+                            <div
+                                class="tw-flex tw-flex-col sm:tw-flex-row tw-space-y-2 sm:tw-space-y-0 tw-space-x-0 sm:tw-space-x-2">
+                                <div
+                                    class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
+                                    <label class="text-sm tw-font-semibold">Text Color</label>
+                                    <div
+                                        class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
+                                        <ColorPicker
+                                            v-model="form.text_color"
+                                            @change="
+                                                changeColor(TEXT_COLOR)
+                                                " />
+                                        <TextInput
+                                            v-model="form.text_color"
+                                            class="tw-w-full"
+                                            required="true"
+                                            @change="
+                                                changeColor(TEXT_COLOR)
+                                                " />
+                                    </div>
+                                    <InputError :message="form.errors.text_color" />
+                                </div>
+                                <div
+                                    class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
+                                    <label class="text-sm tw-font-semibold">Background Color</label>
+                                    <div
+                                        class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
+                                        <ColorPicker
+                                            v-model="form.background_color"
+                                            @change="
+                                                changeColor(
+                                                    BACKGROUND_COLOR,
+                                                )
+                                                " />
+                                        <TextInput
+                                            v-model="form.background_color"
+                                            class="tw-w-full"
+                                            required="true"
+                                            @change="
+                                                changeColor(
+                                                    BACKGROUND_COLOR,
+                                                )
+                                                " />
+                                    </div>
+                                    <InputError :message="form.errors.background_color" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <template #footer>
+                    <div class="tw-flex tw-flex-row tw-justify-end tw-space-x-2">
                         <Button
                             :loading="form.processing"
+                            type="submit"
                             rounded
-                            label="Delete"
-                            icon="pi pi-check"
-                            autofocus
-                            @click="deleteCategory"
-                            severity="danger" />
+                            label="Save"
+                            icon="pi pi-check" />
                         <Button
                             rounded
                             label="Cancel"
                             icon="pi pi-times"
                             outlined
-                            severity="danger"
-                            @click="closeDialog(DELETE_DIALOG)" />
-                    </template>
-                </Dialog>
-
-                <!-- Restore Dialog -->
-                <Dialog
-                    v-model:visible="openCategoryRestoreDialog"
-                    modal
-                    header="Confirm"
-                    class="tw-w-2/5">
-                    <div
-                        class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                        <i
-                            class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
-                        <span>
-                            Are you sure you want to restore
-                            <b>{{ form.name }}</b> ?
-                        </span>
+                            @click="closeDialog(SAVE_DIALOG)" />
                     </div>
-                    <template #footer>
-                        <Button
-                            :loading="form.processing"
-                            rounded
-                            label="Restore"
-                            icon="pi pi-check"
-                            autofocus
-                            @click="restoreCategory"
-                            severity="success" />
-                        <Button
-                            rounded
-                            label="Cancel"
-                            icon="pi pi-times"
-                            outlined
-                            severity="success"
-                            @click="closeDialog(RESTORE_DIALOG)" />
-                    </template>
-                </Dialog>
-            </div>
+                </form>
+            </Dialog>
+
+            <!-- Delete Dialog -->
+            <Dialog
+                v-model:visible="openCategoryDeleteDialog"
+                modal
+                header="Confirm"
+                class="tw-w-2/5">
+                <div
+                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                    <i
+                        class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
+                    <span>
+                        Are you sure you want to delete
+                        <b>{{ form.name }}</b> ?
+                    </span>
+                </div>
+                <template #footer>
+                    <Button
+                        :loading="form.processing"
+                        rounded
+                        label="Delete"
+                        icon="pi pi-check"
+                        autofocus
+                        @click="deleteCategory"
+                        severity="danger" />
+                    <Button
+                        rounded
+                        label="Cancel"
+                        icon="pi pi-times"
+                        outlined
+                        severity="danger"
+                        @click="closeDialog(DELETE_DIALOG)" />
+                </template>
+            </Dialog>
+
+            <!-- Restore Dialog -->
+            <Dialog
+                v-model:visible="openCategoryRestoreDialog"
+                modal
+                header="Confirm"
+                class="tw-w-2/5">
+                <div
+                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                    <i
+                        class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                    <span>
+                        Are you sure you want to restore
+                        <b>{{ form.name }}</b> ?
+                    </span>
+                </div>
+                <template #footer>
+                    <Button
+                        :loading="form.processing"
+                        rounded
+                        label="Restore"
+                        icon="pi pi-check"
+                        autofocus
+                        @click="restoreCategory"
+                        severity="success" />
+                    <Button
+                        rounded
+                        label="Cancel"
+                        icon="pi pi-times"
+                        outlined
+                        severity="success"
+                        @click="closeDialog(RESTORE_DIALOG)" />
+                </template>
+            </Dialog>
         </div>
     </section>
 </template>

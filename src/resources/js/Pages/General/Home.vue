@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import CardContainer from '@/Components/Elements/CardContainer.vue';
-import Card from '@/Components/Elements/Card.vue';
+import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 </script>
 <template>
     <section class="tw-container">
@@ -15,9 +15,9 @@ import Card from '@/Components/Elements/Card.vue';
             </p>
         </div>
         <CardContainer>
-            <Card class="article1" data-cursor-type="project" />
-            <Card class="article2" data-cursor-type="link" />
-            <Card class="article3" data-cursor-type="project" />
+            <!-- <ArticleCard class="article1" data-cursor-type="project" />
+            <ArticleCard class="article2" data-cursor-type="link" />
+            <ArticleCard class="article3" data-cursor-type="project" /> -->
         </CardContainer>
     </section>
 </template>

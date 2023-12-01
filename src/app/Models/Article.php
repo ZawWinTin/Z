@@ -13,6 +13,17 @@ class Article extends Model
     use HasFactory, SoftDeletes;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'content',
+    ];
+
+    /**
      * The categories that belong to the article.
      */
     public function categories(): BelongsToMany
@@ -22,6 +33,6 @@ class Article extends Model
 
     public function images(): MorphMany
     {
-        return $this->morphMany(Image::class, 'commentable');
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

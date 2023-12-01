@@ -17,6 +17,8 @@ class ArticleController extends Controller
 
     public function index()
     {
-        return Inertia::render('Admin/Article');
+        $data = $this->articleService->getAll();
+
+        return Inertia::render('Admin/Article', $data);
     }
 }

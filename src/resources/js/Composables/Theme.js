@@ -52,7 +52,7 @@ export const paginatorTheme = {
         class: [
             'tw-duration-300 tw-transition',
             'tw-flex tw-items-center tw-justify-center tw-flex-wrap',
-            'tw-bg-slate-50 tw-text-slate-500 tw-border-0 tw-px-4 tw-py-2 tw-rounded-md',
+            'tw-bg-slate-50 tw-text-slate-500 tw-border-0 tw-px-4 tw-pt-2 tw-rounded-md',
             'dark:tw-bg-slate-800 dark:tw-text-slate-50/60 dark:tw-border-primary/40', // Dark Mode
         ],
     },

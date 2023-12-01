@@ -7,7 +7,7 @@ import ToggleButton from 'primevue/togglebutton';
             root: ({ props, context }) => ({
                 class: [
                     'tw-inline-flex tw-cursor-pointer tw-select-none tw-items-center tw-align-bottom tw-text-center tw-overflow-hidden tw-relative',
-                    'tw-px-4 tw-py-2 tw-rounded-full tw-text-base tw-w-36',
+                    'tw-px-4 tw-py-2 tw-rounded-full tw-text-base tw-w-32',
                     'tw-border tw-transition tw-duration-300 tw-ease-in-out',
                     {
                         'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':

@@ -1,7 +1,19 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
+import Badge from '@/Components/UI/Badge.vue';
 
-let createdDate = moment().format('MMM Do, YYYY');
+const props = defineProps({
+    article: {
+        default: null,
+    },
+    link: {
+        default: location.href,
+    }
+});
+
+let displayTime = moment().diff(props.article.created_at, 'days') <= 2 ? moment(props.article.created_at, "YYYYMMDD").fromNow()
+    : moment(props.article.created_at).format('MMM Do, YYYY');
 let imageContainer = ref(null);
 
 onMounted(() => {
@@ -22,8 +34,8 @@ let loadImage = () => {
 };
 </script>
 <template>
-    <a
-        href="#"
+    <Link
+        :href="props.link"
         class="
             card
             interactable-js
@@ -39,7 +51,7 @@ let loadImage = () => {
                 tw-overflow-hidden
                 tw-relative
                 tw-rounded-lg
-                tw-shadow-[1rem_0_2rem_0_rgba(0,0,0,0.5)]
+                tw-shadow
                 tw-w-80
                 "
         >
@@ -83,7 +95,7 @@ let loadImage = () => {
                             tw-text-sm
                             "
                     >
-                        {{ createdDate }}
+                        {{ displayTime }}
                     </p>
                     <h5
                         class="
@@ -99,8 +111,17 @@ let loadImage = () => {
                             tw-tracking-tight
                             "
                     >
-                        Noteworthy technology acquisitions 2021
+                        {{ props.article.title }}
                     </h5>
+                    <div class="tw-flex tw-flex-row tw-flex-wrap tw-max-h-[68px] tw-gap-1">
+                        <div class="tw-w-full tw-line-clamp-2">
+                            <template v-for="category in props.article.categories" :key="category.id">
+                                <Badge :content="category.name"
+                                    :textColor="category.text_color"
+                                    :backgroundColor="category.background_color" />
+                            </template>
+                        </div>
+                    </div>
                     <p
                         class="
                             tw-line-clamp-3
@@ -110,39 +131,12 @@ let loadImage = () => {
                             tw-tracking-tight
                             "
                     >
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Quae, doloribus, nemo odit quod tempore cum,
-                        tempora non ipsum rerum dolore temporibus veritatis enim
-                        adipisci est. Nihil molestias voluptas reiciendis
-                        voluptate expedita, distinctio aspernatur aut veritatis
-                        ad debitis quo ipsa, tenetur delectus quibusdam optio
-                        quidem corporis qui, atque doloremque! Molestiae tempore
-                        ratione est nulla quae perspiciatis vero, quasi animi,
-                        doloribus esse soluta. Quis ducimus quasi deserunt,
-                        officia cupiditate explicabo libero magni in harum ab
-                        dolorum unde quam corrupti consequatur repudiandae.
-                        Numquam officiis recusandae ad impedit. Explicabo
-                        repudiandae excepturi voluptas ex id illum nulla, soluta
-                        autem, sed temporibus atque numquam iste exercitationem
-                        nisi aut amet quis quo deleniti facilis reiciendis quae
-                        dolorum aliquam consectetur! Nihil, temporibus
-                        doloremque voluptas omnis blanditiis impedit! Facere,
-                        natus est labore, cum qui quas perferendis, quia
-                        explicabo quibusdam quis hic laudantium. Perferendis
-                        error laudantium at non quis suscipit expedita vero
-                        voluptate saepe incidunt praesentium provident culpa
-                        quasi modi natus tempora ea ipsum facere iste molestiae,
-                        aliquid deserunt repudiandae. Illo corrupti in culpa hic
-                        quam nostrum aliquam inventore ullam dolores, totam
-                        eligendi nemo ipsam voluptatum eos sapiente minima
-                        voluptatem, quis alias repellendus omnis commodi! Iusto,
-                        amet. Distinctio quam nam, sint odio neque cumque
-                        quisquam voluptatem doloribus similique dolorem? Eius?
+                        {{ props.article.description }}
                     </p>
                 </div>
             </div>
         </div>
-    </a>
+    </Link>
 </template>
 <style lang="scss" scoped>
 .card-background {

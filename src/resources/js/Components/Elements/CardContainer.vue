@@ -20,6 +20,7 @@
         position: relative;
         right: 0;
         margin-top: 0;
+        box-shadow: 1rem 0 2rem 0 rgba(0,0,0,0.5);
 
         &:not(:first-child) {
             margin-right: -5rem;
