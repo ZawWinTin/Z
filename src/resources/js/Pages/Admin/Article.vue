@@ -51,7 +51,7 @@ const openSaveDialog = () => {
 };
 
 const filteredArticles = computed(() => {
-    return isActiveMode ? activeArticles.value : deletedArticles.value;
+    return isActiveMode.value ? activeArticles.value : deletedArticles.value;
 });
 
 const filteredCategories = computed(() => {
