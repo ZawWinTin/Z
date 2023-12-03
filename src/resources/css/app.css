@@ -31,7 +31,7 @@
 }
 
 .primary-scrollbar {
-    transition: --scrollbar-primary-color 0.8s linear;
+    transition: --scrollbar-primary-color 300ms linear;
 }
 .primary-scrollbar:hover {
     --scrollbar-primary-color: rgba(148, 0, 211, 0.8);

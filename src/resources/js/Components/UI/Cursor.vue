@@ -57,6 +57,9 @@ let getCursorText = type => {
         case 'project':
             updatedCursorText = 'View Project';
             break;
+        case 'explore':
+            updatedCursorText = 'Explore';
+            break;
         case 'link':
             updatedCursorText = 'Open Link';
             break;

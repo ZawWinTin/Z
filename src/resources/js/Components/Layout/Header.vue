@@ -109,7 +109,7 @@ let getActiveClasses = (routeName) => {
             <section :class="sectionClasses" class="tw-pl-4">
                 <div :class="menuCardClasses">
                     <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
-                    <Link :class="[getActiveClasses('articles'), menuLinkClasses]" href="#">Articles</Link>
+                    <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" :href="route('article.index')">Articles</Link>
                     <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
                     <Link :class="[getActiveClasses('contact'), menuLinkClasses]" href="#">Contact</Link>
                     <template v-if="route().has('admin.dashboard')">
