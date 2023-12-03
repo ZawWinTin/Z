@@ -12,9 +12,11 @@ const props = defineProps({
     }
 });
 
-let displayTime = moment().diff(props.article.created_at, 'days') <= 2 ? moment(props.article.created_at, "YYYYMMDD").fromNow()
+let displayTime = moment().diff(props.article.created_at, 'days') <= 2 ? moment(props.article.created_at).fromNow()
     : moment(props.article.created_at).format('MMM Do, YYYY');
+
 let imageContainer = ref(null);
+let card = ref(null);
 
 onMounted(() => {
     loadImage();
@@ -27,7 +29,8 @@ let loadImage = () => {
         'tw-absolute',
         'tw-h-full',
         'tw-w-full',
-        'tw-rounded-t-lg',
+        'tw-rounded-t-2xl',
+        'tw-rounded-b-sm',
         'tw-object-cover',
     );
     imageContainer.value.appendChild(uploadImage);
@@ -35,6 +38,7 @@ let loadImage = () => {
 </script>
 <template>
     <Link
+        ref="card"
         :href="props.link"
         class="
             card
@@ -43,51 +47,93 @@ let loadImage = () => {
             tw-ease-in-out
             tw-group
             tw-transition-all
+            tw-h-[22rem]
+            tw-flex
+            tw-justify-center
+            tw-items-center
             "
     >
         <div
             class="
-                tw-h-[17.5rem]
-                tw-overflow-hidden
+                tw-mt-[20%]
+                group-hover:tw-mt-[40%]
+                tw-h-[65%]
+                group-hover:tw-h-[78%]
                 tw-relative
-                tw-rounded-lg
+                tw-flex
+                tw-flex-col
+                tw-items-center
+                tw-rounded-2xl
                 tw-shadow
                 tw-w-80
+                tw-transition-all
+                tw-duration-300
+                tw-ease-in-out
+                dark:tw-bg-slate-900
+                tw-bg-slate-50
+                tw-p-5
                 "
         >
+            <!-- Image -->
             <div
                 ref="imageContainer"
-                class="tw-h-52 tw-relative tw-w-full"
+                class="
+                    tw-top-[-20%]
+                    group-hover:tw-top-[-32%]
+                    tw-absolute
+                    tw-h-36
+                    tw-border-slate-50
+                    dark:tw-border-slate-900
+                    tw-rounded-t-2xl
+                    tw-rounded-b-sm
+                    tw-w-[88%]
+                    tw-shadow-lg
+                    tw-z-[1]
+                    tw-transition-all
+                    tw-duration-300"
             ></div>
+
+            <!-- Text -->
             <div
                 class="
-                    group-hover:tw-translate-y-[-5.5rem]
-                    tw-duration-500
-                    tw-mt-[-3.3rem]
+                    tw-mt-[32%]
+                    group-hover:tw-mt-[16%]
+                    tw-duration-300
                     tw-relative
-                    tw-transition
-                    "
-            >
-                <div
-                    class="
-                        card-background
-                        tw-absolute
-                        dark:tw-bg-slate-900
-                        tw-bg-slate-50
-                        tw-duration-300
-                        tw-ease-in-out
-                        tw-rounded-2xl
-                        w-full
-                        "
-                ></div>
-                <div class="
+                    tw-transition-all
+                    tw-ease-in-out
                     tw-flex
                     tw-flex-col
-                    tw-gap-2
-                    tw-p-5
-                    tw-relative
-                    ">
-                    <p
+                    tw-space-y-2
+                    "
+            >
+                <h5
+                    class="
+                        tw-h-16
+                        card-title
+                        tw-bg-clip-text
+                        tw-bg-gradient-to-r
+                        tw-font-bold
+                        tw-from-indigo-500
+                        tw-line-clamp-2
+                        tw-text-2xl
+                        tw-text-transparent
+                        tw-to-primary
+                        tw-tracking-tight
+                        "
+                >
+                    {{ props.article.title }}
+                </h5>
+                <div class="tw-flex tw-flex-row tw-max-h-[32px] tw-items-center tw-justify-between tw-overflow-hidden">
+                    <template v-for="(category, index) in props.article.categories" :key="category.id">
+                        <!-- Show Highest Priority Only -->
+                        <template v-if="!index">
+                            <Badge :content="category.name"
+                                :textColor="category.text_color"
+                                :backgroundColor="category.background_color" />
+                        </template>
+                    </template>
+                    <span
                         class="
                             tw-text-right
                             dark:tw-text-slate-500
@@ -96,44 +142,29 @@ let loadImage = () => {
                             "
                     >
                         {{ displayTime }}
-                    </p>
-                    <h5
-                        class="
-                            card-title
-                            tw-bg-clip-text
-                            tw-bg-gradient-to-r
-                            tw-font-bold
-                            tw-from-indigo-500
-                            tw-line-clamp-2
-                            tw-text-2xl
-                            tw-text-transparent
-                            tw-to-primary
-                            tw-tracking-tight
-                            "
-                    >
-                        {{ props.article.title }}
-                    </h5>
-                    <div class="tw-flex tw-flex-row tw-flex-wrap tw-max-h-[68px] tw-gap-1">
-                        <div class="tw-w-full tw-line-clamp-2">
-                            <template v-for="category in props.article.categories" :key="category.id">
-                                <Badge :content="category.name"
-                                    :textColor="category.text_color"
-                                    :backgroundColor="category.background_color" />
-                            </template>
-                        </div>
-                    </div>
-                    <p
-                        class="
-                            tw-line-clamp-3
-                            dark:tw-text-slate-400
-                            tw-text-justify
-                            tw-text-slate-700
-                            tw-tracking-tight
-                            "
-                    >
-                        {{ props.article.description }}
-                    </p>
+                    </span>
                 </div>
+                <p
+                    class="
+                        tw-top-[-8rem]
+                        tw-invisible
+                        tw-opacity-0
+                        tw-mt-0
+                        group-hover:tw-mt-4
+                        group-hover:tw-visible
+                        group-hover:tw-opacity-100
+                        tw-transition-all
+                        tw-ease-in
+                        tw-duration-150
+                        tw-line-clamp-3
+                        dark:tw-text-slate-400
+                        tw-text-justify
+                        tw-text-slate-700
+                        tw-tracking-tight
+                        "
+                >
+                    {{ props.article.description }}
+                </p>
             </div>
         </div>
     </Link>

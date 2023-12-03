@@ -11,17 +11,37 @@
 
 /* Hide Scrollbar */
 /* Firefox */
-html,
-* {
+.hide-scroll {
     scrollbar-width: none;
 }
 /* Edge */
-body,
-* {
+.hide-scroll {
     -ms-overflow-style: none;
 }
 /* Chrome */
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
+.hide-scroll::-webkit-scrollbar {
     display: none;
+}
+
+/** Primary ScrollBar Design **/
+@property --scrollbar-primary-color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+}
+
+.primary-scrollbar {
+    transition: --scrollbar-primary-color 0.8s linear;
+}
+.primary-scrollbar:hover {
+    --scrollbar-primary-color: rgba(148, 0, 211, 0.8);
+}
+
+.primary-scrollbar::-webkit-scrollbar {
+    width: 7px;
+}
+
+.primary-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-primary-color);
+    border-radius: 10px;
 }

@@ -6,7 +6,7 @@ import TextInput from '@/Components/UI/TextInput.vue';
 import DataTable from '@/Components/Elements/Datatable.vue';
 import Column from 'primevue/column';
 import { FilterMatchMode } from 'primevue/api';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import Toast from '@/Components/UI/Toast.vue';
 import route from '@/Composables/Route';
@@ -22,6 +22,7 @@ const openCategorySaveDialog = ref(false);
 const openCategoryDeleteDialog = ref(false);
 const openCategoryRestoreDialog = ref(false);
 const isSameColor = ref(false);
+const isCategoryPreviewBgDark = ref(false);
 
 const isActiveMode = ref(true);
 
@@ -59,6 +60,16 @@ onMounted(() => {
     activeCategories.value = props.activeCategories;
     deletedCategories.value = props.deletedCategories;
 });
+
+const getCategories = computed(() => isActiveMode.value ? activeCategories.value : deletedCategories.value);
+
+const getDate = (date) => {
+    return moment(date).format('ll');
+};
+
+const toggleCategoryPreviewBg = () => {
+    isCategoryPreviewBgDark.value = !isCategoryPreviewBgDark.value;
+};
 
 const openSaveDialog = (data = null) => {
     resetForm();
@@ -223,12 +234,12 @@ const restoreCategory = () => {
             <DataTable
                 removableSort
                 v-model:filters="filters"
-                :value="isActiveMode ? activeCategories : deletedCategories"
-                paginator
+                :value="getCategories"
                 scrollable
-                scrollHeight="60vh"
+                scrollHeight="53vh"
+                paginator
                 :rows="10"
-                :rowsPerPageOptions="[5, 10, 20, 50]"
+                :rowsPerPageOptions="[5, 10, 20]"
                 dataKey="id"
                 :globalFilterFields="['id', 'name']">
                 <template #header>
@@ -259,7 +270,7 @@ const restoreCategory = () => {
                     </div>
                 </template>
                 <template #empty> No categories exist. </template>
-                <Column field="id" header="ID" class="tw-w-max" sortable>
+                <Column field="id" header="ID" class="tw-w-1/4" sortable>
                     <template #body="slotProps">
                         {{ slotProps.data.id }}
                     </template>
@@ -267,7 +278,7 @@ const restoreCategory = () => {
                 <Column
                     field="name"
                     header="Name"
-                    class="tw-w-2/5"
+                    class="tw-w-1/4"
                     sortable>
                     <template #body="slotProps">
                         <Badge
@@ -275,6 +286,15 @@ const restoreCategory = () => {
                             :textColor="slotProps.data.text_color"
                             :backgroundColor="slotProps.data.background_color
                                 " />
+                    </template>
+                </Column>
+                <Column
+                    field="created_at"
+                    header="Created Date"
+                    class="tw-w-1/4"
+                    sortable>
+                    <template #body="slotProps">
+                        {{ getDate(slotProps.data.created_at) }}
                     </template>
                 </Column>
                 <Column
@@ -308,6 +328,7 @@ const restoreCategory = () => {
                         </template>
                     </template>
                 </Column>
+                <template #footer> In total, there are <b>{{ getCategories ? getCategories.length : 0 }}</b> categories.</template>
             </DataTable>
 
             <!-- Create/Update Dialog -->
@@ -317,11 +338,21 @@ const restoreCategory = () => {
                 header="Category Details">
                 <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
                     <div
-                        class="tw-p-4 tw-flex tw-justify-center tw-bg-slate-50/80 tw-rounded-md tw-border tw-shadow">
+                        class="tw-py-12 tw-flex tw-justify-center tw-rounded-md tw-border-primary tw-shadow tw-relative tw-transition tw-duration-300"
+                        :class="isCategoryPreviewBgDark ? 'tw-bg-slate-900' : 'tw-bg-slate-50'">
                         <Badge
                             :content="form.name || 'Text'"
                             :textColor="form.text_color"
                             :backgroundColor="form.background_color" />
+                        <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300"
+                            :class="isCategoryPreviewBgDark ? 'tw-bg-slate-50 tw-text-slate-900' : 'tw-bg-slate-900 tw-text-slate-50'"
+                        @click="toggleCategoryPreviewBg">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="tw-w-5 tw-h-5">
+                                <path fill-rule="evenodd" d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        </button>
                     </div>
                     <div class="tw-flex tw-flex-col tw-space-y-4">
                         <div class="tw-flex tw-flex-col tw-space-y-1">
@@ -399,6 +430,7 @@ const restoreCategory = () => {
                             icon="pi pi-check" />
                         <Button
                             rounded
+                            type="button"
                             label="Cancel"
                             icon="pi pi-times"
                             outlined

@@ -20,6 +20,7 @@ class CategoryFactory extends Factory
             'name' => fake()->name(),
             'text_color' => fake()->hexColor(),
             'background_color' => fake()->hexColor(),
+            'created_at' => now()->subDay(rand(0, 10)),
         ];
     }
 }

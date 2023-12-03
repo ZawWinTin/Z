@@ -27,7 +27,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             wrapper: ({ props }) => ({
                 class: [
                     {
-                        'tw-relative': props.scrollable,
+                        'tw-relative primary-scrollbar': props.scrollable,
                         'tw-flex tw-flex-col tw-grow tw-h-full':
                             props.scrollable &&
                             props.scrollHeight === 'tw-flex',
@@ -71,8 +71,8 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             footer: {
                 class: [
                     'tw-duration-300 tw-transition',
-                    'tw-bg-slate-50 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-font-bold tw-p-4',
-                    'dark:tw-border-primary/40 dark:text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
+                    'tw-bg-slate-50 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
+                    'dark:tw-border-primary/40 dark:tw-text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
                 ],
             },
             column: {

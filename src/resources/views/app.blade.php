@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="hide-scroll">
 
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     @inertiaHead
 </head>
 
-<body class="tw-font-sans tw-antialiased tw-scroll-smooth selection:tw-bg-primary/80 selection:tw-text-slate-50">
+<body class="tw-font-sans tw-antialiased tw-scroll-smooth selection:tw-bg-primary/80 selection:tw-text-slate-50 hide-scroll">
     @inertia
 </body>
 

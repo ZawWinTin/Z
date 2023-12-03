@@ -144,7 +144,7 @@ export const paginatorTheme = {
         }),
         input: {
             class: [
-                'tw-font-sans tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
+                'tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
                 'tw-block tw-whitespace-nowrap tw-overflow-hidden tw-flex-auto tw-w-[1%] tw-cursor-pointer tw-text-ellipsis tw-border-0 tw-pr-0',
                 'focus:tw-outline-none focus:outline-offset-0',
                 'dark:tw-text-slate-50', //Dark Mode
