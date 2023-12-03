@@ -150,14 +150,14 @@ const disableClearChoseCategories = computed(() => {
                     />
                 </div>
                 <div
-                    class="tw-flex tw-flex-col tw-space-y-1 tw-mx-2 tw-overflow-y-auto primary-scrollbar tw-h-[70vh] tw-transition tw-duration-300"
+                    class="tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-mx-2 tw-overflow-y-auto primary-scrollbar tw-max-h-[70vh] tw-transition tw-duration-300"
                 >
                     <template
                         v-for="category in filteredCategories"
                         :key="category.id"
                     >
                         <div
-                            class="tw-py-2 tw-px-2 tw-cursor-pointer tw-rounded-full tw-transition tw-duration-300 hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80"
+                            class="tw-inline-flex tw-justify-center tw-items-center tw-py-2 tw-px-2 tw-cursor-pointer tw-rounded-full tw-transition tw-duration-300 hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80"
                             :class="
                                 articleFilters.categories.value.includes(
                                     category.id,

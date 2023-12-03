@@ -37,7 +37,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             header: ({ props }) => ({
                 class: [
                     'tw-duration-300 tw-transition',
-                    'tw-bg-slate-50 tw-text-slate-700 tw-border-slate-300 tw-pb-4',
+                    'tw-bg-slate-100 tw-text-slate-700 tw-border-slate-300 tw-pb-4',
                     'dark:tw-border-primary/40 dark:text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
                     props.showGridlines
                         ? 'tw-border-x tw-border-t tw-border-b-0'
@@ -63,7 +63,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             tfoot: ({ context }) => ({
                 class: [
                     {
-                        'tw-bg-slate-50 tw-bottom-0 tw-z-[1]':
+                        'tw-bg-slate-100 tw-bottom-0 tw-z-[1]':
                             context.scrollable,
                     },
                 ],
@@ -71,7 +71,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
             footer: {
                 class: [
                     'tw-duration-300 tw-transition',
-                    'tw-bg-slate-50 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
+                    'tw-bg-slate-100 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
                     'dark:tw-border-primary/40 dark:tw-text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
                 ],
             },
@@ -87,7 +87,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                               : 'tw-p-4', // Size
                         context.sorted
                             ? 'tw-bg-primary/20 tw-text-slate-700'
-                            : 'tw-bg-slate-50 tw-text-slate-700', // Sort
+                            : 'tw-bg-slate-100 tw-text-slate-700', // Sort
                         context.sorted
                             ? 'dark:tw-text-slate-50/80 dark:tw-bg-primary/10'
                             : 'dark:tw-text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
@@ -120,7 +120,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 footercell: ({ context }) => ({
                     class: [
                         'tw-text-left tw-border-0 tw-border-b tw-border-solid tw-border-slate-300 tw-font-bold',
-                        'tw-bg-slate-50 tw-text-slate-700',
+                        'tw-bg-slate-100 tw-text-slate-700',
                         'tw-transition tw-duration-300',
                         context?.size === 'small'
                             ? 'tw-p-2'
@@ -152,7 +152,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 columnfilter: 'tw-inline-flex tw-items-center tw-ml-auto',
                 filteroverlay: {
                     class: [
-                        'tw-bg-slate-50 tw-text-slate-600 tw-border-0 tw-rounded-md tw-min-w-[12.5rem]',
+                        'tw-bg-slate-100 tw-text-slate-600 tw-border-0 tw-rounded-md tw-min-w-[12.5rem]',
                         'dark:tw-bg-slate-900 dark:tw-border-blue-900/40 dark:tw-text-slate-50/80', //Dark Mode
                     ],
                 },
@@ -171,7 +171,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 }),
                 filteroperator: {
                     class: [
-                        'tw-px-5 tw-py-3 tw-border-b tw-border-solid tw-border-slate-300 text-slate-700 tw-bg-slate-50 tw-rounded-t-md',
+                        'tw-px-5 tw-py-3 tw-border-b tw-border-solid tw-border-slate-300 text-slate-700 tw-bg-slate-100 tw-rounded-t-md',
                         'dark:tw-border-blue-900/40 dark:text-slate-50/80 dark:tw-bg-slate-900', // Dark Mode
                     ],
                 },
@@ -271,7 +271,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                         'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-700 tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out',
                         context.checked
                             ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
-                            : 'tw-border-slate-300 tw-bg-slate-50 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
+                            : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                         {
                             'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
                                 !context.disabled,
@@ -282,7 +282,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 radiobuttonicon: ({ context }) => ({
                     class: [
                         'tw-transform tw-rounded-full',
-                        'tw-block tw-w-3 tw-h-3 tw-transition tw-duration-300 tw-bg-slate-50 dark:tw-bg-slate-900',
+                        'tw-block tw-w-3 tw-h-3 tw-transition tw-duration-300 tw-bg-slate-100 dark:tw-bg-slate-900',
                         {
                             'backface-hidden scale-10 tw-invisible':
                                 context.checked === false,
@@ -303,7 +303,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                         'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 tw-rounded-lg tw-transition-colors tw-duration-300',
                         context.checked
                             ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
-                            : 'tw-border-slate-300 tw-bg-slate-50 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
+                            : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                         {
                             'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
                                 !context.disabled,
@@ -325,7 +325,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                         'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 tw-rounded-lg tw-transition-colors tw-duration-300',
                         context.checked
                             ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
-                            : 'tw-border-slate-300 tw-bg-slate-50 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
+                            : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                         {
                             'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
                                 !context.disabled,
@@ -341,10 +341,10 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 class: [
                     context.selected
                         ? 'tw-bg-blue-50 tw-text-primary dark:tw-bg-primary/40'
-                        : 'tw-bg-slate-50 tw-text-slate-600 dark:tw-bg-slate-800',
+                        : 'tw-bg-slate-100 tw-text-slate-600 dark:tw-bg-slate-800',
                     context.stripedRows
                         ? context.index % 2 === 0
-                            ? 'tw-bg-slate-50 tw-text-slate-600 dark:tw-bg-slate-800'
+                            ? 'tw-bg-slate-100 tw-text-slate-600 dark:tw-bg-slate-800'
                             : 'tw-bg-slate-200/50 tw-text-slate-600 dark:tw-bg-slate-900/50'
                         : '',
                     'tw-transition tw-duration-300',
@@ -358,18 +358,18 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 ],
             }),
             rowexpansion:
-                'tw-bg-slate-50 tw-text-slate-600 dark:tw-bg-slate-900 dark:text-slate-50/80',
+                'tw-bg-slate-100 tw-text-slate-600 dark:tw-bg-slate-900 dark:text-slate-50/80',
             rowgroupheader: {
                 class: [
                     'tw-sticky z-[1]',
-                    'tw-bg-slate-50 tw-text-slate-600',
+                    'tw-bg-slate-100 tw-text-slate-600',
                     'tw-transition tw-duration-300',
                 ],
             },
             rowgroupfooter: {
                 class: [
                     'tw-sticky tw-z-[1]',
-                    'tw-bg-slate-50 tw-text-slate-600',
+                    'tw-bg-slate-100 tw-text-slate-600',
                     'tw-transition tw-duration-300',
                 ],
             },

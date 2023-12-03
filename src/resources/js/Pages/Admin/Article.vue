@@ -107,7 +107,7 @@ const disableClearChoseCategories = computed(() => {
         <div class="tw-flex tw-flex-row tw-space-x-4">
             <!-- Article Section -->
             <div
-                class="tw-w-full tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
+                class="tw-w-full tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
             >
                 <div class="tw-flex tw-justify-between tw-space-x-4 tw-pb-2">
                     <div
@@ -170,7 +170,7 @@ const disableClearChoseCategories = computed(() => {
 
             <!-- Category Section -->
             <div
-                class="tw-w-1/4 tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-py-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col tw-space-y-4"
+                class="tw-w-1/4 tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-py-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col tw-space-y-4"
             >
                 <div class="tw-mx-4 tw-flex tw-flex-row tw-space-x-2">
                     <span class="p-input-icon-left tw-w-full">

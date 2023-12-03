@@ -230,7 +230,7 @@ const restoreCategory = () => {
         </h1>
         <Toast />
         <div
-            class="tw-bg-slate-50 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <DataTable
                 removableSort
                 v-model:filters="filters"
