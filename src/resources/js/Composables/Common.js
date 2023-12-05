@@ -25,3 +25,7 @@ export const isActiveRoute = routeName => {
         location.pathname == new URL(route(routeName)).pathname
     );
 };
+
+export const getDate = date => {
+    return moment(date).format('ll');
+};

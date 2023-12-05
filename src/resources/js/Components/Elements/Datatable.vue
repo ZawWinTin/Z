@@ -20,7 +20,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                     'tw-fixed tw-w-full tw-h-full tw-t-0 tw-l-0 tw-bg-slate-100/40',
                     'tw-transition tw-duration-300',
                     'tw-absolute tw-flex tw-items-center tw-justify-center tw-z-2',
-                    'dark:tw-bg-slate-950/40', // Dark Mode
+                    'dark:tw-bg-slate-800/40', // Dark Mode
                 ],
             },
             loadingicon: 'tw-w-8 tw-h-8',
@@ -44,9 +44,10 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                         : 'tw-border-b tw-border-x-0',
                 ],
             }),
-            table: 'tw-w-full border-spacing-0',
+            table: 'tw-w-full tw-border-spacing-0',
             thead: ({ context }) => ({
                 class: [
+                    'tw-bg-slate-50 dark:tw-bg-slate-800',
                     {
                         'tw-top-0 tw-z-[1]': context.scrollable,
                     },
@@ -103,6 +104,7 @@ import { TRANSITIONS, paginatorTheme } from '@/Composables/Theme';
                 headercontent: 'tw-flex tw-items-center',
                 bodycell: ({ props, context }) => ({
                     class: [
+                        'tw-transition tw-duration-300',
                         'tw-text-left tw-border-0 tw-border-b tw-border-solid tw-border-slate-300',
                         context?.size === 'small'
                             ? 'tw-p-2'

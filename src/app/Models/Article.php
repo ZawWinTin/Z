@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -31,8 +31,19 @@ class Article extends Model
         return $this->belongsToMany(Category::class)->orderByPivot('priority', 'asc');
     }
 
-    public function images(): MorphMany
+    public function coverImage(): MorphOne
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+        if (isset($filters['active']) && $filters['active'] === false) {
+            $query->onlyTrashed();
+        }
+
+        $query->when($filters['sortField'] ?? false, function ($query, $sortField) use ($filters) {
+            $query->orderBy($sortField, $filters['sortOrder'] === 1 ? 'ASC' : 'DESC');
+        });
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\ArticleService;
+use App\Http\Requests\Admin\ArticleDeleteRequest;
+use App\Http\Requests\Admin\ArticleRestoreRequest;
 
 class ArticleController extends Controller
 {
@@ -20,5 +22,19 @@ class ArticleController extends Controller
         $data = $this->articleService->getAll();
 
         return Inertia::render('Admin/Article', $data);
+    }
+
+    public function destroy(ArticleDeleteRequest $request)
+    {
+        $this->articleService->destroy($request);
+
+        return to_route('admin.article.index');
+    }
+
+    public function restore(ArticleRestoreRequest $request)
+    {
+        $this->articleService->restore($request);
+
+        return to_route('admin.article.index');
     }
 }

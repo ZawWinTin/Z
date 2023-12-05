@@ -15,6 +15,7 @@ import Dialog from '@/Components/UI/Dialog.vue';
 import Checkbox from '@/Components/UI/Checkbox.vue';
 import ColorPicker from '@/Components/UI/ColorPicker.vue';
 import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
+import { getDate } from '@/Composables/Common';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
@@ -57,15 +58,10 @@ const filters = ref({
 });
 
 onMounted(() => {
-    activeCategories.value = props.activeCategories;
-    deletedCategories.value = props.deletedCategories;
+    loadCategories(props);
 });
 
 const getCategories = computed(() => isActiveMode.value ? activeCategories.value : deletedCategories.value);
-
-const getDate = (date) => {
-    return moment(date).format('ll');
-};
 
 const toggleCategoryPreviewBg = () => {
     isCategoryPreviewBgDark.value = !isCategoryPreviewBgDark.value;
@@ -133,26 +129,30 @@ const changeColor = colorType => {
             break;
     }
 };
+const loadCategories = (data) => {
+    activeCategories.value = data.activeCategories;
+    deletedCategories.value = data.deletedCategories;
+};
 
 const saveCategory = () => {
     form.clearErrors();
     form.post(route('admin.category.save'), {
         preserveScroll: true,
-        preserveState: (page) => { return !(Object.keys(page.props.errors).length == 0) },
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.add({
                 severity: 'success',
                 summary: 'Saved',
                 detail: `${form.name} is Saved Successfully.`,
                 life: 3000,
             });
+            loadCategories(data.props);
             closeDialog(SAVE_DIALOG);
         },
         onError: () => {
             toast.add({
                 severity: 'error',
                 summary: 'Save Failed',
-                detail: 'Category saving failed!',
+                detail: `${form.name} saving failed!`,
                 life: 3000,
             });
         },
@@ -169,21 +169,21 @@ const openDeleteDialog = data => {
 const deleteCategory = () => {
     form.delete(route('admin.category.destroy'), {
         preserveScroll: true,
-        preserveState: false,
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.add({
                 severity: 'success',
                 summary: 'Deleted',
                 detail: `${form.name} is Deleted Successfully.`,
                 life: 3000,
             });
+            loadCategories(data.props);
             closeDialog(DELETE_DIALOG);
         },
         onError: () => {
             toast.add({
                 severity: 'error',
                 summary: 'Delete Failed',
-                detail: 'Category deleting failed!',
+                detail: `${form.name} deleting failed!`,
                 life: 3000,
             });
         },
@@ -200,21 +200,21 @@ const openRestoreDialog = data => {
 const restoreCategory = () => {
     form.put(route('admin.category.restore'), {
         preserveScroll: true,
-        preserveState: false,
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.add({
                 severity: 'success',
                 summary: 'Restore',
                 detail: `${form.name} is Restored Successfully.`,
                 life: 3000,
             });
+            loadCategories(data.props);
             closeDialog(RESTORE_DIALOG);
         },
         onError: () => {
             toast.add({
                 severity: 'error',
                 summary: 'Restore Failed',
-                detail: 'Category restoring failed!',
+                detail: `${form.name} restoring failed!`,
                 life: 3000,
             });
         },
@@ -243,8 +243,8 @@ const restoreCategory = () => {
                 dataKey="id"
                 :globalFilterFields="['id', 'name']">
                 <template #header>
-                    <div class="tw-flex tw-justify-between">
-                        <div class="tw-flex tw-justify-start tw-space-x-4">
+                    <div class="tw-flex tw-justify-between tw-items-center">
+                        <div class="tw-flex tw-justify-start tw-items-center tw-space-x-4">
                             <ToggleButton v-model="isActiveMode"
                                 onLabel="Active" offLabel="Trash"
                                 onIcon="pi pi-check" offIcon="pi pi-trash" />
@@ -269,8 +269,8 @@ const restoreCategory = () => {
                         </transition>
                     </div>
                 </template>
-                <template #empty> No categories exist. </template>
-                <Column field="id" header="ID" class="tw-w-1/4" sortable>
+                <template #empty> No categories exist.</template>
+                <Column field="id" header="ID" class="tw-w-1/5" sortable>
                     <template #body="slotProps">
                         {{ slotProps.data.id }}
                     </template>
@@ -278,7 +278,7 @@ const restoreCategory = () => {
                 <Column
                     field="name"
                     header="Name"
-                    class="tw-w-1/4"
+                    class="tw-w-1/5"
                     sortable>
                     <template #body="slotProps">
                         <Badge
@@ -291,10 +291,19 @@ const restoreCategory = () => {
                 <Column
                     field="created_at"
                     header="Created Date"
-                    class="tw-w-1/4"
+                    class="tw-w-1/5"
                     sortable>
                     <template #body="slotProps">
                         {{ getDate(slotProps.data.created_at) }}
+                    </template>
+                </Column>
+                <Column
+                    field="articles_count"
+                    header="Quantity"
+                    class="tw-w-1/5"
+                    sortable>
+                    <template #body="slotProps">
+                        {{ slotProps.data.articles_count }}
                     </template>
                 </Column>
                 <Column

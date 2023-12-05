@@ -31,7 +31,7 @@ onMounted(() => {
     categories.value = props.categories;
 });
 
-const filteredArticles = computed(() => {
+const getFilteredArticles = computed(() => {
     let filteredArticles = articles.value;
 
     // Search by Category
@@ -89,9 +89,9 @@ const disableClearChoseCategories = computed(() => {
             <div
                 class="tw-w-full tw-bg-slate-50/60 dark:tw-bg-slate-800/60 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
             >
-                <div class="tw-flex tw-justify-between tw-space-x-4 tw-pb-2">
+                <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
                     <div
-                        class="tw-flex tw-justify-start tw-space-x-4 tw-w-full"
+                        class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
                     >
                         <div class="tw-w-full">
                             <span class="p-input-icon-left tw-w-64">
@@ -105,7 +105,7 @@ const disableClearChoseCategories = computed(() => {
                                 />
                             </span>
                             <span class="tw-ml-1">
-                                In total, there are <b>{{ filteredArticles ? filteredArticles.length : 0 }}</b> articles.
+                                In total, there are <b>{{ getFilteredArticles ? getFilteredArticles.length : 0 }}</b> articles.
                             </span>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ const disableClearChoseCategories = computed(() => {
                     class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-center tw-h-[70vh] tw-transition tw-duration-300 tw-pt-2 tw-overflow-y-auto primary-scrollbar"
                 >
                     <template
-                        v-for="(article, index) in filteredArticles"
+                        v-for="article in getFilteredArticles"
                         :key="article.id"
                     >
                         <ArticleCard :article="article" data-cursor-type="explore" />

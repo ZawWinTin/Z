@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
 import TextInput from '@/Components/UI/TextInput.vue';
@@ -10,13 +10,20 @@ import SplitterPanel from 'primevue/splitterpanel';
 import InputError from '@/Components/UI/InputError.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
-import CardContainer from '@/Components/Elements/CardContainer.vue';
+import { useToast } from 'primevue/usetoast';
+import Toast from '@/Components/UI/Toast.vue';
+import Image from '@/Components/UI/Image.vue';
+import DataTable from '@/Components/Elements/Datatable.vue';
+import Column from 'primevue/column';
+import { getDate } from '@/Composables/Common';
+import route from '@/Composables/Route';
+import Dialog from '@/Components/UI/Dialog.vue';
+
+const DELETE_DIALOG = 'delete_dialog';
+const RESTORE_DIALOG = 'restore_dialog';
 
 const props = defineProps({
-    activeArticles: {
-        default: [],
-    },
-    deletedArticles: {
+    articles: {
         default: [],
     },
     categories: {
@@ -25,11 +32,20 @@ const props = defineProps({
     errors: Object,
 });
 
-const activeArticles = ref([]);
-const deletedArticles = ref([]);
-const categories = ref([]);
+const form = useForm({
+    id: null,
+    cover_image: null,
+    title: null,
+    description: null,
+    content: null,
+});
 
+const toast = useToast();
+const articles = ref([]);
+const categories = ref([]);
 const isActiveMode = ref(true);
+const openArticleDeleteDialog = ref(false);
+const openArticleRestoreDialog = ref(false);
 
 const articleFilters = reactive({
     global: { value: null },
@@ -38,35 +54,77 @@ const articleFilters = reactive({
 });
 const categoryFilters = ref(null);
 
-onMounted(() => {
-    activeArticles.value = props.activeArticles;
-    deletedArticles.value = props.deletedArticles;
-    categories.value = props.categories;
+const filters = useForm({
+    global: null,
+    active: true,
+
+    sortField: null,
+    sortOrder: null,
+    page: null,
+    perPage: 10,
 });
 
+const openFilterDialog = () => {};
 const openSaveDialog = () => {};
 
-const filteredArticles = computed(() => {
-    let articles = isActiveMode.value ? activeArticles.value : deletedArticles.value;
+onMounted(() => {
+    loadData(props);
+});
+const loadData = (data) => {
+    articles.value = data.articles;
+    categories.value = data.categories;
+};
 
+const loadArticles = () => {
+    filters.post(route('admin.article.index'), {
+        preserveScroll: true,
+        onSuccess: (data) => {
+            loadData(data.props);
+        }
+    });
+};
+const onPage = (event) => {
+    onPageOrSort(event);
+};
+const onSort = (event) => {
+    onPageOrSort(event);
+};
+const onPageOrSort = (event) => {
+    filters.page = event.page + 1;
+    filters.perPage = event.rows;
+    filters.sortField = event.sortField;
+    filters.sortOrder = event.sortOrder;
+
+    loadArticles();
+};
+
+const toggleActiveMode = () => {
+    filters.reset();
+    filters.active = isActiveMode.value;
+
+    loadArticles();
+}
+
+const getFilteredArticles = computed(() => {
+    let filteredArticles = articles.value.data;
     // Search by Category
-    if (articleFilters.categories.value.length > 0) {
-        articles = articles.filter(article => {
-            return article.categories.some((category) => {
-                return articleFilters.categories.value.includes(category.id);
-            });
-        });
-    }
+    // if (articleFilters.categories.value.length > 0) {
+    //     filteredArticles = filteredArticles.filter(article => {
+    //         return article.categories.some((category) => {
+    //             return articleFilters.categories.value.includes(category.id);
+    //         });
+    //     });
+    // }
 
     // Search by Title
-    if (articleFilters.global.value) {
-        articles = articles.filter(article => {
-            return article.title.toLowerCase()
-                  .includes(articleFilters.global.value.toLowerCase());
-        });
-    }
+    // if (articleFilters.global.value) {
+    //     filteredArticles = filteredArticles.filter(article => {
+    //         return article.title.toLowerCase()
+    //               .includes(articleFilters.global.value.toLowerCase());
+    //     });
+    // }
 
-    return articles;
+    return filteredArticles;
 });
 
 const filteredCategories = computed(() => {
@@ -95,6 +153,85 @@ const clearChoseCategories = () => {
 const disableClearChoseCategories = computed(() => {
     return !articleFilters.categories.value.length;
 });
+
+const resetForm = () => {
+    form.reset();
+    form.clearErrors();
+};
+
+const closeDialog = dialogType => {
+    switch (dialogType) {
+        case DELETE_DIALOG:
+            openArticleDeleteDialog.value = false;
+            break;
+        case RESTORE_DIALOG:
+            openArticleRestoreDialog.value = false;
+            break;
+    }
+    resetForm();
+};
+
+const openDeleteDialog = data => {
+    resetForm();
+    openArticleDeleteDialog.value = true;
+    form.id = data.id;
+    form.title = data.title;
+};
+
+const deleteArticle = () => {
+    form.delete(route('admin.article.destroy'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Deleted',
+                detail: `${form.title} is Deleted Successfully.`,
+                life: 3000,
+            });
+            loadArticles();
+            closeDialog(DELETE_DIALOG);
+        },
+        onError: () => {
+            toast.add({
+                severity: 'error',
+                summary: 'Delete Failed',
+                detail: `${form.title} deleting failed!`,
+                life: 3000,
+            });
+        },
+    });
+};
+
+const openRestoreDialog = data => {
+    resetForm();
+    openArticleRestoreDialog.value = true;
+    form.id = data.id;
+    form.title = data.title;
+};
+
+const restoreArticle = () => {
+    form.put(route('admin.article.restore'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Restore',
+                detail: `${form.title} is Restored Successfully.`,
+                life: 3000,
+            });
+            loadArticles();
+            closeDialog(RESTORE_DIALOG);
+        },
+        onError: () => {
+            toast.add({
+                severity: 'error',
+                summary: 'Restore Failed',
+                detail: `${form.title} restoring failed!`,
+                life: 3000,
+            });
+        },
+    });
+};
 </script>
 <template>
     <section>
@@ -104,12 +241,198 @@ const disableClearChoseCategories = computed(() => {
         >
             Articles
         </h1>
+        <Toast />
         <div class="tw-flex tw-flex-row tw-space-x-4">
             <!-- Article Section -->
             <div
                 class="tw-w-full tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
             >
-                <div class="tw-flex tw-justify-between tw-space-x-4 tw-pb-2">
+                <DataTable
+                    removableSort
+                    :value="getFilteredArticles"
+                    scrollable
+                    scrollHeight="53vh"
+                    lazy
+                    paginator
+                    :rows="10"
+                    :rowsPerPageOptions="[5, 10, 20]"
+                    :totalRecords="articles.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
+                    dataKey="id">
+                    <template #header>
+                        <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
+                            <div
+                                class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
+                            >
+                                <ToggleButton
+                                    v-model="isActiveMode"
+                                    @click="toggleActiveMode"
+                                    onLabel="Active"
+                                    offLabel="Trash"
+                                    onIcon="pi pi-check"
+                                    offIcon="pi pi-trash"
+                                />
+                                <Button
+                                    icon="pi pi-search"
+                                    class="tw-w-10 tw-h-10"
+                                    rounded outlined
+                                    @click="openFilterDialog()"
+                                />
+                            </div>
+                            <transition
+                                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                :enter-active-class="
+                                    TRANSITIONS.overlay.enterActiveClass
+                                "
+                                :leave-active-class="
+                                    TRANSITIONS.overlay.leaveActiveClass
+                                "
+                                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                            >
+                                <template v-if="isActiveMode">
+                                    <Button
+                                        icon="pi pi-plus"
+                                        class="tw-w-10 tw-h-10"
+                                        rounded
+                                        @click="openSaveDialog()"
+                                    />
+                                </template>
+                            </transition>
+                        </div>
+                    </template>
+                    <template #empty> No articles exist.</template>
+                    <Column field="id" header="ID" class="tw-w-1/6" sortable>
+                        <template #body="slotProps">
+                            {{ slotProps.data.id }}
+                        </template>
+                    </Column>
+                    <Column field="cover" header="Cover Image" class="tw-w-1/6">
+                        <template #body="slotProps">
+                            <Image :src="slotProps.data.cover_image.url" alt="Image" width="80" preview />
+                        </template>
+                    </Column>
+                    <Column field="title" header="Title" class="tw-w-1/6" sortable>
+                        <template #body="slotProps">
+                            <div class="tw-text-left">{{ slotProps.data.title }}</div>
+                        </template>
+                    </Column>
+                    <Column field="description" header="Description" class="tw-w-1/6">
+                        <template #body="slotProps">
+                            <div class="tw-text-justify">{{ slotProps.data.description }}</div>
+                        </template>
+                    </Column>
+                    <Column
+                        field="created_at"
+                        header="Created Date"
+                        class="tw-w-1/6"
+                        sortable>
+                        <template #body="slotProps">
+                            {{ getDate(slotProps.data.created_at) }}
+                        </template>
+                    </Column>
+                    <Column
+                        header="Options"
+                        class="tw-w-1/6">
+                        <template #body="slotProps">
+                            <div class="tw-flex tw-flex-row tw-space-x-2">
+                                <template v-if="isActiveMode">
+                                    <Button
+                                        icon="pi pi-cog"
+                                        outlined
+                                        rounded
+                                        severity="info"
+                                        class="tw-w-10 tw-h-10"
+                                        @click="openSaveDialog(slotProps.data)" />
+                                    <Button
+                                        icon="pi pi-trash"
+                                        outlined
+                                        rounded
+                                        severity="danger"
+                                        class="tw-w-10 tw-h-10"
+                                        @click="openDeleteDialog(slotProps.data)" />
+                                </template>
+                                <template v-if="!isActiveMode">
+                                    <Button
+                                        icon="pi pi-replay"
+                                        outlined
+                                        rounded
+                                        severity="success"
+                                        class="tw-w-10 tw-h-10"
+                                        @click="openRestoreDialog(slotProps.data)" />
+                                </template>
+                            </div>
+                        </template>
+                    </Column>
+                    <template #footer> In total, there are <b>{{ articles.total || 0 }}</b> articles.</template>
+                </DataTable>
+
+                <!-- Delete Dialog -->
+                <Dialog
+                    v-model:visible="openArticleDeleteDialog"
+                    modal
+                    header="Confirm"
+                    class="tw-w-2/5">
+                    <div
+                        class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                        <i
+                            class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
+                        <span>
+                            Are you sure you want to delete
+                            <b>{{ form.title }}</b> ?
+                        </span>
+                    </div>
+                    <template #footer>
+                        <Button
+                            :loading="form.processing"
+                            rounded
+                            label="Delete"
+                            icon="pi pi-check"
+                            autofocus
+                            @click="deleteArticle"
+                            severity="danger" />
+                        <Button
+                            rounded
+                            label="Cancel"
+                            icon="pi pi-times"
+                            outlined
+                            severity="danger"
+                            @click="closeDialog(DELETE_DIALOG)" />
+                    </template>
+                </Dialog>
+
+                <!-- Restore Dialog -->
+                <Dialog
+                    v-model:visible="openArticleRestoreDialog"
+                    modal
+                    header="Confirm"
+                    class="tw-w-2/5">
+                    <div
+                        class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                        <i
+                            class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                        <span>
+                            Are you sure you want to restore
+                            <b>{{ form.title }}</b> ?
+                        </span>
+                    </div>
+                    <template #footer>
+                        <Button
+                            :loading="form.processing"
+                            rounded
+                            label="Restore"
+                            icon="pi pi-check"
+                            autofocus
+                            @click="restoreArticle"
+                            severity="success" />
+                        <Button
+                            rounded
+                            label="Cancel"
+                            icon="pi pi-times"
+                            outlined
+                            severity="success"
+                            @click="closeDialog(RESTORE_DIALOG)" />
+                    </template>
+                </Dialog>
+                <!-- <div class="tw-flex tw-justify-between tw-space-x-4 tw-pb-2">
                     <div
                         class="tw-flex tw-justify-start tw-space-x-4 tw-w-full"
                     >
@@ -165,7 +488,7 @@ const disableClearChoseCategories = computed(() => {
                     >
                         <ArticleCard :article="article" />
                     </template>
-                </div>
+                </div> -->
             </div>
 
             <!-- Category Section -->
