@@ -13,12 +13,15 @@ import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import { useToast } from 'primevue/usetoast';
 import Toast from '@/Components/UI/Toast.vue';
 import Image from '@/Components/UI/Image.vue';
+import Textarea from '@/Components/UI/Textarea.vue';
 import DataTable from '@/Components/Elements/Datatable.vue';
 import Column from 'primevue/column';
 import { getDate } from '@/Composables/Common';
 import route from '@/Composables/Route';
 import Dialog from '@/Components/UI/Dialog.vue';
 
+const FILTER_DIALOG = 'filter_dialog';
+const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
@@ -35,6 +38,7 @@ const props = defineProps({
 const form = useForm({
     id: null,
     cover_image: null,
+    cover_image_object_position: null,
     title: null,
     description: null,
     content: null,
@@ -44,8 +48,14 @@ const toast = useToast();
 const articles = ref([]);
 const categories = ref([]);
 const isActiveMode = ref(true);
+const openArticleFilterDialog = ref(false);
+const openArticleSaveDialog = ref(false);
 const openArticleDeleteDialog = ref(false);
 const openArticleRestoreDialog = ref(false);
+
+const coverImagePlacholder = ref(null);
+const inputImageUpload = ref(null);
+const previewCoverImage = ref(null);
 
 const articleFilters = reactive({
     global: { value: null },
@@ -63,9 +73,6 @@ const filters = useForm({
     page: null,
     perPage: 10,
 });
-
-const openFilterDialog = () => {};
-const openSaveDialog = () => {};
 
 onMounted(() => {
     loadData(props);
@@ -159,8 +166,43 @@ const resetForm = () => {
     form.clearErrors();
 };
 
+const uploadCoverImage = () => {
+    inputImageUpload.value.click();
+};
+
+const fileReader = new FileReader();
+
+fileReader.onload = function handleLoad() {
+    previewCoverImage.value.src = fileReader.result;
+    previewCoverImage.value.style.object_position = 'center 50%';
+};
+
+const onDragEnterCoverImage = () => {
+    coverImagePlacholder.value.classList.add('!tw-border-primary');
+}
+const onDragLeaveCoverImage = () => {
+    coverImagePlacholder.value.classList.remove('!tw-border-primary');
+}
+
+const onCoverImageUpload = (event) => {
+    let file = event.target.files[0];
+
+    if (file) {
+        fileReader.readAsDataURL(file);
+    } else {
+        previewCoverImage.value.src = form.cover_image ? form.cover_image.url : '';
+        previewCoverImage.value.style.object_position = form.cover_image ? form.cover_image.object_position : 'center 50%';
+    }
+}
+
 const closeDialog = dialogType => {
     switch (dialogType) {
+        case FILTER_DIALOG:
+            openArticleFilterDialog.value = false;
+            break;
+        case SAVE_DIALOG:
+            openArticleSaveDialog.value = false;
+            break;
         case DELETE_DIALOG:
             openArticleDeleteDialog.value = false;
             break;
@@ -169,6 +211,26 @@ const closeDialog = dialogType => {
             break;
     }
     resetForm();
+};
+
+const openFilterDialog = () => {
+    openArticleFilterDialog.value = true;
+};
+
+const openSaveDialog = (data = null) => {
+    resetForm();
+    openArticleSaveDialog.value = true;
+    if (data) {
+        form.id = data.id;
+        form.cover_image = data.cover_image;
+        form.title = data.title;
+        form.description = data.description;
+        form.content = data.content;
+    }
+};
+
+const saveArticle = () => {
+
 };
 
 const openDeleteDialog = data => {
@@ -365,6 +427,70 @@ const restoreArticle = () => {
                     <template #footer> In total, there are <b>{{ articles.total || 0 }}</b> articles.</template>
                 </DataTable>
 
+                <!-- Filter Dialog -->
+                <Dialog
+                    v-model:visible="openArticleFilterDialog"
+                    modal
+                    header="Advanced Search">
+                </Dialog>
+
+                <!-- Create/Update Dialog -->
+                <Dialog maximizable
+                    v-model:visible="openArticleSaveDialog"
+                    modal
+                    header="Article Details">
+                    <div class="tw-flex tw-flex-col tw-space-y-4">
+                        <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
+                            <div ref="coverImagePlacholder"
+                                class="tw-absolute tw-bg-slate-100 dark:tw-bg-slate-900 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
+                                <i class="pi pi-cloud-upload tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl tw-text-slate-700/60 dark:tw-text-slate-400/60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
+                            </div>
+                            <img ref="previewCoverImage" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
+                                :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
+                            <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
+                                @dragenter="onDragEnterCoverImage"
+                                @dragleave="onDragLeaveCoverImage"
+                                @drop="onDragLeaveCoverImage" ref="inputImageUpload" @change="onCoverImageUpload($event)" type="file" accept="image/*">
+                            <span class="p-buttonset"></span>
+                            <Button class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100"
+                                rounded
+                                size="small"
+                                severity="secondary"
+                                @click="uploadCoverImage"
+                                :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/>
+                                <InputError class="tw-text-center" :message="form.errors.cover_image" />
+                        </div>
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <label class="tw-font-bold">Title</label>
+                            <Textarea v-model.trim="form.title" autoResize rows="1" autofocus />
+                            <InputError :message="form.errors.title" />
+                        </div>
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <label class="tw-font-bold">Description</label>
+                            <Textarea v-model.trim="form.description" autoResize rows="2" />
+                            <InputError :message="form.errors.description" />
+                        </div>
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <label class="tw-font-bold">Content</label>
+                            <InputError :message="form.errors.content" />
+                        </div>
+                    </div>
+                    <template #footer>
+                        <Button
+                            :loading="form.processing"
+                            rounded
+                            label="Save"
+                            icon="pi pi-check"
+                            autofocus
+                            @click="saveArticle" />
+                        <Button
+                            rounded
+                            label="Cancel"
+                            icon="pi pi-times"
+                            outlined
+                            @click="closeDialog(SAVE_DIALOG)" />
+                    </template>
+                </Dialog>
                 <!-- Delete Dialog -->
                 <Dialog
                     v-model:visible="openArticleDeleteDialog"

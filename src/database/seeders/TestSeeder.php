@@ -24,12 +24,15 @@ class TestSeeder extends Seeder
         $articles = Article::factory($articlesCount)->create();
 
         $articles->each(function ($article) use ($categories, $faker) {
+            $imageTopDownPercent = rand(0, 100);
+
             $article->coverImage()->create([
                 'name' => $faker->text(10),
                 'path' => '/image/fake_photo.png',
                 'url' => $faker->imageUrl(640, 480, "Article {$article->id}", true),
                 'mime_type' => 'image/png',
                 'file_size' => '100 bytes',
+                'object_position' => "center {$imageTopDownPercent}%",
             ]);
 
             $randomCategories = $categories->random(rand(1, 5))->shuffle();

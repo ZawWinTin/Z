@@ -4,7 +4,7 @@ import Image from 'primevue/image';
 <template>
     <Image :pt="{
         root: 'tw-relative tw-inline-block',
-        image: 'tw-rounded',
+        image: 'tw-w-full tw-h-full tw-rounded tw-object-cover',
         preview: 'tw-rounded',
         button: {
             class: [

@@ -24,6 +24,7 @@ class Image extends Model
         'url',
         'mime_type',
         'file_size',
+        'object_position',
     ];
 
     /**

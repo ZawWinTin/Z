@@ -27,6 +27,15 @@ import Dialog from 'primevue/dialog';
             headerIcons: {
                 class: 'tw-flex tw-items-center',
             },
+            maximizableButton: {
+                class: [
+                    'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
+                    'tw-w-8 tw-h-8 tw-text-slate-500 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
+                    'hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80',
+                    'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1', // focus
+                    'dark:hover:tw-text-slate-50/80 dark:hover:tw-border-transparent',
+                ],
+            },
             closeButton: {
                 class: [
                     'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
@@ -41,7 +50,7 @@ import Dialog from 'primevue/dialog';
             },
             content: ({ state, instance }) => ({
                 class: [
-                    'tw-overflow-y-auto',
+                    'tw-overflow-y-auto primary-scrollbar',
                     'tw-text-slate-700 tw-px-6 tw-pb-8 tw-pt-0',
                     'tw-bg-slate-50 dark:tw-bg-slate-800 dark:tw-text-slate-50/80',
                     {

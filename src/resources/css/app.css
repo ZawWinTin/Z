@@ -9,6 +9,10 @@
     @tailwind utilities;
 }
 
+img[src=''] {
+    visibility: hidden;
+}
+
 /* Hide Scrollbar */
 /* Firefox */
 .hide-scroll {
