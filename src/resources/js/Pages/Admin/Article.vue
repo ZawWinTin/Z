@@ -179,9 +179,11 @@ fileReader.onload = function handleLoad() {
 
 const onDragEnterCoverImage = () => {
     coverImagePlacholder.value.classList.add('!tw-border-primary');
+    coverImagePlacholder.value.querySelector('i').classList.add('!tw-text-primary', '!tw-border-primary');
 }
 const onDragLeaveCoverImage = () => {
     coverImagePlacholder.value.classList.remove('!tw-border-primary');
+    coverImagePlacholder.value.querySelector('i').classList.remove('!tw-text-primary', '!tw-border-primary');
 }
 
 const onCoverImageUpload = (event) => {
@@ -440,25 +442,34 @@ const restoreArticle = () => {
                     modal
                     header="Article Details">
                     <div class="tw-flex tw-flex-col tw-space-y-4">
-                        <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
-                            <div ref="coverImagePlacholder"
-                                class="tw-absolute tw-bg-slate-100 dark:tw-bg-slate-900 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
-                                <i class="pi pi-cloud-upload tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl tw-text-slate-700/60 dark:tw-text-slate-400/60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
+                        <div>
+                            <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
+                                <div ref="coverImagePlacholder"
+                                    class="tw-absolute tw-bg-slate-100 dark:tw-bg-slate-900 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
+                                    <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl tw-text-slate-700/60 dark:tw-text-slate-400/60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
+                                </div>
+                                <img ref="previewCoverImage" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
+                                    :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
+                                <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
+                                    @dragenter="onDragEnterCoverImage"
+                                    @dragleave="onDragLeaveCoverImage"
+                                    @drop="onDragLeaveCoverImage" ref="inputImageUpload" @change="onCoverImageUpload($event)" type="file" accept="image/*">
+                                <span class="p-buttonset !tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300">
+                                    <Button
+                                        rounded
+                                        size="small"
+                                        severity="secondary"
+                                        @click="uploadCoverImage"
+                                        :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/> <!--TODO:Bug -->
+                                    <Button
+                                        rounded
+                                        size="small"
+                                        severity="secondary"
+                                        @click="uploadCoverImage"
+                                        label="Reposition"/>
+                                </span>
                             </div>
-                            <img ref="previewCoverImage" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
-                                :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
-                            <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
-                                @dragenter="onDragEnterCoverImage"
-                                @dragleave="onDragLeaveCoverImage"
-                                @drop="onDragLeaveCoverImage" ref="inputImageUpload" @change="onCoverImageUpload($event)" type="file" accept="image/*">
-                            <span class="p-buttonset"></span>
-                            <Button class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100"
-                                rounded
-                                size="small"
-                                severity="secondary"
-                                @click="uploadCoverImage"
-                                :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/>
-                                <InputError class="tw-text-center" :message="form.errors.cover_image" />
+                            <InputError class="tw-text-center" :message="form.errors.cover_image" />
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">
                             <label class="tw-font-bold">Title</label>
