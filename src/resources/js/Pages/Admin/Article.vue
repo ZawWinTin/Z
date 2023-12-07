@@ -9,7 +9,6 @@ import Splitter from '@/Components/UI/Splitter.vue';
 import SplitterPanel from 'primevue/splitterpanel';
 import InputError from '@/Components/UI/InputError.vue';
 import Badge from '@/Components/UI/Badge.vue';
-import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import { useToast } from 'primevue/usetoast';
 import Toast from '@/Components/UI/Toast.vue';
 import Image from '@/Components/UI/Image.vue';
@@ -53,9 +52,17 @@ const openArticleSaveDialog = ref(false);
 const openArticleDeleteDialog = ref(false);
 const openArticleRestoreDialog = ref(false);
 
-const coverImagePlacholder = ref(null);
-const inputImageUpload = ref(null);
-const previewCoverImage = ref(null);
+const coverImage = {
+    placeholder: ref(null),
+    preview: ref(null),
+    inputUpload: ref(null),
+
+    isRepositionMode: ref(false),
+    isRepositioning: ref(false),
+    initialMousePositionY: ref(0),
+    initialObjectPositionY: ref(0),
+    defaultObjectPosition: ref(null),
+};
 
 const articleFilters = reactive({
     global: { value: null },
@@ -164,26 +171,27 @@ const disableClearChoseCategories = computed(() => {
 const resetForm = () => {
     form.reset();
     form.clearErrors();
-};
-
-const uploadCoverImage = () => {
-    inputImageUpload.value.click();
+    coverImage.isRepositionMode.value = false;
 };
 
 const fileReader = new FileReader();
 
 fileReader.onload = function handleLoad() {
-    previewCoverImage.value.src = fileReader.result;
-    previewCoverImage.value.style.object_position = 'center 50%';
+    coverImage.preview.value.src = fileReader.result;
+    coverImage.preview.value.style.objectPosition = 'center 50%';
+};
+
+const uploadCoverImage = () => {
+    coverImage.inputUpload.value.click();
 };
 
 const onDragEnterCoverImage = () => {
-    coverImagePlacholder.value.classList.add('!tw-border-primary');
-    coverImagePlacholder.value.querySelector('i').classList.add('!tw-text-primary', '!tw-border-primary');
+    coverImage.placeholder.value.classList.add('!tw-border-primary');
+    coverImage.placeholder.value.querySelector('i').classList.add('!tw-text-primary', '!tw-border-primary');
 }
 const onDragLeaveCoverImage = () => {
-    coverImagePlacholder.value.classList.remove('!tw-border-primary');
-    coverImagePlacholder.value.querySelector('i').classList.remove('!tw-text-primary', '!tw-border-primary');
+    coverImage.placeholder.value.classList.remove('!tw-border-primary');
+    coverImage.placeholder.value.querySelector('i').classList.remove('!tw-text-primary', '!tw-border-primary');
 }
 
 const onCoverImageUpload = (event) => {
@@ -192,9 +200,45 @@ const onCoverImageUpload = (event) => {
     if (file) {
         fileReader.readAsDataURL(file);
     } else {
-        previewCoverImage.value.src = form.cover_image ? form.cover_image.url : '';
-        previewCoverImage.value.style.object_position = form.cover_image ? form.cover_image.object_position : 'center 50%';
+        coverImage.preview.value.src = form.cover_image ? form.cover_image.url : '';
+        coverImage.preview.value.style.objectPosition = form.cover_image ? form.cover_image.objectPosition : 'center 50%';
     }
+}
+
+const startRepositionCoverImage = () => {
+    coverImage.defaultObjectPosition.value = coverImage.preview.value.style.objectPosition;
+    coverImage.isRepositionMode.value = true;
+};
+
+const mouseDownRepositionCoverImage = (event) => {
+    let { clientY } = event;
+    coverImage.isRepositioning.value = true;
+    let getInitialObjectPosition = coverImage.preview.value.style.objectPosition.match(/center (\d+)%/);
+    coverImage.initialMousePositionY.value = clientY;
+    coverImage.initialObjectPositionY.value = getInitialObjectPosition ? parseInt(getInitialObjectPosition[1]) : 50;
+}
+
+const mouseMoveRepositionCoverImage = (event) => {
+    if (coverImage.isRepositionMode.value && coverImage.isRepositioning.value) {
+        let { clientY } = event;
+        let result = coverImage.initialObjectPositionY.value - (((clientY - coverImage.initialMousePositionY.value) / coverImage.initialMousePositionY.value) * 100);
+        let mouseYPercentage = Math.min(Math.max(result, 0), 100);
+
+        coverImage.preview.value.style.objectPosition = `center ${mouseYPercentage}%`;
+    }
+}
+const mouseUpRepositionCoverImage = () => {
+    coverImage.isRepositioning.value = false;
+}
+
+const saveRepositionCoverImage = () => {
+    coverImage.isRepositionMode.value = false;
+}
+
+const cancelRepositionCoverImage = () => {
+    console.log(coverImage.defaultObjectPosition.value)
+    coverImage.preview.value.style.objectPosition = coverImage.defaultObjectPosition.value;
+    coverImage.isRepositionMode.value = false;
 }
 
 const closeDialog = dialogType => {
@@ -352,7 +396,7 @@ const restoreArticle = () => {
                                 "
                                 :leave-to-class="TRANSITIONS.overlay.leaveToClass"
                             >
-                                <template v-if="isActiveMode">
+                                <template v-if="filters.active">
                                     <Button
                                         icon="pi pi-plus"
                                         class="tw-w-10 tw-h-10"
@@ -398,7 +442,7 @@ const restoreArticle = () => {
                         class="tw-w-1/6">
                         <template #body="slotProps">
                             <div class="tw-flex tw-flex-row tw-space-x-2">
-                                <template v-if="isActiveMode">
+                                <template v-if="filters.active">
                                     <Button
                                         icon="pi pi-cog"
                                         outlined
@@ -414,7 +458,7 @@ const restoreArticle = () => {
                                         class="tw-w-10 tw-h-10"
                                         @click="openDeleteDialog(slotProps.data)" />
                                 </template>
-                                <template v-if="!isActiveMode">
+                                <template v-if="!filters.active">
                                     <Button
                                         icon="pi pi-replay"
                                         outlined
@@ -444,29 +488,91 @@ const restoreArticle = () => {
                     <div class="tw-flex tw-flex-col tw-space-y-4">
                         <div>
                             <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
-                                <div ref="coverImagePlacholder"
+                                <!-- Placeholder -->
+                                <div :ref="coverImage.placeholder"
                                     class="tw-absolute tw-bg-slate-100 dark:tw-bg-slate-900 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
                                     <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl tw-text-slate-700/60 dark:tw-text-slate-400/60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
                                 </div>
-                                <img ref="previewCoverImage" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
+                                <!-- PreviewImage -->
+                                <img :ref="coverImage.preview" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
                                     :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
+                                <!-- Clickable, Drag & Drop Area -->
                                 <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
                                     @dragenter="onDragEnterCoverImage"
                                     @dragleave="onDragLeaveCoverImage"
-                                    @drop="onDragLeaveCoverImage" ref="inputImageUpload" @change="onCoverImageUpload($event)" type="file" accept="image/*">
-                                <span class="p-buttonset !tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300">
-                                    <Button
-                                        rounded
-                                        size="small"
-                                        severity="secondary"
-                                        @click="uploadCoverImage"
-                                        :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/> <!--TODO:Bug -->
-                                    <Button
-                                        rounded
-                                        size="small"
-                                        severity="secondary"
-                                        @click="uploadCoverImage"
-                                        label="Reposition"/>
+                                    @drop="onDragLeaveCoverImage"
+                                    @change="onCoverImageUpload($event)"
+                                    required
+                                    :ref="coverImage.inputUpload" type="file" accept="image/*">
+                                <!-- Reposition Area -->
+                                <transition
+                                    :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                    :enter-active-class="
+                                        TRANSITIONS.overlay.enterActiveClass
+                                    "
+                                    :leave-active-class="
+                                        TRANSITIONS.overlay.leaveActiveClass
+                                    "
+                                    :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                                >
+                                    <template v-if="coverImage.isRepositionMode.value">
+                                        <div
+                                            @mousedown="mouseDownRepositionCoverImage($event)"
+                                            class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-cursor-move">
+                                            <transition
+                                                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                                :enter-active-class="
+                                                    TRANSITIONS.overlay.enterActiveClass
+                                                "
+                                                :leave-active-class="
+                                                    TRANSITIONS.overlay.leaveActiveClass
+                                                "
+                                                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                                            >
+                                                <span v-if="!coverImage.isRepositioning.value" class="tw-px-4 tw-py-2 tw-bg-primary/80 tw-rounded-full tw-text-slate-50 tw-select-none">Drag Image to Reposition</span>
+                                            </transition>
+                                        </div>
+                                    </template>
+                                </transition>
+                                <template v-if="coverImage.isRepositionMode.value && coverImage.isRepositioning.value">
+                                    <div class="tw-fixed tw-left-[-50%] tw-top-[-9%] tw-w-screen tw-h-screen  tw-cursor-move"
+                                        @mousemove="mouseMoveRepositionCoverImage($event)"
+                                        @mouseup="mouseUpRepositionCoverImage">
+                                    </div>
+                                </template>
+                                <span class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300 tw-flex">
+                                    <template v-if="!coverImage.isRepositionMode.value">
+                                        <Button
+                                            icon="pi pi-upload"
+                                            size="small"
+                                            class="tw-rounded-s-full tw-border-r-slate-300/10"
+                                            severity="secondary"
+                                            @click="uploadCoverImage"
+                                            :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/> <!--TODO:Bug -->
+                                        <Button
+                                            icon="pi pi-arrows-alt"
+                                            size="small"
+                                            class="tw-rounded-e-full"
+                                            severity="secondary"
+                                            @click="startRepositionCoverImage"
+                                            label="Reposition"/>
+                                    </template>
+                                    <template v-if="coverImage.isRepositionMode.value">
+                                        <Button
+                                            icon="pi pi-check"
+                                            size="small"
+                                            class="tw-rounded-s-full tw-border-r-slate-300/10"
+                                            severity="secondary"
+                                            @click="saveRepositionCoverImage"
+                                            label="Save Position"/>
+                                        <Button
+                                            icon="pi pi-times"
+                                            size="small"
+                                            class="tw-rounded-e-full"
+                                            severity="secondary"
+                                            @click="cancelRepositionCoverImage"
+                                            label="Cancel"/>
+                                    </template>
                                 </span>
                             </div>
                             <InputError class="tw-text-center" :message="form.errors.cover_image" />
@@ -492,7 +598,7 @@ const restoreArticle = () => {
                             rounded
                             label="Save"
                             icon="pi pi-check"
-                            autofocus
+                            :disabled="coverImage.isRepositionMode.value"
                             @click="saveArticle" />
                         <Button
                             rounded
