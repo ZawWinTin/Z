@@ -56,6 +56,7 @@ const coverImage = {
     placeholder: ref(null),
     preview: ref(null),
     inputUpload: ref(null),
+    isFileExist: ref(false),
 
     isRepositionMode: ref(false),
     isRepositioning: ref(false),
@@ -179,6 +180,7 @@ const fileReader = new FileReader();
 fileReader.onload = function handleLoad() {
     coverImage.preview.value.src = fileReader.result;
     coverImage.preview.value.style.objectPosition = 'center 50%';
+    coverImage.isFileExist.value = true;
 };
 
 const uploadCoverImage = () => {
@@ -202,6 +204,7 @@ const onCoverImageUpload = (event) => {
     } else {
         coverImage.preview.value.src = form.cover_image ? form.cover_image.url : '';
         coverImage.preview.value.style.objectPosition = form.cover_image ? form.cover_image.objectPosition : 'center 50%';
+        coverImage.isFileExist.value = !!form.cover_image;
     }
 }
 
@@ -266,12 +269,14 @@ const openFilterDialog = () => {
 const openSaveDialog = (data = null) => {
     resetForm();
     openArticleSaveDialog.value = true;
+    coverImage.isFileExist.value = false;
     if (data) {
         form.id = data.id;
         form.cover_image = data.cover_image;
         form.title = data.title;
         form.description = data.description;
         form.content = data.content;
+        coverImage.isFileExist.value = true;
     }
 };
 
@@ -545,16 +550,17 @@ const restoreArticle = () => {
                                         <Button
                                             icon="pi pi-upload"
                                             size="small"
-                                            class="tw-rounded-s-full tw-border-r-slate-300/10"
                                             severity="secondary"
                                             @click="uploadCoverImage"
-                                            :label="form.cover_image ? 'Change Cover' : 'Add Cover'"/> <!--TODO:Bug -->
+                                            :class="coverImage.isFileExist.value ? 'tw-rounded-s-full tw-border-r-slate-300/10' : '!tw-rounded-full'"
+                                            :label="coverImage.isFileExist.value ? 'Change Cover' : 'Add Cover'"/>
                                         <Button
                                             icon="pi pi-arrows-alt"
                                             size="small"
                                             class="tw-rounded-e-full"
                                             severity="secondary"
                                             @click="startRepositionCoverImage"
+                                            :class="{ 'tw-hidden' : !coverImage.isFileExist.value }"
                                             label="Reposition"/>
                                     </template>
                                     <template v-if="coverImage.isRepositionMode.value">
