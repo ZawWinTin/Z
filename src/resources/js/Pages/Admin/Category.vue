@@ -19,13 +19,17 @@ import { getDate } from '@/Composables/Common';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
+
 const openCategorySaveDialog = ref(false);
 const openCategoryDeleteDialog = ref(false);
 const openCategoryRestoreDialog = ref(false);
+
 const isSameColor = ref(false);
 const isCategoryPreviewBgDark = ref(false);
 
 const isActiveMode = ref(true);
+const activeCategories = ref([]);
+const deletedCategories = ref([]);
 
 const BACKGROUND_COLOR = 'background_color';
 const TEXT_COLOR = 'text_color';
@@ -43,9 +47,6 @@ const props = defineProps({
     errors: Object,
 });
 
-const activeCategories = ref([]);
-const deletedCategories = ref([]);
-
 const form = useForm({
     id: null,
     name: null,
@@ -61,36 +62,15 @@ onMounted(() => {
     loadCategories(props);
 });
 
+const loadCategories = (data) => {
+    activeCategories.value = data.activeCategories;
+    deletedCategories.value = data.deletedCategories;
+};
+
 const getCategories = computed(() => isActiveMode.value ? activeCategories.value : deletedCategories.value);
 
 const toggleCategoryPreviewBg = () => {
     isCategoryPreviewBgDark.value = !isCategoryPreviewBgDark.value;
-};
-
-const openSaveDialog = (data = null) => {
-    resetForm();
-    openCategorySaveDialog.value = true;
-    if (data) {
-        form.id = data.id;
-        form.name = data.name;
-        form.text_color = data.text_color;
-        form.background_color = data.background_color;
-    }
-};
-
-const closeDialog = dialogType => {
-    switch (dialogType) {
-        case SAVE_DIALOG:
-            openCategorySaveDialog.value = false;
-            break;
-        case DELETE_DIALOG:
-            openCategoryDeleteDialog.value = false;
-            break;
-        case RESTORE_DIALOG:
-            openCategoryRestoreDialog.value = false;
-            break;
-    }
-    resetForm();
 };
 
 const resetForm = () => {
@@ -129,9 +109,31 @@ const changeColor = colorType => {
             break;
     }
 };
-const loadCategories = (data) => {
-    activeCategories.value = data.activeCategories;
-    deletedCategories.value = data.deletedCategories;
+
+const closeDialog = dialogType => {
+    switch (dialogType) {
+        case SAVE_DIALOG:
+            openCategorySaveDialog.value = false;
+            break;
+        case DELETE_DIALOG:
+            openCategoryDeleteDialog.value = false;
+            break;
+        case RESTORE_DIALOG:
+            openCategoryRestoreDialog.value = false;
+            break;
+    }
+    resetForm();
+};
+
+const openSaveDialog = (data = null) => {
+    resetForm();
+    openCategorySaveDialog.value = true;
+    if (data) {
+        form.id = data.id;
+        form.name = data.name;
+        form.text_color = data.text_color;
+        form.background_color = data.background_color;
+    }
 };
 
 const saveCategory = () => {

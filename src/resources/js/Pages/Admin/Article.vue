@@ -43,10 +43,31 @@ const form = useForm({
     content: null,
 });
 
+const filters = useForm({
+    global: null,
+    active: true,
+
+    sortField: null,
+    sortOrder: null,
+    page: null,
+    perPage: 10,
+});
+
+const articleFilters = reactive({
+    global: { value: null },
+
+    categories: { value: [] },
+});
+
 const toast = useToast();
+
 const articles = ref([]);
 const categories = ref([]);
+
+const categoryFilters = ref(null);
+
 const isActiveMode = ref(true);
+
 const openArticleFilterDialog = ref(false);
 const openArticleSaveDialog = ref(false);
 const openArticleDeleteDialog = ref(false);
@@ -65,26 +86,10 @@ const coverImage = {
     defaultObjectPosition: ref(null),
 };
 
-const articleFilters = reactive({
-    global: { value: null },
-
-    categories: { value: [] },
-});
-const categoryFilters = ref(null);
-
-const filters = useForm({
-    global: null,
-    active: true,
-
-    sortField: null,
-    sortOrder: null,
-    page: null,
-    perPage: 10,
-});
-
 onMounted(() => {
     loadData(props);
 });
+
 const loadData = (data) => {
     articles.value = data.articles;
     categories.value = data.categories;
@@ -98,6 +103,7 @@ const loadArticles = () => {
         }
     });
 };
+
 const onPage = (event) => {
     onPageOrSort(event);
 };
