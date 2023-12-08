@@ -38,7 +38,7 @@ class CategoryRepository
 
             Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
 
-            throw new Exception('Category updated failed.');
+            throw new Exception('Category saved failed.');
         }
     }
 

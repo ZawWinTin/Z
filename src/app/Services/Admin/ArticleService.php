@@ -19,6 +19,11 @@ class ArticleService
         return $this->articleRepository->getAll();
     }
 
+    public function save(Request $request)
+    {
+        return $this->articleRepository->save($request);
+    }
+
     public function destroy(Request $request)
     {
         return $this->articleRepository->destroy($request);

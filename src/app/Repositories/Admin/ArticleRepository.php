@@ -31,6 +31,29 @@ class ArticleRepository
         return compact('articles', 'categories');
     }
 
+    public function save(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $article = Article::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'content' => $request->content,
+                ],
+            );
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
+
+            throw new Exception('Article saved failed.');
+        }
+    }
+
     public function destroy(Request $request)
     {
         try {
