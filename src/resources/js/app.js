@@ -2,18 +2,18 @@ import './bootstrap';
 import '../css/app.css';
 import 'primeicons/primeicons.css';
 
+import moment from 'moment';
 import { createApp, h } from 'vue';
 import { createPinia } from 'pinia';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import PrimeVue from 'primevue/config';
+import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
+import { mainDesignSystem } from '@/Composables/Theme';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import moment from 'moment';
-import Tooltip from 'primevue/tooltip';
-import Ripple from 'primevue/ripple';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -49,10 +49,13 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(createPinia())
-            .use(PrimeVue, { unstyled: false, ripple: true })
+            .use(PrimeVue, {
+                unstyled: false,
+                ripple: true,
+                pt: mainDesignSystem,
+            })
             .use(ToastService)
             .directive('tooltip', Tooltip)
-            .directive('ripple', Ripple)
             .mount(el);
     },
     progress: {

@@ -3,7 +3,7 @@ import route from '@/Composables/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
+import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -36,7 +36,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="password" value="Password" />
-                <TextInput
+                <InputText
                     id="password"
                     v-model="form.password"
                     type="password"

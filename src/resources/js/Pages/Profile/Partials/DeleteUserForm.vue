@@ -7,7 +7,7 @@ import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Modal from '@/Components/UI/Modal.vue';
 import SecondaryButton from '@/Components/Buttons/SecondaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
+import InputText from 'primevue/inputtext';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
@@ -101,7 +101,7 @@ const closeModal = () => {
                         class="tw-sr-only"
                     />
 
-                    <TextInput
+                    <InputText
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"

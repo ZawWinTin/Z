@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
+import InputText from 'primevue/inputtext';
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -65,7 +65,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
-                <TextInput
+                <InputText
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
@@ -83,7 +83,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password" value="New Password" />
 
-                <TextInput
+                <InputText
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
@@ -101,7 +101,7 @@ const updatePassword = () => {
                     value="Confirm Password"
                 />
 
-                <TextInput
+                <InputText
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"

@@ -3,7 +3,7 @@ import route from '@/Composables/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
+import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -55,7 +55,7 @@ const submit = () => {
             <div>
                 <InputLabel for="email" value="Email" />
 
-                <TextInput
+                <InputText
                     id="email"
                     v-model="form.email"
                     type="email"

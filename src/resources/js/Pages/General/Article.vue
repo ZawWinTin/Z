@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
-import TextInput from '@/Components/UI/TextInput.vue';
-import Button from '@/Components/UI/Button.vue';
+import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
 import Badge from '@/Components/UI/Badge.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 
@@ -98,7 +98,7 @@ const disableClearChoseCategories = computed(() => {
                                 <i
                                     class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
                                 />
-                                <TextInput
+                                <InputText
                                     class="tw-pl-10 tw-w-full"
                                     v-model="articleFilters['global'].value"
                                     placeholder="Search"
@@ -131,7 +131,7 @@ const disableClearChoseCategories = computed(() => {
                         <i
                             class="pi pi-tags tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
                         />
-                        <TextInput
+                        <InputText
                             class="tw-pl-10 tw-w-full"
                             v-model="categoryFilters"
                             placeholder="Search"

@@ -1,11 +1,11 @@
 <script setup>
+import Checkbox from 'primevue/checkbox';
 import route from '@/Composables/Route';
-import Checkbox from '@/Components/UI/Checkbox.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import Button from '@/Components/UI/Button.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
-import PasswordInput from '@/Components/UI/PasswordInput.vue';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 import { TRANSITIONS } from '@/Composables/Theme';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -69,7 +69,7 @@ const hidePassword = () => {
                             class="pi pi-spin pi-spinner tw-right-3 tw-text-slate-600 dark:tw-text-slate-400"
                         />
                     </template>
-                    <TextInput
+                    <InputText
                         id="email"
                         v-model="form.email"
                         type="email"
@@ -95,11 +95,13 @@ const hidePassword = () => {
                 <div v-if="isShowingPassword">
                     <div class="tw-mt-7">
                         <span class="p-float-label">
-                            <PasswordInput
+                            <Password
                                 id="password"
                                 v-model="form.password"
                                 class="tw-block tw-w-full"
-                                autocomplete="current-password"
+                                :inputProps="{ autocomplete: 'current-password' }"
+                                toggleMask
+                                :feedback="false"
                             />
                             <InputLabel
                                 for="password"
@@ -124,7 +126,7 @@ const hidePassword = () => {
                             >
                             <Checkbox
                                 v-model="form.remember"
-                                id="remember"
+                                inputId="remember"
                                 name="remember"
                                 :binary="true"
                             />

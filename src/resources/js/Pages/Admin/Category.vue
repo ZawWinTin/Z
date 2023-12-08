@@ -1,21 +1,21 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import Button from '@/Components/UI/Button.vue';
-import ToggleButton from '@/Components/UI/ToggleButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
-import DataTable from '@/Components/Elements/Datatable.vue';
+import { computed, onMounted, ref } from 'vue';
 import Column from 'primevue/column';
 import { FilterMatchMode } from 'primevue/api';
-import { computed, onMounted, ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import Toast from '@/Components/UI/Toast.vue';
+import DataTable from 'primevue/datatable';
 import route from '@/Composables/Route';
-import Badge from '@/Components/UI/Badge.vue';
-import Dialog from '@/Components/UI/Dialog.vue';
-import Checkbox from '@/Components/UI/Checkbox.vue';
-import ColorPicker from '@/Components/UI/ColorPicker.vue';
 import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
 import { getDate } from '@/Composables/Common';
+import ToggleButton from 'primevue/togglebutton';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Toast from 'primevue/toast';
+import Badge from '@/Components/UI/Badge.vue';
+import Dialog from 'primevue/dialog';
+import Checkbox from 'primevue/checkbox';
+import ColorPicker from 'primevue/colorpicker';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
@@ -253,7 +253,7 @@ const restoreCategory = () => {
                             <div>
                                 <span class="p-input-icon-left">
                                     <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
-                                    <TextInput class="tw-pl-10"
+                                    <InputText class="tw-pl-10"
                                         v-model="filters['global'].value"
                                         placeholder="Search" />
                                 </span>
@@ -368,7 +368,7 @@ const restoreCategory = () => {
                     <div class="tw-flex tw-flex-col tw-space-y-4">
                         <div class="tw-flex tw-flex-col tw-space-y-1">
                             <label class="tw-font-bold">Name</label>
-                            <TextInput
+                            <InputText
                                 v-model.trim="form.name"
                                 autofocus />
                             <InputError :message="form.errors.name" />
@@ -395,7 +395,7 @@ const restoreCategory = () => {
                                             @change="
                                                 changeColor(TEXT_COLOR)
                                                 " />
-                                        <TextInput
+                                        <InputText
                                             v-model="form.text_color"
                                             class="tw-w-full"
                                             required="true"
@@ -417,7 +417,7 @@ const restoreCategory = () => {
                                                     BACKGROUND_COLOR,
                                                 )
                                                 " />
-                                        <TextInput
+                                        <InputText
                                             v-model="form.background_color"
                                             class="tw-w-full"
                                             required="true"

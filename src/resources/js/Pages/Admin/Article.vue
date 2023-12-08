@@ -1,23 +1,22 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
-import TextInput from '@/Components/UI/TextInput.vue';
-import Button from '@/Components/UI/Button.vue';
-import ToggleButton from '@/Components/UI/ToggleButton.vue';
-import Splitter from '@/Components/UI/Splitter.vue';
-import SplitterPanel from 'primevue/splitterpanel';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
+import route from '@/Composables/Route';
+import { TRANSITIONS } from '@/Composables/Theme';
+import { getDate } from '@/Composables/Common';
+import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
+import ToggleButton from 'primevue/togglebutton';
 import InputError from '@/Components/UI/InputError.vue';
 import Badge from '@/Components/UI/Badge.vue';
 import { useToast } from 'primevue/usetoast';
-import Toast from '@/Components/UI/Toast.vue';
-import Image from '@/Components/UI/Image.vue';
-import Textarea from '@/Components/UI/Textarea.vue';
-import DataTable from '@/Components/Elements/Datatable.vue';
-import Column from 'primevue/column';
-import { getDate } from '@/Composables/Common';
-import route from '@/Composables/Route';
-import Dialog from '@/Components/UI/Dialog.vue';
+import Toast from 'primevue/toast';
+import Image from 'primevue/image';
+import Textarea from 'primevue/textarea';
+import Dialog from 'primevue/dialog';
+import MultiSelect from 'primevue/multiselect';
 
 const FILTER_DIALOG = 'filter_dialog';
 const SAVE_DIALOG = 'save_dialog';
@@ -40,6 +39,7 @@ const form = useForm({
     cover_image_object_position: null,
     title: null,
     description: null,
+    categories: [],
     content: null,
 });
 
@@ -245,7 +245,6 @@ const saveRepositionCoverImage = () => {
 }
 
 const cancelRepositionCoverImage = () => {
-    console.log(coverImage.defaultObjectPosition.value)
     coverImage.preview.value.style.objectPosition = coverImage.defaultObjectPosition.value;
     coverImage.isRepositionMode.value = false;
 }
@@ -600,6 +599,11 @@ const restoreArticle = () => {
                             <InputError :message="form.errors.description" />
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">
+                            <label class="tw-font-bold">Categories</label>
+                            <MultiSelect v-model="form.categories" display="chip" filter :options="categories" optionLabel="name" :maxSelectedLabels="5"/>
+                            <InputError :message="form.errors.categories" />
+                        </div>
+                        <div class="tw-flex tw-flex-col tw-space-y-1">
                             <label class="tw-font-bold">Content</label>
                             <InputError :message="form.errors.content" />
                         </div>
@@ -703,7 +707,7 @@ const restoreArticle = () => {
                                 <i
                                     class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
                                 />
-                                <TextInput
+                                <InputText
                                     class="tw-pl-10 tw-w-full"
                                     v-model="articleFilters['global'].value"
                                     placeholder="Search"
@@ -755,7 +759,7 @@ const restoreArticle = () => {
                         <i
                             class="pi pi-tags tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
                         />
-                        <TextInput
+                        <InputText
                             class="tw-pl-10 tw-w-full"
                             v-model="categoryFilters"
                             placeholder="Search"

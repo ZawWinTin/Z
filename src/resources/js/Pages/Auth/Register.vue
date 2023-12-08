@@ -3,7 +3,7 @@ import route from '@/Composables/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
+import InputText from 'primevue/inputtext';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -28,7 +28,7 @@ const submit = () => {
             <div>
                 <InputLabel for="name" value="Name" />
 
-                <TextInput
+                <InputText
                     id="name"
                     v-model="form.name"
                     type="text"
@@ -44,7 +44,7 @@ const submit = () => {
             <div class="tw-mt-4">
                 <InputLabel for="email" value="Email" />
 
-                <TextInput
+                <InputText
                     id="email"
                     v-model="form.email"
                     type="email"
@@ -59,7 +59,7 @@ const submit = () => {
             <div class="tw-mt-4">
                 <InputLabel for="password" value="Password" />
 
-                <TextInput
+                <InputText
                     id="password"
                     v-model="form.password"
                     type="password"
@@ -77,7 +77,7 @@ const submit = () => {
                     value="Confirm Password"
                 />
 
-                <TextInput
+                <InputText
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
