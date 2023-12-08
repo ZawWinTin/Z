@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
-import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
 import Badge from '@/Components/UI/Badge.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 

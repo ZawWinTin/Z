@@ -1,14 +1,14 @@
 <script setup>
+import { ref } from 'vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
+import Password from 'primevue/password';
+import InputText from 'primevue/inputtext';
 import route from '@/Composables/Route';
+import { TRANSITIONS } from '@/Composables/Theme';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import Password from 'primevue/password';
-import { TRANSITIONS } from '@/Composables/Theme';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
 
 defineProps({
     canResetPassword: {

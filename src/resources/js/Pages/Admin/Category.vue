@@ -1,21 +1,21 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
-import Column from 'primevue/column';
 import { FilterMatchMode } from 'primevue/api';
 import { useToast } from 'primevue/usetoast';
-import DataTable from 'primevue/datatable';
-import route from '@/Composables/Route';
-import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
-import { getDate } from '@/Composables/Common';
-import ToggleButton from 'primevue/togglebutton';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
 import Toast from 'primevue/toast';
-import Badge from '@/Components/UI/Badge.vue';
 import Dialog from 'primevue/dialog';
 import Checkbox from 'primevue/checkbox';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
+import Button from 'primevue/button';
+import ToggleButton from 'primevue/togglebutton';
+import InputText from 'primevue/inputtext';
 import ColorPicker from 'primevue/colorpicker';
+import route from '@/Composables/Route';
+import { getDate } from '@/Composables/Common';
+import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
+import Badge from '@/Components/UI/Badge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
