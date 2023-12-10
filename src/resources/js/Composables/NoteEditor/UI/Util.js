@@ -1,6 +1,6 @@
 export const createButton = (text, onClick) => {
-    const element = document.createElement('a');
-    element.text = text;
+    const element = document.createElement('button');
+    element.innerHTML = text;
     element.classList.add(
         'tw-inline-flex',
         'tw-justify-center',

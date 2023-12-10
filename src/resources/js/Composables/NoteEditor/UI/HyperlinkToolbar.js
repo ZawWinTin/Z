@@ -31,7 +31,7 @@ export const addHyperlinkToolbar = (editor, editorContainer, dialog) => {
             const text = hyperlinkToolbarState.text;
 
             const editBtn = createButton('edit', () => {
-                const newUrl = prompt('new url') || url;
+                const newUrl = prompt('new url') || url; //TODO:
                 editor.hyperlinkToolbar.editHyperlink(newUrl, text);
             });
 

@@ -47,7 +47,11 @@ export const addSideMenu = (editor, editorContainer, dialog) => {
             let dialogPos = getDialogPos(dialog);
             element.style.display = 'block';
             element.style.top =
-                sideMenuState.referencePos.top - dialogPos.top + 'px';
+                sideMenuState.referencePos.top +
+                parseFloat(sideMenuState.referencePos.height / 2) -
+                parseFloat(element.offsetHeight / 2) -
+                dialogPos.top +
+                'px';
             element.style.left =
                 sideMenuState.referencePos.x -
                 element.offsetWidth -
