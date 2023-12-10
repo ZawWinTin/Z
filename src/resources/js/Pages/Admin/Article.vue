@@ -280,6 +280,7 @@ const openSaveDialog = (data = null) => {
         form.cover_image = data.cover_image;
         form.title = data.title;
         form.description = data.description;
+        form.categories = data.categories.map(item => item['id']);
         form.content = data.content;
         coverImage.isFileExist.value = true;
     }
@@ -418,30 +419,42 @@ const restoreArticle = () => {
                         </div>
                     </template>
                     <template #empty> No articles exist.</template>
-                    <Column field="id" header="ID" class="tw-w-1/6" sortable>
+                    <Column field="id" header="ID" class="tw-w-1/7" sortable>
                         <template #body="slotProps">
                             {{ slotProps.data.id }}
                         </template>
                     </Column>
-                    <Column field="cover" header="Cover Image" class="tw-w-1/6">
+                    <Column field="cover" header="Cover Image" class="tw-w-1/7">
                         <template #body="slotProps">
                             <Image :src="slotProps.data.cover_image.url" alt="Image" width="80" preview />
                         </template>
                     </Column>
-                    <Column field="title" header="Title" class="tw-w-1/6" sortable>
+                    <Column field="title" header="Title" class="tw-w-1/7" sortable>
                         <template #body="slotProps">
                             <div class="tw-text-left">{{ slotProps.data.title }}</div>
                         </template>
                     </Column>
-                    <Column field="description" header="Description" class="tw-w-1/6">
+                    <Column field="description" header="Description" class="tw-w-1/7">
                         <template #body="slotProps">
                             <div class="tw-text-justify">{{ slotProps.data.description }}</div>
+                        </template>
+                    </Column>
+                    <Column field="categories" header="Categories" class="tw-w-1/7">
+                        <template #body="slotProps">
+                            <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-2">
+                                <template v-for="category in slotProps.data.categories" :key="category.id">
+                                    <Badge
+                                    :content="category.name"
+                                    :textColor="category.text_color"
+                                    :backgroundColor="category.background_color" />
+                                </template>
+                            </div>
                         </template>
                     </Column>
                     <Column
                         field="created_at"
                         header="Created Date"
-                        class="tw-w-1/6"
+                        class="tw-w-1/7"
                         sortable>
                         <template #body="slotProps">
                             {{ getDate(slotProps.data.created_at) }}
@@ -449,7 +462,7 @@ const restoreArticle = () => {
                     </Column>
                     <Column
                         header="Options"
-                        class="tw-w-1/6">
+                        class="tw-w-1/7">
                         <template #body="slotProps">
                             <div class="tw-flex tw-flex-row tw-space-x-2">
                                 <template v-if="filters.active">
@@ -600,7 +613,13 @@ const restoreArticle = () => {
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">
                             <label class="tw-font-bold">Categories</label>
-                            <MultiSelect v-model="form.categories" display="chip" filter :options="categories" optionLabel="name" :maxSelectedLabels="5"/>
+                            <MultiSelect v-model="form.categories"
+                                display="chip" filter
+                                :options="categories"
+                                optionLabel="name"
+                                optionValue="id"
+                                :selectionLimit="5"
+                                :maxSelectedLabels="5"/>
                             <InputError :message="form.errors.categories" />
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">

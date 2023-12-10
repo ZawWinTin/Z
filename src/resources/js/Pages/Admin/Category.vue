@@ -286,8 +286,7 @@ const restoreCategory = () => {
                         <Badge
                             :content="slotProps.data.name"
                             :textColor="slotProps.data.text_color"
-                            :backgroundColor="slotProps.data.background_color
-                                " />
+                            :backgroundColor="slotProps.data.background_color" />
                     </template>
                 </Column>
                 <Column

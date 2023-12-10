@@ -269,7 +269,7 @@ const colorpickerTheme = {
     input: {
         class: [
             'tw-m-0',
-            'tw-font-sans tw-text-base tw-text-slate-600 tw-bg-slate-50 dark:tw-bg-slate-900 tw-p-3 tw-border tw-border-slate-300 dark:tw-border-blue-900/40 tw-transition-colors tw-duration-300 tw-rounded-lg tw-cursor-pointer',
+            'tw-text-base tw-text-slate-600 tw-bg-slate-50 dark:tw-bg-slate-900 tw-p-3 tw-border tw-border-slate-300 dark:tw-border-blue-900/40 tw-transition-colors tw-duration-300 tw-rounded-lg tw-cursor-pointer',
             'hover:tw-border-primary/80 focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
             'tw-w-8 tw-h-8',
         ],
@@ -441,7 +441,7 @@ const paginatorTheme = {
         root: 'tw-inline-flex tw-mx-2',
         input: {
             class: [
-                'tw-font-sans tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
+                'tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
                 'tw-block tw-whitespace-nowrap tw-overflow-hidden tw-flex-auto tw-w-[1%] tw-cursor-pointer text-ellipsis tw-border tw-border-slate-300 tw-pr-0',
                 'focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] focus:tw-border-blue-300',
                 'dark:tw-text-slate-50 dark:bg-slate-950 dark:tw-border-blue-900/40', //Dark Mode
@@ -467,7 +467,7 @@ const paginatorTheme = {
         }),
         input: {
             class: [
-                'tw-font-sans tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
+                'tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md tw-appearance-none',
                 'tw-block tw-whitespace-nowrap tw-overflow-hidden tw-flex-auto tw-w-[1%] tw-cursor-pointer text-ellipsis tw-border-0 tw-pr-0',
                 'focus:tw-outline-none focus:outline-offset-0',
                 'dark:tw-text-slate-50', //Dark Mode
@@ -1100,7 +1100,6 @@ const inputtextTheme = {
     }),
 };
 
-// TODO: Update Design
 const multiselectTheme = {
     root: ({ props }) => ({
         class: [
@@ -1114,28 +1113,28 @@ const multiselectTheme = {
         ],
     }),
     labelContainer: {
-        class: 'tw-overflow-hidden tw-flex tw-flex-auto tw-cursor-pointer',
+        class: 'tw-overflow-hidden tw-flex-auto tw-cursor-pointer tw-min-h-[3rem]',
     },
     label: ({ props }) => ({
         class: [
-            'tw-block tw-overflow-hidden tw-whitespace-nowrap tw-cursor-pointer text-ellipsis',
+            'tw-overflow-hidden tw-whitespace-nowrap tw-cursor-pointer text-ellipsis tw-h-full',
             'tw-text-slate-800 dark:text-slate-50/80',
             'tw-p-3 tw-transition tw-duration-300',
             {
-                '!p-3':
+                'tw-block !tw-p-3':
                     props.display !== 'chip' &&
                     (props?.modelValue == null ||
                         props?.modelValue == undefined),
-                '!py-1.5 tw-px-3':
+                'tw-flex tw-flex-row tw-flex-wrap tw-gap-2 tw-items-center !tw-py-2 tw-px-3':
                     props.display == 'chip' && props?.modelValue !== null,
-                '!p-3': props.display == 'chip' && props?.modelValue == null,
+                '!tw-p-3': props.display == 'chip' && props?.modelValue == null,
             },
         ],
     }),
     token: {
         class: [
-            'tw-py-1 tw-px-2 tw-mr-2 tw-bg-slate-300 dark:tw-bg-slate-700 tw-text-slate-700 dark:text-slate-50/80 tw-rounded-full',
-            'tw-cursor-default tw-inline-flex tw-items-center',
+            'tw-py-1 tw-px-2 tw-bg-slate-300 dark:tw-bg-slate-700 tw-text-slate-700 dark:tw-text-slate-50/80',
+            'tw-cursor-default tw-inline-flex tw-items-center tw-rounded-full',
         ],
     },
     removeTokenIcon: {
@@ -1144,18 +1143,18 @@ const multiselectTheme = {
     trigger: {
         class: [
             'tw-flex tw-items-center tw-justify-center shrink-0',
-            'tw-bg-transparent tw-text-slate-600 dark:text-slate-50/70 tw-w-12 tw-rounded-tr-lg tw-rounded-br-lg',
+            'tw-bg-transparent tw-text-slate-600 dark:tw-text-slate-50/70 tw-w-12 tw-rounded-tr-lg tw-rounded-br-lg',
         ],
     },
     panel: {
         class: [
-            'tw-bg-slate-50 dark:tw-bg-slate-900 tw-text-slate-700 dark:text-slate-50/80 tw-border-0 tw-rounded-md tw-shadow-lg',
+            'tw-bg-slate-50 dark:tw-bg-slate-900 tw-text-slate-700 dark:tw-text-slate-50/80 tw-border-0 tw-rounded-md tw-shadow-lg',
         ],
     },
     header: {
         class: [
-            'tw-p-3 tw-border-b tw-border-slate-300 dark:tw-border-blue-900/40 tw-text-slate-700 dark:text-slate-50/80 tw-bg-slate-100 dark:tw-bg-slate-800 tw-rounded-t-lg',
-            'tw-flex tw-items-center tw-justify-between',
+            'tw-p-3 tw-border-b tw-border-slate-300 dark:tw-border-primary/40 tw-text-slate-700 dark:tw-text-slate-50/80 tw-bg-slate-100 dark:tw-bg-slate-800 tw-rounded-t-lg',
+            'tw-flex tw-items-center tw-justify-between tw-space-x-2',
         ],
     },
     headerCheckboxContainer: {
@@ -1168,24 +1167,25 @@ const multiselectTheme = {
     headerCheckbox: ({ context }) => ({
         class: [
             'tw-flex tw-items-center tw-justify-center',
-            'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:text-slate-50/70 tw-rounded-lg tw-transition-colors tw-duration-300',
-            'hover:tw-border-blue-500 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]',
+            'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
+            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
             {
-                'tw-border-slate-300 dark:tw-border-blue-900/40 tw-bg-slate-50 dark:tw-bg-slate-900':
+                'tw-border-slate-300 dark:tw-border-primary-dark tw-bg-slate-50 dark:tw-bg-slate-900':
                     !context?.selected,
-                'tw-border-blue-500 tw-bg-blue-500': context?.selected,
+                'tw-border-primary-dark tw-bg-primary tw-shadow':
+                    context?.selected,
             },
         ],
     }),
     headercheckboxicon: {
-        class: 'tw-w-4 tw-h-4 tw-transition-all tw-duration-300 tw-text-slate-50 tw-text-base',
+        class: 'tw-w-4 tw-h-4 tw-transition-all tw-duration-300 tw-text-slate-50',
     },
     closeButton: {
         class: [
             'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
-            'tw-w-8 tw-h-8 tw-text-slate-500 dark:text-slate-50/70 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
-            'hover:tw-text-slate-700 dark:hover:text-slate-50/80 hover:tw-border-transparent hover:tw-bg-slate-200 dark:hover:bg-slate-800/80 ',
-            'focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]',
+            'tw-w-8 tw-h-8 tw-text-slate-500 dark:tw-text-slate-50/70 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
+            'hover:tw-text-slate-700 dark:hover:tw-text-slate-50/80 hover:tw-border-transparent hover:tw-bg-slate-200 dark:hover:tw-bg-slate-700/80 ',
+            'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
         ],
     },
     closeButtonIcon: {
@@ -1193,9 +1193,9 @@ const multiselectTheme = {
     },
     wrapper: {
         class: [
-            'max-h-[200px] tw-overflow-auto primary-scrollbar',
+            'tw-max-h-[200px] tw-overflow-auto primary-scrollbar',
             'tw-bg-slate-50 tw-text-slate-700 tw-border-0 tw-rounded-md tw-shadow-lg',
-            'dark:tw-bg-slate-900 dark:text-slate-50/80',
+            'dark:tw-bg-slate-900 dark:tw-text-slate-50/80',
         ],
     },
     list: {
@@ -1204,15 +1204,15 @@ const multiselectTheme = {
     item: ({ context }) => ({
         class: [
             'tw-cursor-pointer tw-font-normal tw-overflow-hidden tw-relative tw-whitespace-nowrap',
-            'tw-m-0 tw-p-3 tw-border-0  tw-transition-shadow tw-duration-300 tw-rounded-none',
+            'tw-m-0 tw-p-3 tw-border-0 tw-transition-shadow tw-duration-300 tw-rounded-none',
             {
-                'tw-text-slate-700 hover:tw-text-slate-700 hover:tw-bg-slate-200 dark:text-slate-50/80 dark:hover:tw-bg-slate-800':
+                'tw-text-slate-700 hover:tw-text-slate-700 hover:tw-bg-slate-200 dark:tw-text-slate-50/80 dark:hover:tw-bg-slate-800':
                     !context.focused && !context.selected,
-                'tw-bg-slate-300 tw-text-slate-700 dark:text-slate-50/80 dark:bg-slate-800/90 hover:tw-text-slate-700 hover:tw-bg-slate-200 dark:text-slate-50/80 dark:hover:tw-bg-slate-800':
+                'tw-bg-slate-300 tw-text-slate-700 dark:tw-text-slate-50/80 dark:tw-bg-slate-800/90 hover:tw-text-slate-700 hover:tw-bg-slate-200 dark:tw-text-slate-50/80 dark:hover:tw-bg-slate-800':
                     context.focused && !context.selected,
-                'tw-bg-blue-100 tw-text-blue-700 dark:tw-bg-blue-400 dark:text-slate-50/80':
+                'tw-bg-primary-dark/60 tw-text-slate-50 dark:tw-bg-primary-dark/60 dark:tw-text-slate-50':
                     context.focused && context.selected,
-                'tw-bg-blue-50 tw-text-blue-700 dark:tw-bg-blue-300 dark:text-slate-50/80':
+                'tw-bg-primary/60 tw-text-slate-50 dark:tw-bg-primary/60 dark:tw-text-slate-50':
                     !context.focused && context.selected,
             },
         ],
@@ -1227,12 +1227,13 @@ const multiselectTheme = {
     checkbox: ({ context }) => ({
         class: [
             'tw-flex tw-items-center tw-justify-center',
-            'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
-            'hover:tw-border-blue-500 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]',
+            'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
+            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
             {
-                'tw-border-slate-300 dark:tw-border-blue-900/40  tw-bg-slate-50 dark:tw-bg-slate-900':
+                'tw-border-slate-300 dark:tw-border-primary-dark tw-bg-slate-50 dark:tw-bg-slate-900':
                     !context?.selected,
-                'tw-border-blue-500 tw-bg-blue-500': context?.selected,
+                'tw-border-primary-dark tw-bg-primary tw-shadow':
+                    context?.selected,
             },
         ],
     }),
@@ -1242,7 +1243,7 @@ const multiselectTheme = {
     itemgroup: {
         class: [
             'tw-m-0 tw-p-3 tw-text-slate-800 tw-bg-slate-50 tw-font-bold',
-            'dark:tw-bg-slate-900 dark:text-slate-50/80',
+            'dark:tw-bg-slate-900 dark:tw-text-slate-50/80',
             'tw-cursor-auto',
         ],
     },
@@ -1251,18 +1252,18 @@ const multiselectTheme = {
     },
     filterinput: {
         class: [
-            'tw-pr-7 tw--mr-7',
+            'tw-pr-7 -tw-mr-7',
             'tw-w-full',
-            'tw-font-sans tw-text-base tw-text-slate-700 tw-bg-slate-50 tw-py-3 tw-px-3 tw-border tw-border-slate-300 tw-transition tw-duration-300 tw-rounded-lg tw-appearance-none',
-            'dark:tw-bg-slate-900 dark:tw-border-blue-900/40 dark:hover:tw-border-blue-300 dark:text-slate-50/80',
-            'hover:tw-border-blue-500 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]',
+            'tw-text-slate-700 tw-bg-slate-50 tw-py-3 tw-px-3 tw-border tw-border-slate-300 tw-transition tw-duration-300 tw-rounded-lg tw-appearance-none',
+            'dark:tw-bg-slate-900 dark:tw-border-primary/40 dark:hover:tw-border-primary dark:tw-text-slate-50/80',
+            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
         ],
     },
     filtericon: {
-        class: 'tw--mt-2 tw-absolute tw-top-1/2',
+        class: '-tw-mt-2 tw-absolute tw-top-1/2',
     },
     clearicon: {
-        class: 'tw-text-slate-500 tw-right-12 tw--mt-2 tw-absolute tw-top-1/2',
+        class: 'tw-text-slate-500 tw-right-12 -tw-mt-2 tw-absolute tw-top-1/2',
     },
     transition: TRANSITIONS.overlay,
 };
