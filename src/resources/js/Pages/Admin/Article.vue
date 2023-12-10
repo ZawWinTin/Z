@@ -381,7 +381,7 @@ const restoreArticle = () => {
                     removableSort
                     :value="getFilteredArticles"
                     scrollable
-                    scrollHeight="53vh"
+                    scrollHeight="52vh"
                     lazy
                     paginator
                     :rows="10"
@@ -515,7 +515,7 @@ const restoreArticle = () => {
                 </Dialog>
 
                 <!-- Create/Update Dialog -->
-                <Dialog maximizable
+                <Dialog maximizable :style="{ width: '90vw' }"
                     v-model:visible="openArticleSaveDialog"
                     modal
                     header="Article Details">
@@ -641,9 +641,6 @@ const restoreArticle = () => {
                                 tw-rounded-md
                                 tw-w-full
                                 tw-min-h-[6rem]
-                                tw-cursor-text
-                                tw-px-3
-                                tw-py-2
                                 tw-border
                                 tw-transition
                                 tw-duration-300
