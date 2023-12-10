@@ -518,6 +518,7 @@ const restoreArticle = () => {
                 <Dialog maximizable :style="{ width: '90vw' }"
                     v-model:visible="openArticleSaveDialog"
                     modal
+                    :closeOnEscape="false"
                     header="Article Details">
                     <div class="tw-flex tw-flex-col tw-space-y-4">
                         <div>

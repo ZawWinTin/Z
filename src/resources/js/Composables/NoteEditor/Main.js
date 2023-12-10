@@ -1,7 +1,8 @@
 import { BlockNoteEditor } from '@blocknote/core';
-import { addHyperlinkToolbar } from '@/Composables/NoteEditor/UI/AddHyperlinkToolbar';
-import { addSideMenu } from '@/Composables/NoteEditor/UI/AddSideMenu';
-import { addSlashMenu } from '@/Composables/NoteEditor/UI/AddSlashMenu';
+import { addFormattingToolbar } from '@/Composables/NoteEditor/UI/FormattingToolbar';
+import { addHyperlinkToolbar } from '@/Composables/NoteEditor/UI/HyperlinkToolbar';
+import { addSideMenu } from '@/Composables/NoteEditor/UI/SideMenu';
+import { addSlashMenu } from '@/Composables/NoteEditor/UI/SlashMenu';
 
 export default function initializeEditor(editorContainer) {
     editorContainer.classList.add('tw-px-16', 'tw-py-2');
@@ -31,6 +32,7 @@ export default function initializeEditor(editorContainer) {
         },
     });
 
+    addFormattingToolbar(editor, editorContainer, dialog);
     addSideMenu(editor, editorContainer, dialog);
     addSlashMenu(editor, editorContainer, dialog);
     addHyperlinkToolbar(editor, editorContainer, dialog);

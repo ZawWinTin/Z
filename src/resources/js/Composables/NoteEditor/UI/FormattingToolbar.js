@@ -1,4 +1,8 @@
-import { createButton, getDialogPos } from '@/Composables/NoteEditor/UI/Util';
+import {
+    createButton,
+    getDialogPos,
+    adjustAdditionalHeight,
+} from '@/Composables/NoteEditor/UI/Util';
 
 export const addFormattingToolbar = (editor, editorContainer, dialog) => {
     let element = null;
@@ -47,12 +51,12 @@ export const addFormattingToolbar = (editor, editorContainer, dialog) => {
             boldBtn.text =
                 'bold' in editor.getActiveStyles() ? 'Unset Bold' : 'Set Bold';
             element.style.top =
-                formattingToolbarState.referencePos.top - dialogPos.top + 'px';
-            element.style.left =
-                formattingToolbarState.referencePos.x -
-                element.offsetWidth -
+                formattingToolbarState.referencePos.top -
                 dialogPos.top +
+                adjustAdditionalHeight(element.offsetHeight, editorContainer) +
                 'px';
+            element.style.left =
+                formattingToolbarState.referencePos.x - dialogPos.left + 'px';
         } else {
             element.style.display = 'none';
         }
