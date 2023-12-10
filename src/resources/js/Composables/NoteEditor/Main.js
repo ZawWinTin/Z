@@ -1,11 +1,11 @@
 import { BlockNoteEditor } from '@blocknote/core';
-import { addFormattingToolbar } from '@/Composables/NoteEditor/UI/AddFormattingToolbar';
 import { addHyperlinkToolbar } from '@/Composables/NoteEditor/UI/AddHyperlinkToolbar';
 import { addSideMenu } from '@/Composables/NoteEditor/UI/AddSideMenu';
 import { addSlashMenu } from '@/Composables/NoteEditor/UI/AddSlashMenu';
 
 export default function initializeEditor(editorContainer) {
-    editorContainer.style.padding = '0.5rem calc((100% - 731px) / 2)';
+    editorContainer.classList.add('tw-px-16', 'tw-py-2');
+    const dialog = editorContainer.closest('.p-dialog');
 
     const editor = BlockNoteEditor.create({
         parentElement: editorContainer,
@@ -14,13 +14,24 @@ export default function initializeEditor(editorContainer) {
         },
         domAttributes: {
             editor: {
-                class: 'editor',
+                class: 'tw-outline-none',
+            },
+            blockContainer: {
+                class: '',
+            },
+            blockGroup: {
+                class: '',
+            },
+            blockContent: {
+                class: '',
+            },
+            inlineContent: {
+                class: '',
             },
         },
     });
 
-    addSideMenu(editor, editorContainer);
-    addFormattingToolbar(editor, editorContainer);
-    addSlashMenu(editor, editorContainer);
-    addHyperlinkToolbar(editor, editorContainer);
+    addSideMenu(editor, editorContainer, dialog);
+    addSlashMenu(editor, editorContainer, dialog);
+    addHyperlinkToolbar(editor, editorContainer, dialog);
 }

@@ -1,16 +1,31 @@
-import { BlockNoteEditor } from '@blocknote/core';
-import { createButton } from '@/Composables/NoteEditor/UI/Util';
+import {
+    createButton,
+    getDialogPos,
+    adjustAdditionalHeight,
+} from '@/Composables/NoteEditor/UI/Util';
 
-export const addHyperlinkToolbar = (editor, editorContainer) => {
+export const addHyperlinkToolbar = (editor, editorContainer, dialog) => {
     let element = null;
 
     editor.hyperlinkToolbar.onUpdate(hyperlinkToolbarState => {
         if (!element) {
             element = document.createElement('div');
-            element.style.background = 'gray';
-            element.style.position = 'absolute';
-            element.style.padding = '0.75rem';
-            element.style.opacity = '0.8';
+            element.classList.add(
+                'tw-flex',
+                'tw-space-x-2',
+                'tw-absolute',
+                'tw-shadow',
+                'tw-opacity-80',
+                'tw-p-2',
+                'tw-border',
+                'tw-border-slate-300',
+                'dark:tw-border-primary/40',
+                'tw-text-slate-700',
+                'dark:tw-text-slate-50/80',
+                'tw-bg-slate-100',
+                'dark:tw-bg-slate-800',
+                'tw-rounded-md',
+            );
 
             const url = hyperlinkToolbarState.url;
             const text = hyperlinkToolbarState.text;
@@ -34,13 +49,16 @@ export const addHyperlinkToolbar = (editor, editorContainer) => {
         }
 
         if (hyperlinkToolbarState.show) {
-            element.style.display = 'block';
+            let dialogPos = getDialogPos(dialog);
 
-            element.style.top = hyperlinkToolbarState.referencePos.top + 'px';
-            element.style.left =
-                hyperlinkToolbarState.referencePos.x -
-                element.offsetWidth +
+            element.style.display = 'block';
+            element.style.top =
+                hyperlinkToolbarState.referencePos.top -
+                dialogPos.top +
+                adjustAdditionalHeight(element.offsetHeight, editorContainer) +
                 'px';
+            element.style.left =
+                hyperlinkToolbarState.referencePos.x - dialogPos.left + 'px';
         } else {
             element.style.display = 'none';
         }

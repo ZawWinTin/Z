@@ -1,23 +1,34 @@
-import { BlockNoteEditor } from '@blocknote/core';
-import { createButton } from '@/Composables/NoteEditor/UI/Util';
+import { createButton, getDialogPos } from '@/Composables/NoteEditor/UI/Util';
 
-export const addFormattingToolbar = (editor, editorContainer) => {
+export const addFormattingToolbar = (editor, editorContainer, dialog) => {
     let element = null;
     let boldBtn = null;
 
     editor.formattingToolbar.onUpdate(formattingToolbarState => {
         if (!element) {
             element = document.createElement('div');
-            element.style.background = 'transparent';
-            element.style.position = 'absolute';
-            element.style.padding = '0.75rem';
-            element.style.opacity = '0.8';
-            boldBtn = createButton('set bold', () => {
+            element.classList.add(
+                'tw-flex',
+                'tw-space-x-2',
+                'tw-absolute',
+                'tw-shadow',
+                'tw-opacity-80',
+                'tw-p-2',
+                'tw-border',
+                'tw-border-slate-300',
+                'dark:tw-border-primary/40',
+                'tw-text-slate-700',
+                'dark:tw-text-slate-50/80',
+                'tw-bg-slate-100',
+                'dark:tw-bg-slate-800',
+                'tw-rounded-md',
+            );
+            boldBtn = createButton('Set Bold', () => {
                 editor.toggleStyles({ bold: true });
             });
             element.appendChild(boldBtn);
 
-            const linkBtn = createButton('set link', () => {
+            const linkBtn = createButton('Set Link', () => {
                 editor.createLink('https://www.google.com');
             });
 
@@ -29,14 +40,18 @@ export const addFormattingToolbar = (editor, editorContainer) => {
         }
 
         if (formattingToolbarState.show) {
-            element.style.display = 'block';
+            let dialogPos = getDialogPos(dialog);
+
+            element.style.display = 'flex';
 
             boldBtn.text =
-                'bold' in editor.getActiveStyles() ? 'unset bold' : 'set bold';
-            element.style.top = formattingToolbarState.referencePos.top + 'px';
+                'bold' in editor.getActiveStyles() ? 'Unset Bold' : 'Set Bold';
+            element.style.top =
+                formattingToolbarState.referencePos.top - dialogPos.top + 'px';
             element.style.left =
                 formattingToolbarState.referencePos.x -
-                element.offsetWidth +
+                element.offsetWidth -
+                dialogPos.top +
                 'px';
         } else {
             element.style.display = 'none';
