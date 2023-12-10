@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import route from '@/Composables/Route';
-import { isActiveRoute } from '@/Composables/Common';
+import route from '@/Composables/Common/Route';
+import { isActiveRoute } from '@/Composables/Common/Helper';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';

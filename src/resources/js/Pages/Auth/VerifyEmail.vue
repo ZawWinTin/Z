@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import route from '@/Composables/Route';
+import route from '@/Composables/Common/Route';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 

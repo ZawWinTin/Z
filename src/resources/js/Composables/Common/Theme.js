@@ -1105,7 +1105,8 @@ const multiselectTheme = {
         class: [
             'tw-w-full tw-inline-flex tw-cursor-pointer tw-select-none tw-rounded-md',
             'tw-bg-slate-50 dark:tw-bg-slate-900 tw-border tw-border-slate-300 dark:tw-border-slate-700',
-            'tw-transition-colors tw-duration-300 tw-ease-in-out',
+            'tw-transition-colors tw-duration-300 tw-ease-in-out tw-shadow-sm',
+            'hover:tw-border-primary dark:hover:tw-border-primary',
             {
                 'tw-opacity-60 tw-select-none tw-pointer-events-none tw-cursor-default':
                     props?.disabled,

@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, ref } from 'vue';
-import route from '@/Composables/Route';
+import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
 import DangerButton from '@/Components/Buttons/DangerButton.vue';
 import InputError from '@/Components/UI/InputError.vue';

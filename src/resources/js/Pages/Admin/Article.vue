@@ -1,6 +1,6 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -12,9 +12,10 @@ import Textarea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import MultiSelect from 'primevue/multiselect';
 import ToggleButton from 'primevue/togglebutton';
-import route from '@/Composables/Route';
-import { TRANSITIONS } from '@/Composables/Theme';
-import { getDate } from '@/Composables/Common';
+import route from '@/Composables/Common/Route';
+import { TRANSITIONS } from '@/Composables/Common/Theme';
+import { getDate } from '@/Composables/Common/Helper';
+import initializeEditor from '@/Composables/NoteEditor/Main';
 import Badge from '@/Components/UI/Badge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 
@@ -22,6 +23,8 @@ const FILTER_DIALOG = 'filter_dialog';
 const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
+
+const maxSelectedCategories = 5;    //TODO: with Settings
 
 const props = defineProps({
     articles: {
@@ -86,8 +89,16 @@ const coverImage = {
     defaultObjectPosition: ref(null),
 };
 
+const contentEditor = ref(null);
+
 onMounted(() => {
     loadData(props);
+});
+
+watchEffect(() => {
+    if (contentEditor.value) {
+        initializeEditor(contentEditor.value);
+    }
 });
 
 const loadData = (data) => {
@@ -618,13 +629,33 @@ const restoreArticle = () => {
                                 :options="categories"
                                 optionLabel="name"
                                 optionValue="id"
-                                :selectionLimit="5"
-                                :maxSelectedLabels="5"/>
+                                :selectionLimit="maxSelectedCategories"
+                                :maxSelectedLabels="maxSelectedCategories"/>
                             <InputError :message="form.errors.categories" />
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">
                             <label class="tw-font-bold">Content</label>
                             <InputError :message="form.errors.content" />
+                            <div ref="contentEditor"
+                                class="
+                                tw-rounded-md
+                                tw-w-full
+                                tw-min-h-[6rem]
+                                tw-cursor-text
+                                tw-px-3
+                                tw-py-2
+                                tw-border
+                                tw-transition
+                                tw-duration-300
+                                tw-shadow-sm
+                                tw-border-slate-300
+                                dark:tw-border-slate-700
+                                dark:tw-bg-slate-900
+                                dark:tw-text-slate-300
+                                hover:tw-border-primary
+                                dark:hover:tw-border-primary"
+                            >
+                            </div>
                         </div>
                     </div>
                     <template #footer>

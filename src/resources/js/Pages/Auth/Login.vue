@@ -5,8 +5,8 @@ import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
-import route from '@/Composables/Route';
-import { TRANSITIONS } from '@/Composables/Theme';
+import route from '@/Composables/Common/Route';
+import { TRANSITIONS } from '@/Composables/Common/Theme';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 

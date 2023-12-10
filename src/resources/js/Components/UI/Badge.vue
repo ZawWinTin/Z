@@ -1,5 +1,5 @@
 <script setup>
-import { convertHexToRgba, isLightColor } from '@/Composables/Common';
+import { convertHexToRgba, isLightColor } from '@/Composables/Common/Helper';
 
 const props = defineProps({
     content: null,

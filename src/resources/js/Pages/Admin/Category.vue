@@ -12,9 +12,9 @@ import Button from 'primevue/button';
 import ToggleButton from 'primevue/togglebutton';
 import InputText from 'primevue/inputtext';
 import ColorPicker from 'primevue/colorpicker';
-import route from '@/Composables/Route';
-import { getDate } from '@/Composables/Common';
-import { TRANSITIONS, tooltipTheme } from '@/Composables/Theme';
+import route from '@/Composables/Common/Route';
+import { getDate } from '@/Composables/Common/Helper';
+import { TRANSITIONS, tooltipTheme } from '@/Composables/Common/Theme';
 import Badge from '@/Components/UI/Badge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 

@@ -1,4 +1,4 @@
-import route from '@/Composables/Route';
+import route from '@/Composables/Common/Route';
 
 export const convertHexToRgba = (color, opacity = 0.5) => {
     color = color.replace('#', '');

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import route from '@/Composables/Route';
+import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';

@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, onUpdated } from 'vue';
-import { useDarkModeStore } from '@/Composables/DarkModeStore';
+import { useDarkModeStore } from '@/Composables/Common/DarkModeStore';
 
 const DARK_MODE = 'tw-dark';
 const LIGHT_MODE = 'tw-light';
