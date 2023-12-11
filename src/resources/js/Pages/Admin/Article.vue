@@ -24,14 +24,16 @@ const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
-const maxSelectedCategories = 5;    //TODO: with Settings
-
 const props = defineProps({
     articles: {
         default: [],
     },
     categories: {
         default: [],
+    },
+    categoryLimit: {
+        default: 5,
+        type: Number,
     },
     errors: Object,
 });
@@ -630,8 +632,8 @@ const restoreArticle = () => {
                                 :options="categories"
                                 optionLabel="name"
                                 optionValue="id"
-                                :selectionLimit="maxSelectedCategories"
-                                :maxSelectedLabels="maxSelectedCategories"/>
+                                :selectionLimit="props.categoryLimit"
+                                :maxSelectedLabels="props.categoryLimit"/>
                             <InputError :message="form.errors.categories" />
                         </div>
                         <div class="tw-flex tw-flex-col tw-space-y-1">

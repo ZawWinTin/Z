@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        User::truncate();
+
         User::create([
             'name' => config('superadmin.auth.name'),
             'email' => config('superadmin.auth.email'),

@@ -6,6 +6,7 @@ use Exception;
 use Throwable;
 use App\Models\Article;
 use App\Models\Category;
+use App\Enums\SettingKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +29,9 @@ class ArticleRepository
 
         $categories = Category::withCount('articles')->orderByName()->get();
 
-        return compact('articles', 'categories');
+        $categoryLimit = SettingRepository::getValueByName(SettingKey::CATEGORY_LIMIT);
+
+        return compact('articles', 'categories', 'categoryLimit');
     }
 
     public function save(Request $request)
