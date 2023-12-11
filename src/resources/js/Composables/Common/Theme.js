@@ -1087,7 +1087,7 @@ const imageTheme = {
 const inputtextTheme = {
     root: ({ props, context }) => ({
         class: [
-            'tw-duration-300 tw-ease-in-out tw-rounded-full tw-shadow-sm',
+            'tw-duration-300 tw-ease-in-out tw-rounded-full tw-shadow-sm tw-w-full',
             'tw-border-slate-300 dark:tw-bg-slate-900 dark:tw-border-slate-700 dark:tw-text-slate-300',
             'focus:tw-border-primary dark:focus:tw-border-primary focus:tw-ring-primary dark:focus:tw-ring-primary',
             {
@@ -1279,15 +1279,6 @@ const passwordTheme = {
             },
         ],
     }),
-    input: {
-        class: [
-            'dark:tw-bg-slate-900 dark:tw-text-slate-300',
-            'tw-w-full tw-pr-8 tw-rounded-full tw-duration-300 tw-ease-in-out tw-shadow-sm',
-            'tw-border-slate-300 dark:tw-border-slate-700',
-            'hover:tw-border-primary/80 dark:hover:tw-border-primary/80',
-            'focus:tw-border-primary focus:tw-ring-primary dark:focus:tw-border-primary dark:focus:tw-ring-primary',
-        ],
-    },
     panel: 'tw-p-5 tw-bg-slate-50 dark:tw-bg-slate-900 tw-text-slate-700 dark:tw-text-slate-50/80 tw-shadow-md tw-rounded-md',
     meter: 'tw-mb-2 tw-bg-slate-300 dark:tw-bg-slate-700 tw-h-3',
     meterlabel: ({ instance, props }) => ({

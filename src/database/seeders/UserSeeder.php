@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -19,6 +20,7 @@ class UserSeeder extends Seeder
             'email' => config('superadmin.auth.email'),
             'email_verified_at' => now(),
             'password' => config('superadmin.auth.password'),
+            'role' => UserRole::ADMIN,
         ]);
     }
 }

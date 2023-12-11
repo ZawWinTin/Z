@@ -22,6 +22,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Sql Log Channel
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the sql log channel that should be used to stop log warnings
+     */
+    'sql_enabled' => env('LOG_SQL_ENABLED', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Deprecations Log Channel
     |--------------------------------------------------------------------------
     |
@@ -89,7 +98,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
             'processors' => [PsrLogMessageProcessor::class],
         ],
