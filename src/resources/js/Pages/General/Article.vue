@@ -3,8 +3,8 @@ import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import Badge from '@/Components/UI/Badge.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
+import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 
 const props = defineProps({
     articles: {
@@ -167,12 +167,7 @@ const disableClearChoseCategories = computed(() => {
                             "
                             @click="chooseCategory(category)"
                         >
-                            <Badge
-                                :content="category.name"
-                                :textColor="category.text_color"
-                                :backgroundColor="category.background_color"
-                                :value="null"
-                            />
+                            <CategoryBadge :category="category" />
                         </div>
                     </template>
                 </div>

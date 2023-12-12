@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\DataType;
 use App\Enums\SettingKey;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Setting extends Model
@@ -22,6 +23,8 @@ class Setting extends Model
         'type',
         'label',
         'description',
+        'icon_name',
+        'options',
     ];
 
     /**
@@ -33,4 +36,12 @@ class Setting extends Model
         'name' => SettingKey::class,
         'type' => DataType::class,
     ];
+
+    protected function options(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    }
 }

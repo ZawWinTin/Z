@@ -1,0 +1,40 @@
+img[src=''] {
+    visibility: hidden;
+}
+
+/* Hide Scrollbar */
+.hide-scroll {
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* Edge */
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/** Primary ScrollBar Design **/
+@property --scrollbar-primary-color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+}
+
+.primary-scrollbar {
+    transition: --scrollbar-primary-color 300ms linear;
+
+    &:hover {
+        --scrollbar-primary-color: rgba(148, 0, 211, 0.8);
+    }
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-primary-color);
+        border-radius: 10px;
+    }
+}

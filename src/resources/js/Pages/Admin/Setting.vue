@@ -5,7 +5,23 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import InputText from 'primevue/inputtext';
 import route from '@/Composables/Common/Route';
+import SettingCard from '@/Components/Elements/SettingCard.vue';
 
+const props = defineProps({
+    systemSettings: {
+        default: [],
+    },
+    envSettings: {
+        default: [],
+    },
+    errors: Object,
+});
+
+const form = useForm({
+    setting_type: null,
+    key: null,
+    value: null,
+});
 
 const filters = ref({
     global: { value: null },
@@ -21,8 +37,7 @@ const filters = ref({
         </h1>
         <Toast />
         <div class="tw-flex tw-flex-col tw-space-y-4">
-            <div
-                class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            <div class="tw-flex tw-justify-end">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
                     <InputText class="tw-pl-10"
@@ -33,10 +48,12 @@ const filters = ref({
             <div
                 class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
                 <h3 class="tw-font-bold tw-text-xl tw-text-primary tw-uppercase tw-mb-4">System</h3>
+                <div></div>
             </div>
             <div
                 class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
                 <h3 class="tw-font-bold tw-text-xl tw-text-primary tw-uppercase tw-mb-4">Environment</h3>
+                <div></div>
             </div>
         </div>
     </section>

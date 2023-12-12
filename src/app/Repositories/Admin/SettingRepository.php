@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 
 use Exception;
 use Throwable;
+use App\Enums\EnvKey;
 use App\Enums\DataType;
 use App\Models\Setting;
 use App\Enums\SettingKey;
@@ -40,9 +41,22 @@ class SettingRepository
 
     public function getAll()
     {
-        $settings = Setting::all();
+        $systemSettings = Setting::all();
 
-        return compact('settings');
+        $envSettings = [];
+        foreach (EnvKey::cases() as $envKey) {
+            $envSettings[] = [
+                'name' => $envKey->value,
+                'value' => config($envKey->configKey()),
+                'type' => $envKey->type(),
+                'label' => $envKey->label(),
+                'description' => $envKey->description(),
+                'icon_name' => $envKey->iconName(),
+                'options' => $envKey->options(),
+            ];
+        }
+
+        return compact('systemSettings', 'envSettings');
     }
 
     public function save(Request $request)

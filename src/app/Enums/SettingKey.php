@@ -13,7 +13,7 @@ enum SettingKey: string
     public function label(): string
     {
         return match ($this) {
-            self::CATEGORY_LIMIT => 'Limit Categories per Article',
+            self::CATEGORY_LIMIT => 'Limit Categories',
         };
     }
 }

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
-import Badge from '@/Components/UI/Badge.vue';
+import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 
 const props = defineProps({
     article: {
@@ -128,9 +128,7 @@ let loadImage = () => {
                     <template v-for="(category, index) in props.article.categories" :key="category.id">
                         <!-- Show Highest Priority Only -->
                         <template v-if="!index">
-                            <Badge :content="category.name"
-                                :textColor="category.text_color"
-                                :backgroundColor="category.background_color" />
+                            <CategoryBadge :category="category" />
                         </template>
                     </template>
                     <span

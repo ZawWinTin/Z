@@ -2,6 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\EnvKey;
+use App\Enums\DataType;
+use App\Models\Setting;
+use App\Enums\SettingType;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SettingSaveRequest extends FormRequest
@@ -21,9 +26,39 @@ class SettingSaveRequest extends FormRequest
      */
     public function rules(): array
     {
+        $valueRules = [];
+        $keyRules = [];
+
+        $setting = null;
+        $options = [];
+
+        switch ($this->input('setting_type')) {
+            case SettingType::SYSTEM->value:
+                $setting = Setting::find($this->input('id'));
+                $type = $setting?->type;
+                $options = $setting?->options;
+                $keyRules = ['required', 'exists:settings,id,deleted_at,NULL'];
+                break;
+            case SettingType::ENV->value:
+                $setting = EnvKey::case($this->input('name'));
+                $type = $setting?->type();
+                $options = $setting?->options();
+                $keyRules = ['required', Rule::in(EnvKey::values())];
+                break;
+        }
+
+        $valueRules = match ($type) {
+            DataType::NUMBER => ['required', 'integer', 'min:' . $options['min'], 'max:' . $options['max']],
+            DataType::BOOLEAN => ['required', 'boolean'],
+            DataType::DROPDOWN => ['required', Rule::in($options)],
+            DataType::STRING => ['required', 'string'],
+            default => ['required'],
+        };
+
         return [
-            'id' => ['required', 'exists:settings,id,deleted_at,NULL'],
-            'value' => ['required', 'string', 'max:120'],
+            'setting_type' => ['required', Rule::in(SettingType::values())],
+            'key' => $keyRules,
+            'value' => $valueRules,
         ];
     }
 }

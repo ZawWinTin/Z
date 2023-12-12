@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import '../css/style.scss';
 import 'primeicons/primeicons.css';
 
 import moment from 'moment';

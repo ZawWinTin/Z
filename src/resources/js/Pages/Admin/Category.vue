@@ -15,7 +15,7 @@ import ColorPicker from 'primevue/colorpicker';
 import route from '@/Composables/Common/Route';
 import { getDate } from '@/Composables/Common/Helper';
 import { TRANSITIONS, tooltipTheme } from '@/Composables/Common/Theme';
-import Badge from '@/Components/UI/Badge.vue';
+import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 
 const toast = useToast();
@@ -283,10 +283,7 @@ const restoreCategory = () => {
                     class="tw-w-1/5"
                     sortable>
                     <template #body="slotProps">
-                        <Badge
-                            :content="slotProps.data.name"
-                            :textColor="slotProps.data.text_color"
-                            :backgroundColor="slotProps.data.background_color" />
+                        <CategoryBadge :category="slotProps.data" />
                     </template>
                 </Column>
                 <Column
@@ -350,10 +347,11 @@ const restoreCategory = () => {
                     <div
                         class="tw-py-12 tw-flex tw-justify-center tw-rounded-md tw-border-primary tw-shadow tw-relative tw-transition tw-duration-300"
                         :class="isCategoryPreviewBgDark ? 'tw-bg-slate-900' : 'tw-bg-slate-50'">
-                        <Badge
-                            :content="form.name || 'Text'"
-                            :textColor="form.text_color"
-                            :backgroundColor="form.background_color" />
+                        <CategoryBadge :category="{
+                                name: form.name || 'Text',
+                                text_color: form.text_color,
+                                background_color: form.background_color,
+                        }" />
                         <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300"
                             :class="isCategoryPreviewBgDark ? 'tw-bg-slate-50 tw-text-slate-900' : 'tw-bg-slate-900 tw-text-slate-50'"
                         @click="toggleCategoryPreviewBg">

@@ -9,4 +9,7 @@ enum DataType: string
     use EnumToArray;
 
     case NUMBER = 'number';
+    case BOOLEAN = 'boolean';
+    case DROPDOWN = 'dropdown';
+    case STRING = 'string';
 }
