@@ -13,7 +13,7 @@ const BOOLEAN = 'boolean';
 const DROPDOWN = 'dropdown';
 </script>
 <template>
-    <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 tw-bg-slate-50 dark:tw-bg-slate-900 tw-transition tw-duration-300 tw-space-y-4">
+    <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 tw-bg-slate-50 dark:tw-bg-slate-900 tw-transition tw-duration-300 tw-space-y-4 tw-justify-between">
         <!-- Label -->
         <div class="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-center tw-h-[4.5rem]">
             <div class="tw-w-1/4
