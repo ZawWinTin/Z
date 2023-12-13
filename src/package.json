@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@blocknote/core": "^0.10.1",
+        "@heroicons/vue": "^2.0.18",
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.4.0",
         "moment": "^2.29.4",

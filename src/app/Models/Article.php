@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DataMode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -28,7 +29,7 @@ class Article extends Model
      */
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class)->orderByPivot('priority', 'asc');
+        return $this->belongsToMany(Category::class)->withTrashed()->orderByPivot('priority', 'asc');
     }
 
     public function coverImage(): MorphOne
@@ -38,8 +39,15 @@ class Article extends Model
 
     public function scopeFilter($query, $filters)
     {
-        if (isset($filters['active']) && $filters['active'] === false) {
-            $query->onlyTrashed();
+        if (isset($filters['mode'])) {
+            switch ($filters['mode']) {
+                case DataMode::TRASH->value:
+                    $query->onlyTrashed();
+                    break;
+                case DataMode::ALL->value:
+                    $query->withTrashed();
+                    break;
+            }
         }
 
         $query->when($filters['sortField'] ?? false, function ($query, $sortField) use ($filters) {

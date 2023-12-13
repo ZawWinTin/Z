@@ -11,7 +11,6 @@ import Dialog from 'primevue/dialog';
 import Textarea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import MultiSelect from 'primevue/multiselect';
-import ToggleButton from 'primevue/togglebutton';
 import route from '@/Composables/Common/Route';
 import { TRANSITIONS } from '@/Composables/Common/Theme';
 import { getDate } from '@/Composables/Common/Helper';
@@ -50,7 +49,7 @@ const form = useForm({
 
 const filters = useForm({
     global: null,
-    active: true,
+    mode: 0,
 
     sortField: null,
     sortOrder: null,
@@ -60,10 +59,15 @@ const filters = useForm({
 
 const toast = useToast();
 
-const articles = ref([]);
-const categories = ref([]);
+const currentArticles = ref([]);
+const allCategories = ref([]);
 
-const isActiveMode = ref(true);
+const currentMode = ref(0);
+const modes = [
+    { icon: 'pi pi-check', label: 'Active', outlined: false },
+    { icon: 'pi pi-trash', label: 'Trash', outlined: true },
+    { icon: 'pi pi-th-large', label: 'All', outlined: false },
+];
 
 const openArticleFilterDialog = ref(false);
 const openArticleSaveDialog = ref(false);
@@ -96,8 +100,8 @@ watchEffect(() => {
 });
 
 const loadData = (data) => {
-    articles.value = data.articles;
-    categories.value = data.categories;
+    currentArticles.value = data.articles;
+    allCategories.value = data.categories;
 };
 
 const loadArticles = () => {
@@ -124,18 +128,16 @@ const onPageOrSort = (event) => {
     loadArticles();
 };
 
-const toggleActiveMode = () => {
+const updateMode = () => {
+    currentMode.value = currentMode.value + 1;
+    if (currentMode.value >= modes.length) {
+        currentMode.value = 0;
+    }
     filters.reset();
-    filters.active = isActiveMode.value;
+    filters.mode = currentMode.value;
 
     loadArticles();
 }
-
-const getFilteredArticles = computed(() => {
-    let filteredArticles = articles.value.data;
-
-    return filteredArticles;
-});
 
 const resetForm = () => {
     form.reset();
@@ -328,28 +330,23 @@ const restoreArticle = () => {
         >
             <DataTable
                 removableSort
-                :value="getFilteredArticles"
+                :value="currentArticles.data"
                 scrollable
                 scrollHeight="52vh"
                 lazy
                 paginator
                 :rows="10"
                 :rowsPerPageOptions="[5, 10, 20]"
-                :totalRecords="articles.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
+                :totalRecords="currentArticles.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
                 dataKey="id">
                 <template #header>
                     <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
                         <div
                             class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
                         >
-                            <ToggleButton
-                                v-model="isActiveMode"
-                                @click="toggleActiveMode"
-                                onLabel="Active"
-                                offLabel="Trash"
-                                onIcon="pi pi-check"
-                                offIcon="pi pi-trash"
-                            />
+                            <Button :label="modes[currentMode].label"
+                                :icon="modes[currentMode].icon"
+                                :outlined="modes[currentMode].outlined" @click="updateMode" rounded />
                             <Button
                                 icon="pi pi-search"
                                 class="tw-w-10 tw-h-10"
@@ -367,7 +364,7 @@ const restoreArticle = () => {
                             "
                             :leave-to-class="TRANSITIONS.overlay.leaveToClass"
                         >
-                            <template v-if="filters.active">
+                            <template v-if="modes[currentMode].label != 'Trash'">
                                 <Button
                                     icon="pi pi-plus"
                                     class="tw-w-10 tw-h-10"
@@ -422,7 +419,7 @@ const restoreArticle = () => {
                     class="tw-w-1/7">
                     <template #body="slotProps">
                         <div class="tw-flex tw-flex-row tw-space-x-2">
-                            <template v-if="filters.active">
+                            <template v-if="!slotProps.data.deleted_at">
                                 <Button
                                     icon="pi pi-cog"
                                     outlined
@@ -438,7 +435,7 @@ const restoreArticle = () => {
                                     class="tw-w-10 tw-h-10"
                                     @click="openDeleteDialog(slotProps.data)" />
                             </template>
-                            <template v-if="!filters.active">
+                            <template v-if="!!slotProps.data.deleted_at">
                                 <Button
                                     icon="pi pi-replay"
                                     outlined
@@ -450,7 +447,7 @@ const restoreArticle = () => {
                         </div>
                     </template>
                 </Column>
-                <template #footer> In total, there are <b>{{ articles.total || 0 }}</b> articles.</template>
+                <template #footer> In total, there are <b>{{ currentArticles.total || 0 }}</b> articles.</template>
             </DataTable>
 
             <!-- Filter Dialog -->
@@ -573,9 +570,10 @@ const restoreArticle = () => {
                         <label class="tw-font-bold">Categories</label>
                         <MultiSelect v-model="form.categories"
                             display="chip" filter
-                            :options="categories"
+                            :options="allCategories"
                             optionLabel="name"
                             optionValue="id"
+                            optionDisabled="deleted_at"
                             :selectionLimit="props.categoryLimit"
                             :maxSelectedLabels="props.categoryLimit"/>
                         <InputError :message="form.errors.categories" />

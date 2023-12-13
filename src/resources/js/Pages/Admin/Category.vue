@@ -9,7 +9,6 @@ import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Button from 'primevue/button';
-import ToggleButton from 'primevue/togglebutton';
 import InputText from 'primevue/inputtext';
 import ColorPicker from 'primevue/colorpicker';
 import route from '@/Composables/Common/Route';
@@ -17,6 +16,7 @@ import { getDate } from '@/Composables/Common/Helper';
 import { TRANSITIONS, tooltipTheme } from '@/Composables/Common/Theme';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
+import { MoonIcon } from '@heroicons/vue/20/solid';
 
 const toast = useToast();
 
@@ -27,9 +27,14 @@ const openCategoryRestoreDialog = ref(false);
 const isSameColor = ref(false);
 const isCategoryPreviewBgDark = ref(false);
 
-const isActiveMode = ref(true);
-const activeCategories = ref([]);
-const deletedCategories = ref([]);
+const currentMode = ref(0);
+const modes = [
+    { icon: 'pi pi-check', label: 'Active', outlined: false },
+    { icon: 'pi pi-trash', label: 'Trash', outlined: true },
+    { icon: 'pi pi-th-large', label: 'All', outlined: false },
+];
+
+const currentCategories = ref([]);
 
 const BACKGROUND_COLOR = 'background_color';
 const TEXT_COLOR = 'text_color';
@@ -38,10 +43,7 @@ const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
 const props = defineProps({
-    activeCategories: {
-        default: [],
-    },
-    deletedCategories: {
+    categories: {
         default: [],
     },
     errors: Object,
@@ -63,11 +65,28 @@ onMounted(() => {
 });
 
 const loadCategories = (data) => {
-    activeCategories.value = data.activeCategories;
-    deletedCategories.value = data.deletedCategories;
+    currentCategories.value = data.categories;
 };
 
-const getCategories = computed(() => isActiveMode.value ? activeCategories.value : deletedCategories.value);
+const getCategories = computed(() => {
+    return currentCategories.value.filter((category) => {
+        switch (modes[currentMode.value].label) {
+            case 'Active':
+                return category.deleted_at == null;
+            case 'Trash':
+                return category.deleted_at != null;
+            case 'All':
+                return true;
+        }
+    });
+});
+
+const updateMode = () => {
+    currentMode.value = currentMode.value + 1;
+    if (currentMode.value >= modes.length) {
+        currentMode.value = 0;
+    }
+}
 
 const toggleCategoryPreviewBg = () => {
     isCategoryPreviewBgDark.value = !isCategoryPreviewBgDark.value;
@@ -247,9 +266,9 @@ const restoreCategory = () => {
                 <template #header>
                     <div class="tw-flex tw-justify-between tw-items-center">
                         <div class="tw-flex tw-justify-start tw-items-center tw-space-x-4">
-                            <ToggleButton v-model="isActiveMode"
-                                onLabel="Active" offLabel="Trash"
-                                onIcon="pi pi-check" offIcon="pi pi-trash" />
+                            <Button :label="modes[currentMode].label"
+                                :icon="modes[currentMode].icon"
+                                :outlined="modes[currentMode].outlined" @click="updateMode" rounded />
                             <div>
                                 <span class="p-input-icon-left">
                                     <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
@@ -265,7 +284,7 @@ const restoreCategory = () => {
                             :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
                             :leave-to-class="TRANSITIONS.overlay.leaveToClass"
                         >
-                            <template v-if="isActiveMode">
+                            <template v-if="modes[currentMode].label != 'Trash'">
                                 <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
                             </template>
                         </transition>
@@ -306,33 +325,35 @@ const restoreCategory = () => {
                 </Column>
                 <Column
                     header="Options"
-                    class="tw-w-full tw-flex tw-flex-row tw-space-x-2">
+                    class="tw-w-1/5">
                     <template #body="slotProps">
-                        <template v-if="isActiveMode">
-                            <Button
-                                icon="pi pi-pencil"
-                                outlined
-                                rounded
-                                severity="warning"
-                                class="tw-w-10 tw-h-10"
-                                @click="openSaveDialog(slotProps.data)" />
-                            <Button
-                                icon="pi pi-trash"
-                                outlined
-                                rounded
-                                severity="danger"
-                                class="tw-w-10 tw-h-10"
-                                @click="openDeleteDialog(slotProps.data)" />
-                        </template>
-                        <template v-if="!isActiveMode">
-                            <Button
-                                icon="pi pi-replay"
-                                outlined
-                                rounded
-                                severity="success"
-                                class="tw-w-10 tw-h-10"
-                                @click="openRestoreDialog(slotProps.data)" />
-                        </template>
+                        <div class="tw-flex tw-flex-row tw-space-x-2">
+                            <template v-if="!slotProps.data.deleted_at">
+                                <Button
+                                    icon="pi pi-pencil"
+                                    outlined
+                                    rounded
+                                    severity="warning"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openSaveDialog(slotProps.data)" />
+                                <Button
+                                    icon="pi pi-trash"
+                                    outlined
+                                    rounded
+                                    severity="danger"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openDeleteDialog(slotProps.data)" />
+                            </template>
+                            <template v-if="!!slotProps.data.deleted_at">
+                                <Button
+                                    icon="pi pi-replay"
+                                    outlined
+                                    rounded
+                                    severity="success"
+                                    class="tw-w-10 tw-h-10"
+                                    @click="openRestoreDialog(slotProps.data)" />
+                            </template>
+                        </div>
                     </template>
                 </Column>
                 <template #footer> In total, there are <b>{{ getCategories ? getCategories.length : 0 }}</b> categories.</template>
@@ -356,9 +377,7 @@ const restoreCategory = () => {
                             :class="isCategoryPreviewBgDark ? 'tw-bg-slate-50 tw-text-slate-900' : 'tw-bg-slate-900 tw-text-slate-50'"
                         @click="toggleCategoryPreviewBg">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="tw-w-5 tw-h-5">
-                                <path fill-rule="evenodd" d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z" clip-rule="evenodd" />
-                                </svg>
+                                <MoonIcon class="tw-w-5 tw-h-5" />
                             </span>
                         </button>
                     </div>

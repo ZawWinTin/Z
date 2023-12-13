@@ -16,8 +16,8 @@ const props = defineProps({
     errors: Object,
 });
 
-const articles = ref([]);
-const categories = ref([]);
+const currentArticles = ref([]);
+const currentCategories = ref([]);
 
 const articleFilters = reactive({
     global: { value: null },
@@ -27,12 +27,12 @@ const articleFilters = reactive({
 const categoryFilters = ref(null);
 
 onMounted(() => {
-    articles.value = props.articles;
-    categories.value = props.categories;
+    currentArticles.value = props.articles;
+    currentCategories.value = props.categories;
 });
 
 const getFilteredArticles = computed(() => {
-    let filteredArticles = articles.value;
+    let filteredArticles = currentArticles.value;
 
     // Search by Category
     if (articleFilters.categories.value.length > 0) {
@@ -56,12 +56,12 @@ const getFilteredArticles = computed(() => {
 
 const filteredCategories = computed(() => {
     return categoryFilters.value
-        ? categories.value.filter(category =>
+        ? currentCategories.value.filter(category =>
               category.name
                   .toLowerCase()
                   .includes(categoryFilters.value.toLowerCase()),
           )
-        : categories.value;
+        : currentCategories.value;
 });
 
 const chooseCategory = category => {

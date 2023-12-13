@@ -13,10 +13,9 @@ class CategoryRepository
 {
     public function getAll()
     {
-        $activeCategories = Category::withCount('articles')->get();
-        $deletedCategories = Category::withCount('articles')->onlyTrashed()->get();
+        $categories = Category::withCount('articles')->withTrashed()->get();
 
-        return compact('activeCategories', 'deletedCategories');
+        return compact('categories');
     }
 
     public function save(Request $request)

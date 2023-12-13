@@ -21,13 +21,13 @@ class ArticleRepository
         ])
             ->filter(request([
                 'global',
-                'active',
+                'mode',
                 'sortField',
                 'sortOrder',
             ]))
             ->paginate(request('perPage', 10));
 
-        $categories = Category::withCount('articles')->orderByName()->get();
+        $categories = Category::withCount('articles')->withTrashed()->orderByName()->get();
 
         $categoryLimit = SettingRepository::getValueByName(SettingKey::CATEGORY_LIMIT);
 
