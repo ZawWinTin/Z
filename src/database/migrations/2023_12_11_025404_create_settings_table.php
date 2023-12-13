@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\DataType;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('value');
-            $table->char('type', 20)->default(DataType::STRING->value);
+            $table->char('type', 20);
             $table->string('label');
             $table->text('description')->nullable();
             $table->char('icon_name', 20)->nullable();

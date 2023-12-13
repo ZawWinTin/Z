@@ -51,7 +51,6 @@ class SettingSaveRequest extends FormRequest
             DataType::NUMBER => ['required', 'integer', 'min:' . $options['min'], 'max:' . $options['max']],
             DataType::BOOLEAN => ['required', 'boolean'],
             DataType::DROPDOWN => ['required', Rule::in($options)],
-            DataType::STRING => ['required', 'string'],
             default => ['required'],
         };
 

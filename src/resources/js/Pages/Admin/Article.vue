@@ -1,6 +1,6 @@
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3';
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -9,7 +9,6 @@ import Image from 'primevue/image';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import Textarea from 'primevue/textarea';
-import InputText from 'primevue/inputtext';
 import MultiSelect from 'primevue/multiselect';
 import route from '@/Composables/Common/Route';
 import { TRANSITIONS } from '@/Composables/Common/Theme';

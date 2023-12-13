@@ -9,7 +9,7 @@ class ArticleRepository
 {
     public function getAll()
     {
-        $articles = Article::with(['categories'])->latest()->get();
+        $articles = Article::with(['categories', 'coverImage'])->latest()->get();
         $categories = Category::orderByName()->get();
 
         return compact('articles', 'categories');

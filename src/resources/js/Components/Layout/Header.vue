@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
+import { TRANSITIONS } from '@/Composables/Common/Theme';
 import { isActiveRoute } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
@@ -25,12 +26,11 @@ let initializeScrolling = () => {
 
 let toggleMainMenu = (event) => {
     event.stopPropagation();
-    let body = document.querySelector('body');
     isMenuOpen.value = !isMenuOpen.value;
     if (isMenuOpen.value) {
-        body.classList.add('tw-overflow-hidden');
+        document.body.classList.add('tw-overflow-hidden');
     } else {
-        body.classList.remove('tw-overflow-hidden');
+        document.body.classList.remove('tw-overflow-hidden');
     }
 };
 
@@ -102,46 +102,56 @@ let getActiveClasses = (routeName) => {
         </div>
 
         <!-- Main Menu Screen -->
-        <div
-            class="tw-container tw-flex-row-reverse tw-h-full"
-            :class="isMenuOpen ? 'tw-flex' : 'tw-hidden'"
+        <transition
+            :enter-from-class="TRANSITIONS.floatIn.enterFromClass"
+            :enter-active-class="
+                TRANSITIONS.floatIn.enterActiveClass
+            "
+            :leave-active-class="
+                TRANSITIONS.floatIn.leaveActiveClass
+            "
+            :leave-to-class="TRANSITIONS.floatIn.leaveToClass"
         >
-            <section :class="sectionClasses" class="tw-pl-4">
-                <div :class="menuCardClasses">
-                    <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
-                    <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" :href="route('article.index')">Articles</Link>
-                    <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
-                    <Link :class="[getActiveClasses('contact'), menuLinkClasses]" href="#">Contact</Link>
-                    <template v-if="route().has('admin.dashboard')">
-                        <hr
-                            class="tw-bg-slate-300 tw-border-0 tw-h-px"
-                        />
-                        <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
-                            >Overview Dashboard</Link
-                        >
-                        <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
-                            >Logout</Link
-                        >
-                    </template>
-                </div>
-                <div :class="menuCardClasses">
-                    <div
-                        class="
-                            tw-flex
-                            tw-flex-row
-                            tw-items-center
-                            tw-justify-between
-                            tw-w-full
-                            tw-px-4
-                            "
-                    >
-                        <span class="tw-select-none">Appearance</span>
-                        <DarkModeToggle />
+            <div v-show="isMenuOpen"
+                class="tw-container tw-flex tw-flex-row-reverse tw-h-full"
+            >
+                <section :class="sectionClasses" class="tw-pl-4">
+                    <div :class="menuCardClasses">
+                        <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
+                        <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" :href="route('article.index')">Articles</Link>
+                        <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
+                        <Link :class="[getActiveClasses('contact'), menuLinkClasses]" href="#">Contact</Link>
+                        <template v-if="route().has('admin.dashboard')">
+                            <hr
+                                class="tw-bg-slate-300 tw-border-0 tw-h-px"
+                            />
+                            <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
+                                >Overview Dashboard</Link
+                            >
+                            <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
+                                >Logout</Link
+                            >
+                        </template>
                     </div>
-                </div>
-            </section>
-            <section :class="sectionClasses" class="tw-px-4"></section>
-            <section :class="sectionClasses" class="tw-pr-4"></section>
-        </div>
+                    <div :class="menuCardClasses">
+                        <div
+                            class="
+                                tw-flex
+                                tw-flex-row
+                                tw-items-center
+                                tw-justify-between
+                                tw-w-full
+                                tw-px-4
+                                "
+                        >
+                            <span class="tw-select-none">Appearance</span>
+                            <DarkModeToggle />
+                        </div>
+                    </div>
+                </section>
+                <section :class="sectionClasses" class="tw-px-4"></section>
+                <section :class="sectionClasses" class="tw-pr-4"></section>
+            </div>
+        </transition>
     </div>
 </template>

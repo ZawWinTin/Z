@@ -7,24 +7,25 @@ export const addSideMenu = (editor, editorContainer, dialog) => {
         if (!element) {
             element = document.createElement('div');
             element.classList.add('tw-absolute', 'tw-opacity-80', 'tw-pr-2');
-            const addBtn = createButton('', () => {
+            const addBtn = createButton('<span class="pi pi-plus" />', () => {
                 editor.sideMenu.addBlock();
             });
             addBtn.classList.add('tw-w-6', 'tw-h-6', '!tw-p-0');
-            addBtn.innerHTML = `<span class="pi pi-plus" />`;
 
             element.appendChild(addBtn);
 
-            const dragBtn = createButton('', () => {
-                // TODO: render a submenu with a delete option that calls "props.deleteBlock"
-            });
+            const dragBtn = createButton(
+                '<span class="pi pi-ellipsis-v" />',
+                () => {
+                    // TODO: render a submenu with a delete option that calls "props.deleteBlock"
+                },
+            );
             dragBtn.classList.add(
                 'tw-w-6',
                 'tw-h-6',
                 '!tw-p-0',
                 '!tw-cursor-grab',
             );
-            dragBtn.innerHTML = `<span class="pi pi-ellipsis-v" />`;
 
             dragBtn.addEventListener(
                 'dragstart',

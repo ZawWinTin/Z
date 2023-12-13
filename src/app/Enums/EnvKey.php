@@ -26,7 +26,7 @@ enum EnvKey: string
         return match ($this) {
             self::APP_ENV => 'Application Environment',
             self::APP_DEBUG => 'Application Debug',
-            self::LOG_SQL_ENABLED => 'Enable Log Sql',
+            self::LOG_SQL_ENABLED => 'Enable Log SQL',
         };
     }
 
@@ -51,7 +51,7 @@ enum EnvKey: string
     public function description(): string
     {
         return match ($this) {
-            self::APP_ENV => 'Update Application Enviroment',
+            self::APP_ENV => 'Update Application Environment',
             self::APP_DEBUG => 'Display Application Debugbar or not',
             self::LOG_SQL_ENABLED => 'Display SQL Log or not',
         };
@@ -69,7 +69,11 @@ enum EnvKey: string
     public function options(): array
     {
         return match ($this) {
-            self::APP_ENV => ['local', 'production', 'testing'],
+            self::APP_ENV => [
+                ['label' => 'Local', 'value' => 'local'],
+                ['label' => 'Production', 'value' => 'production'],
+                ['label' => 'Testing', 'value' => 'testing'],
+            ],
             self::APP_DEBUG => [],
             self::LOG_SQL_ENABLED => [],
         };

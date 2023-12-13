@@ -11,5 +11,4 @@ enum DataType: string
     case NUMBER = 'number';
     case BOOLEAN = 'boolean';
     case DROPDOWN = 'dropdown';
-    case STRING = 'string';
 }

@@ -2,6 +2,12 @@
 import { Head } from '@inertiajs/vue3';
 import CardContainer from '@/Components/Elements/CardContainer.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
+
+const props = defineProps({
+    articles: {
+        default: [],
+    },
+});
 </script>
 <template>
     <section class="tw-container">
@@ -15,9 +21,12 @@ import ArticleCard from '@/Components/Elements/ArticleCard.vue';
             </p>
         </div>
         <CardContainer>
-            <!-- <ArticleCard class="article1" data-cursor-type="project" />
-            <ArticleCard class="article2" data-cursor-type="link" />
-            <ArticleCard class="article3" data-cursor-type="project" /> -->
+            <template
+                v-for="article in props.articles"
+                :key="article.id"
+            >
+                <ArticleCard :article="article" data-cursor-type="explore" />
+            </template>
         </CardContainer>
     </section>
 </template>

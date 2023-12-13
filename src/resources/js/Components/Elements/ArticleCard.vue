@@ -24,7 +24,7 @@ onMounted(() => {
 
 let loadImage = () => {
     let uploadImage = new Image();
-    uploadImage.src = 'https://picsum.photos/500/300';
+    uploadImage.src = props.article.cover_image.url;
     uploadImage.classList.add(
         'tw-absolute',
         'tw-h-full',
