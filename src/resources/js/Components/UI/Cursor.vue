@@ -96,18 +96,16 @@ let updateCursorLight = event => {
             id="cursor-light"
             class="
                 tw-aspect-square
-                tw-bg-gradient-to-r
+                main-bg-gradient
                 tw-bg-slate-50
                 tw-blur-3xl
                 tw-duration-500
                 tw-fixed
-                tw-from-indigo-500
                 tw-left-1/2
                 tw-opacity-0
                 tw-pointer-events-none
                 tw-rounded-full
                 tw-select-none
-                tw-to-primary
                 tw-top-1/2
                 tw-transition-opacity
                 tw-w-2/5

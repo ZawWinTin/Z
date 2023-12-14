@@ -36,7 +36,7 @@ let toggleMainMenu = (event) => {
 
 let getActiveClasses = (routeName) => {
     if (isActiveRoute(routeName)) {
-        return 'main-gradient-text-color tw-pointer-events-none tw-select-none';
+        return 'main-text-gradient tw-pointer-events-none tw-select-none';
     }
     return '';
 };

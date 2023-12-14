@@ -111,7 +111,7 @@ let loadImage = () => {
                     class="
                         tw-h-16
                         card-title
-                        main-gradient-text-color
+                        main-text-gradient
                         tw-line-clamp-2
                         tw-text-2xl
                         tw-tracking-tight

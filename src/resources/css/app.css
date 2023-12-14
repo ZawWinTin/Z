@@ -18,12 +18,15 @@
     }
     .main-primary-focus {
     }
-    .main-gradient-text-color {
+    .main-bg-gradient {
+        @apply tw-bg-gradient-to-r
+            tw-from-indigo-500
+            tw-to-primary;
+    }
+    .main-text-gradient {
         @apply tw-bg-clip-text
             tw-text-transparent
-            tw-bg-gradient-to-r
-            tw-from-indigo-500
-            tw-to-primary
+            main-bg-gradient
             tw-font-bold;
     }
 }
