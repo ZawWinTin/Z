@@ -111,14 +111,9 @@ let loadImage = () => {
                     class="
                         tw-h-16
                         card-title
-                        tw-bg-clip-text
-                        tw-bg-gradient-to-r
-                        tw-font-bold
-                        tw-from-indigo-500
+                        main-gradient-text-color
                         tw-line-clamp-2
                         tw-text-2xl
-                        tw-text-transparent
-                        tw-to-primary
                         tw-tracking-tight
                         "
                 >

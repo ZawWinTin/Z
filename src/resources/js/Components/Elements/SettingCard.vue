@@ -17,26 +17,15 @@ const DROPDOWN = 'dropdown';
         <!-- Label -->
         <div class="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-center tw-h-[4.5rem]">
             <div class="tw-w-1/4
+                main-gradient-text-color
+                tw-text-4xl
                 tw-flex
                 tw-justify-center
-                tw-items-center
-                tw-bg-clip-text
-                tw-text-transparent
-                tw-bg-gradient-to-r
-                tw-from-indigo-500
-                tw-to-primary
-                tw-text-4xl">
+                tw-items-center">
                     <i :class="props.setting.icon_name"></i>
             </div>
             <div class="tw-w-3/4 tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <span class="tw-w-full
-                    tw-font-bold
-                    tw-text-xl
-                    tw-bg-clip-text
-                    tw-text-transparent
-                    tw-bg-gradient-to-r
-                    tw-from-indigo-500
-                    tw-to-primary">
+                <span class="tw-w-full main-gradient-text-color tw-text-xl">
                     {{ props.setting.label }}
                 </span>
                 <span class="tw-w-full tw-text-slate-700 dark:tw-text-slate-400">

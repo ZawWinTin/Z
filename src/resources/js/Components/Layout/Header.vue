@@ -36,13 +36,7 @@ let toggleMainMenu = (event) => {
 
 let getActiveClasses = (routeName) => {
     if (isActiveRoute(routeName)) {
-        return `tw-text-transparent
-            tw-pointer-events-none
-            tw-select-none
-            tw-bg-clip-text
-            tw-bg-gradient-to-r
-            tw-from-indigo-500
-            tw-to-primary`;
+        return 'main-gradient-text-color tw-pointer-events-none tw-select-none';
     }
     return '';
 };

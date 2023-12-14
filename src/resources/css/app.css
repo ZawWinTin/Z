@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .main-text-light-only {
+        @apply tw-text-slate-100;
+    }
+    .main-text-dark-only {
+        @apply tw-text-slate-100;
+    }
+    .main-text {
+        @apply main-text-light-only dark:main-text-dark-only;
+    }
+    .main-background-1 {
+    }
+    .main-background-2 {
+    }
+    .main-primary-focus {
+    }
+    .main-gradient-text-color {
+        @apply tw-bg-clip-text
+            tw-text-transparent
+            tw-bg-gradient-to-r
+            tw-from-indigo-500
+            tw-to-primary
+            tw-font-bold;
+    }
+}
