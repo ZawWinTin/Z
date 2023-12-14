@@ -15,6 +15,7 @@ import MainDesignSystem from '@/Composables/UI/MainDesignSystem';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import TailwindConfig from '../../tailwind.config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -63,7 +64,7 @@ createInertiaApp({
         // The delay after which the progress bar will appear, in milliseconds...
         delay: 250,
         // The color of the progress bar...
-        color: '#9400D3',
+        color: TailwindConfig.theme.extend.colors.primary.DEFAULT,
         // Whether to include the default NProgress styles...
         includeCSS: true,
         // Whether the NProgress spinner will be shown...

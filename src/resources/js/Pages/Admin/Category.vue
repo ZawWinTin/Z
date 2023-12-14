@@ -252,7 +252,7 @@ const restoreCategory = () => {
         </h1>
         <Toast />
         <div
-            class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            class="main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <DataTable
                 removableSort
                 v-model:filters="filters"
@@ -368,14 +368,14 @@ const restoreCategory = () => {
                 <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
                     <div
                         class="tw-py-12 tw-flex tw-justify-center tw-rounded-md tw-border-primary tw-shadow tw-relative tw-transition tw-duration-300"
-                        :class="isCategoryPreviewBgDark ? 'tw-bg-slate-900' : 'tw-bg-slate-50'">
+                        :class="isCategoryPreviewBgDark ? 'main-bg-3-dark-only' : 'main-bg-3-light-only'">
                         <CategoryBadge :category="{
                                 name: form.name || 'Text',
                                 text_color: form.text_color,
                                 background_color: form.background_color,
                         }" />
-                        <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300"
-                            :class="isCategoryPreviewBgDark ? 'tw-bg-slate-50 tw-text-slate-900' : 'tw-bg-slate-900 tw-text-slate-50'"
+                        <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300 focus:main-primary-focus"
+                            :class="isCategoryPreviewBgDark ? 'main-bg-3-light-only tw-text-slate-900' : 'main-bg-3-dark-only tw-text-slate-50'"
                         @click="toggleCategoryPreviewBg">
                             <span>
                                 <MoonIcon class="tw-w-5 tw-h-5" />

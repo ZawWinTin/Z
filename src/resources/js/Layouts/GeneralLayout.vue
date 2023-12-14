@@ -13,8 +13,7 @@ const props = defineProps({
 <template>
     <main
         class="
-            tw-bg-slate-50
-            dark:tw-bg-slate-950
+            main-bg-1
             tw-duration-300
             tw-ease-in-out
             tw-flex

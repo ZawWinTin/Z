@@ -13,7 +13,7 @@ const BOOLEAN = 'boolean';
 const DROPDOWN = 'dropdown';
 </script>
 <template>
-    <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 tw-bg-slate-50 dark:tw-bg-slate-900 tw-transition tw-duration-300 tw-space-y-4 tw-justify-between">
+    <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 main-bg-3 tw-transition tw-duration-300 tw-space-y-4 tw-justify-between">
         <!-- Label -->
         <div class="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-center tw-h-[4.5rem]">
             <div class="tw-w-1/4
@@ -38,7 +38,7 @@ const DROPDOWN = 'dropdown';
             <template v-if="props.setting.type === NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
                     <Slider v-model="props.setting.value" :min="parseInt(props.setting.options.min)" :max="parseInt(props.setting.options.max)" class="tw-w-full" />
-                    <span class="tw-transition tw-duration-300 tw-w-24 tw-py-1 tw-text-center tw-font-semibold tw-rounded-full tw-bg-slate-100 dark:tw-bg-slate-800 tw-text-slate-800 dark:tw-text-primary">
+                    <span class="tw-transition tw-duration-300 tw-w-24 tw-py-1 tw-text-center tw-font-semibold tw-rounded-full main-bg-2 tw-text-slate-800 dark:tw-text-primary">
                         {{ props.setting.value }}
                     </span>
                 </div>

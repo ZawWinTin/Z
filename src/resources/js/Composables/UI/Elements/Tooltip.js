@@ -34,6 +34,6 @@ export default {
         ],
     }),
     text: {
-        class: 'tw-p-3 tw-bg-slate-200 tw-text-slate-950 dark:tw-bg-slate-900 dark:tw-text-slate-50 tw-rounded-md tw-whitespace-pre-line tw-break-words',
+        class: 'tw-p-3 main-text tw-bg-slate-200 dark:tw-bg-slate-900 tw-rounded-md tw-whitespace-pre-line tw-break-words',
     },
 };

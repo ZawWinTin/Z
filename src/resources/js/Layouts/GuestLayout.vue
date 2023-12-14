@@ -9,8 +9,7 @@ import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 <template>
     <main
         class="
-            tw-bg-slate-50
-            dark:tw-bg-slate-950
+            main-bg-1
             tw-duration-300
             tw-ease-in-out
             sm:tw-justify-center
@@ -28,8 +27,7 @@ import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
             class="
                 tw-duration-300
                 tw-ease-in-out
-                tw-bg-slate-50
-                dark:tw-bg-slate-800
+                main-bg-2
                 sm:tw-max-w-md
                 sm:tw-rounded-lg
                 tw-mt-6

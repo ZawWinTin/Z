@@ -196,24 +196,24 @@ onMounted(() => end())
 // });
 </script>
 <template>
-    <div ref="preloader" class="tw-bg-slate-950 tw-w-full tw-h-full tw-fixed tw-z-[99] tw-transition tw-ease-in-out tw-duration-300 tw-flex tw-items-center tw-justify-center tw-overflow-hidden">
+    <div ref="preloader" class="main-bg-1-dark-only tw-w-full tw-h-full tw-fixed tw-z-[99] tw-transition tw-ease-in-out tw-duration-300 tw-flex tw-items-center tw-justify-center tw-overflow-hidden">
         <!-- Loading Bar -->
         <div ref="loadingBarContainer"
-            class="tw-bg-slate-900 tw-w-80 tw-h-12"
+            class="main-bg-3-dark-only tw-w-80 tw-h-12"
         >
             <div
                 ref="loadingBar"
-                class="tw-bg-slate-50 tw-w-0 tw-h-full"
+                class="main-bg-3-light-only tw-w-0 tw-h-full"
             ></div>
         </div>
-        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0">
+        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] main-bg-3-light-only tw-w-[10.5rem] tw-h-12 tw-opacity-0">
             <template v-if="props.isAdminLayout">
                 <span class="tw-italic tw-text-slate-950 tw-font-semibold tw-absolute tw-right-5 tw-bottom-0 tw-mb-[-0.6rem] tw-text-lg tw-uppercase">
                     Admin
                 </span>
             </template>
         </div>
-        <div class="z-bar-js tw-absolute tw-translate-x-[-60vw] tw-mt-[-12.75rem] tw-bg-slate-50 tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
+        <div class="z-bar-js tw-absolute tw-translate-x-[-60vw] tw-mt-[-12.75rem] main-bg-3-light-only tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
 
         <!-- Counter -->
         <div

@@ -65,7 +65,9 @@ let toggleThemeMode = (mode = '', event = null) => {
             tw-text-[12%]
             tw-transition-all
             tw-w-[30em]
+            focus:main-primary-focus
             "
+        tabindex="0"
         :class="darkModeStore.isDarkMode ? 'night-mode' : 'day-mode'"
         @click="toggleThemeMode('', $event)"
     >

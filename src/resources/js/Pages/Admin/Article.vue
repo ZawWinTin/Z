@@ -325,7 +325,7 @@ const restoreArticle = () => {
         </h1>
         <Toast />
         <div
-            class="tw-w-full tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
+            class="tw-w-full main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
         >
             <DataTable
                 removableSort
@@ -467,7 +467,7 @@ const restoreArticle = () => {
                         <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
                             <!-- Placeholder -->
                             <div :ref="coverImage.placeholder"
-                                class="tw-absolute tw-bg-slate-100 dark:tw-bg-slate-900 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
+                                class="tw-absolute main-bg-3 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
                                 <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl tw-text-slate-700/60 dark:tw-text-slate-400/60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
                             </div>
                             <!-- PreviewImage -->
@@ -591,7 +591,8 @@ const restoreArticle = () => {
                             tw-shadow-sm
                             tw-border-slate-300
                             dark:tw-border-slate-700
-                            dark:tw-bg-slate-900
+                            main-bg-3
+                            focus-within:main-primary-focus
                             dark:tw-text-slate-300
                             hover:tw-border-primary
                             dark:hover:tw-border-primary"

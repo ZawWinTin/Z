@@ -22,8 +22,7 @@ export const addHyperlinkToolbar = (editor, editorContainer, dialog) => {
                 'dark:tw-border-primary/40',
                 'tw-text-slate-700',
                 'dark:tw-text-slate-50/80',
-                'tw-bg-slate-100',
-                'dark:tw-bg-slate-800',
+                'main-bg-2',
                 'tw-rounded-md',
             );
 

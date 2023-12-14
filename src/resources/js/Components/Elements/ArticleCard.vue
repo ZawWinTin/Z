@@ -69,8 +69,7 @@ let loadImage = () => {
                 tw-transition-all
                 tw-duration-300
                 tw-ease-in-out
-                dark:tw-bg-slate-900
-                tw-bg-slate-50
+                main-bg-3
                 tw-p-5
                 "
         >

@@ -8,14 +8,14 @@ export default {
         class: [
             'tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-opacity-0 tw-transition-opacity tw-duration-300',
             'tw-bg-transparent tw-text-slate-100',
-            'hover:tw-opacity-100 hover:tw-cursor-pointer hover:tw-bg-slate-900 hover:tw-bg-opacity-50', //Hover
+            'hover:tw-opacity-100 hover:tw-cursor-pointer hover:main-bg-3-dark-only hover:tw-bg-opacity-50', //Hover
         ],
     },
     mask: {
         class: [
             'tw-fixed tw-top-0 tw-left-0 tw-w-full tw-h-full',
             'tw-flex tw-items-center tw-justify-center',
-            'tw-bg-slate-900 tw-bg-opacity-90',
+            'main-bg-3-dark-only tw-bg-opacity-90',
         ],
     },
     toolbar: {

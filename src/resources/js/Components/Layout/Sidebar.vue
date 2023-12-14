@@ -29,7 +29,7 @@ const adminMenuStore = useAdminMenuStore();
 let menuLinkClasses = `
     tw-whitespace-nowrap
     tw-text-slate-100
-    hover:tw-bg-slate-900
+    hover:main-bg-3-dark-only
     tw-py-2
     tw-duration-200
     tw-ease-in-out
@@ -47,8 +47,7 @@ let getActiveClasses = (routeName) => {
             tw-pointer-events-none
             tw-select-none
             !tw-font-bold
-            tw-bg-slate-50
-            dark:tw-bg-slate-950`;
+            main-bg-1`;
     }
     return '';
 };
@@ -57,7 +56,7 @@ let getActiveClasses = (routeName) => {
     <div class="
         tw-h-full
         tw-z-50
-        tw-bg-slate-800
+        main-bg-2-dark-only
         tw-ease-in-out
         tw-duration-300
         tw-flex

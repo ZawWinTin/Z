@@ -21,7 +21,7 @@ watch(
 </script>
 <template>
     <div
-        class="tw-fixed tw-inset-0 tw-w-screen tw-h-screen tw-bg-slate-950/80 tw-flex tw-flex-col tw-justify-center"
+        class="tw-fixed tw-inset-0 tw-w-screen tw-h-screen main-bg-1-dark-only !tw-bg-opacity-40 tw-flex tw-flex-col tw-justify-center"
         v-show="props.show"
     >
         <span class="p-input-icon-left">

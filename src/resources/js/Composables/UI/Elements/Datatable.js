@@ -13,10 +13,10 @@ export default {
     }),
     loadingoverlay: {
         class: [
-            'tw-fixed tw-w-full tw-h-full tw-t-0 tw-l-0 tw-bg-slate-100/40',
+            'tw-fixed tw-w-full tw-h-full tw-t-0 tw-l-0',
             'tw-transition tw-duration-300',
             'tw-absolute tw-flex tw-items-center tw-justify-center tw-z-2',
-            'dark:tw-bg-slate-800/40', // Dark Mode
+            'main-bg-2 !tw-bg-opacity-40', // Dark Mode
         ],
     },
     loadingicon: 'tw-w-8 tw-h-8',
@@ -32,8 +32,8 @@ export default {
     header: ({ props }) => ({
         class: [
             'tw-duration-300 tw-transition',
-            'tw-bg-slate-100 tw-text-slate-700 tw-border-slate-300 tw-pb-4',
-            'dark:tw-border-primary/40 dark:text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
+            'main-bg-2 tw-text-slate-700 tw-border-slate-300 tw-pb-4',
+            'dark:tw-border-primary/40 dark:text-slate-50/80', // Dark Mode
             props.showGridlines
                 ? 'tw-border-x tw-border-t tw-border-b-0'
                 : 'tw-border-b tw-border-x-0',
@@ -42,7 +42,6 @@ export default {
     table: 'tw-w-full tw-border-spacing-0',
     thead: ({ context }) => ({
         class: [
-            'tw-bg-slate-50 dark:tw-bg-slate-800',
             {
                 'tw-top-0 tw-z-[1]': context.scrollable,
             },
@@ -58,15 +57,15 @@ export default {
     tfoot: ({ context }) => ({
         class: [
             {
-                'tw-bg-slate-100 tw-bottom-0 tw-z-[1]': context.scrollable,
+                'tw-bottom-0 tw-z-[1]': context.scrollable,
             },
         ],
     }),
     footer: {
         class: [
             'tw-duration-300 tw-transition',
-            'tw-bg-slate-100 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
-            'dark:tw-border-primary/40 dark:tw-text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
+            'main-bg-2 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
+            'dark:tw-border-primary/40 dark:tw-text-slate-50/80', // Dark Mode
         ],
     },
     column: {
@@ -81,10 +80,10 @@ export default {
                       : 'tw-p-4', // Size
                 context.sorted
                     ? 'tw-bg-primary/20 tw-text-slate-700'
-                    : 'tw-bg-slate-100 tw-text-slate-700', // Sort
+                    : 'main-bg-2 tw-text-slate-700', // Sort
                 context.sorted
                     ? 'dark:tw-text-slate-50/80 dark:tw-bg-primary/10'
-                    : 'dark:tw-text-slate-50/80 dark:tw-bg-slate-800', // Dark Mode
+                    : 'dark:tw-text-slate-50/80', // Dark Mode
                 {
                     'tw-sticky tw-z-[1]': props.frozen || props.frozen === '', // Frozen Columns
                     'tw-border-x tw-border-y': context?.showGridlines,
@@ -113,14 +112,14 @@ export default {
         footercell: ({ context }) => ({
             class: [
                 'tw-text-left tw-border-0 tw-border-b tw-border-solid tw-border-slate-300 tw-font-bold',
-                'tw-bg-slate-100 tw-text-slate-700',
+                'tw-text-slate-700',
                 'tw-transition tw-duration-300',
                 context?.size === 'small'
                     ? 'tw-p-2'
                     : context?.size === 'large'
                       ? 'tw-p-5'
                       : 'tw-p-4', // Size
-                'dark:tw-text-slate-50/80 dark:tw-bg-slate-900 dark:tw-border-primary/40', // Dark Mode
+                'dark:tw-text-slate-50/80 dark:tw-border-primary/40', // Dark Mode
                 {
                     'tw-border-x tw-border-y': context?.showGridlines,
                 },

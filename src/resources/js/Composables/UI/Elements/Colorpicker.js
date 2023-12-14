@@ -13,15 +13,15 @@ export default {
     input: {
         class: [
             'tw-m-0',
-            'tw-text-base tw-text-slate-600 tw-bg-slate-50 dark:tw-bg-slate-900 tw-p-3 tw-border tw-border-slate-300 dark:tw-border-blue-900/40 tw-transition-colors tw-duration-300 tw-rounded-lg tw-cursor-pointer',
+            'tw-text-base tw-text-slate-600 main-bg-3 tw-p-3 tw-border main-input-border tw-transition-colors tw-duration-300 tw-rounded-lg tw-cursor-pointer',
             'hover:tw-border-primary/80 focus:main-primary-focus',
             'tw-w-8 tw-h-8',
         ],
     },
     panel: ({ props }) => ({
         class: [
-            'tw-shadow-md',
-            'tw-bg-slate-800 tw-border-slate-900',
+            'tw-shadow-md tw-rounded-md',
+            'main-bg-3 tw-border tw-border-primary',
             {
                 'tw-relative tw-h-48 tw-w-52': props.inline,
                 'tw-absolute tw-h-48 tw-w-52': !props.inline,

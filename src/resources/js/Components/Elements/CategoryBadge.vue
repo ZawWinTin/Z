@@ -21,7 +21,7 @@ const props = defineProps({
         </span>
         <template v-if="props.showCount">
             <div class="tw-inline-flex tw-justify-center tw-items-center tw-font-extrabold tw-rounded-full tw-aspect-square tw-w-4 tw-h-4 tw-text-[0.5rem]"
-                :class="isLightColor(props.category.background_color) ? 'tw-bg-slate-900' : 'tw-bg-slate-50'"
+                :class="isLightColor(props.category.background_color) ? 'main-bg-3-dark-only' : 'main-bg-3-light-only'"
                 :style="`color: ${props.category.background_color};`">
                 <span>{{ props.category.articles_count || 0 }}</span>
             </div>

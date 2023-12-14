@@ -55,7 +55,7 @@ export default {
     },
     header: {
         class: [
-            'tw-p-3 tw-border-b tw-border-slate-300 dark:tw-border-primary/40 tw-text-slate-700 dark:tw-text-slate-50/80 tw-bg-slate-100 dark:tw-bg-slate-800 tw-rounded-t-lg',
+            'tw-p-3 tw-border-b tw-border-slate-300 dark:tw-border-primary/40 tw-text-slate-700 dark:tw-text-slate-50/80 main-bg-2 tw-rounded-t-lg',
             'tw-flex tw-items-center tw-justify-between tw-space-x-2',
         ],
     },

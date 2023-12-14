@@ -15,7 +15,7 @@ export default {
         class: [
             'tw-flex tw-items-center tw-justify-between tw-shrink-0',
             'tw-text-slate-800 tw-border-t-0  tw-rounded-tl-lg tw-rounded-tr-lg tw-p-6',
-            'tw-bg-slate-50 dark:tw-bg-slate-800 dark:tw-text-slate-50/80',
+            'main-bg-2 dark:tw-text-slate-50/80',
             'tw-font-bold tw-text-lg',
         ],
     },
@@ -47,7 +47,7 @@ export default {
         class: [
             'primary-scrollbar',
             'tw-text-slate-700 tw-px-6 tw-pb-8 tw-pt-0',
-            'tw-bg-slate-50 dark:tw-bg-slate-800 dark:tw-text-slate-50/80',
+            'main-bg-2 dark:tw-text-slate-50/80',
             {
                 'tw-grow': state.maximized,
             },
@@ -59,14 +59,14 @@ export default {
     footer: {
         class: [
             'tw-flex tw-gap-2 tw-shrink-0 tw-justify-end tw-align-middle',
-            'tw-border-t-0 tw-text-slate-700 tw-px-6 tw-pb-6 tw-text-right tw-rounded-b-lg',
-            'tw-bg-slate-50 dark:tw-bg-slate-800 dark:text-slate-50/80',
+            'tw-border-t-0 tw-text-slate-700 tw-px-6 tw-pt-2 tw-pb-6 tw-text-right tw-rounded-b-lg',
+            'main-bg-2 dark:text-slate-50/80',
         ],
     },
     mask: ({ props }) => ({
         class: [
             'tw-transition tw-duration-300',
-            { 'tw-bg-slate-950/40': props.modal },
+            { 'main-bg-1-dark-only !tw-bg-opacity-40': props.modal },
         ],
     }),
     transition: ({ props }) => {

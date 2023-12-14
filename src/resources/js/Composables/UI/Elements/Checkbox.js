@@ -6,8 +6,7 @@ export default {
         class: [
             'tw-border-2 tw-w-5 tw-h-5 tw-text-slate-600 tw-rounded-md tw-transition-colors tw-duration-300',
             {
-                'tw-border-slate-300 tw-bg-slate-50 dark:tw-border-slate-700 dark:tw-bg-slate-900':
-                    !context.checked,
+                'main-bg-3 main-input-border': !context.checked,
                 'tw-border-primary-dark tw-bg-primary': context.checked,
             },
             {
