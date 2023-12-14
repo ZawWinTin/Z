@@ -92,7 +92,7 @@ const updateSettings = () => {
                     :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <div v-show="getFilteredSystemSettings.length > 0"
-                        class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-transition tw-duration-300">
+                        class="main-bg-1 tw-shadow-lg tw-rounded-lg tw-p-4 tw-transition tw-duration-300">
                         <h3 class="tw-font-bold tw-text-xl tw-text-primary tw-uppercase tw-mb-4">System</h3>
                         <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-2">
                             <template

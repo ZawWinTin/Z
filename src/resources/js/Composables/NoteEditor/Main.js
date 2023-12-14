@@ -8,7 +8,7 @@ import { addTableHandles } from '@/Composables/NoteEditor/UI/TableHandles';
 import '@blocknote/core/style.css';
 
 export default function initializeEditor(editorContainer) {
-    editorContainer.classList.add('tw-px-16', 'tw-py-2');
+    editorContainer.classList.add('tw-p-2');
     const dialog = editorContainer.closest('.p-dialog');
 
     const editor = BlockNoteEditor.create({

@@ -16,8 +16,7 @@ export default {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
-                    !context.disabled, // Focus
+                'focus:main-primary-focus': !context.disabled, // Focus
             },
         ],
     }),
@@ -30,8 +29,7 @@ export default {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
-                    !context.disabled, // Focus
+                'focus:main-primary-focus': !context.disabled, // Focus
             },
         ],
     }),
@@ -44,8 +42,7 @@ export default {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
-                    !context.disabled, // Focus
+                'focus:main-primary-focus': !context.disabled, // Focus
             },
         ],
     }),
@@ -58,8 +55,7 @@ export default {
             {
                 'tw-cursor-default tw-pointer-events-none tw-opacity-60':
                     context.disabled,
-                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
-                    !context.disabled, // Focus
+                'focus:main-primary-focus': !context.disabled, // Focus
             },
         ],
     }),
@@ -69,7 +65,7 @@ export default {
             'tw-border-0 tw-min-w-[3rem] tw-h-12 tw-m-[0.143rem] tw-rounded-md',
             'tw-transition tw-duration-300',
             'dark:tw-border-primary/40 dark:tw-text-slate-50', // Dark Mode
-            'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1', // Focus
+            'focus:main-primary-focus', // Focus
             {
                 'tw-bg-primary/60 tw-border-primary tw-text-slate-50 dark:tw-bg-primary/60':
                     context.active,
@@ -86,8 +82,7 @@ export default {
                 'tw-h-12 tw-mx-2',
                 'dark:tw-bg-slate-800 dark:tw-border-primary/40', //DarkMode
                 {
-                    'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
-                        state.focused && !props.disabled, //Focus
+                    'main-primary-focus': state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
                     'hover:tw-border-primary-dark': !props.disabled, //Hover
                 },
@@ -137,7 +132,7 @@ export default {
             class: [
                 'tw-text-base tw-text-slate-600 tw-p-3 tw-m-0 tw-rounded-md apperance-none',
                 'tw-block tw-whitespace-nowrap tw-overflow-hidden tw-flex-auto tw-w-[1%] tw-cursor-pointer text-ellipsis tw-border tw-border-slate-300 tw-pr-0',
-                'focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] focus:tw-border-blue-300',
+                'focus:main-primary-focus',
                 'dark:tw-text-slate-50 dark:bg-slate-950 dark:tw-border-blue-900/40', //Dark Mode
                 'tw-m-0 tw-flex-auto tw-max-w-[3rem]',
             ],
@@ -152,8 +147,7 @@ export default {
                 'tw-h-12 tw-mx-2',
                 'dark:bg-slate-950 dark:tw-border-blue-900/40', //DarkMode
                 {
-                    'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
-                        state.focused && !props.disabled, //Focus
+                    'main-primary-focus': state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
                     'hover:tw-border-blue-500': !props.disabled, //Hover
                 },

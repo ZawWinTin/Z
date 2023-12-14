@@ -1,7 +1,7 @@
 import Transitions from '@/Composables/UI/Transitions';
 
 export default {
-    root: ({ props }) => ({
+    root: ({ props, state }) => ({
         class: [
             // Display and Position
             'tw-inline-flex',
@@ -21,7 +21,6 @@ export default {
 
             // States
             'hover:tw-border-primary dark:hover:tw-border-primary',
-            'focus:tw-border-primary dark:focus:tw-border-primary focus:tw-ring-primary dark:focus:tw-ring-primary',
 
             // Misc
             'tw-cursor-pointer',
@@ -30,6 +29,7 @@ export default {
                 'tw-opacity-60': props.disabled,
                 'tw-pointer-events-none': props.disabled,
                 'tw-cursor-default': props.disabled,
+                'main-primary-focus': state.focused,
             },
         ],
     }),
@@ -225,8 +225,7 @@ export default {
 
             // States
             'hover:border-primary-500 dark:hover:border-primary-300',
-            'focus:tw-ring focus:tw-outline-none focus:outline-offset-0',
-            'focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
+            'focus:main-primary-focus',
 
             // Misc
             'tw-appearance-none',

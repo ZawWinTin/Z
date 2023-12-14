@@ -16,8 +16,7 @@ export default {
                 'tw-cursor-default tw-opacity-60': props.disabled,
             },
             {
-                'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
-                    context.focused,
+                'main-primary-focus': context.focused,
             },
         ],
     }),

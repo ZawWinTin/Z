@@ -5,8 +5,7 @@ export default {
             'tw-px-4 tw-py-2 tw-rounded-full tw-text-base tw-w-32',
             'tw-border tw-transition tw-duration-300 tw-ease-in-out',
             {
-                'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
-                    context.focused,
+                'main-primary-focus': context.focused,
             },
             {
                 'tw-bg-slate-50 dark:tw-bg-slate-900 tw-border-slate-300 dark:tw-border-primary/40 tw-text-slate-700 dark:tw-text-slate-50/80 hover:tw-bg-slate-100 dark:hover:tw-bg-slate-800/80 hover:tw-border-slate-300 dark:hover:tw-bg-slate-800/70 hover:tw-text-slate-700 dark:hover:tw-text-slate-50/80':

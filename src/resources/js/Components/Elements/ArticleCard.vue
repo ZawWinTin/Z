@@ -129,8 +129,8 @@ let loadImage = () => {
                     <span
                         class="
                             tw-text-right
-                            dark:tw-text-slate-500
-                            tw-text-slate-400
+                            main-text
+                            tw-opacity-75
                             tw-text-sm
                             "
                     >
@@ -150,9 +150,8 @@ let loadImage = () => {
                         tw-ease-in
                         tw-duration-150
                         tw-line-clamp-3
-                        dark:tw-text-slate-400
                         tw-text-justify
-                        tw-text-slate-700
+                        main-text
                         tw-tracking-tight
                         "
                 >

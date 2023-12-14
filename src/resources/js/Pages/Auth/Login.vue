@@ -139,7 +139,7 @@ const hidePassword = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="tw-rounded-md dark:focus:tw-ring-offset-slate-800 dark:hover:tw-text-slate-100 dark:tw-text-slate-400 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-indigo-500 focus:tw-ring-offset-2 hover:tw-text-slate-900 tw-text-slate-600 tw-text-sm tw-underline"
+                    class="tw-rounded-md focus:main-primary-focus dark:hover:tw-text-slate-100 dark:tw-text-slate-400 hover:tw-text-slate-900 tw-text-slate-600 tw-text-sm tw-underline"
                 >
                     Forgot your password?
                 </Link>

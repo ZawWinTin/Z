@@ -196,7 +196,7 @@ export default {
                 'tw-w-8 tw-h-8 tw-rounded-[50%]',
                 'tw-transition tw-duration-300',
                 'hover:tw-text-slate-700 hover:tw-bg-slate-300/20', // Hover
-                'focus:tw-outline-0 focus:tw-outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]', // Focus
+                'focus:main-primary-focus', // Focus
                 'dark:tw-text-slate-50/70 dark:hover:tw-text-slate-50/80 dark:tw-bg-slate-900', // Dark Mode
                 {
                     'tw-bg-blue-50 tw-text-blue-700': context.active,
@@ -222,7 +222,7 @@ export default {
                 'tw-w-8 tw-h-8 tw-border-0 tw-rounded-[50%]',
                 'tw-transition tw-duration-300',
                 'tw-text-slate-700 tw-border-transparent',
-                'focus:tw-outline-0 focus:tw-outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]', //Focus
+                'focus:main-primary-focus', //Focus
                 'hover:tw-text-slate-700 hover:tw-bg-slate-300/20', //Hover
                 'dark:tw-text-slate-50/70', // Dark Mode
             ],
@@ -234,7 +234,7 @@ export default {
                 'tw-w-8 tw-h-8 tw-border-0 tw-rounded-[50%]',
                 'tw-transition tw-duration-300',
                 'tw-text-slate-700 tw-border-transparent',
-                'focus:tw-outline-0 focus:tw-outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]', //Focus
+                'focus:main-primary-focus', //Focus
                 'hover:tw-text-slate-700 hover:tw-bg-slate-300/20', //Hover
                 'dark:tw-text-slate-50/70', // Dark Mode
             ],
@@ -246,7 +246,7 @@ export default {
                 'tw-w-8 tw-h-8 tw-border-0 tw-rounded-[50%]',
                 'tw-transition tw-duration-300',
                 'tw-text-slate-700 tw-border-transparent',
-                'focus:tw-outline-0 focus:tw-outline-offset-0 focus:tw-shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]', //Focus
+                'focus:main-primary-focus', //Focus
                 'hover:tw-text-slate-700 hover:tw-bg-slate-300/20', //Hover
                 'dark:tw-text-slate-50/70', // Dark Mode
             ],
@@ -265,7 +265,7 @@ export default {
                     ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
                     : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                 {
-                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
+                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:main-primary-focus':
                         !context.disabled,
                     'tw-cursor-default tw-opacity-60': context.disabled,
                 },
@@ -297,7 +297,7 @@ export default {
                     ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
                     : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                 {
-                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
+                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:main-primary-focus':
                         !context.disabled,
                     'tw-cursor-default tw-opacity-60': context.disabled,
                 },
@@ -319,7 +319,7 @@ export default {
                     ? 'tw-border-blue-500 tw-bg-blue-500 dark:tw-border-blue-400 dark:tw-bg-blue-400'
                     : 'tw-border-slate-300 tw-bg-slate-100 dark:tw-border-blue-900/40 dark:tw-bg-slate-900',
                 {
-                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:tw-outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[inset_0_0_0_0.2rem_rgba(147,197,253,0.5)]':
+                    'hover:tw-border-blue-500 dark:hover:tw-border-blue-400 focus:main-primary-focus':
                         !context.disabled,
                     'tw-cursor-default tw-opacity-60': context.disabled,
                 },
@@ -341,7 +341,7 @@ export default {
                 : '',
             'tw-transition tw-duration-300',
             'focus:tw-outline focus:tw-outline-[0.15rem] focus:tw-outline-primary/80 focus:tw-outline-offset-[-0.15rem]', // Focus
-            'dark:text-slate-50/80 dark:focus:outline dark:focus:outline-[0.15rem] dark:focus:outline-blue-300 dark:focus:outline-offset-[-0.15rem]', // Dark Mode
+            'dark:tw-text-slate-50/80 dark:focus:tw-outline dark:focus:tw-outline-[0.15rem] dark:focus:tw-outline-primary dark:focus:tw-outline-offset-[-0.15rem]', // Dark Mode
             {
                 'tw-cursor-pointer': context.selectable,
                 'hover:bg-slate-300/20 hover:tw-text-slate-600':

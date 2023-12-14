@@ -11,10 +11,9 @@ export default {
             },
             'tw-absolute tw-rounded-full tw-transition tw-duration-300',
             'before:tw-transition before:tw-duration-300 before:tw-bg-slate-50 dark:before:tw-bg-slate-900 before:tw-w-5 before:tw-h-5 before:tw-rounded-full before:tw-left-1 before:tw-translate-y-[-50%]',
-            'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'focus:main-primary-focus',
             {
-                'dark:tw-ring-offset-slate-800 tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1':
-                    state.focused,
+                'main-primary-focus': state.focused,
             },
         ],
     }),

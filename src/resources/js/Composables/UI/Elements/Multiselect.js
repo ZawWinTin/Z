@@ -1,7 +1,7 @@
 import Transitions from '@/Composables/UI/Transitions';
 
 export default {
-    root: ({ props }) => ({
+    root: ({ props, state }) => ({
         class: [
             'tw-w-full tw-inline-flex tw-cursor-pointer tw-select-none tw-rounded-md',
             'tw-bg-slate-50 dark:tw-bg-slate-900 tw-border tw-border-slate-300 dark:tw-border-slate-700',
@@ -10,6 +10,7 @@ export default {
             {
                 'tw-opacity-60 tw-select-none tw-pointer-events-none tw-cursor-default':
                     props?.disabled,
+                'main-primary-focus': state.focused,
             },
         ],
     }),
@@ -69,7 +70,7 @@ export default {
         class: [
             'tw-flex tw-items-center tw-justify-center',
             'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
-            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'hover:tw-border-primary focus:main-primary-focus',
             {
                 'tw-border-slate-300 dark:tw-border-primary-dark tw-bg-slate-50 dark:tw-bg-slate-900':
                     !context?.selected,
@@ -86,7 +87,7 @@ export default {
             'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
             'tw-w-8 tw-h-8 tw-text-slate-500 dark:tw-text-slate-50/70 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
             'hover:tw-text-slate-700 dark:hover:tw-text-slate-50/80 hover:tw-border-transparent hover:tw-bg-slate-200 dark:hover:tw-bg-slate-700/80 ',
-            'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'focus:main-primary-focus',
         ],
     },
     closeButtonIcon: {
@@ -133,7 +134,7 @@ export default {
         class: [
             'tw-flex tw-items-center tw-justify-center',
             'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
-            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'hover:tw-border-primary focus:main-primary-focus',
             {
                 'tw-border-slate-300 dark:tw-border-primary-dark tw-bg-slate-50 dark:tw-bg-slate-900':
                     !context?.selected,
@@ -165,7 +166,7 @@ export default {
             'tw-w-full',
             'tw-text-slate-700 tw-bg-slate-50 tw-py-3 tw-px-3 tw-border tw-border-slate-300 tw-transition tw-duration-300 tw-rounded-lg tw-appearance-none',
             'dark:tw-bg-slate-900 dark:tw-border-primary/40 dark:hover:tw-border-primary dark:tw-text-slate-50/80',
-            'hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'hover:tw-border-primary focus:main-primary-focus',
         ],
     },
     filtericon: {

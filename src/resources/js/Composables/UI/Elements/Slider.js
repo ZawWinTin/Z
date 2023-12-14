@@ -16,7 +16,7 @@ export default {
             'tw-w-2 tw-h-3 tw-rounded-full tw-outline-none',
             'tw-bg-slate-50 dark:tw-bg-slate-900 tw-border-primary-dark tw-border-2',
             'tw-translate-x-[-50%] tw-translate-y-[-50%]',
-            'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1',
+            'focus:main-primary-focus',
         ],
     },
     range: { class: 'tw-bg-primary tw-h-full tw-rounded-full' },

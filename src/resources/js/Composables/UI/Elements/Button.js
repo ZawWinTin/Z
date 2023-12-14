@@ -5,7 +5,7 @@ export default {
             'tw-transition tw-duration-300 tw-ease-in-out',
             'focus:tw-outline-none focus:tw-outline-offset-0',
             {
-                'tw-text-slate-50 dark:tw-text-slate-50 tw-bg-primary dark:tw-bg-primary tw-border tw-border-primary dark:tw-border-primary hover:tw-bg-primary-dark dark:hover:tw-bg-primary-dark hover:tw-border-primary dark:hover:tw-border-primary focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
+                'tw-text-slate-50 dark:tw-text-slate-50 tw-bg-primary dark:tw-bg-primary tw-border tw-border-primary dark:tw-border-primary hover:tw-bg-primary-dark dark:hover:tw-bg-primary-dark hover:tw-border-primary dark:hover:tw-border-primary focus:main-primary-focus':
                     !props.link &&
                     props.severity === null &&
                     !props.text &&
@@ -15,8 +15,7 @@ export default {
                     props.link,
             },
             {
-                'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-primary/80 focus:tw-ring-offset-1':
-                    props.severity === null,
+                'focus:main-primary-focus': props.severity === null,
                 'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-slate-500/80 focus:tw-ring-offset-1':
                     props.severity === 'secondary',
                 'focus:dark:tw-ring-offset-slate-800 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-green-500/80 focus:tw-ring-offset-1':

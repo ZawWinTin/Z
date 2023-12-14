@@ -4,19 +4,19 @@
 
 @layer components {
     .main-text-light-only {
-        @apply tw-text-slate-100;
+        @apply tw-text-slate-700;
     }
     .main-text-dark-only {
-        @apply tw-text-slate-100;
+        @apply tw-text-slate-400;
     }
     .main-text {
         @apply main-text-light-only dark:main-text-dark-only;
     }
-    .main-background-1 {
+    .main-bg-1 {
+        @apply tw-bg-slate-100 dark:tw-bg-slate-800;
     }
-    .main-background-2 {
-    }
-    .main-primary-focus {
+    .main-bg-2 {
+        @apply tw-bg-slate-50 dark:tw-bg-slate-950;
     }
     .main-bg-gradient {
         @apply tw-bg-gradient-to-r
@@ -28,5 +28,8 @@
             tw-text-transparent
             main-bg-gradient
             tw-font-bold;
+    }
+    .main-primary-focus {
+        @apply tw-ring-primary/80 tw-outline-none tw-ring-2 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
     }
 }

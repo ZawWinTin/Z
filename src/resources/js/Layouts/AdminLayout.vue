@@ -10,10 +10,7 @@ const adminMenuStore = useAdminMenuStore();
 <template>
     <main
         class="
-            tw-bg-slate-50
-            dark:tw-bg-slate-950
-            selection:tw-bg-primary/80
-            selection:tw-text-slate-50
+            main-bg-2
             tw-duration-300
             tw-ease-in-out
             tw-flex
