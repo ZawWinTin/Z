@@ -5,7 +5,7 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import InputText from 'primevue/inputtext';
 import route from '@/Composables/Common/Route';
-import { TRANSITIONS } from '@/Composables/Common/Theme';
+import Transitions from '@/Composables/UI/Transitions';
 import SettingCard from '@/Components/Elements/SettingCard.vue';
 
 const props = defineProps({
@@ -82,14 +82,14 @@ const updateSettings = () => {
             </div>
             <div class="tw-h-[75vh] primary-scrollbar tw-flex tw-flex-col tw-space-y-4">
                 <transition
-                    :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                    :enter-from-class="Transitions.overlay.enterFromClass"
                     :enter-active-class="
-                        TRANSITIONS.overlay.enterActiveClass
+                        Transitions.overlay.enterActiveClass
                     "
                     :leave-active-class="
-                        TRANSITIONS.overlay.leaveActiveClass
+                        Transitions.overlay.leaveActiveClass
                     "
-                    :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <div v-show="getFilteredSystemSettings.length > 0"
                         class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-transition tw-duration-300">
@@ -105,14 +105,14 @@ const updateSettings = () => {
                     </div>
                 </transition>
                 <transition
-                    :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                    :enter-from-class="Transitions.overlay.enterFromClass"
                     :enter-active-class="
-                        TRANSITIONS.overlay.enterActiveClass
+                        Transitions.overlay.enterActiveClass
                     "
                     :leave-active-class="
-                        TRANSITIONS.overlay.leaveActiveClass
+                        Transitions.overlay.leaveActiveClass
                     "
-                    :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <div v-show="getFilteredEnvSettings.length > 0"
                         class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-transition tw-duration-300">
@@ -128,14 +128,14 @@ const updateSettings = () => {
                     </div>
                 </transition>
                 <transition
-                    :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                    :enter-from-class="Transitions.overlay.enterFromClass"
                     :enter-active-class="
-                        TRANSITIONS.overlay.enterActiveClass
+                        Transitions.overlay.enterActiveClass
                     "
                     :leave-active-class="
-                        TRANSITIONS.overlay.leaveActiveClass
+                        Transitions.overlay.leaveActiveClass
                     "
-                    :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <div v-show="!getFilteredSystemSettings.length && !getFilteredEnvSettings.length"
                         class="tw-bg-slate-100 dark:tw-bg-slate-800 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-transition tw-duration-300">

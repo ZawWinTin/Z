@@ -13,7 +13,8 @@ import InputText from 'primevue/inputtext';
 import ColorPicker from 'primevue/colorpicker';
 import route from '@/Composables/Common/Route';
 import { getDate } from '@/Composables/Common/Helper';
-import { TRANSITIONS, tooltipTheme } from '@/Composables/Common/Theme';
+import Transitions from '@/Composables/UI/Transitions';
+import Tooltip from '@/Composables/UI/Elements/Tooltip';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import { MoonIcon } from '@heroicons/vue/20/solid';
@@ -279,10 +280,10 @@ const restoreCategory = () => {
                             </div>
                         </div>
                         <transition
-                            :enter-from-class="TRANSITIONS.overlay.enterFromClass"
-                            :enter-active-class="TRANSITIONS.overlay.enterActiveClass"
-                            :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
-                            :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                            :enter-from-class="Transitions.overlay.enterFromClass"
+                            :enter-active-class="Transitions.overlay.enterActiveClass"
+                            :leave-active-class="Transitions.overlay.leaveActiveClass"
+                            :leave-to-class="Transitions.overlay.leaveToClass"
                         >
                             <template v-if="modes[currentMode].label != 'Trash'">
                                 <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
@@ -394,7 +395,7 @@ const restoreCategory = () => {
                                 class="tw-flex tw-flex-row tw-justify-between">
                                 <label class="tw-font-bold">Color</label>
                                 <Checkbox
-                                    v-tooltip.left="{ value: 'Set background and text color same', pt: tooltipTheme }"
+                                    v-tooltip.left="{ value: 'Set background and text color same', pt: Tooltip }"
                                     v-model="isSameColor"
                                     :binary="true"
                                     @change="setSameColor" />

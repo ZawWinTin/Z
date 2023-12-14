@@ -6,7 +6,7 @@ import Checkbox from 'primevue/checkbox';
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import route from '@/Composables/Common/Route';
-import { TRANSITIONS } from '@/Composables/Common/Theme';
+import Transitions from '@/Composables/UI/Transitions';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 
@@ -87,10 +87,10 @@ const hidePassword = () => {
             </div>
 
             <transition
-                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
-                :enter-active-class="TRANSITIONS.overlay.enterActiveClass"
-                :leave-active-class="TRANSITIONS.overlay.leaveActiveClass"
-                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                :enter-from-class="Transitions.overlay.enterFromClass"
+                :enter-active-class="Transitions.overlay.enterActiveClass"
+                :leave-active-class="Transitions.overlay.leaveActiveClass"
+                :leave-to-class="Transitions.overlay.leaveToClass"
             >
                 <div v-if="isShowingPassword">
                     <div class="tw-mt-7">

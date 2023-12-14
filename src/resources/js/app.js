@@ -11,7 +11,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import PrimeVue from 'primevue/config';
 import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
-import { mainDesignSystem } from '@/Composables/Common/Theme';
+import MainDesignSystem from '@/Composables/UI/MainDesignSystem';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
@@ -53,7 +53,7 @@ createInertiaApp({
             .use(PrimeVue, {
                 unstyled: false,
                 ripple: true,
-                pt: mainDesignSystem,
+                pt: MainDesignSystem,
             })
             .use(ToastService)
             .directive('tooltip', Tooltip)

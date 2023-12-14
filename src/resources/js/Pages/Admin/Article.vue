@@ -11,7 +11,7 @@ import Dialog from 'primevue/dialog';
 import Textarea from 'primevue/textarea';
 import MultiSelect from 'primevue/multiselect';
 import route from '@/Composables/Common/Route';
-import { TRANSITIONS } from '@/Composables/Common/Theme';
+import Transitions from '@/Composables/UI/Transitions';
 import { getDate } from '@/Composables/Common/Helper';
 import initializeEditor from '@/Composables/NoteEditor/Main';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
@@ -354,14 +354,14 @@ const restoreArticle = () => {
                             />
                         </div>
                         <transition
-                            :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                            :enter-from-class="Transitions.overlay.enterFromClass"
                             :enter-active-class="
-                                TRANSITIONS.overlay.enterActiveClass
+                                Transitions.overlay.enterActiveClass
                             "
                             :leave-active-class="
-                                TRANSITIONS.overlay.leaveActiveClass
+                                Transitions.overlay.leaveActiveClass
                             "
-                            :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                            :leave-to-class="Transitions.overlay.leaveToClass"
                         >
                             <template v-if="modes[currentMode].label != 'Trash'">
                                 <Button
@@ -483,28 +483,28 @@ const restoreArticle = () => {
                                 :ref="coverImage.inputUpload" type="file" accept="image/*">
                             <!-- Reposition Area -->
                             <transition
-                                :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                :enter-from-class="Transitions.overlay.enterFromClass"
                                 :enter-active-class="
-                                    TRANSITIONS.overlay.enterActiveClass
+                                    Transitions.overlay.enterActiveClass
                                 "
                                 :leave-active-class="
-                                    TRANSITIONS.overlay.leaveActiveClass
+                                    Transitions.overlay.leaveActiveClass
                                 "
-                                :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                                :leave-to-class="Transitions.overlay.leaveToClass"
                             >
                                 <template v-if="coverImage.isRepositionMode.value">
                                     <div
                                         @mousedown="mouseDownRepositionCoverImage($event)"
                                         class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-cursor-move">
                                         <transition
-                                            :enter-from-class="TRANSITIONS.overlay.enterFromClass"
+                                            :enter-from-class="Transitions.overlay.enterFromClass"
                                             :enter-active-class="
-                                                TRANSITIONS.overlay.enterActiveClass
+                                                Transitions.overlay.enterActiveClass
                                             "
                                             :leave-active-class="
-                                                TRANSITIONS.overlay.leaveActiveClass
+                                                Transitions.overlay.leaveActiveClass
                                             "
-                                            :leave-to-class="TRANSITIONS.overlay.leaveToClass"
+                                            :leave-to-class="Transitions.overlay.leaveToClass"
                                         >
                                             <span v-if="!coverImage.isRepositioning.value" class="tw-px-4 tw-py-2 tw-bg-primary/80 tw-rounded-full tw-text-slate-50 tw-select-none">Drag Image to Reposition</span>
                                         </transition>

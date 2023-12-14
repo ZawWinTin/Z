@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
-import { TRANSITIONS } from '@/Composables/Common/Theme';
+import Transitions from '@/Composables/UI/Transitions';
 import { isActiveRoute } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
@@ -97,14 +97,14 @@ let getActiveClasses = (routeName) => {
 
         <!-- Main Menu Screen -->
         <transition
-            :enter-from-class="TRANSITIONS.floatIn.enterFromClass"
+            :enter-from-class="Transitions.floatIn.enterFromClass"
             :enter-active-class="
-                TRANSITIONS.floatIn.enterActiveClass
+                Transitions.floatIn.enterActiveClass
             "
             :leave-active-class="
-                TRANSITIONS.floatIn.leaveActiveClass
+                Transitions.floatIn.leaveActiveClass
             "
-            :leave-to-class="TRANSITIONS.floatIn.leaveToClass"
+            :leave-to-class="Transitions.floatIn.leaveToClass"
         >
             <div v-show="isMenuOpen"
                 class="tw-container tw-flex tw-flex-row-reverse tw-h-full"
