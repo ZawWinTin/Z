@@ -63,7 +63,9 @@ const DROPDOWN = 'dropdown';
                 </div>
             </template>
             <template v-if="props.setting.type === DROPDOWN">
-                <Dropdown v-model="props.setting.value" :options="props.setting.options" optionLabel="label" optionValue="value" />
+                <div class="tw-w-1/2 tw-ml-auto">
+                    <Dropdown v-model="props.setting.value" :options="props.setting.options" optionLabel="label" optionValue="value" />
+                </div>
             </template>
         </div>
     </div>

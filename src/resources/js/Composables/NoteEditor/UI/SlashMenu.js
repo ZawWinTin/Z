@@ -41,7 +41,6 @@ export const addSlashMenu = (editor, editorContainer, dialog) => {
                 'dark:tw-bg-slate-800',
                 'tw-rounded-md',
                 'tw-h-24',
-                'tw-overflow-y-auto',
                 'primary-scrollbar',
             );
             element.style.display = 'none';

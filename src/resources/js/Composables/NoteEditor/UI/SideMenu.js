@@ -7,7 +7,7 @@ export const addSideMenu = (editor, editorContainer, dialog) => {
         if (!element) {
             element = document.createElement('div');
             element.classList.add('tw-absolute', 'tw-opacity-80', 'tw-pr-2');
-            const addBtn = createButton('<span class="pi pi-plus" />', () => {
+            const addBtn = createButton('<i class="pi pi-plus" />', () => {
                 editor.sideMenu.addBlock();
             });
             addBtn.classList.add('tw-w-6', 'tw-h-6', '!tw-p-0');
@@ -15,7 +15,7 @@ export const addSideMenu = (editor, editorContainer, dialog) => {
             element.appendChild(addBtn);
 
             const dragBtn = createButton(
-                '<span class="pi pi-ellipsis-v" />',
+                '<i class="pi pi-ellipsis-v -tw-mr-1"></i><i class="pi pi-ellipsis-v -tw-ml-1"></i>',
                 () => {
                     // TODO: render a submenu with a delete option that calls "props.deleteBlock"
                 },

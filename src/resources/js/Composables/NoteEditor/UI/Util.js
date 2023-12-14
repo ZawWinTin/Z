@@ -3,6 +3,7 @@ export const createButton = (text, onClick) => {
     element.innerHTML = text;
     element.classList.add(
         'tw-inline-flex',
+        'tw-flex-row',
         'tw-justify-center',
         'tw-items-center',
         'tw-p-2',

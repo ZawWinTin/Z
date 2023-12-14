@@ -80,7 +80,7 @@ const updateSettings = () => {
                         placeholder="Search" />
                 </span>
             </div>
-            <div class="tw-h-[75vh] tw-overflow-y-auto primary-scrollbar tw-flex tw-flex-col tw-space-y-4">
+            <div class="tw-h-[75vh] primary-scrollbar tw-flex tw-flex-col tw-space-y-4">
                 <transition
                     :enter-from-class="TRANSITIONS.overlay.enterFromClass"
                     :enter-active-class="

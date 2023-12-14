@@ -931,7 +931,7 @@ const dialogTheme = {
     },
     content: ({ state, instance }) => ({
         class: [
-            'tw-overflow-y-auto primary-scrollbar',
+            'primary-scrollbar',
             'tw-text-slate-700 tw-px-6 tw-pb-8 tw-pt-0',
             'tw-bg-slate-50 dark:tw-bg-slate-800 dark:tw-text-slate-50/80',
             {
@@ -1468,7 +1468,7 @@ const multiselectTheme = {
     },
     wrapper: {
         class: [
-            'tw-max-h-[200px] tw-overflow-auto primary-scrollbar',
+            'tw-max-h-[200px] primary-scrollbar',
             'tw-bg-slate-50 tw-text-slate-700 tw-border-0 tw-rounded-md tw-shadow-lg',
             'dark:tw-bg-slate-900 dark:tw-text-slate-50/80',
         ],

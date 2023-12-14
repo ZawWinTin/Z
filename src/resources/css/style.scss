@@ -15,7 +15,7 @@ img[src=''] {
     }
 }
 
-/** Primary ScrollBar Design **/
+/* Primary ScrollBar Design */
 @property --scrollbar-primary-color {
     syntax: '<color>';
     inherits: true;
@@ -23,10 +23,11 @@ img[src=''] {
 }
 
 .primary-scrollbar {
+    overflow-y: auto;
     transition: --scrollbar-primary-color 300ms linear;
 
     &:hover {
-        --scrollbar-primary-color: rgba(148, 0, 211, 0.8);
+        --scrollbar-primary-color: theme(colors.primary.DEFAULT/ 80%);
     }
 
     &::-webkit-scrollbar {
