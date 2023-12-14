@@ -111,15 +111,18 @@ let getActiveClasses = (routeName) => {
             <span class="tw-ml-4" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">Categories</span>
         </Link>
         <hr class="tw-bg-slate-700 tw-border-0 tw-h-px tw-mx-2 !tw-mt-auto"/>
-        <Link class="tw-group" :class="[menuLinkClasses]" :href="route('home')">
+        <a class="tw-group" :class="[menuLinkClasses]" :href="route('home')" target="_blank">
             <span class="tw-hidden group-hover:tw-block">
                 <HomeSolidIcon class="tw-w-6 tw-h-6" />
             </span>
             <span class="tw-block group-hover:tw-hidden">
                 <HomeOutlineIcon class="tw-w-6 tw-h-6" />
             </span>
-            <span class="tw-ml-4" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">Main View</span>
-        </Link>
+            <span class="tw-ml-4 tw-w-full tw-flex tw-justify-between tw-items-center" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">
+                <span>Main View</span>
+                <i class="pi pi-arrow-up-right tw-text-slate-400" />
+            </span>
+        </a>
         <Link class="tw-group" :class="[getActiveClasses('admin.setting.index'), menuLinkClasses]" :href="route('admin.setting.index')">
             <span class="group-hover:tw-block" :class="isActiveRoute('admin.setting.index') ? 'tw-block' : 'tw-hidden'">
                 <WrenchScrewdriverSolidIcon class="tw-w-6 tw-h-6" />
