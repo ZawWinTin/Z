@@ -10,8 +10,7 @@ defineProps({
     <label
         class="
             tw-block
-            dark:tw-text-slate-400
-            tw-text-slate-700
+            main-text
             tw-ease-in-out
             tw-duration-300
             "

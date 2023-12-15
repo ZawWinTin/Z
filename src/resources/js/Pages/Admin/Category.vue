@@ -272,7 +272,7 @@ const restoreCategory = () => {
                                 :outlined="modes[currentMode].outlined" @click="updateMode" rounded />
                             <div>
                                 <span class="p-input-icon-left">
-                                    <i class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400" />
+                                    <i class="pi pi-search tw-left-3 main-text" />
                                     <InputText class="tw-pl-10"
                                         v-model="filters['global'].value"
                                         placeholder="Search" />

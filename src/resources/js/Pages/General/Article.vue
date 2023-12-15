@@ -96,7 +96,7 @@ const disableClearChoseCategories = computed(() => {
                         <div class="tw-w-full">
                             <span class="p-input-icon-left tw-w-64">
                                 <i
-                                    class="pi pi-search tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
+                                    class="pi pi-search tw-left-3 main-text"
                                 />
                                 <InputText
                                     class="tw-pl-10 tw-w-full"
@@ -129,7 +129,7 @@ const disableClearChoseCategories = computed(() => {
                 <div class="tw-mx-4 tw-flex tw-flex-row tw-space-x-2">
                     <span class="p-input-icon-left tw-w-full">
                         <i
-                            class="pi pi-tags tw-left-3 tw-text-slate-700 dark:tw-text-slate-400"
+                            class="pi pi-tags tw-left-3 main-text"
                         />
                         <InputText
                             class="tw-pl-10 tw-w-full"

@@ -12,6 +12,9 @@
     .main-text {
         @apply main-text-light-only dark:main-text-dark-only;
     }
+    .main-text-for-input {
+        @apply tw-text-slate-900 dark:tw-text-slate-300;
+    }
 
     .main-bg-1-light-only {
         @apply tw-bg-slate-50;

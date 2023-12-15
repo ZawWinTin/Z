@@ -16,7 +16,7 @@ defineProps({
             tw-block
             dark:focus:tw-bg-slate-800
             dark:hover:tw-bg-slate-800
-            dark:tw-text-slate-300
+            main-text-for-input
             focus:tw-bg-slate-100
             focus:tw-outline-none
             hover:tw-bg-slate-100
@@ -26,7 +26,6 @@ defineProps({
             tw-px-4
             tw-py-2
             tw-text-left
-            tw-text-slate-700
             tw-text-sm
             tw-transition
             tw-w-full

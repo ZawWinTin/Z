@@ -28,7 +28,7 @@ const DROPDOWN = 'dropdown';
                 <span class="tw-w-full main-text-gradient tw-text-xl">
                     {{ props.setting.label }}
                 </span>
-                <span class="tw-w-full tw-text-slate-700 dark:tw-text-slate-400">
+                <span class="tw-w-full main-text">
                     {{ props.setting.description }}
                 </span>
             </div>

@@ -14,7 +14,7 @@ export default {
         class: [
             'tw-m-0',
             'tw-text-base tw-text-slate-600 main-bg-3 tw-p-3 tw-border main-input-border tw-transition-colors tw-duration-300 tw-rounded-lg tw-cursor-pointer',
-            'hover:tw-border-primary/80 focus:main-primary-focus',
+            'focus:main-primary-focus',
             'tw-w-8 tw-h-8',
         ],
     },

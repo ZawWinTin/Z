@@ -65,7 +65,7 @@ export default {
         class: [
             'tw-duration-300 tw-transition',
             'main-bg-2 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
-            'dark:tw-border-primary/40 dark:tw-text-slate-50/80', // Dark Mode
+            'dark:tw-border-primary/40 main-text', // Dark Mode
         ],
     },
     column: {
@@ -102,7 +102,7 @@ export default {
                     : context?.size === 'large'
                       ? 'tw-p-5'
                       : 'tw-p-4', // Size
-                'dark:tw-text-slate-50/80 dark:tw-border-primary/40', // Dark Mode
+                'main-text dark:tw-border-primary/40', // Dark Mode
                 {
                     'tw-sticky bg-inherit': props.frozen || props.frozen === '', // Frozen Columns
                     'border-x border-y': context?.showGridlines,
@@ -119,7 +119,7 @@ export default {
                     : context?.size === 'large'
                       ? 'tw-p-5'
                       : 'tw-p-4', // Size
-                'dark:tw-text-slate-50/80 dark:tw-border-primary/40', // Dark Mode
+                'main-text dark:tw-border-primary/40', // Dark Mode
                 {
                     'tw-border-x tw-border-y': context?.showGridlines,
                 },
@@ -138,14 +138,14 @@ export default {
                 'tw-flex tw-items-center tw-justify-center tw-align-middle',
                 'tw-rounded-[50%] tw-w-[1.143rem] tw-leading-[1.143rem] tw-ml-2',
                 'tw-text-primary tw-bg-primary/40',
-                'dark:tw-text-slate-50/80 dark:tw-bg-primary', // Dark Mode
+                'main-text dark:tw-bg-primary', // Dark Mode
             ],
         },
         columnfilter: 'tw-inline-flex tw-items-center tw-ml-auto',
         filteroverlay: {
             class: [
                 'main-bg-3 tw-text-slate-600 tw-border-0 tw-rounded-md tw-min-w-[12.5rem]',
-                'dark:tw-border-blue-900/40 dark:tw-text-slate-50/80', //Dark Mode
+                'dark:tw-border-blue-900/40 main-text', //Dark Mode
             ],
         },
         filtermatchmodedropdown: {
@@ -158,7 +158,7 @@ export default {
                 'tw-transition tw-duration-300',
                 context?.highlighted
                     ? 'tw-text-blue-700 tw-bg-blue-100 dark:text-slate-50/80 dark:tw-bg-blue-300'
-                    : 'tw-text-slate-600 tw-bg-transparent dark:tw-text-slate-50/80 dark:tw-bg-transparent',
+                    : 'main-text tw-bg-transparent dark:tw-bg-transparent',
             ],
         }),
         filteroperator: {
@@ -332,15 +332,15 @@ export default {
         class: [
             context.selected
                 ? 'tw-bg-blue-50 tw-text-primary dark:tw-bg-primary/40'
-                : 'main-bg-2 tw-text-slate-600',
+                : 'main-bg-2 main-text',
             context.stripedRows
                 ? context.index % 2 === 0
-                    ? 'main-bg-2 tw-text-slate-600'
-                    : 'main-bg-2 tw-text-slate-600 !tw-bg-opacity-50'
+                    ? 'main-bg-2 main-text'
+                    : 'main-bg-2 main-text !tw-bg-opacity-50'
                 : '',
             'tw-transition tw-duration-300',
             'focus:tw-outline focus:tw-outline-[0.15rem] focus:tw-outline-primary/80 focus:tw-outline-offset-[-0.15rem]', // Focus
-            'dark:tw-text-slate-50/80 dark:focus:tw-outline dark:focus:tw-outline-[0.15rem] dark:focus:tw-outline-primary dark:focus:tw-outline-offset-[-0.15rem]', // Dark Mode
+            'main-text dark:focus:tw-outline dark:focus:tw-outline-[0.15rem] dark:focus:tw-outline-primary dark:focus:tw-outline-offset-[-0.15rem]', // Dark Mode
             {
                 'tw-cursor-pointer': context.selectable,
                 'hover:bg-slate-300/20 hover:tw-text-slate-600':

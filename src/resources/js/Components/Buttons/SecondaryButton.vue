@@ -16,7 +16,7 @@ defineProps({
             dark:hover:tw-bg-slate-700
             dark:tw-bg-slate-800
             dark:tw-border-slate-500
-            dark:tw-text-slate-300
+            main-text-for-input
             disabled:tw-opacity-25
             focus:tw-outline-none
             focus:tw-ring-2
@@ -34,7 +34,6 @@ defineProps({
             tw-py-2
             tw-rounded-md
             tw-shadow-sm
-            tw-text-slate-700
             tw-text-xs
             tw-tracking-widest
             tw-transition

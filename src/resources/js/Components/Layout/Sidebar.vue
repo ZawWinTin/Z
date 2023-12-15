@@ -119,7 +119,7 @@ let getActiveClasses = (routeName) => {
             </span>
             <span class="tw-ml-4 tw-w-full tw-flex tw-justify-between tw-items-center" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">
                 <span>Main View</span>
-                <i class="pi pi-arrow-up-right tw-text-slate-400" />
+                <i class="pi pi-arrow-up-right main-text-dark-only" />
             </span>
         </a>
         <Link class="tw-group" :class="[getActiveClasses('admin.setting.index'), menuLinkClasses]" :href="route('admin.setting.index')">

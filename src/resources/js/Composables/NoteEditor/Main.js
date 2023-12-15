@@ -30,7 +30,7 @@ export default function initializeEditor(editorContainer) {
                 class: '',
             },
             inlineContent: {
-                class: 'before:tw-text-slate-900/60 dark:before:tw-text-slate-50/40',
+                class: 'before:main-text-for-input before:!tw-text-opacity-60',
             },
         },
     });

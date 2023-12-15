@@ -30,7 +30,7 @@ const description = computed(() => {
             <h1 class="tw-font-bold tw-text-2xl tw-text-primary">
                 {{ title }}
             </h1>
-            <p class="tw-text-slate-700 dark:tw-text-slate-400">
+            <p class="main-text">
                 {{ description }}
             </p>
         </div>

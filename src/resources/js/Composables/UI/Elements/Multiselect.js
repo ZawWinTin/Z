@@ -72,8 +72,7 @@ export default {
             'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
             'hover:tw-border-primary focus:main-primary-focus',
             {
-                'tw-border-slate-300 dark:tw-border-primary-dark main-bg-3':
-                    !context?.selected,
+                'main-input-border main-bg-3': !context?.selected,
                 'tw-border-primary-dark tw-bg-primary tw-shadow':
                     context?.selected,
             },
@@ -136,8 +135,7 @@ export default {
             'tw-border-2 tw-w-6 tw-h-6 tw-text-slate-600 dark:tw-text-slate-50/80 tw-rounded-lg tw-transition-colors tw-duration-300',
             'hover:tw-border-primary focus:main-primary-focus',
             {
-                'tw-border-slate-300 dark:tw-border-primary-dark main-bg-3':
-                    !context?.selected,
+                'main-input-border main-bg-3': !context?.selected,
                 'tw-border-primary-dark tw-bg-primary tw-shadow':
                     context?.selected,
             },
@@ -157,9 +155,7 @@ export default {
             'tw-cursor-auto',
         ],
     },
-    filtercontainer: {
-        class: 'tw-relative',
-    },
+    filtercontainer: { class: 'tw-relative' },
     filterinput: {
         class: [
             'tw-pr-7 -tw-mr-7',

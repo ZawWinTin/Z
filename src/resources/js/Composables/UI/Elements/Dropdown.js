@@ -13,14 +13,11 @@ export default {
 
             // Color and Background
             'main-bg-3',
-            'tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-text-slate-800 dark:tw-text-slate-300',
+            'tw-border main-input-border main-text-for-input',
 
             // Transitions
             'tw-transition-all',
             'tw-duration-300',
-
-            // States
-            'hover:tw-border-primary dark:hover:tw-border-primary',
 
             // Misc
             'tw-cursor-pointer',
@@ -40,7 +37,7 @@ export default {
             'tw-flex-auto',
 
             // Color and Background
-            'tw-text-slate-800 dark:tw-text-slate-300',
+            'main-text-for-input',
             'tw-bg-transparent',
 
             // Sizing and Spacing
@@ -74,7 +71,7 @@ export default {
 
             // Color and Background
             'tw-bg-transparent',
-            'tw-text-slate-800 dark:tw-text-slate-300',
+            'main-text-for-input',
 
             // Size
             'tw-w-12',
