@@ -1,19 +1,91 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 import Slider from 'primevue/slider';
-import InputSwitch from 'primevue/inputswitch';
 import Dropdown from 'primevue/dropdown';
+import InputSwitch from 'primevue/inputswitch';
+import route from '@/Composables/Common/Route';
+import { onMounted, ref } from 'vue';
+
 const props = defineProps({
     setting: {
         default: null,
     },
+    type: null,
 });
+
+const form = useForm({
+    setting_type: null,
+    key: null,
+    value: null,
+});
+
+const toast = useToast();
+
+//TODO: Refactor Const
+const SYSTEM = 'system';
+const ENV = 'env';
 
 const NUMBER = 'number';
 const BOOLEAN = 'boolean';
 const DROPDOWN = 'dropdown';
+
+const currentValue = ref(null);
+
+onMounted(() => {
+    intializeValue(props);
+})
+
+const intializeValue = (data) => {
+    switch (data.setting.type) {
+        case NUMBER:
+            currentValue.value = parseInt(data.setting.value);
+            break;
+        case BOOLEAN:
+            currentValue.value = Boolean(data.setting.value);
+            break;
+        case DROPDOWN:
+            currentValue.value = data.setting.value;
+            break;
+    }
+}
+const updateSettings = () => {
+    form.setting_type = props.type;
+    switch (props.type) {
+        case SYSTEM:
+            form.key = props.setting.id;
+            break;
+        case ENV:
+            form.key = props.setting.name;
+            break;
+    }
+    form.value = currentValue.value;
+    form.post(route('admin.setting.save'), {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Updated',
+                detail: `${props.setting.label} is updated Successfully.`,
+                life: 3000,
+            });
+        },
+        onError: () => {
+            toast.add({
+                severity: 'error',
+                summary: 'Update Failed',
+                detail: `${props.setting.label} updating failed!`,
+                life: 3000,
+            });
+        },
+    });
+};
 </script>
 <template>
     <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 main-bg-3 tw-transition tw-duration-300 tw-space-y-4 tw-justify-between">
+        <Toast />
         <!-- Label -->
         <div class="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-center tw-h-[4.5rem]">
             <div class="tw-w-1/4
@@ -37,23 +109,23 @@ const DROPDOWN = 'dropdown';
         <div class="tw-w-full">
             <template v-if="props.setting.type === NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
-                    <Slider v-model="props.setting.value" :min="parseInt(props.setting.options.min)" :max="parseInt(props.setting.options.max)" class="tw-w-full" />
+                    <Slider v-model="currentValue" @slideend="updateSettings" :min="parseInt(props.setting.options.min)" :max="parseInt(props.setting.options.max)" class="tw-w-full" />
                     <span class="tw-transition tw-duration-300 tw-w-24 tw-py-1 tw-text-center tw-font-semibold tw-rounded-full main-bg-2 tw-text-slate-800 dark:tw-text-primary">
-                        {{ props.setting.value }}
+                        {{ currentValue }}
                     </span>
                 </div>
             </template>
             <template v-if="props.setting.type === BOOLEAN">
                 <div class="tw-flex tw-flex-row tw-justify-end tw-items-center tw-space-x-2">
-                    <InputSwitch v-model="props.setting.value" />
+                    <InputSwitch v-model="currentValue" @change="updateSettings" />
                     <span class="tw-transition tw-duration-300 tw-w-6 tw-py-1 tw-text-right tw-font-semibold tw-rounded-full tw-text-primary">
-                        {{ props.setting.value ? 'On' : 'Off' }}
+                        {{ currentValue ? 'On' : 'Off' }}
                     </span>
                 </div>
             </template>
             <template v-if="props.setting.type === DROPDOWN">
-                <div class="tw-w-1/2 tw-ml-auto">
-                    <Dropdown v-model="props.setting.value" :options="props.setting.options" optionLabel="label" optionValue="value" />
+                <div class="tw-w-full lg:tw-w-1/2 tw-ml-auto">
+                    <Dropdown v-model="currentValue" @change="updateSettings" :options="props.setting.options" optionLabel="label" optionValue="value" />
                 </div>
             </template>
         </div>

@@ -34,13 +34,13 @@ class SettingSaveRequest extends FormRequest
 
         switch ($this->input('setting_type')) {
             case SettingType::SYSTEM->value:
-                $setting = Setting::find($this->input('id'));
+                $setting = Setting::find($this->input('key'));
                 $type = $setting?->type;
                 $options = $setting?->options;
-                $keyRules = ['required', 'exists:settings,id,deleted_at,NULL'];
+                $keyRules = ['required', 'exists:settings,id'];
                 break;
             case SettingType::ENV->value:
-                $setting = EnvKey::case($this->input('name'));
+                $setting = EnvKey::case($this->input('key'));
                 $type = $setting?->type();
                 $options = $setting?->options();
                 $keyRules = ['required', Rule::in(EnvKey::values())];
@@ -50,7 +50,7 @@ class SettingSaveRequest extends FormRequest
         $valueRules = match ($type) {
             DataType::NUMBER => ['required', 'integer', 'min:' . $options['min'], 'max:' . $options['max']],
             DataType::BOOLEAN => ['required', 'boolean'],
-            DataType::DROPDOWN => ['required', Rule::in($options)],
+            DataType::DROPDOWN => ['required', Rule::in(array_column($options, 'value'))],
             default => ['required'],
         };
 

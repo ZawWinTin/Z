@@ -1,10 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { useToast } from 'primevue/usetoast';
-import Toast from 'primevue/toast';
+import { Head } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
-import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import SettingCard from '@/Components/Elements/SettingCard.vue';
 
@@ -18,11 +15,9 @@ const props = defineProps({
     errors: Object,
 });
 
-const form = useForm({
-    setting_type: null,
-    key: null,
-    value: null,
-});
+//TODO: Refactor Const
+const SYSTEM = 'system';
+const ENV = 'env';
 
 const filters = ref(null);
 
@@ -56,12 +51,6 @@ const getFilteredSystemSettings = computed(() => {
 const getFilteredEnvSettings = computed(() => {
     return filteredSettings(currentEnvSettings.value);
 });
-
-const updateSettings = () => {
-    form.post(route('admin.setting.save'), {
-        preserveScroll: true,
-    });
-};
 </script>
 <template>
     <section>
@@ -70,7 +59,6 @@ const updateSettings = () => {
             class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-mb-4">
             Setting
         </h1>
-        <Toast />
         <div class="tw-flex tw-flex-col tw-space-y-4">
             <div class="tw-flex tw-justify-end">
                 <span class="p-input-icon-left">
@@ -99,7 +87,7 @@ const updateSettings = () => {
                                 v-for="setting in getFilteredSystemSettings"
                                 :key="setting.name"
                             >
-                                <SettingCard :setting="setting" />
+                                <SettingCard :setting="setting" :type="SYSTEM" />
                             </template>
                         </div>
                     </div>
@@ -122,7 +110,7 @@ const updateSettings = () => {
                                 v-for="setting in getFilteredEnvSettings"
                                 :key="setting.name"
                             >
-                                <SettingCard :setting="setting" />
+                                <SettingCard :setting="setting" :type="ENV" />
                             </template>
                         </div>
                     </div>

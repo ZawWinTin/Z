@@ -8,6 +8,7 @@ use App\Enums\EnvKey;
 use App\Enums\DataType;
 use App\Models\Setting;
 use App\Enums\SettingKey;
+use App\Enums\SettingType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -62,16 +63,26 @@ class SettingRepository
     public function save(Request $request)
     {
         try {
-            DB::beginTransaction();
 
-            $setting = Setting::findOrFail($request->id);
+            switch ($request->setting_type) {
+                case SettingType::SYSTEM->value:
+                    DB::beginTransaction();
+                    $setting = Setting::findOrFail($request->key);
 
-            $setting->update([
-                'value' => $request->value,
-            ]);
-            DB::commit();
+                    $setting->update([
+                        'value' => $request->value,
+                    ]);
+                    DB::commit();
+                    break;
+                case SettingType::ENV->value:
+                    $setting = EnvKey::case($request->key);
+                    save_permanent_env($setting->value, $setting->configKey(), $request->value);
+                    break;
+            }
         } catch (Throwable $e) {
-            DB::rollBack();
+            if ($request->setting_type == SettingType::SYSTEM->value) {
+                DB::rollBack();
+            }
 
             Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
 

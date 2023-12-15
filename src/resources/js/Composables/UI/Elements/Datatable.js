@@ -65,7 +65,7 @@ export default {
         class: [
             'tw-duration-300 tw-transition',
             'main-bg-2 tw-text-slate-700 tw-border-t-0 tw-border-b tw-border-x-0 tw-border-slate-300 tw-p-4',
-            'dark:tw-border-primary/40 main-text', // Dark Mode
+            'dark:tw-border-primary/40 dark:tw-text-slate-50/80', // Dark Mode
         ],
     },
     column: {

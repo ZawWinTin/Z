@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 if (!function_exists('format_date')) {
@@ -21,8 +22,6 @@ if (!function_exists('format_date')) {
 if (!function_exists('save_permanent_env')) {
     /**
      * update env
-     *
-     * @param string configKey
      */
     function save_permanent_env(string $envKey, string $configKey, mixed $value): void
     {
@@ -31,7 +30,7 @@ if (!function_exists('save_permanent_env')) {
         $isExistKey = preg_match("/^{$envKey}/m", $content);
 
         // except value is "true" or "false", save with other value with `"`
-        if (!($value == 'true' || $value == 'false')) {
+        if (!(is_bool($value) || $value == 'true' || $value == 'false')) {
             $value = "\"$value\"";
         }
 
@@ -50,6 +49,7 @@ if (!function_exists('save_permanent_env')) {
         }
 
         app()->loadEnvironmentFrom($path);
+        Artisan::call('optimize:clear');
     }
 }
 
