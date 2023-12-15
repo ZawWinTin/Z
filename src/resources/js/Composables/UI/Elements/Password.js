@@ -10,7 +10,7 @@ export default {
             },
         ],
     }),
-    panel: 'tw-p-5 tw-bg-slate-50 dark:tw-bg-slate-900 tw-text-slate-700 dark:tw-text-slate-50/80 tw-shadow-md tw-rounded-md',
+    panel: 'tw-p-5 main-bg-3 tw-text-slate-700 dark:tw-text-slate-50/80 tw-shadow-md tw-rounded-md',
     meter: 'tw-mb-2 tw-bg-slate-300 dark:tw-bg-slate-700 tw-h-3',
     meterlabel: ({ instance, props }) => ({
         class: [

@@ -12,16 +12,16 @@ export default {
         class: [
             'tw-h-full tw-flex tw-items-center tw-justify-center !tw-absolute tw-top-0 tw-z-20',
             'tw-left-0',
-            'tw-bg-slate-50 tw-text-primary tw-w-12 tw-shadow-md tw-rounded-none',
-            'dark:tw-bg-slate-800 dark:tw-border-primary/40 dark:text-slate-50/80 ]',
+            'main-bg-3 tw-text-primary tw-w-12 tw-shadow-md tw-rounded-none',
+            'dark:tw-border-primary/40 dark:text-slate-50/80 ]',
         ], // Flex and tw-absolute positioning styles.
     },
     nextButton: {
         class: [
             'tw-h-full tw-flex tw-items-center tw-justify-center !tw-absolute tw-top-0 tw-z-20',
             'tw-right-0',
-            'tw-bg-slate-50 tw-text-primary tw-w-12 tw-shadow-md tw-rounded-none',
-            'dark:tw-bg-slate-900 dark:tw-border-primary/40 dark:text-slate-50/80 ',
+            'main-bg-3 tw-text-primary tw-w-12 tw-shadow-md tw-rounded-none',
+            'dark:tw-border-primary/40 dark:text-slate-50/80 ',
         ], // Flex and tw-absolute positioning styles.
     },
     nav: {
@@ -62,8 +62,8 @@ export default {
         content: {
             class: [
                 'tw-transition tw-duration-300',
-                'tw-bg-slate-50 tw-p-5 tw-border-0 tw-text-slate-700 tw-rounded-bl-md tw-rounded-br-md',
-                'dark:tw-bg-slate-800 dark:tw-border-primary/40 dark:text-slate-50/80',
+                'main-bg-2 tw-p-5 tw-border-0 tw-text-slate-700 tw-rounded-bl-md tw-rounded-br-md',
+                'dark:tw-border-primary/40 dark:text-slate-50/80',
             ], // Background, padding, tw-border, and text styles.
         },
     },

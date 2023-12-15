@@ -1,8 +1,6 @@
 export default {
     root: () => ({
-        class: [
-            'tw-bg-slate-50 dark:tw-bg-slate-800 tw-rounded-lg tw-transition tw-duration-300',
-        ],
+        class: ['main-bg-2 tw-rounded-lg tw-transition tw-duration-300'],
     }),
 
     gutter: ({ props }) => ({

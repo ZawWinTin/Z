@@ -3,8 +3,8 @@ export default {
         class: [
             'tw-duration-300 tw-transition',
             'tw-flex tw-items-center tw-justify-center tw-flex-wrap',
-            'tw-bg-slate-100 tw-text-slate-500 tw-border-0 tw-px-4 tw-pt-2 tw-rounded-md',
-            'dark:tw-bg-slate-800 dark:tw-text-slate-50/60 dark:tw-border-primary/40', // Dark Mode
+            'main-bg-2 tw-text-slate-500 tw-border-0 tw-px-4 tw-pt-2 tw-rounded-md',
+            'dark:tw-text-slate-50/60 dark:tw-border-primary/40', // Dark Mode
         ],
     },
     firstpagebutton: ({ context }) => ({
@@ -77,10 +77,10 @@ export default {
         root: ({ props, state }) => ({
             class: [
                 'tw-inline-flex tw-relative tw-cursor-pointer tw-user-none',
-                'tw-bg-slate-100 tw-border tw-rounded-md',
+                'main-bg-2 tw-border tw-rounded-md',
                 'tw-transition tw-duration-300',
                 'tw-h-12 tw-mx-2',
-                'dark:tw-bg-slate-800 dark:tw-border-primary/40', //DarkMode
+                'dark:tw-border-primary/40', //DarkMode
                 {
                     'main-primary-focus': state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
@@ -104,8 +104,8 @@ export default {
         },
         panel: {
             class: [
-                'tw-bg-slate-100 tw-text-slate-600 tw-border-1 tw-rounded-md tw-shadow',
-                'dark:tw-bg-slate-800 dark:tw-text-slate-50 dark:tw-border-primary/40', //Dark Mode
+                'main-bg-2 tw-text-slate-600 tw-border-1 tw-rounded-md tw-shadow',
+                'dark:tw-text-slate-50 dark:tw-border-primary/40', //Dark Mode
             ],
         },
         wrapper: 'tw-overflow-auto',
@@ -142,10 +142,10 @@ export default {
         root: ({ props, state }) => ({
             class: [
                 'tw-inline-flex tw-relative tw-cursor-pointer tw-user-none',
-                'tw-bg-slate-100 tw-border tw-rounded-md',
+                'main-bg-3 tw-border tw-rounded-md',
                 'tw-transition tw-duration-300',
                 'tw-h-12 tw-mx-2',
-                'dark:bg-slate-950 dark:tw-border-blue-900/40', //DarkMode
+                'dark:tw-border-blue-900/40', //DarkMode
                 {
                     'main-primary-focus': state.focused && !props.disabled, //Focus
                     'tw-border-slate-300': !state.focused,
@@ -169,8 +169,8 @@ export default {
         },
         panel: {
             class: [
-                'tw-bg-slate-100 tw-text-slate-600 tw-border-0 tw-rounded-md shadow-[0_2px_12px_rgba(0,0,0,0.1)]',
-                'dark:tw-bg-slate-900 dark:text-slate-50/80 dark:tw-border-blue-900/40', //Dark Mode
+                'main-bg-3 tw-text-slate-600 tw-border-0 tw-rounded-md shadow-[0_2px_12px_rgba(0,0,0,0.1)]',
+                'dark:text-slate-50/80 dark:tw-border-blue-900/40', //Dark Mode
             ],
         },
         wrapper: 'tw-overflow-auto',

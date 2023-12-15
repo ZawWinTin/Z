@@ -12,7 +12,7 @@ export default {
             'tw-rounded-full',
 
             // Color and Background
-            'tw-bg-slate-50 dark:tw-bg-slate-900',
+            'main-bg-3',
             'tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-text-slate-800 dark:tw-text-slate-300',
 
             // Transitions
@@ -97,7 +97,7 @@ export default {
 
             // Color
             'tw-transition tw-duration-300',
-            'tw-bg-slate-50 dark:tw-bg-slate-900',
+            'main-bg-3',
             'tw-text-slate-700 dark:tw-text-slate-50/80',
         ],
     },

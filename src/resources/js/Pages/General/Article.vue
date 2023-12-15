@@ -157,7 +157,7 @@ const disableClearChoseCategories = computed(() => {
                         :key="category.id"
                     >
                         <div
-                            class="tw-inline-flex tw-justify-center tw-items-center tw-py-2 tw-px-2 tw-cursor-pointer tw-rounded-full tw-transition tw-duration-300 hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80"
+                            class="tw-inline-flex tw-justify-center tw-items-center tw-py-2 tw-px-2 tw-cursor-pointer tw-rounded-full tw-transition tw-duration-300 hover:main-secondary-hover"
                             :class="
                                 articleFilters.categories.value.includes(
                                     category.id,

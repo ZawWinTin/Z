@@ -15,7 +15,7 @@ export default {
             'first:tw-rounded-l-full first:tw-rounded-tr-none first:tw-rounded-br-none last:tw-border-r last:tw-rounded-tl-none last:tw-rounded-bl-none last:tw-rounded-r-full',
             'focus:main-primary-focus',
             {
-                'tw-bg-slate-50 dark:tw-bg-slate-900 tw-text-slate-700 dark:tw-text-slate-50/80 tw-border-slate-300 dark:tw-border-primary-dark/40 hover:tw-bg-slate-50 dark:hover:tw-bg-slate-800/80 ':
+                'main-bg-3 tw-text-slate-700 dark:tw-text-slate-50/80 tw-border-slate-300 dark:tw-border-primary-dark/40 hover:tw-bg-slate-50 dark:hover:tw-bg-slate-800/80 ':
                     !context.active,
                 'tw-bg-primary tw-border-primary tw-text-slate-50 hover:tw-bg-primary-dark':
                     context.active,

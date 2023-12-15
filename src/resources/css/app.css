@@ -59,6 +59,10 @@
         @apply tw-ring-primary/80 tw-outline-none tw-ring-2 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
     }
 
+    .main-secondary-hover {
+        @apply hover:tw-bg-slate-400/20 dark:tw-bg-slate-700/80;
+    }
+
     .main-input-border {
         @apply tw-border-slate-300 dark:tw-border-slate-700 hover:tw-border-primary-dark;
     }

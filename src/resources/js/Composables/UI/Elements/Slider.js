@@ -14,7 +14,7 @@ export default {
         class: [
             'tw-transition tw-duration-300',
             'tw-w-2 tw-h-3 tw-rounded-full tw-outline-none',
-            'tw-bg-slate-50 dark:tw-bg-slate-900 tw-border-primary-dark tw-border-2',
+            'main-bg-3 tw-border-primary-dark tw-border-2',
             'tw-translate-x-[-50%] tw-translate-y-[-50%]',
             'focus:main-primary-focus',
         ],

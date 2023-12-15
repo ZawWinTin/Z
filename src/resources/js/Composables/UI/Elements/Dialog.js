@@ -26,7 +26,7 @@ export default {
         class: [
             'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
             'tw-w-8 tw-h-8 tw-text-slate-500 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
-            'hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80',
+            'hover:main-secondary-hover',
             'focus:main-primary-focus', // focus
             'dark:hover:tw-text-slate-50/80 dark:hover:tw-border-transparent',
         ],
@@ -35,7 +35,7 @@ export default {
         class: [
             'tw-flex tw-items-center tw-justify-center tw-overflow-hidden tw-relative',
             'tw-w-8 tw-h-8 tw-text-slate-500 tw-border-0 tw-bg-transparent tw-rounded-full tw-transition tw-duration-300 tw-ease-in-out tw-mr-2 last:tw-mr-0',
-            'hover:tw-bg-slate-400/20 dark:hover:tw-bg-slate-700/80',
+            'hover:main-secondary-hover',
             'focus:main-primary-focus', // focus
             'dark:hover:tw-text-slate-50/80 dark:hover:tw-border-transparent',
         ],
