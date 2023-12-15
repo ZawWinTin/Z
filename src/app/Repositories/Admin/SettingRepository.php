@@ -62,31 +62,34 @@ class SettingRepository
 
     public function save(Request $request)
     {
-        try {
-
-            switch ($request->setting_type) {
-                case SettingType::SYSTEM->value:
-                    DB::beginTransaction();
+        switch ($request->setting_type) {
+            case SettingType::SYSTEM->value:
+                DB::beginTransaction();
+                try {
                     $setting = Setting::findOrFail($request->key);
 
                     $setting->update([
                         'value' => $request->value,
                     ]);
                     DB::commit();
-                    break;
-                case SettingType::ENV->value:
+                } catch (Throwable $e) {
+                    DB::rollBack();
+
+                    Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
+
+                    throw new Exception('System Setting saved failed.');
+                }
+                break;
+            case SettingType::ENV->value:
+                try {
                     $setting = EnvKey::case($request->key);
                     save_permanent_env($setting->value, $setting->configKey(), $request->value);
-                    break;
-            }
-        } catch (Throwable $e) {
-            if ($request->setting_type == SettingType::SYSTEM->value) {
-                DB::rollBack();
-            }
+                } catch (Throwable $e) {
+                    Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
 
-            Log::error(__CLASS__ . '::' . __FUNCTION__ . '[line: ' . __LINE__ . ']Message: ' . $e->getMessage());
-
-            throw new Exception('Setting saved failed.');
+                    throw new Exception('Env Setting saved failed.');
+                }
+                break;
         }
     }
 }
