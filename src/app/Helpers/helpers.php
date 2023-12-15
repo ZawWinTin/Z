@@ -29,8 +29,9 @@ if (!function_exists('save_permanent_env')) {
         $content = file_get_contents($path);
         $isExistKey = preg_match("/^{$envKey}/m", $content);
 
-        // except value is "true" or "false", save with other value with `"`
-        if (!(is_bool($value) || $value == 'true' || $value == 'false')) {
+        if (is_bool($value)) {
+            $value = ($value) ? 'true' : 'false';
+        } else {
             $value = "\"$value\"";
         }
 
