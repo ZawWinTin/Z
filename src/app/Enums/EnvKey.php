@@ -51,9 +51,9 @@ enum EnvKey: string
     public function description(): string
     {
         return match ($this) {
-            self::APP_ENV => 'Update Application Environment',
-            self::APP_DEBUG => 'Display Application Debugbar or not',
-            self::LOG_SQL_ENABLED => 'Display SQL Log or not',
+            self::APP_ENV => 'Update Application Environment (Please Restart Server).',
+            self::APP_DEBUG => 'Display Application Debugbar or not.',
+            self::LOG_SQL_ENABLED => 'Display SQL Log or not.',
         };
     }
 

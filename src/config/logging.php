@@ -82,6 +82,14 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'sql' => [
+            'driver' => env('LOG_SQL_DRIVER', 'daily'),
+            'path' => storage_path('logs/sql.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+            'replace_placeholders' => true,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

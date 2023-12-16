@@ -23,7 +23,7 @@ class SettingSeeder extends Seeder
                 'value' => 5,
                 'type' => DataType::NUMBER,
                 'label' => SettingKey::CATEGORY_LIMIT->label(),
-                'description' => 'Limit Categories per Article',
+                'description' => 'Limit Categories per Article.',
                 'icon_name' => 'pi pi-tags',
                 'options' => ['min' => 1, 'max' => 10],
             ],
