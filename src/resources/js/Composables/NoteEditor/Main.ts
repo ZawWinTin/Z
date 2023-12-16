@@ -7,7 +7,7 @@ import { addSlashMenu } from '@/Composables/NoteEditor/UI/SlashMenu';
 import { addTableHandles } from '@/Composables/NoteEditor/UI/TableHandles';
 import '@blocknote/core/style.css';
 
-export default function initializeEditor(editorContainer) {
+export default function initializeEditor(editorContainer: HTMLElement) {
     editorContainer.classList.add('tw-p-2');
     const dialog = editorContainer.closest('.p-dialog');
 

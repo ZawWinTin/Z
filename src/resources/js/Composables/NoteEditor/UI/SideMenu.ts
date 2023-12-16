@@ -1,7 +1,8 @@
+import { BlockNoteEditor } from "@blocknote/core";
 import { createButton, getDialogPos } from '@/Composables/NoteEditor/UI/Util';
 
-export const addSideMenu = (editor, editorContainer, dialog) => {
-    let element = null;
+export const addSideMenu = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+    let element: HTMLElement;
 
     editor.sideMenu.onUpdate(sideMenuState => {
         if (!element) {

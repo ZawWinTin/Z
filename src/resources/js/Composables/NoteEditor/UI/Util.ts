@@ -1,4 +1,4 @@
-export const createButton = (text, onClick) => {
+export const createButton = (text: string, onClick: () => void) => {
     const element = document.createElement('button');
     element.innerHTML = text;
     element.classList.add(
@@ -21,7 +21,7 @@ export const createButton = (text, onClick) => {
     return element;
 };
 
-export const getDialogPos = dialog => {
+export const getDialogPos = (dialog: HTMLElement) => {
     let dialogTop = 0;
     let dialogLeft = 0;
     if (dialog) {
@@ -33,7 +33,7 @@ export const getDialogPos = dialog => {
     return { top: dialogTop, left: dialogLeft };
 };
 
-export const adjustAdditionalHeight = (elementHeight, container) => {
+export const adjustAdditionalHeight = (elementHeight: number, container: HTMLElement) => {
     let additionalHeight = 0;
     if (
         window.innerHeight - container.getBoundingClientRect().bottom <

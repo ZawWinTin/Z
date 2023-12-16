@@ -1,12 +1,13 @@
+import { BlockNoteEditor } from "@blocknote/core";
 import {
     createButton,
     getDialogPos,
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addFormattingToolbar = (editor, editorContainer, dialog) => {
-    let element = null;
-    let boldBtn = null;
+export const addFormattingToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+    let element: HTMLElement;
+    let boldBtn: HTMLAnchorElement;
 
     editor.formattingToolbar.onUpdate(formattingToolbarState => {
         if (!element) {

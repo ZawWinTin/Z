@@ -1,11 +1,12 @@
+import { BlockNoteEditor } from "@blocknote/core";
 import {
     createButton,
     getDialogPos,
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addHyperlinkToolbar = (editor, editorContainer, dialog) => {
-    let element = null;
+export const addHyperlinkToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+    let element: HTMLElement;
 
     editor.hyperlinkToolbar.onUpdate(hyperlinkToolbarState => {
         if (!element) {
