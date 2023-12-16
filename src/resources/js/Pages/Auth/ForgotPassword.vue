@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
@@ -6,11 +6,9 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
-defineProps({
-    status: {
-        type: String,
-    },
-});
+defineProps<{
+    status?: string;
+}>();
 
 const form = useForm({
     email: '',

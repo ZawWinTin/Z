@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';

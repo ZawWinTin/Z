@@ -1,27 +1,30 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-const props = defineProps({
-    isAdminLayout: {
-        default: false,
-    },
-})
+const props = withDefaults(
+    defineProps<{
+        isAdminLayout: boolean,
+    }>(),
+    {
+        isAdminLayout: false,
+    }
+);
 
 let process = 1;
 let numHeight = 0;
 let totalDistance = 0;
 
-let preloader = ref(null);
-let loadingBar = ref(null);
-let loadingBarContainer = ref(null);
-let counterContainer = {
+const preloader = ref(null);
+const loadingBar = ref(null);
+const loadingBarContainer = ref(null);
+const counterContainer = {
     ones : ref(null),
     tens : ref(null),
     hundreds : ref(null),
 };
 
-let end = async () => {
-    document.querySelector('body').classList.add('tw-overflow-hidden');
+const end = async () => {
+    document.body.classList.add('tw-overflow-hidden');
     await setLoading(100, 250);
     setTimeout(() => {
         let duration = 1000;
@@ -87,7 +90,7 @@ let end = async () => {
     }, 250);
 };
 
-let setLoading = async (steps = 40, duration = 250) => {
+const setLoading = async (steps = 40, duration = 250) => {
     duration = (duration < 250) ? 250 : duration;
     steps = Math.min(Math.max(steps, 0), 100);
 
@@ -102,7 +105,7 @@ let setLoading = async (steps = 40, duration = 250) => {
     }
 };
 
-let resetLoading = () => {
+const resetLoading = () => {
     for (let key in counterContainer) {
         let counter = counterContainer[key].value;
         counter.querySelector('.current-js').textContent = 0;

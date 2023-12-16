@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
@@ -8,23 +8,23 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 
-let isMenuOpen = ref(false);
+const isMenuOpen = ref(false);
 
-let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
-let menuCardClasses =
+const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
+const menuCardClasses =
     'main-bg-3-light-only tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase tw-space-y-1';
-let menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
+const menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
 
 onMounted(() => {
     initializeScrolling();
 });
 
-let initializeScrolling = () => {
+const initializeScrolling = () => {
     isMenuOpen.value = false;
     document.querySelector('body').classList.remove('tw-overflow-hidden');
 };
 
-let toggleMainMenu = (event) => {
+const toggleMainMenu = (event) => {
     event.stopPropagation();
     isMenuOpen.value = !isMenuOpen.value;
     if (isMenuOpen.value) {
@@ -34,7 +34,7 @@ let toggleMainMenu = (event) => {
     }
 };
 
-let getActiveClasses = (routeName) => {
+const getActiveClasses = (routeName: string) => {
     if (isActiveRoute(routeName)) {
         return 'main-text-gradient tw-pointer-events-none tw-select-none';
     }

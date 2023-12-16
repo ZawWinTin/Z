@@ -4,7 +4,7 @@ import '../css/style.scss';
 import 'primeicons/primeicons.css';
 
 import moment from 'moment';
-import { createApp, h } from 'vue';
+import { createApp, h, DefineComponent } from 'vue';
 import { createPinia } from 'pinia';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -26,7 +26,7 @@ createInertiaApp({
     resolve: name => {
         const page = resolvePageComponent(
             `./Pages/${name}.vue`,
-            import.meta.glob('./Pages/**/*.vue'),
+            import.meta.glob<DefineComponent>('./Pages/**/*.vue'),
         );
         page.then(module => {
             let layout = null;

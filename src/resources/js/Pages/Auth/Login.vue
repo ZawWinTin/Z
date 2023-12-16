@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
@@ -10,14 +10,14 @@ import Transitions from '@/Composables/UI/Transitions';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 
-defineProps({
+defineProps<{
     canResetPassword: {
         type: Boolean,
     },
     status: {
         type: String,
     },
-});
+}>();
 
 const form = useForm({
     email: '',

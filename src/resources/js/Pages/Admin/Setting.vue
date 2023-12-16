@@ -1,11 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
 import Transitions from '@/Composables/UI/Transitions';
 import SettingCard from '@/Components/Elements/SettingCard.vue';
+import { SettingType } from '@/Constants/SettingType';
 
-const props = defineProps({
+const props = defineProps<{
     systemSettings: {
         default: [],
     },
@@ -13,11 +14,7 @@ const props = defineProps({
         default: [],
     },
     errors: Object,
-});
-
-//TODO: Refactor Const
-const SYSTEM = 'system';
-const ENV = 'env';
+}>();
 
 const filters = ref(null);
 
@@ -87,7 +84,7 @@ const getFilteredEnvSettings = computed(() => {
                                 v-for="setting in getFilteredSystemSettings"
                                 :key="setting.name"
                             >
-                                <SettingCard :setting="setting" :type="SYSTEM" />
+                                <SettingCard :setting="setting" :type="SettingType.SYSTEM" />
                             </template>
                         </div>
                     </div>
@@ -110,7 +107,7 @@ const getFilteredEnvSettings = computed(() => {
                                 v-for="setting in getFilteredEnvSettings"
                                 :key="setting.name"
                             >
-                                <SettingCard :setting="setting" :type="ENV" />
+                                <SettingCard :setting="setting" :type="SettingType.ENV" />
                             </template>
                         </div>
                     </div>

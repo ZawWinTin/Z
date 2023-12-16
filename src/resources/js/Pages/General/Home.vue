@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import CardContainer from '@/Components/Elements/CardContainer.vue';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 
-const props = defineProps({
+const props = defineProps<{
     articles: {
         default: [],
     },
-});
+}>();
 </script>
 <template>
     <section class="tw-container">

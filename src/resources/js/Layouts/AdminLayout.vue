@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AdminHeader from '@/Components/Layout/AdminHeader.vue';
 import Sidebar from '@/Components/Layout/Sidebar.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';

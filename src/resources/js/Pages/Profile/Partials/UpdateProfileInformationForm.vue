@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
@@ -6,14 +6,14 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import InputText from 'primevue/inputtext';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-defineProps({
+defineProps<{
     mustVerifyEmail: {
         type: Boolean,
     },
     status: {
         type: String,
     },
-});
+}>();
 
 const user = usePage().props.auth.user;
 

@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import InputText from 'primevue/inputtext';
+import { watch } from 'vue';
 
-const props = defineProps({
+const props = defineProps<{
     show: {
         type: Boolean,
         default: false,
     },
-});
+}>();
 
 watch(
     () => props.show,

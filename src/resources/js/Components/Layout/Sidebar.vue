@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import { isActiveRoute } from '@/Composables/Common/Helper';
@@ -41,7 +41,7 @@ let menuLinkClasses = `
     tw-font-semibold
     tw-justify-start`;
 
-let getActiveClasses = (routeName) => {
+const getActiveClasses = (routeName: string) => {
     if (isActiveRoute(routeName)) {
         return `!tw-text-primary
             tw-pointer-events-none

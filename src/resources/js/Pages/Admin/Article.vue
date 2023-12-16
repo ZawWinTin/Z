@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
@@ -22,7 +22,7 @@ const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
-const props = defineProps({
+const props = defineProps<{
     articles: {
         default: [],
     },
@@ -34,7 +34,7 @@ const props = defineProps({
         type: Number,
     },
     errors: Object,
-});
+}>();
 
 const form = useForm({
     id: null,

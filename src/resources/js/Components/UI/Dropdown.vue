@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-const props = defineProps({
+const props = defineProps<{
     align: {
         type: String,
         default: 'right',
@@ -14,7 +14,7 @@ const props = defineProps({
         type: String,
         default: 'tw-py-1 tw-bg-slate-50 dark:tw-bg-slate-700',
     },
-});
+}>();
 
 const closeOnEscape = e => {
     if (open.value && e.key === 'Escape') {

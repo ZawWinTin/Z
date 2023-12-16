@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import route from '@/Composables/Common/Route';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-const props = defineProps({
+const props = defineProps<{
     status: {
         type: String,
     },
-});
+}>();
 
 const form = useForm({});
 

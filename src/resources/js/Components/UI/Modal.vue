@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, onUnmounted, watch } from 'vue';
 
-const props = defineProps({
+const props = defineProps<{
     show: {
         type: Boolean,
         default: false,
@@ -14,7 +14,7 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
-});
+}>();
 
 const emit = defineEmits(['close']);
 

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AdminMenuButton from '@/Components/Buttons/AdminMenuButton.vue';
 </script>
 <template>

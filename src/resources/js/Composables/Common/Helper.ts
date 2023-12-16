@@ -1,6 +1,6 @@
 import route from '@/Composables/Common/Route';
 
-export const convertHexToRgba = (color, opacity = 0.5) => {
+export const convertHexToRgba = (color: string, opacity: number = 0.5) : string => {
     color = color.replace('#', '');
 
     const red = parseInt(color.substring(0, 2), 16);
@@ -10,7 +10,7 @@ export const convertHexToRgba = (color, opacity = 0.5) => {
     return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 };
 
-export const isLightColor = color => {
+export const isLightColor = (color: string) : boolean => {
     const hex = color.replace('#', '');
     const c_r = parseInt(hex.substring(0, 0 + 2), 16);
     const c_g = parseInt(hex.substring(2, 2 + 2), 16);
@@ -19,13 +19,13 @@ export const isLightColor = color => {
     return brightness > 155;
 };
 
-export const isActiveRoute = routeName => {
+export const isActiveRoute = (routeName: string) : boolean => {
     return (
         route().has(routeName) &&
         location.pathname == new URL(route(routeName)).pathname
     );
 };
 
-export const getDate = date => {
+export const getDate = (date: string) : string => {
     return moment(date).format('ll');
 };

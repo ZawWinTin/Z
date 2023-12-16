@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
 import Button from 'primevue/button';
@@ -6,7 +6,7 @@ import InputText from 'primevue/inputtext';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 
-const props = defineProps({
+const props = defineProps<{
     articles: {
         default: [],
     },
@@ -14,7 +14,7 @@ const props = defineProps({
         default: [],
     },
     errors: Object,
-});
+}>();
 
 const currentArticles = ref([]);
 const currentCategories = ref([]);

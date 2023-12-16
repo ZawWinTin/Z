@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Cursor from '@/Components/UI/Cursor.vue';

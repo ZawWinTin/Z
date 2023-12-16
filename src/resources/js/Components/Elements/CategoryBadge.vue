@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { convertHexToRgba, isLightColor } from '@/Composables/Common/Helper';
 
-const props = defineProps({
+const props = defineProps<{
     category: null,
     showCount: {
         type: Boolean,
         default: false,
     }
-});
+}>();
 </script>
 <template>
     <div

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
-const props = defineProps({
+const props = defineProps<{
     email: {
         type: String,
         required: true,
@@ -15,7 +15,7 @@ const props = defineProps({
         type: String,
         required: true,
     },
-});
+}>();
 
 const form = useForm({
     token: props.token,

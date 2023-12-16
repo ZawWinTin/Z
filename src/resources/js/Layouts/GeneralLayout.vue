@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import Header from '@/Components/Layout/Header.vue';
 import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
 
-const props = defineProps({
+const props = defineProps<{
     showFooter: {
         default: true,
     },
-});
+}>();
 </script>
 <template>
     <main

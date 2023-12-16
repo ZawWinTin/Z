@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
@@ -43,12 +43,12 @@ const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
-const props = defineProps({
+const props = defineProps<{
     categories: {
         default: [],
     },
     errors: Object,
-});
+}>();
 
 const form = useForm({
     id: null,

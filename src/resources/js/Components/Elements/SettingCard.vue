@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
@@ -6,14 +6,15 @@ import Slider from 'primevue/slider';
 import Dropdown from 'primevue/dropdown';
 import InputSwitch from 'primevue/inputswitch';
 import route from '@/Composables/Common/Route';
+import { SettingType } from '@/Constants/SettingType';
 import { onMounted, ref } from 'vue';
 
-const props = defineProps({
+const props = defineProps<{
     setting: {
         default: null,
     },
     type: null,
-});
+}>();
 
 const form = useForm({
     setting_type: null,
@@ -22,10 +23,6 @@ const form = useForm({
 });
 
 const toast = useToast();
-
-//TODO: Refactor Const
-const SYSTEM = 'system';
-const ENV = 'env';
 
 const NUMBER = 'number';
 const BOOLEAN = 'boolean';
@@ -53,10 +50,10 @@ const intializeValue = (data) => {
 const updateSettings = () => {
     form.setting_type = props.type;
     switch (props.type) {
-        case SYSTEM:
+        case SettingType.SYSTEM:
             form.key = props.setting.id;
             break;
-        case ENV:
+        case SettingType.ENV:
             form.key = props.setting.name;
             break;
     }

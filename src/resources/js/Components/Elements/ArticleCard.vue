@@ -1,28 +1,31 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 
-const props = defineProps({
+const props = defineProps<{
     article: {
         default: null,
     },
     link: {
         default: location.href,
     }
-});
+}>();
 
-let displayTime = moment().diff(props.article.created_at, 'days') <= 2 ? moment(props.article.created_at).fromNow()
-    : moment(props.article.created_at).format('MMM Do, YYYY');
+const displayTime = () => {
+    return moment().diff(props.article.created_at, 'days') <= 2 ?
+        moment(props.article.created_at).fromNow() :
+        moment(props.article.created_at).format('MMM Do, YYYY');
+};
 
-let imageContainer = ref(null);
-let card = ref(null);
+const imageContainer = ref(null);
+const card = ref(null);
 
 onMounted(() => {
     loadImage();
 });
 
-let loadImage = () => {
+const loadImage = () => {
     let uploadImage = new Image();
     uploadImage.src = props.article.cover_image.url;
     uploadImage.classList.add(

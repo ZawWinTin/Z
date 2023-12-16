@@ -1,9 +1,9 @@
-<script setup>
-defineProps({
+<script setup lang="ts">
+defineProps<{
     message: {
         type: String,
     },
-});
+}>();
 </script>
 
 <template>

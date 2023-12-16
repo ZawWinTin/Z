@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
-const props = defineProps({ status: Number });
+const props = defineProps<{ status: Number }>();
 
 const title = computed(() => {
   return {

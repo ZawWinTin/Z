@@ -1,12 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUpdated } from 'vue';
+import { Theme } from '@/Constants/Theme';
 import { useDarkModeStore } from '@/Composables/Common/DarkModeStore';
 
-const DARK_MODE = 'tw-dark';
-const LIGHT_MODE = 'tw-light';
-const THEME_KEY = 'theme';
-
-let darkModeStore = useDarkModeStore();
+const darkModeStore = useDarkModeStore();
 
 onMounted(() => {
     intializeThemeMode();
@@ -16,23 +13,23 @@ onUpdated(() => {
     intializeThemeMode();
 });
 
-let intializeThemeMode = () => {
+const intializeThemeMode = () => {
     if (
-        localStorage.theme === DARK_MODE ||
-        (!(THEME_KEY in localStorage) &&
+        localStorage.theme === Theme.DARK_MODE ||
+        (!(Theme.THEME_KEY in localStorage) &&
             window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-        toggleThemeMode(DARK_MODE);
+        toggleThemeMode(Theme.DARK_MODE);
     } else {
-        toggleThemeMode(LIGHT_MODE);
+        toggleThemeMode(Theme.LIGHT_MODE);
     }
 };
 
-let toggleThemeMode = (mode = '', event = null) => {
+const toggleThemeMode = (mode = '', event = null) => {
     if (event) {
         event.stopPropagation();
     }
-    let setMode = localStorage.theme === DARK_MODE ? LIGHT_MODE : DARK_MODE;
+    let setMode = localStorage.theme === Theme.DARK_MODE ? Theme.LIGHT_MODE : Theme.DARK_MODE;
     if (mode) {
         setMode = mode;
     }
@@ -42,12 +39,12 @@ let toggleThemeMode = (mode = '', event = null) => {
     let faviconPathPattern = /light|dark/g;
 
     localStorage.theme = setMode;
-    if (setMode === DARK_MODE) {
-        document.documentElement.classList.add(DARK_MODE);
+    if (setMode === Theme.DARK_MODE) {
+        document.documentElement.classList.add(Theme.DARK_MODE);
         darkModeStore.setDarkMode(true);
         favicon.attr('href', faviconPath.replace(faviconPathPattern, 'dark'));
     } else {
-        document.documentElement.classList.remove(DARK_MODE);
+        document.documentElement.classList.remove(Theme.DARK_MODE);
         darkModeStore.setDarkMode(false);
         favicon.attr('href', faviconPath.replace(faviconPathPattern, 'light'));
     }
