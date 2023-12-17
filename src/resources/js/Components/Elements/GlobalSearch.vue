@@ -2,12 +2,14 @@
 import InputText from 'primevue/inputtext';
 import { watch } from 'vue';
 
-const props = defineProps<{
-    show: {
-        type: Boolean,
-        default: false,
-    },
-}>();
+const props = withDefaults(
+    defineProps<{
+        show: boolean,
+    }>(),
+    {
+        show: false,
+    }
+);
 
 watch(
     () => props.show,

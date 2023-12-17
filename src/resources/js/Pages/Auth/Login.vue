@@ -11,15 +11,15 @@ import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 
 defineProps<{
-    canResetPassword: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
+    canResetPassword?: boolean,
+    status?: string,
 }>();
 
-const form = useForm({
+const form = useForm<{
+    email: string,
+    password: string,
+    remember: boolean,
+}>({
     email: '',
     password: '',
     remember: false,

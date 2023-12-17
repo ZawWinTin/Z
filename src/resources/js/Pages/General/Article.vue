@@ -5,19 +5,18 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
+import Category from '@/Interfaces/Category';
+import Article from '@/Interfaces/Article';
+import Paginator from '@/Interfaces/Paginator';
 
 const props = defineProps<{
-    articles: {
-        default: [],
-    },
-    categories: {
-        default: [],
-    },
-    errors: Object,
+    articles: Paginator<Article>,
+    categories: Array<Category>,
+    errors: any,
 }>();
 
-const currentArticles = ref([]);
-const currentCategories = ref([]);
+const currentArticles = ref<Paginator<Article> | null>(null);
+const currentCategories = ref<Array<Category>>([]);
 
 const articleFilters = reactive({
     global: { value: null },
@@ -64,7 +63,7 @@ const filteredCategories = computed(() => {
         : currentCategories.value;
 });
 
-const chooseCategory = category => {
+const chooseCategory = (category: Category) => {
     let index = articleFilters.categories.value.indexOf(category.id);
     if (index === -1) {
         articleFilters.categories.value.push(category.id); // Add the item if it doesn't exist

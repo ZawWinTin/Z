@@ -2,39 +2,39 @@
 import { nextTick, ref } from 'vue';
 import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
-import DangerButton from '@/Components/Buttons/DangerButton.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import Modal from '@/Components/UI/Modal.vue';
-import SecondaryButton from '@/Components/Buttons/SecondaryButton.vue';
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref(null);
+const passwordInput = ref<HTMLInputElement | null>(null);
 
-const form = useForm({
+const form = useForm<{
+    password: string,
+}>({
     password: '',
 });
 
 const confirmUserDeletion = () => {
+    form.reset();
     confirmingUserDeletion.value = true;
 
-    nextTick(() => passwordInput.value.focus());
+    nextTick(() => passwordInput.value?.focus());
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
+        onError: () => passwordInput.value?.focus(),
         onFinish: () => form.reset(),
     });
 };
 
 const closeModal = () => {
     confirmingUserDeletion.value = false;
-
-    form.reset();
 };
 </script>
 
@@ -66,9 +66,9 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <Button label="Delete Account" severity="danger" @click="confirmUserDeletion" />
 
-        <Modal :show="confirmingUserDeletion" @close="closeModal">
+        <Dialog v-model:visible="confirmingUserDeletion" modal header="Confirm">
             <div class="tw-p-6">
                 <h2
                     class="
@@ -122,20 +122,17 @@ const closeModal = () => {
                 </div>
 
                 <div class="tw-flex tw-justify-end tw-mt-6">
-                    <SecondaryButton @click="closeModal">
-                        Cancel
-                    </SecondaryButton>
+                    <Button label="Cancel" severity="secondary" @click="closeModal" />
 
-                    <DangerButton
+                    <Button
                         class="tw-ml-3"
-                        :class="{ 'tw-opacity-25': form.processing }"
-                        :disabled="form.processing"
+                        :loading="form.processing"
+                        severity="danger"
+                        label="Delete Account"
                         @click="deleteUser"
-                    >
-                        Delete Account
-                    </DangerButton>
+                    />
                 </div>
             </div>
-        </Modal>
+        </Dialog>
     </section>
 </template>

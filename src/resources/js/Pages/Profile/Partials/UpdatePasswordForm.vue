@@ -4,13 +4,17 @@ import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
+const passwordInput = ref<HTMLInputElement | null>(null);
+const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
-const form = useForm({
+const form = useForm<{
+    current_password: string,
+    password: string,
+    password_confirmation: string,
+}>({
     current_password: '',
     password: '',
     password_confirmation: '',
@@ -23,11 +27,11 @@ const updatePassword = () => {
         onError: () => {
             if (form.errors.password) {
                 form.reset('password', 'password_confirmation');
-                passwordInput.value.focus();
+                passwordInput.value?.focus();
             }
             if (form.errors.current_password) {
                 form.reset('current_password');
-                currentPasswordInput.value.focus();
+                currentPasswordInput.value?.focus();
             }
         },
     });
@@ -116,7 +120,7 @@ const updatePassword = () => {
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <Button label="Save" :loading="form.processing" />
 
                 <Transition
                     enter-active-class="tw-transition tw-ease-in-out"

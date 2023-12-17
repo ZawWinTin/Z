@@ -1,4 +1,4 @@
-export const createButton = (text: string, onClick: () => void) => {
+export function createButton(text: string, onClick: () => void) {
     const element = document.createElement('button');
     element.innerHTML = text;
     element.classList.add(
@@ -13,7 +13,7 @@ export const createButton = (text: string, onClick: () => void) => {
         'tw-transition',
         'tw-duration-300',
     );
-    element.addEventListener('click', event => {
+    element.addEventListener('click', (event: MouseEvent) => {
         onClick();
         event.preventDefault();
     });
@@ -21,19 +21,19 @@ export const createButton = (text: string, onClick: () => void) => {
     return element;
 };
 
-export const getDialogPos = (dialog: HTMLElement) => {
+export function getDialogPos(dialog?: HTMLElement | null) {
     let dialogTop = 0;
     let dialogLeft = 0;
     if (dialog) {
         let dialogRect = dialog.getBoundingClientRect();
-        dialogTop = parseFloat(dialogRect.top);
-        dialogLeft = parseFloat(dialogRect.left);
+        dialogTop = dialogRect.top;
+        dialogLeft = dialogRect.left;
     }
 
     return { top: dialogTop, left: dialogLeft };
 };
 
-export const adjustAdditionalHeight = (elementHeight: number, container: HTMLElement) => {
+export function adjustAdditionalHeight(elementHeight: number, container: HTMLElement): number {
     let additionalHeight = 0;
     if (
         window.innerHeight - container.getBoundingClientRect().bottom <

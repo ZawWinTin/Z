@@ -9,7 +9,7 @@ import '@blocknote/core/style.css';
 
 export default function initializeEditor(editorContainer: HTMLElement) {
     editorContainer.classList.add('tw-p-2');
-    const dialog = editorContainer.closest('.p-dialog');
+    const dialog = editorContainer.closest('.p-dialog') as HTMLElement;
 
     const editor = BlockNoteEditor.create({
         parentElement: editorContainer,

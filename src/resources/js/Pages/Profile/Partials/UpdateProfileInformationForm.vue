@@ -2,22 +2,21 @@
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps<{
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
+    mustVerifyEmail?: boolean,
+    status?: string,
 }>();
 
 const user = usePage().props.auth.user;
 
-const form = useForm({
+const form = useForm<{
+    name: string,
+    email: string,
+}>({
     name: user.name,
     email: user.email,
 });
@@ -132,7 +131,7 @@ const form = useForm({
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <Button label="Save" :loading="form.processing" />
 
                 <Transition
                     enter-active-class="tw-transition tw-ease-in-out"

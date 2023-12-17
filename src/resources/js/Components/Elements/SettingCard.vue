@@ -8,41 +8,44 @@ import InputSwitch from 'primevue/inputswitch';
 import route from '@/Composables/Common/Route';
 import { SettingType } from '@/Constants/SettingType';
 import { onMounted, ref } from 'vue';
+import { DataType } from '@/Constants/DataType';
+import SystemSetting from '@/Interfaces/SystemSetting';
+import EnvSetting from '@/Interfaces/EnvSetting';
 
-const props = defineProps<{
-    setting: {
-        default: null,
-    },
-    type: null,
-}>();
+type SettingCardData = {
+    setting: SystemSetting | EnvSetting,
+    type: string,
+};
 
-const form = useForm({
-    setting_type: null,
+const props = defineProps<SettingCardData>();
+
+const form = useForm<{
+    setting_type: string,
+    key: any,
+    value: any,
+}>({
+    setting_type: '',
     key: null,
     value: null,
 });
 
 const toast = useToast();
 
-const NUMBER = 'number';
-const BOOLEAN = 'boolean';
-const DROPDOWN = 'dropdown';
-
-const currentValue = ref(null);
+const currentValue = ref<any>(null);
 
 onMounted(() => {
     intializeValue(props);
 })
 
-const intializeValue = (data) => {
+const intializeValue = (data: SettingCardData) => {
     switch (data.setting.type) {
-        case NUMBER:
+        case DataType.NUMBER:
             currentValue.value = parseInt(data.setting.value);
             break;
-        case BOOLEAN:
+        case DataType.BOOLEAN:
             currentValue.value = Boolean(data.setting.value);
             break;
-        case DROPDOWN:
+        case DataType.DROPDOWN:
             currentValue.value = data.setting.value;
             break;
     }
@@ -104,7 +107,7 @@ const updateSettings = () => {
         </div>
         <!-- Setting -->
         <div class="tw-w-full">
-            <template v-if="props.setting.type === NUMBER">
+            <template v-if="props.setting.type === DataType.NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
                     <Slider v-model="currentValue" @slideend="updateSettings" :min="parseInt(props.setting.options.min)" :max="parseInt(props.setting.options.max)" class="tw-w-full" />
                     <span class="tw-transition tw-duration-300 tw-w-24 tw-py-1 tw-text-center tw-font-semibold tw-rounded-full main-bg-2 tw-text-slate-800 dark:tw-text-primary">
@@ -112,7 +115,7 @@ const updateSettings = () => {
                     </span>
                 </div>
             </template>
-            <template v-if="props.setting.type === BOOLEAN">
+            <template v-if="props.setting.type === DataType.BOOLEAN">
                 <div class="tw-flex tw-flex-row tw-justify-end tw-items-center tw-space-x-2">
                     <InputSwitch v-model="currentValue" @change="updateSettings" />
                     <span class="tw-transition tw-duration-300 tw-w-6 tw-py-1 tw-text-right tw-font-semibold tw-rounded-full tw-text-primary">
@@ -120,7 +123,7 @@ const updateSettings = () => {
                     </span>
                 </div>
             </template>
-            <template v-if="props.setting.type === DROPDOWN">
+            <template v-if="props.setting.type === DataType.DROPDOWN">
                 <div class="tw-w-full lg:tw-w-1/2 tw-ml-auto">
                     <Dropdown v-model="currentValue" @change="updateSettings" :options="props.setting.options" optionLabel="label" optionValue="value" />
                 </div>

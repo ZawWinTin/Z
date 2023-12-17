@@ -2,11 +2,13 @@
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
-const form = useForm({
+const form = useForm<{
+    password: string
+}>({
     password: '',
 });
 
@@ -49,13 +51,10 @@ const submit = () => {
             </div>
 
             <div class="tw-flex tw-justify-end tw-mt-4">
-                <PrimaryButton
+                <Button label="Confirm"
                     class="tw-ml-4"
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Confirm
-                </PrimaryButton>
+                    :loading="form.processing"
+                />
             </div>
         </form>
     </section>

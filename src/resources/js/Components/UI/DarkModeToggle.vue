@@ -5,6 +5,8 @@ import { useDarkModeStore } from '@/Composables/Common/DarkModeStore';
 
 const darkModeStore = useDarkModeStore();
 
+const faviconPathPattern = /light|dark/g;
+
 onMounted(() => {
     intializeThemeMode();
 });
@@ -25,7 +27,7 @@ const intializeThemeMode = () => {
     }
 };
 
-const toggleThemeMode = (mode = '', event = null) => {
+const toggleThemeMode = (mode: string = '', event: MouseEvent | null = null) => {
     if (event) {
         event.stopPropagation();
     }
@@ -36,7 +38,6 @@ const toggleThemeMode = (mode = '', event = null) => {
 
     let favicon = $('#favicon');
     let faviconPath = favicon.attr('href');
-    let faviconPathPattern = /light|dark/g;
 
     localStorage.theme = setMode;
     if (setMode === Theme.DARK_MODE) {

@@ -2,22 +2,21 @@
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
-    email: {
-        type: String,
-        required: true,
-    },
-    token: {
-        type: String,
-        required: true,
-    },
+    email: string,
+    token: string,
 }>();
 
-const form = useForm({
+const form = useForm<{
+    token: string,
+    email: string,
+    password: string,
+    password_confirmation: string,
+}>({
     token: props.token,
     email: props.email,
     password: '',
@@ -94,12 +93,7 @@ const submit = () => {
                 tw-justify-end
                 tw-mt-4
                 ">
-                <PrimaryButton
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Reset Password
-                </PrimaryButton>
+                <Button label="Reset Password" :loading="form.processing" />
             </div>
         </form>
     </section>

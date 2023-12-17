@@ -13,20 +13,20 @@ let lightX = 0;
 let lightY = 0;
 
 onMounted(() => {
-    window.onmousemove = event => {
+    window.onmousemove = (event: MouseEvent) => {
         updateCursor(event);
         updateCursorLight(event);
     };
 });
 
-let updateCursor = event => {
+const updateCursor = (event: MouseEvent) => {
     cursor = document.getElementById('cursor');
 
     if (!cursor) {
         return;
     }
 
-    interactable = event.target.closest('.interactable-js');
+    interactable = (event.target as HTMLElement).closest('.interactable-js');
     isInteracting = interactable !== null;
 
     mouseX = event.clientX - cursor.offsetWidth / 2;
@@ -51,7 +51,7 @@ let updateCursor = event => {
         : '';
 };
 
-let getCursorText = type => {
+const getCursorText = (type: string) => {
     let updatedCursorText = '';
     switch (type) {
         case 'project':
@@ -68,7 +68,7 @@ let getCursorText = type => {
     return updatedCursorText;
 };
 
-let updateCursorLight = event => {
+const updateCursorLight = (event: MouseEvent) => {
     cursorLight = document.getElementById('cursor-light');
 
     if (!cursorLight) {

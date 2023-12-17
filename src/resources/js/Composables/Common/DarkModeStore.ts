@@ -8,7 +8,7 @@ export const useDarkModeStore = defineStore('darkMode', () => {
         isDarkMode.value = !isDarkMode.value;
     };
 
-    const setDarkMode = newValue => {
+    const setDarkMode = (newValue: boolean) => {
         isDarkMode.value = newValue;
     };
 

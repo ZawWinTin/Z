@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminMenuButton from '@/Components/Buttons/AdminMenuButton.vue';
+import AdminMenuButton from '@/Components/UI/AdminMenuButton.vue';
 </script>
 <template>
     <div class="

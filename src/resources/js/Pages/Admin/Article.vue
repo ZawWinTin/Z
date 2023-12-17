@@ -16,38 +16,57 @@ import { getDate } from '@/Composables/Common/Helper';
 import initializeEditor from '@/Composables/NoteEditor/Main';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
+import { DataMode } from '@/Constants/DataMode';
+import Category from '@/Interfaces/Category';
+import Article from '@/Interfaces/Article';
+import Paginator from '@/Interfaces/Paginator';
 
 const FILTER_DIALOG = 'filter_dialog';
 const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
-const props = defineProps<{
-    articles: {
-        default: [],
-    },
-    categories: {
-        default: [],
-    },
-    categoryLimit: {
-        default: 5,
-        type: Number,
-    },
-    errors: Object,
-}>();
+type ArticleData = {
+    articles: Paginator<Article>,
+    categories: Array<Category>,
+    categoryLimit: number,
+    errors: any,
+};
 
-const form = useForm({
+const props = withDefaults(
+    defineProps<ArticleData>(),
+    {
+        categoryLimit: 5
+    }
+);
+
+const form = useForm<{
+    id: number | null,
+    cover_image: File | null,
+    cover_image_object_position: string,
+    title: string,
+    description: string,
+    categories: Array<number>,
+    content: string,
+}>({
     id: null,
     cover_image: null,
-    cover_image_object_position: null,
-    title: null,
-    description: null,
+    cover_image_object_position: 'center 50%',
+    title: '',
+    description: '',
     categories: [],
-    content: null,
+    content: '',
 });
 
-const filters = useForm({
-    global: null,
+const filters = useForm<{
+    global: string,
+    mode: number,
+    sortField?: string | null,
+    sortOrder?: number | null,
+    page?: number | null,
+    perPage?: number | null,
+}>({
+    global: '',
     mode: 0,
 
     sortField: null,
@@ -58,15 +77,10 @@ const filters = useForm({
 
 const toast = useToast();
 
-const currentArticles = ref([]);
-const allCategories = ref([]);
+const currentArticles = ref<Paginator<Article> | null>(null);
+const allCategories = ref<Array<Category>>([]);
 
-const currentMode = ref(0);
-const modes = [
-    { icon: 'pi pi-check', label: 'Active', outlined: false },
-    { icon: 'pi pi-trash', label: 'Trash', outlined: true },
-    { icon: 'pi pi-th-large', label: 'All', outlined: false },
-];
+const currentMode = ref<number>(0);
 
 const openArticleFilterDialog = ref(false);
 const openArticleSaveDialog = ref(false);
@@ -74,9 +88,9 @@ const openArticleDeleteDialog = ref(false);
 const openArticleRestoreDialog = ref(false);
 
 const coverImage = {
-    placeholder: ref(null),
-    preview: ref(null),
-    inputUpload: ref(null),
+    placeholder: ref<HTMLElement | null>(null),
+    preview: ref<HTMLImageElement | null>(null),
+    inputUpload: ref<HTMLInputElement | null>(null),
     isFileExist: ref(false),
 
     isRepositionMode: ref(false),
@@ -86,7 +100,7 @@ const coverImage = {
     defaultObjectPosition: ref(null),
 };
 
-const contentEditor = ref(null);
+const contentEditor = ref<HTMLElement | null>(null);
 
 onMounted(() => {
     loadData(props);
@@ -98,7 +112,7 @@ watchEffect(() => {
     }
 });
 
-const loadData = (data) => {
+const loadData = (data: ArticleData) => {
     currentArticles.value = data.articles;
     allCategories.value = data.categories;
 };
@@ -112,13 +126,13 @@ const loadArticles = () => {
     });
 };
 
-const onPage = (event) => {
+const onPage = (event: any) => {
     onPageOrSort(event);
 };
-const onSort = (event) => {
+const onSort = (event: any) => {
     onPageOrSort(event);
 };
-const onPageOrSort = (event) => {
+const onPageOrSort = (event: any) => {
     filters.page = event.page + 1;
     filters.perPage = event.rows;
     filters.sortField = event.sortField;
@@ -128,8 +142,10 @@ const onPageOrSort = (event) => {
 };
 
 const updateMode = () => {
-    currentMode.value = currentMode.value + 1;
-    if (currentMode.value >= modes.length) {
+    let updatedCurrentMode = currentMode.value + 1;
+    if (DataMode.hasOwnProperty(updatedCurrentMode)) {
+        currentMode.value = updatedCurrentMode;
+    } else {
         currentMode.value = 0;
     }
     filters.reset();
@@ -165,8 +181,8 @@ const onDragLeaveCoverImage = () => {
     coverImage.placeholder.value.querySelector('i').classList.remove('!tw-text-primary', '!tw-border-primary');
 }
 
-const onCoverImageUpload = (event) => {
-    let file = event.target.files[0];
+const onCoverImageUpload = (event: Event) => {
+    let file = (event.target as HTMLInputElement)?.files?.[0];
 
     if (file) {
         fileReader.readAsDataURL(file);
@@ -182,7 +198,7 @@ const startRepositionCoverImage = () => {
     coverImage.isRepositionMode.value = true;
 };
 
-const mouseDownRepositionCoverImage = (event) => {
+const mouseDownRepositionCoverImage = (event: MouseEvent) => {
     let { clientY } = event;
     coverImage.isRepositioning.value = true;
     let getInitialObjectPosition = coverImage.preview.value.style.objectPosition.match(/center (\d+)%/);
@@ -190,7 +206,7 @@ const mouseDownRepositionCoverImage = (event) => {
     coverImage.initialObjectPositionY.value = getInitialObjectPosition ? parseInt(getInitialObjectPosition[1]) : 50;
 }
 
-const mouseMoveRepositionCoverImage = (event) => {
+const mouseMoveRepositionCoverImage = (event: MouseEvent) => {
     if (coverImage.isRepositionMode.value && coverImage.isRepositioning.value) {
         let { clientY } = event;
         let result = coverImage.initialObjectPositionY.value - (((clientY - coverImage.initialMousePositionY.value) / coverImage.initialMousePositionY.value) * 100);
@@ -212,7 +228,7 @@ const cancelRepositionCoverImage = () => {
     coverImage.isRepositionMode.value = false;
 }
 
-const closeDialog = dialogType => {
+const closeDialog = (dialogType : string) => {
     switch (dialogType) {
         case FILTER_DIALOG:
             openArticleFilterDialog.value = false;
@@ -234,16 +250,16 @@ const openFilterDialog = () => {
     openArticleFilterDialog.value = true;
 };
 
-const openSaveDialog = (data = null) => {
+const openSaveDialog = (data : Article | null = null) => {
     resetForm();
     openArticleSaveDialog.value = true;
     coverImage.isFileExist.value = false;
     if (data) {
         form.id = data.id;
-        form.cover_image = data.cover_image;
+        // form.cover_image = data.cover_image;
         form.title = data.title;
         form.description = data.description;
-        form.categories = data.categories.map(item => item['id']);
+        form.categories = data.categories?.map(item => item['id']);
         form.content = data.content;
         coverImage.isFileExist.value = true;
     }
@@ -253,7 +269,7 @@ const saveArticle = () => {
 
 };
 
-const openDeleteDialog = data => {
+const openDeleteDialog = (data : Article) => {
     resetForm();
     openArticleDeleteDialog.value = true;
     form.id = data.id;
@@ -284,7 +300,7 @@ const deleteArticle = () => {
     });
 };
 
-const openRestoreDialog = data => {
+const openRestoreDialog = (data : Article) => {
     resetForm();
     openArticleRestoreDialog.value = true;
     form.id = data.id;
@@ -329,23 +345,23 @@ const restoreArticle = () => {
         >
             <DataTable
                 removableSort
-                :value="currentArticles.data"
+                :value="currentArticles?.data"
                 scrollable
                 scrollHeight="52vh"
                 lazy
                 paginator
                 :rows="10"
                 :rowsPerPageOptions="[5, 10, 20]"
-                :totalRecords="currentArticles.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
+                :totalRecords="currentArticles?.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
                 dataKey="id">
                 <template #header>
                     <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
                         <div
                             class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
                         >
-                            <Button :label="modes[currentMode].label"
-                                :icon="modes[currentMode].icon"
-                                :outlined="modes[currentMode].outlined" @click="updateMode" rounded />
+                            <Button :label="DataMode[currentMode].label"
+                                :icon="DataMode[currentMode].icon"
+                                :outlined="DataMode[currentMode].outlined" @click="updateMode" rounded />
                             <Button
                                 icon="pi pi-search"
                                 class="tw-w-10 tw-h-10"
@@ -363,7 +379,7 @@ const restoreArticle = () => {
                             "
                             :leave-to-class="Transitions.overlay.leaveToClass"
                         >
-                            <template v-if="modes[currentMode].label != 'Trash'">
+                            <template v-if="DataMode[currentMode].label != 'Trash'">
                                 <Button
                                     icon="pi pi-plus"
                                     class="tw-w-10 tw-h-10"
@@ -446,7 +462,7 @@ const restoreArticle = () => {
                         </div>
                     </template>
                 </Column>
-                <template #footer> In total, there are <b>{{ currentArticles.total || 0 }}</b> articles.</template>
+                <template #footer> In total, there are <b>{{ currentArticles?.total || 0 }}</b> articles.</template>
             </DataTable>
 
             <!-- Filter Dialog -->

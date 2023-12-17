@@ -1,7 +1,7 @@
 import { BlockNoteEditor } from "@blocknote/core";
 import { createButton, getDialogPos } from '@/Composables/NoteEditor/UI/Util';
 
-export const addSideMenu = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+export const addSideMenu = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog?: HTMLElement | null) => {
     let element: HTMLElement;
 
     editor.sideMenu.onUpdate(sideMenuState => {
@@ -46,8 +46,8 @@ export const addSideMenu = (editor: BlockNoteEditor, editorContainer: HTMLElemen
             element.style.display = 'block';
             element.style.top =
                 sideMenuState.referencePos.top +
-                parseFloat(sideMenuState.referencePos.height / 2) -
-                parseFloat(element.offsetHeight / 2) -
+                (sideMenuState.referencePos.height / 2) -
+                (element.offsetHeight / 2) -
                 dialogPos.top +
                 'px';
             element.style.left =

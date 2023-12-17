@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        isAdminLayout: boolean,
+        isAdminLayout?: boolean,
     }>(),
     {
         isAdminLayout: false,
@@ -14,13 +14,13 @@ let process = 1;
 let numHeight = 0;
 let totalDistance = 0;
 
-const preloader = ref(null);
-const loadingBar = ref(null);
-const loadingBarContainer = ref(null);
+const preloader = ref<HTMLElement | null>(null);
+const loadingBar = ref<HTMLElement | null>(null);
+const loadingBarContainer = ref<HTMLElement | null>(null);
 const counterContainer = {
-    ones : ref(null),
-    tens : ref(null),
-    hundreds : ref(null),
+    ones : ref<HTMLElement | null>(null),
+    tens : ref<HTMLElement | null>(null),
+    hundreds : ref<HTMLElement | null>(null),
 };
 
 const end = async () => {
@@ -46,7 +46,7 @@ const end = async () => {
         };
 
         let barDuration = duration * 0.5;
-        loadingBarContainer.value.animate(
+        loadingBarContainer.value?.animate(
             {
                 width: '14rem',
                 transform: 'rotate(125deg)'
@@ -56,7 +56,7 @@ const end = async () => {
                 fill: 'forwards'
             },
         );
-        let zBars = preloader.value.querySelectorAll('.z-bar-js');
+        let zBars = preloader.value?.querySelectorAll('.z-bar-js');
         for (let i = 0; i < zBars.length; i++) {
             let bar = zBars[i];
             bar.animate(
@@ -71,7 +71,7 @@ const end = async () => {
             );
         }
         setTimeout(() => {
-            let preloaderEndAnimation = preloader.value.animate(
+            let preloaderEndAnimation = preloader.value?.animate(
                 {
                     opacity: 0,
                     scale: 100,
@@ -83,14 +83,14 @@ const end = async () => {
                 },
             );
             preloaderEndAnimation.finished.then(() => {
-                preloader.value.remove();
-                document.querySelector('body').classList.remove('tw-overflow-hidden');
+                preloader.value?.remove();
+                document.body.classList.remove('tw-overflow-hidden');
             });
         }, duration)
     }, 250);
 };
 
-const setLoading = async (steps = 40, duration = 250) => {
+const setLoading = async (steps : number = 40, duration : number = 250) => {
     duration = (duration < 250) ? 250 : duration;
     steps = Math.min(Math.max(steps, 0), 100);
 
@@ -111,7 +111,7 @@ const resetLoading = () => {
         counter.querySelector('.current-js').textContent = 0;
         counter.querySelector('.next-js').textContent = 1;
     }
-    loadingBar.value.animate(
+    loadingBar.value?.animate(
         {
             width: `0%`,
         },
@@ -122,7 +122,7 @@ const resetLoading = () => {
     );
 };
 
-let animateLoading = async (rate, decimal = 0) => {
+const animateLoading = async (rate : number, decimal : number = 0) => {
     return new Promise(resolve => {
         let counter = Object.values(counterContainer)[decimal].value;
         if (!counter) {
@@ -154,7 +154,7 @@ let animateLoading = async (rate, decimal = 0) => {
         );
 
         if (decimal == 0) {
-            loadingBar.value.animate(
+            loadingBar.value?.animate(
                 {
                     width: `${process}%`,
                 },

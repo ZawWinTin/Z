@@ -18,6 +18,8 @@ import Tooltip from '@/Composables/UI/Elements/Tooltip';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import { MoonIcon } from '@heroicons/vue/20/solid';
+import Category from '@/Interfaces/Category';
+import { DataMode } from '@/Constants/DataMode';
 
 const toast = useToast();
 
@@ -28,31 +30,32 @@ const openCategoryRestoreDialog = ref(false);
 const isSameColor = ref(false);
 const isCategoryPreviewBgDark = ref(false);
 
-const currentMode = ref(0);
-const modes = [
-    { icon: 'pi pi-check', label: 'Active', outlined: false },
-    { icon: 'pi pi-trash', label: 'Trash', outlined: true },
-    { icon: 'pi pi-th-large', label: 'All', outlined: false },
-];
+const currentMode = ref<number>(0);
 
-const currentCategories = ref([]);
+const currentCategories = ref<Array<Category>>([]);
 
 const BACKGROUND_COLOR = 'background_color';
 const TEXT_COLOR = 'text_color';
+
 const SAVE_DIALOG = 'save_dialog';
 const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
-const props = defineProps<{
-    categories: {
-        default: [],
-    },
-    errors: Object,
-}>();
+type CategoryData = {
+    categories: Array<Category>,
+    errors: any,
+};
 
-const form = useForm({
+const props = defineProps<CategoryData>();
+
+const form = useForm<{
+    id: number | null,
+    name: string,
+    text_color: string,
+    background_color: string,
+}>({
     id: null,
-    name: null,
+    name: '',
     text_color: '#FFFFFF',
     background_color: '#000000',
 });
@@ -65,13 +68,13 @@ onMounted(() => {
     loadCategories(props);
 });
 
-const loadCategories = (data) => {
+const loadCategories = (data: CategoryData) => {
     currentCategories.value = data.categories;
 };
 
 const getCategories = computed(() => {
     return currentCategories.value.filter((category) => {
-        switch (modes[currentMode.value].label) {
+        switch (DataMode[currentMode.value].label) {
             case 'Active':
                 return category.deleted_at == null;
             case 'Trash':
@@ -83,8 +86,10 @@ const getCategories = computed(() => {
 });
 
 const updateMode = () => {
-    currentMode.value = currentMode.value + 1;
-    if (currentMode.value >= modes.length) {
+    let updatedCurrentMode = currentMode.value + 1;
+    if (DataMode.hasOwnProperty(updatedCurrentMode)) {
+        currentMode.value = updatedCurrentMode;
+    } else {
         currentMode.value = 0;
     }
 }
@@ -105,7 +110,7 @@ const setSameColor = () => {
     }
 };
 
-const changeColor = colorType => {
+const changeColor = (colorType : string) => {
     let prefix = '';
     switch (colorType) {
         case TEXT_COLOR:
@@ -130,7 +135,7 @@ const changeColor = colorType => {
     }
 };
 
-const closeDialog = dialogType => {
+const closeDialog = (dialogType : string) => {
     switch (dialogType) {
         case SAVE_DIALOG:
             openCategorySaveDialog.value = false;
@@ -145,7 +150,7 @@ const closeDialog = dialogType => {
     resetForm();
 };
 
-const openSaveDialog = (data = null) => {
+const openSaveDialog = (data : Category | null = null) => {
     resetForm();
     openCategorySaveDialog.value = true;
     if (data) {
@@ -181,7 +186,7 @@ const saveCategory = () => {
     });
 };
 
-const openDeleteDialog = data => {
+const openDeleteDialog = (data : Category) => {
     resetForm();
     openCategoryDeleteDialog.value = true;
     form.id = data.id;
@@ -212,7 +217,7 @@ const deleteCategory = () => {
     });
 };
 
-const openRestoreDialog = data => {
+const openRestoreDialog = (data : Category) => {
     resetForm();
     openCategoryRestoreDialog.value = true;
     form.id = data.id;
@@ -267,9 +272,9 @@ const restoreCategory = () => {
                 <template #header>
                     <div class="tw-flex tw-justify-between tw-items-center">
                         <div class="tw-flex tw-justify-start tw-items-center tw-space-x-4">
-                            <Button :label="modes[currentMode].label"
-                                :icon="modes[currentMode].icon"
-                                :outlined="modes[currentMode].outlined" @click="updateMode" rounded />
+                            <Button :label="DataMode[currentMode].label"
+                                :icon="DataMode[currentMode].icon"
+                                :outlined="DataMode[currentMode].outlined" @click="updateMode" rounded />
                             <div>
                                 <span class="p-input-icon-left">
                                     <i class="pi pi-search tw-left-3 main-text" />
@@ -285,7 +290,7 @@ const restoreCategory = () => {
                             :leave-active-class="Transitions.overlay.leaveActiveClass"
                             :leave-to-class="Transitions.overlay.leaveToClass"
                         >
-                            <template v-if="modes[currentMode].label != 'Trash'">
+                            <template v-if="DataMode[currentMode].label != 'Trash'">
                                 <Button icon="pi pi-plus" class="tw-w-10 tw-h-10" rounded @click="openSaveDialog()" />
                             </template>
                         </transition>

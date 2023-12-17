@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
+import Article from '@/Interfaces/Article';
 
-const props = defineProps<{
-    article: {
-        default: null,
-    },
-    link: {
-        default: location.href,
+const props = withDefaults(
+    defineProps<{
+        article: Article,
+        link?: string,
+    }>(),
+    {
+        link: location.href,
     }
-}>();
+);
 
-const displayTime = () => {
+const displayTime = computed(() => {
     return moment().diff(props.article.created_at, 'days') <= 2 ?
         moment(props.article.created_at).fromNow() :
         moment(props.article.created_at).format('MMM Do, YYYY');
-};
+});
 
-const imageContainer = ref(null);
-const card = ref(null);
+const imageContainer = ref<HTMLElement | null>(null);
+const card = ref<HTMLElement | null>(null);
 
 onMounted(() => {
     loadImage();
@@ -36,7 +38,7 @@ const loadImage = () => {
         'tw-rounded-b-sm',
         'tw-object-cover',
     );
-    imageContainer.value.appendChild(uploadImage);
+    imageContainer.value?.appendChild(uploadImage);
 };
 </script>
 <template>
@@ -122,10 +124,10 @@ const loadImage = () => {
                     {{ props.article.title }}
                 </h5>
                 <div class="tw-flex tw-flex-row tw-max-h-[32px] tw-items-center tw-justify-between tw-overflow-hidden">
-                    <template v-for="(category, index) in props.article.categories" :key="category.id">
+                    <template v-for="(category, index) in props.article.categories">
                         <!-- Show Highest Priority Only -->
                         <template v-if="!index">
-                            <CategoryBadge :category="category" />
+                            <CategoryBadge :category="category" :key="category.id" />
                         </template>
                     </template>
                     <span

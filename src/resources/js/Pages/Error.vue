@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
-const props = defineProps<{ status: Number }>();
+const props = defineProps<{ status: number }>();
 
 const title = computed(() => {
   return {

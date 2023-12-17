@@ -5,7 +5,7 @@ import {
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addHyperlinkToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+export const addHyperlinkToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog?: HTMLElement | null) => {
     let element: HTMLElement;
 
     editor.hyperlinkToolbar.onUpdate(hyperlinkToolbarState => {

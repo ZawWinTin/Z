@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import route from '@/Composables/Common/Route';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
-    status: {
-        type: String,
-    },
+    status?: string,
 }>();
 
 const form = useForm({});
@@ -59,12 +57,8 @@ const verificationLinkSent = computed(
                 tw-justify-between
                 tw-mt-4
                 ">
-                <PrimaryButton
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Resend Verification Email
-                </PrimaryButton>
+                <Button label="Resend Verification Email"
+                    :loading="form.processing" />
 
                 <Link
                     :href="route('logout')"

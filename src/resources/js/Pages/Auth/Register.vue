@@ -2,11 +2,16 @@
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-const form = useForm({
+const form = useForm<{
+    name: string,
+    email: string,
+    password: string,
+    password_confirmation: string,
+}>({
     name: '',
     email: '',
     password: '',
@@ -118,13 +123,10 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <PrimaryButton
+                <Button label="Register"
                     class="tw-ml-4"
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </PrimaryButton>
+                    :loading="form.processing"
+                />
             </div>
         </form>
     </section>

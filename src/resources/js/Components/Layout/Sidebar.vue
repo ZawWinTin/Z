@@ -5,7 +5,7 @@ import { isActiveRoute } from '@/Composables/Common/Helper';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
-import AdminMenuButton from '@/Components/Buttons/AdminMenuButton.vue';
+import AdminMenuButton from '@/Components/UI/AdminMenuButton.vue';
 import {
     PresentationChartLineIcon as PresentationChartLineSolidIcon,
     NewspaperIcon as NewspaperSolidIcon,
@@ -26,7 +26,7 @@ import {
 
 const adminMenuStore = useAdminMenuStore();
 
-let menuLinkClasses = `
+const menuLinkClasses = `
     tw-whitespace-nowrap
     tw-text-slate-100
     hover:main-bg-3-dark-only

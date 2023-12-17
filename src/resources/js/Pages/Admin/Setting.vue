@@ -5,32 +5,32 @@ import InputText from 'primevue/inputtext';
 import Transitions from '@/Composables/UI/Transitions';
 import SettingCard from '@/Components/Elements/SettingCard.vue';
 import { SettingType } from '@/Constants/SettingType';
+import SystemSetting from '@/Interfaces/SystemSetting';
+import EnvSetting from '@/Interfaces/EnvSetting';
 
-const props = defineProps<{
-    systemSettings: {
-        default: [],
-    },
-    envSettings: {
-        default: [],
-    },
-    errors: Object,
-}>();
+type SettingData = {
+    systemSettings: Array<SystemSetting>,
+    envSettings: Array<EnvSetting>,
+    errors: any,
+};
 
-const filters = ref(null);
+const props = defineProps<SettingData>();
 
-const currentSystemSettings = ref([]);
-const currentEnvSettings = ref([]);
+const filters = ref<string>('');
+
+const currentSystemSettings = ref<Array<SystemSetting>>([]);
+const currentEnvSettings = ref<Array<EnvSetting>>([]);
 
 onMounted(() => {
     loadSettings(props);
 });
 
-const loadSettings = (data) => {
+const loadSettings = (data : SettingData) => {
     currentSystemSettings.value = data.systemSettings;
     currentEnvSettings.value = data.envSettings;
 };
 
-const filteredSettings = (settings) => {
+const filteredSettings = (settings : Array<SystemSetting> | Array<EnvSetting>) => {
     if (filters.value) {
         return settings.filter(setting => {
             return setting.name.toLowerCase().includes(filters.value.toLowerCase())

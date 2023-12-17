@@ -2,15 +2,17 @@
 import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps<{
-    status?: string;
+    status?: string,
 }>();
 
-const form = useForm({
+const form = useForm<{
+    email: string,
+}>({
     email: '',
 });
 
@@ -72,12 +74,9 @@ const submit = () => {
                 tw-justify-end
                 tw-mt-4
                 ">
-                <PrimaryButton
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Email Password Reset Link
-                </PrimaryButton>
+                <Button label="Email Password Reset Link"
+                    :loading="form.processing"
+                />
             </div>
         </form>
     </section>

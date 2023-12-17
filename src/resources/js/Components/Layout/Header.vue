@@ -5,7 +5,7 @@ import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import { isActiveRoute } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
+import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 
 const isMenuOpen = ref(false);
@@ -21,10 +21,10 @@ onMounted(() => {
 
 const initializeScrolling = () => {
     isMenuOpen.value = false;
-    document.querySelector('body').classList.remove('tw-overflow-hidden');
+    document.body.classList.remove('tw-overflow-hidden');
 };
 
-const toggleMainMenu = (event) => {
+const toggleMainMenu = (event: MouseEvent) => {
     event.stopPropagation();
     isMenuOpen.value = !isMenuOpen.value;
     if (isMenuOpen.value) {

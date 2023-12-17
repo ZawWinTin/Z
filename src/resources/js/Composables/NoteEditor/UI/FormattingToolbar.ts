@@ -5,9 +5,9 @@ import {
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addFormattingToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog: HTMLElement) => {
+export const addFormattingToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog?: HTMLElement | null) => {
     let element: HTMLElement;
-    let boldBtn: HTMLAnchorElement;
+    let boldBtn: HTMLElement;
 
     editor.formattingToolbar.onUpdate(formattingToolbarState => {
         if (!element) {
@@ -48,7 +48,7 @@ export const addFormattingToolbar = (editor: BlockNoteEditor, editorContainer: H
 
             element.style.display = 'flex';
 
-            boldBtn.text =
+            boldBtn.innerHTML =
                 'bold' in editor.getActiveStyles() ? 'Unset Bold' : 'Set Bold';
             element.style.top =
                 formattingToolbarState.referencePos.top -

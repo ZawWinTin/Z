@@ -4,11 +4,14 @@ import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
 
-const props = defineProps<{
-    showFooter: {
-        default: true,
-    },
-}>();
+const props = withDefaults(
+    defineProps<{
+        showFooter: boolean,
+    }>(),
+    {
+        showFooter: true,
+    }
+);
 </script>
 <template>
     <main

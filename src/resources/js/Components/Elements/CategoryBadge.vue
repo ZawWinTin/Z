@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { convertHexToRgba, isLightColor } from '@/Composables/Common/Helper';
+import Category from '@/Interfaces/Category';
 
-const props = defineProps<{
-    category: null,
-    showCount: {
-        type: Boolean,
-        default: false,
+const props = withDefaults(
+    defineProps<{
+        category: Category,
+        showCount?: boolean,
+    }>(),
+    {
+        showCount: false,
     }
-}>();
+);
 </script>
 <template>
     <div
