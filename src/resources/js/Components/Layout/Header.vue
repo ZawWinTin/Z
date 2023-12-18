@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, computed, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
-import { isActiveRoute } from '@/Composables/Common/Helper';
+import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
@@ -14,14 +14,27 @@ const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
 const menuCardClasses =
     'main-bg-3-light-only tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase tw-space-y-1';
 const menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
+const activeClasses= 'main-text-gradient tw-pointer-events-none tw-select-none';
 
+const contact = ref<HTMLElement | null>(null);
+const isContactViewReached = ref<boolean>(false);
 onMounted(() => {
     initializeScrolling();
+});
+onUpdated(() => {
+    loadContact();
 });
 
 const initializeScrolling = () => {
     isMenuOpen.value = false;
     document.body.classList.remove('tw-overflow-hidden');
+
+    loadContact();
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        isContactViewReached.value = !!(contact.value && scrollTop >= (contact.value.offsetTop - 50));
+    });
 };
 
 const toggleMainMenu = (event: MouseEvent) => {
@@ -35,11 +48,29 @@ const toggleMainMenu = (event: MouseEvent) => {
 };
 
 const getActiveClasses = (routeName: string) => {
-    if (isActiveRoute(routeName)) {
-        return 'main-text-gradient tw-pointer-events-none tw-select-none';
+    if (isActiveRoute(routeName) && !isContactViewReached.value) {
+        return activeClasses;
     }
     return '';
 };
+
+const checkActiveLink = (routeName: string) => {
+    if (isActiveRoute(routeName)) {
+        scrollToTop();
+    }
+};
+
+const loadContact = () => {
+    contact.value = document.querySelector('footer');
+};
+
+const getContactClasses = computed(() => {
+    return isContactViewReached.value ? activeClasses : '';
+});
+
+const scrollToContact = () => {
+    document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
+}
 </script>
 <template>
     <div
@@ -76,19 +107,19 @@ const getActiveClasses = (routeName: string) => {
         >
             <Link class="tw-pointer-events-auto tw-py-0.5" :href="route('home')">
                 <ApplicationLogo
-                    class="tw-h-6 tw-w-6"
+                    class="tw-h-6 tw-w-6 tw-transition tw-duration-300 "
                     :class="
-                        isMenuOpen
+                        (isMenuOpen || isContactViewReached)
                             ? '!tw-stroke-slate-50 !tw-text-slate-50'
                             : ''
                     "
                 />
             </Link>
             <MainMenuButton
-                class="tw-pointer-events-auto"
+                class="tw-transition tw-duration-300 tw-pointer-events-auto"
                 @click="toggleMainMenu"
                 :class="
-                    isMenuOpen
+                    (isMenuOpen || isContactViewReached)
                         ? '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50'
                         : ''
                 "
@@ -111,10 +142,10 @@ const getActiveClasses = (routeName: string) => {
             >
                 <section :class="sectionClasses" class="tw-pl-4">
                     <div :class="menuCardClasses">
-                        <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
-                        <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" :href="route('article.index')">Articles</Link>
+                        <Link :class="[getActiveClasses('home'), menuLinkClasses]" @click="checkActiveLink('home')" :href="route('home')">Home</Link>
+                        <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" @click="checkActiveLink('article.index')" :href="route('article.index')">Articles</Link>
                         <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
-                        <Link :class="[getActiveClasses('contact'), menuLinkClasses]" href="#">Contact</Link>
+                        <button v-show="!!contact" :class="[getContactClasses, menuLinkClasses]" @click="scrollToContact">Contact</button>
                         <template v-if="route().has('admin.dashboard')">
                             <hr
                                 class="tw-bg-slate-300 tw-border-0 tw-h-px"

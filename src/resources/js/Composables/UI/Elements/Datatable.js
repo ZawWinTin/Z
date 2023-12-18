@@ -16,7 +16,7 @@ export default {
             'tw-fixed tw-w-full tw-h-full tw-t-0 tw-l-0',
             'tw-transition tw-duration-300',
             'tw-absolute tw-flex tw-items-center tw-justify-center tw-z-2',
-            'main-bg-2 !tw-bg-opacity-40', // Dark Mode
+            'main-bg-2 main-text !tw-bg-opacity-40', // Dark Mode
         ],
     },
     loadingicon: 'tw-w-8 tw-h-8',

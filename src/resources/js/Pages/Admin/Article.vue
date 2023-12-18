@@ -42,7 +42,7 @@ const props = withDefaults(
 
 const form = useForm<{
     id: number | null,
-    cover_image: File | null,
+    cover_image: File | Object | null, //TODO:Fix
     cover_image_object_position: string,
     title: string,
     description: string,
@@ -256,7 +256,7 @@ const openSaveDialog = (data : Article | null = null) => {
     coverImage.isFileExist.value = false;
     if (data) {
         form.id = data.id;
-        // form.cover_image = data.cover_image;
+        form.cover_image = data.cover_image;
         form.title = data.title;
         form.description = data.description;
         form.categories = data.categories?.map(item => item['id']);

@@ -26,8 +26,10 @@ const props = withDefaults(
     >
         <Cursor />
         <Header></Header>
-        <article class="tw-pt-4 tw-z-[1]">
-            <slot />
+        <article class="tw-z-[1]">
+            <div class="tw-pt-4 tw-min-h-screen">
+                <slot />
+            </div>
             <template v-if="props.showFooter">
                 <Footer />
             </template>
