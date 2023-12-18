@@ -9,6 +9,7 @@ import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
     canResetPassword?: boolean,
@@ -54,12 +55,7 @@ const hidePassword = () => {
     <section>
         <Head title="Log in" />
 
-        <div
-            v-if="status"
-            class="tw-font-medium tw-mb-4 tw-text-green-600 tw-text-sm"
-        >
-            {{ status }}
-        </div>
+        <StatusMessage class="tw-mb-4" :show="!!status" :message="status" />
 
         <form @submit.prevent="submit">
             <div class="tw-mt-7">
@@ -135,11 +131,18 @@ const hidePassword = () => {
                 </div>
             </transition>
 
-            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
+            <div class="tw-flex tw-items-center tw-mt-4"
+                :class="canResetPassword ? 'tw-justify-between' : 'tw-justify-end'">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="tw-rounded-md focus:main-primary-focus dark:hover:tw-text-slate-100 dark:tw-text-slate-400 hover:tw-text-slate-900 tw-text-slate-600 tw-text-sm tw-underline"
+                    class="tw-transition
+                    tw-duration-300
+                    focus:main-primary-focus
+                    main-text
+                    hover:tw-text-primary
+                    tw-text-sm
+                    tw-underline"
                 >
                     Forgot your password?
                 </Link>

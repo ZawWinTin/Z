@@ -116,18 +116,8 @@ const form = useForm<{
                     </Link>
                 </p>
 
-                <div
-                    v-show="status === 'verification-link-sent'"
-                    class="
-                        tw-font-medium
-                        dark:tw-text-green-400
-                        tw-mt-2
-                        tw-text-green-600
-                        tw-text-sm
-                        "
-                >
-                    A new verification link has been sent to your email address.
-                </div>
+                <StatusMessage :show="status === 'verification-link-sent'" class="tw-mt-2"
+                    message="A new verification link has been sent to your email address." />
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">

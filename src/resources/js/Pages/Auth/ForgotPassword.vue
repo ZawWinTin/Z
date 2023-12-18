@@ -5,6 +5,7 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Head, useForm } from '@inertiajs/vue3';
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
     status?: string,
@@ -28,9 +29,9 @@ const submit = () => {
         <div
             class="
                 tw-mb-4
-                dark:tw-text-slate-400
-                tw-text-slate-600
+                main-text
                 tw-text-sm
+                tw-text-justify
                 "
         >
             Forgot your password? No problem. Just let us know your email
@@ -38,34 +39,22 @@ const submit = () => {
             you to choose a new one.
         </div>
 
-        <div
-            v-if="status"
-            class="
-                tw-font-medium
-                dark:tw-text-green-400
-                tw-mb-4
-                tw-text-green-600
-                tw-text-sm
-                "
-        >
-            {{ status }}
-        </div>
+        <StatusMessage class="tw-mb-4" :show="!!status" :message="status" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <InputText
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.email" />
+            <div class="tw-mt-7">
+                <span class="p-float-label p-input-icon-right tw-w-full">
+                    <InputText
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        class="tw-block tw-w-full"
+                        autofocus
+                        autocomplete="username email"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
             </div>
 
             <div class="
@@ -74,9 +63,8 @@ const submit = () => {
                 tw-justify-end
                 tw-mt-4
                 ">
-                <Button label="Email Password Reset Link"
-                    :loading="form.processing"
-                />
+                <Button type="submit" rounded label="Email Password Reset Link"
+                    :loading="form.processing" />
             </div>
         </form>
     </section>

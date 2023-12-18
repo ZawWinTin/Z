@@ -6,7 +6,7 @@ import Preloader from '@/Components/Elements/Preloader.vue';
 
 const props = withDefaults(
     defineProps<{
-        showFooter: boolean,
+        showFooter?: boolean,
     }>(),
     {
         showFooter: true,

@@ -131,7 +131,7 @@ const getActiveClasses = (routeName: string) => {
             </span>
             <span class="tw-ml-4" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">Setting</span>
         </Link>
-        <Link class="tw-group" :class="[menuLinkClasses]" :href="route('admin.logout')" method="post" as="button">
+        <Link class="tw-group" :class="[menuLinkClasses]" :href="route('logout')" method="post" as="button">
             <span class="tw-hidden group-hover:tw-block">
                 <ArrowUpOnSquareSolidIcon class="tw-w-6 tw-h-6" />
             </span>

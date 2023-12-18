@@ -122,7 +122,7 @@ const getActiveClasses = (routeName: string) => {
                             <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
                                 >Overview Dashboard</Link
                             >
-                            <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
+                            <Link :class="menuLinkClasses" :href="route('logout')" method="post" as="button"
                                 >Logout</Link
                             >
                         </template>

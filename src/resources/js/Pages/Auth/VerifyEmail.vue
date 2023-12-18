@@ -26,9 +26,9 @@ const verificationLinkSent = computed(
         <div
             class="
                 tw-mb-4
-                dark:tw-text-slate-400
-                tw-text-slate-600
+                main-text
                 tw-text-sm
+                text-justify
                 "
         >
             Thanks for signing up! Before getting started, could you verify your
@@ -36,19 +36,9 @@ const verificationLinkSent = computed(
             didn't receive the email, we will gladly send you another.
         </div>
 
-        <div
-            v-if="verificationLinkSent"
-            class="
-                tw-font-medium
-                dark:tw-text-green-400
-                tw-mb-4
-                tw-text-green-600
-                tw-text-sm
-                "
-        >
-            A new verification link has been sent to the email address you
-            provided during registration.
-        </div>
+        <StatusMessage :show="verificationLinkSent"
+            message="A new verification link has been sent to the email address you
+                provided during registration." />
 
         <form @submit.prevent="submit">
             <div class="
