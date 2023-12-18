@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('admin.dashboard'));
         }
 
-        return to_route('admin.login');
+        return back();
     }
 
     /**
