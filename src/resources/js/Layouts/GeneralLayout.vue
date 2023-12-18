@@ -21,7 +21,6 @@ const props = withDefaults(
             tw-ease-in-out
             tw-flex
             tw-flex-col
-            tw-h-screen
             "
     >
         <Cursor />
