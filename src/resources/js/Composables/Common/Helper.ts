@@ -30,3 +30,10 @@ export const isActiveRoute = (routeName: string) : boolean => {
 export const getDate = (date: string) : string => {
     return moment(date).format('ll');
 };
+
+export const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
+};

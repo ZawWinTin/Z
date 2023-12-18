@@ -9,6 +9,7 @@ import Toast from 'primevue/toast';
 import route from '@/Composables/Common/Route';
 import { useToast } from 'primevue/usetoast';
 import InputError from '@/Components/UI/InputError.vue';
+import { scrollToTop } from '@/Composables/Common/Helper';
 
 const form = useForm<{
     email: string;
@@ -50,13 +51,6 @@ const submitContact = () => {
         },
     });
 };
-
-const scrollToTop = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-    });
-}
 </script>
 <template>
     <footer class="main-bg-3-dark-only tw-h-screen tw-mt-auto">

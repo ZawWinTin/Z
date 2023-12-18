@@ -3,7 +3,7 @@ import { onMounted, onUpdated, computed, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
-import { isActiveRoute } from '@/Composables/Common/Helper';
+import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
@@ -52,6 +52,12 @@ const getActiveClasses = (routeName: string) => {
         return activeClasses;
     }
     return '';
+};
+
+const checkActiveLink = (routeName: string) => {
+    if (isActiveRoute(routeName)) {
+        scrollToTop();
+    }
 };
 
 const loadContact = () => {
@@ -136,8 +142,8 @@ const scrollToContact = () => {
             >
                 <section :class="sectionClasses" class="tw-pl-4">
                     <div :class="menuCardClasses">
-                        <Link :class="[getActiveClasses('home'), menuLinkClasses]" :href="route('home')">Home</Link>
-                        <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" :href="route('article.index')">Articles</Link>
+                        <Link :class="[getActiveClasses('home'), menuLinkClasses]" @click="checkActiveLink('home')" :href="route('home')">Home</Link>
+                        <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" @click="checkActiveLink('article.index')" :href="route('article.index')">Articles</Link>
                         <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
                         <button v-show="!!contact" :class="[getContactClasses, menuLinkClasses]" @click="scrollToContact">Contact</button>
                         <template v-if="route().has('admin.dashboard')">
