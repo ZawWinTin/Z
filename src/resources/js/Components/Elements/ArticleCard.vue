@@ -47,6 +47,7 @@ const loadImage = () => {
         :href="props.link"
         class="
             card
+            tw-relative
             interactable-js
             tw-duration-300
             tw-ease-in-out
