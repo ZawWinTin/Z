@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUpdated, computed, ref } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
@@ -21,15 +21,12 @@ const isContactViewReached = ref<boolean>(false);
 onMounted(() => {
     initializeScrolling();
 });
-onUpdated(() => {
-    loadContact();
-});
 
 const initializeScrolling = () => {
     isMenuOpen.value = false;
     document.body.classList.remove('tw-overflow-hidden');
 
-    loadContact();
+    contact.value = document.querySelector('footer');
 
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
@@ -69,8 +66,8 @@ const getContactClasses = computed(() => {
     return isContactViewReached.value ? activeClasses : '';
 });
 
-const scrollToContact = () => {
-    document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
+const scrollToContact = () => {//TODO: Universal (Scroll)
+    contact.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 <template>

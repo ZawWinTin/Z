@@ -29,9 +29,7 @@ const props = withDefaults(
             <div class="tw-min-h-screen">
                 <slot />
             </div>
-            <template v-if="props.showFooter">
-                <Footer />
-            </template>
+            <Footer v-show="$props.showFooter" />
         </article>
         <Preloader />
     </main>
