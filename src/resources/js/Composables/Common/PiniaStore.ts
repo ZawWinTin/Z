@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useDarkModeStore = defineStore('darkMode', () => {
-    const isDarkMode = ref(true);
+    const isDarkMode = ref<boolean>(true);
 
     const toggleDarkMode = () => {
         isDarkMode.value = !isDarkMode.value;
@@ -13,4 +13,14 @@ export const useDarkModeStore = defineStore('darkMode', () => {
     };
 
     return { isDarkMode, toggleDarkMode, setDarkMode };
+});
+
+export const useContactViewStore = defineStore('contactView', () => {
+    const isReached = ref<boolean>(false);
+
+    const setReach = (newValue: boolean) => {
+        isReached.value = newValue;
+    };
+
+    return { isReached, setReach };
 });

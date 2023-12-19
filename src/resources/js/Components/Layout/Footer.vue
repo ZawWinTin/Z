@@ -10,6 +10,8 @@ import route from '@/Composables/Common/Route';
 import { useToast } from 'primevue/usetoast';
 import InputError from '@/Components/UI/InputError.vue';
 import { scrollToTop } from '@/Composables/Common/Helper';
+import Transitions from '@/Composables/UI/Transitions';
+import { useContactViewStore } from '@/Composables/Common/PiniaStore';
 
 const form = useForm<{
     email: string;
@@ -23,6 +25,7 @@ const form = useForm<{
 
 const toast = useToast();
 const toastVisible = ref(false);
+const contactViewStore = useContactViewStore();
 
 const footerInputTheme = 'tw-text-slate-300 !tw-bg-slate-900 !tw-border-slate-700 focus:tw-ring-offset-slate-800';
 
@@ -83,99 +86,113 @@ const submitContact = () => {
         <div class="tw-container tw-flex tw-flex-row tw-items-center tw-h-full tw-py-12">
             <div class="tw-w-2/3 tw-flex tw-flex-col tw-gap-8 tw-p-4"></div>
             <div class="tw-w-1/2 lg:tw-w-1/3 tw-h-full tw-flex tw-flex-col tw-justify-center tw-gap-8 tw-relative">
-                <form
-                    class="tw-flex tw-flex-col tw-gap-8 tw-p-8 main-bg-2-dark-only tw-rounded-md tw-transition tw-duration-300 tw-shadow-lg hover:tw-shadow-primary"
-                    @submit.prevent="submitContact"
+                <transition
+                    :enter-from-class="Transitions.overlay.enterFromClass"
+                    :enter-active-class="Transitions.overlay.enterActiveClass"
+                    :leave-active-class="Transitions.overlay.leaveActiveClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
-                    <h3 class="tw-text-3xl main-text-gradient tw-uppercase">Contact Us</h3>
-                    <div class="tw-w-full tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-4">
-                        <div>
-                            <span
-                                class="p-float-label p-input-icon-right tw-w-full"
-                            >
-                                <InputText
-                                    id="name"
-                                    v-model="form.name"
-                                    type="text"
-                                    :class="footerInputTheme"
-                                    required
+                    <form v-show="contactViewStore.isReached"
+                        class="tw-flex tw-flex-col tw-gap-8 tw-p-8 main-bg-2-dark-only tw-rounded-md tw-transition tw-duration-300 tw-shadow-lg hover:tw-shadow-primary"
+                        @submit.prevent="submitContact"
+                    >
+                        <h3 class="tw-text-3xl main-text-gradient tw-uppercase">Contact Us</h3>
+                        <div class="tw-w-full tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-4">
+                            <div>
+                                <span
+                                    class="p-float-label p-input-icon-right tw-w-full"
+                                >
+                                    <InputText
+                                        id="name"
+                                        v-model="form.name"
+                                        type="text"
+                                        :class="footerInputTheme"
+                                        required
+                                    />
+                                    <InputLabel
+                                        for="name"
+                                        value="Name"
+                                        class="tw-ml-4 !tw-text-primary/80"
+                                    />
+                                </span>
+                                <InputError
+                                    class="tw-mt-2 tw-ml-4"
+                                    :message="form.errors.name"
                                 />
-                                <InputLabel
-                                    for="name"
-                                    value="Name"
-                                    class="tw-ml-4 !tw-text-primary/80"
+                            </div>
+                            <div>
+                                <span
+                                    class="p-float-label p-input-icon-right tw-w-full"
+                                >
+                                    <InputText
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
+                                        :class="footerInputTheme"
+                                        required
+                                    />
+                                    <InputLabel
+                                        for="email"
+                                        value="Email"
+                                        class="tw-ml-4 !tw-text-primary/80"
+                                    />
+                                </span>
+                                <InputError
+                                    class="tw-mt-2 tw-ml-4"
+                                    :message="form.errors.email"
                                 />
-                            </span>
-                            <InputError
-                                class="tw-mt-2 tw-ml-4"
-                                :message="form.errors.name"
-                            />
+                            </div>
                         </div>
-                        <div>
-                            <span
-                                class="p-float-label p-input-icon-right tw-w-full"
-                            >
-                                <InputText
-                                    id="email"
-                                    v-model="form.email"
-                                    type="email"
-                                    :class="footerInputTheme"
-                                    required
-                                />
-                                <InputLabel
-                                    for="email"
-                                    value="Email"
-                                    class="tw-ml-4 !tw-text-primary/80"
-                                />
-                            </span>
-                            <InputError
-                                class="tw-mt-2 tw-ml-4"
-                                :message="form.errors.email"
-                            />
-                        </div>
-                    </div>
 
-                    <div>
-                        <span
-                            class="p-float-label p-input-icon-right tw-w-full"
-                        >
-                            <Textarea
-                                id="content"
-                                v-model.trim="form.content"
-                                autoResize
-                                :class="footerInputTheme"
-                                rows="5"
+                        <div>
+                            <span
+                                class="p-float-label p-input-icon-right tw-w-full"
+                            >
+                                <Textarea
+                                    id="content"
+                                    v-model.trim="form.content"
+                                    autoResize
+                                    :class="footerInputTheme"
+                                    rows="5"
+                                />
+                                <InputLabel
+                                    for="content"
+                                    value="Content"
+                                    class="tw-ml-4 !tw-text-primary/80"
+                                />
+                            </span>
+                            <InputError
+                                class="tw-mt-2 tw-ml-4"
+                                :message="form.errors.content"
                             />
-                            <InputLabel
-                                for="content"
-                                value="Content"
-                                class="tw-ml-4 !tw-text-primary/80"
-                            />
-                        </span>
-                        <InputError
-                            class="tw-mt-2 tw-ml-4"
-                            :message="form.errors.content"
+                        </div>
+                        <Button
+                            type="submit"
+                            rounded raised
+                            label="Send"
+                            icon="pi pi-chevron-circle-right"
+                            iconPos="right"
+                            class="tw-uppercase focus:tw-ring-offset-slate-800"
+                            :loading="form.processing"
                         />
-                    </div>
-                    <Button
-                        type="submit"
-                        rounded raised
-                        label="Send"
-                        icon="pi pi-chevron-circle-right"
-                        iconPos="right"
-                        class="tw-uppercase focus:tw-ring-offset-slate-800"
-                        :loading="form.processing"
-                    />
-                </form>
-                <Button rounded raised @click="scrollToTop"
-                    class="!tw-absolute tw-transition tw-duration-300
-                    tw-right-0 tw-bottom-0
-                    motion-safe:tw-animate-bounce
-                    !tw-w-12 !tw-h-12
-                    tw-border-none focus:tw-ring-offset-slate-800
-                   !tw-bg-slate-950/80 !tw-text-primary
-                   hover:!tw-bg-primary hover:!tw-text-slate-950"
-                    icon="pi pi-chevron-up" />
+                    </form>
+                </transition>
+                <transition
+                    :enter-from-class="Transitions.floatIn.enterFromClass"
+                    :enter-active-class="Transitions.floatIn.enterActiveClass"
+                    :leave-active-class="Transitions.floatIn.leaveActiveClass"
+                    :leave-to-class="Transitions.floatIn.leaveToClass"
+                >
+                    <Button rounded raised @click="scrollToTop"
+                        class="!tw-absolute tw-transition tw-duration-300
+                        tw-right-0 tw-bottom-0
+                        motion-safe:tw-animate-bounce
+                        !tw-w-12 !tw-h-12
+                        tw-border-none focus:tw-ring-offset-slate-800
+                    !tw-bg-slate-950/80 !tw-text-primary
+                    hover:!tw-bg-primary hover:!tw-text-slate-950"
+                        icon="pi pi-chevron-up" />
+                </transition>
             </div>
         </div>
     </footer>

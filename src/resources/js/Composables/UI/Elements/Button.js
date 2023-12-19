@@ -70,21 +70,21 @@ export default {
             {
                 'tw-bg-transparent tw-border-transparent':
                     props.text && !props.plain,
-                'tw-text-blue-500 dark:tw-text-blue-400 hover:bg-blue-300/20':
+                'tw-text-primary dark:tw-text-primary hover:tw-bg-primary/20':
                     props.text &&
                     (props.severity === null || props.severity === 'info') &&
                     !props.plain,
-                'tw-text-slate-500 dark:tw-text-slate-400 hover:bg-slate-300/20':
+                'tw-text-slate-500 dark:tw-text-slate-400 hover:tw-bg-slate-300/20':
                     props.text &&
                     props.severity === 'secondary' &&
                     !props.plain,
-                'tw-text-green-500 dark:tw-text-green-400 hover:bg-green-300/20':
+                'tw-text-green-500 dark:tw-text-green-400 hover:tw-bg-green-300/20':
                     props.text && props.severity === 'success' && !props.plain,
-                'tw-text-orange-500 dark:tw-text-orange-400 hover:bg-orange-300/20':
+                'tw-text-orange-500 dark:tw-text-orange-400 hover:tw-bg-orange-300/20':
                     props.text && props.severity === 'warning' && !props.plain,
-                'tw-text-purple-500 dark:tw-text-purple-400 hover:bg-purple-300/20':
+                'tw-text-purple-500 dark:tw-text-purple-400 hover:tw-bg-purple-300/20':
                     props.text && props.severity === 'help' && !props.plain,
-                'tw-text-red-500 dark:tw-text-red-400 hover:bg-red-300/20':
+                'tw-text-red-500 dark:tw-text-red-400 hover:tw-bg-red-300/20':
                     props.text && props.severity === 'danger' && !props.plain,
             },
             { 'tw-shadow-lg': props.raised && props.text },

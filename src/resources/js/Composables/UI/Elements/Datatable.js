@@ -7,7 +7,7 @@ export default {
             'tw-relative',
             {
                 'tw-flex tw-flex-col tw-h-full':
-                    props.scrollable && props.scrollHeight === 'tw-flex',
+                    props.scrollable && props.scrollHeight === 'flex',
             },
         ],
     }),

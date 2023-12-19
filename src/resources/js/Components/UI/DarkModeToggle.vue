@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUpdated } from 'vue';
 import { Theme } from '@/Constants/Theme';
-import { useDarkModeStore } from '@/Composables/Common/DarkModeStore';
+import { useDarkModeStore } from '@/Composables/Common/PiniaStore';
 
 const darkModeStore = useDarkModeStore();
 

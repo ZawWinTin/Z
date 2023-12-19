@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUpdated, computed, ref } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
@@ -7,8 +7,12 @@ import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
+import { useContactViewStore } from '@/Composables/Common/PiniaStore';
 
 const isMenuOpen = ref(false);
+
+const contact = ref<HTMLElement | null>(null);
+const contactViewStore = useContactViewStore();
 
 const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
 const menuCardClasses =
@@ -16,30 +20,26 @@ const menuCardClasses =
 const menuLinkClasses = 'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
 const activeClasses= 'main-text-gradient tw-pointer-events-none tw-select-none';
 
-const contact = ref<HTMLElement | null>(null);
-const isContactViewReached = ref<boolean>(false);
 onMounted(() => {
     initializeScrolling();
-});
-onUpdated(() => {
-    loadContact();
 });
 
 const initializeScrolling = () => {
     isMenuOpen.value = false;
     document.body.classList.remove('tw-overflow-hidden');
 
-    loadContact();
+    contact.value = document.querySelector('footer');
 
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
-        isContactViewReached.value = !!(contact.value && scrollTop >= (contact.value.offsetTop - 50));
+        contactViewStore.setReach(!!(contact.value && scrollTop >= (contact.value.offsetTop - 50)));
     });
 };
 
-const toggleMainMenu = (event: MouseEvent) => {
+const toggleMainMenu = (event: MouseEvent, openMainMenu: boolean | null = null) => {
     event.stopPropagation();
-    isMenuOpen.value = !isMenuOpen.value;
+
+    isMenuOpen.value = (openMainMenu === null) ? !isMenuOpen.value : openMainMenu;
     if (isMenuOpen.value) {
         document.body.classList.add('tw-overflow-hidden');
     } else {
@@ -48,7 +48,7 @@ const toggleMainMenu = (event: MouseEvent) => {
 };
 
 const getActiveClasses = (routeName: string) => {
-    if (isActiveRoute(routeName) && !isContactViewReached.value) {
+    if (isActiveRoute(routeName) && !contactViewStore.isReached) {
         return activeClasses;
     }
     return '';
@@ -60,16 +60,12 @@ const checkActiveLink = (routeName: string) => {
     }
 };
 
-const loadContact = () => {
-    contact.value = document.querySelector('footer');
-};
-
-const getContactClasses = computed(() => {
-    return isContactViewReached.value ? activeClasses : '';
+const getContactClasses = computed(() => {//TODO: Universal (Scroll)
+    return contactViewStore.isReached ? activeClasses : '';
 });
 
-const scrollToContact = () => {
-    document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
+const scrollToContact = () => {//TODO: Universal (Scroll)
+    contact.value?.scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 <template>
@@ -105,11 +101,11 @@ const scrollToContact = () => {
                 tw-justify-between
                 "
         >
-            <Link class="tw-pointer-events-auto tw-py-0.5" :href="route('home')">
+            <Link class="tw-pointer-events-auto tw-py-0.5" @click="toggleMainMenu($event, false)" :href="route('home')">
                 <ApplicationLogo
                     class="tw-h-6 tw-w-6 tw-transition tw-duration-300 "
                     :class="
-                        (isMenuOpen || isContactViewReached)
+                        (isMenuOpen || contactViewStore.isReached)
                             ? '!tw-stroke-slate-50 !tw-text-slate-50'
                             : ''
                     "
@@ -118,10 +114,10 @@ const scrollToContact = () => {
             <MainMenuButton
                 class="tw-transition tw-duration-300 tw-pointer-events-auto"
                 @click="toggleMainMenu"
-                :class="
-                    (isMenuOpen || isContactViewReached)
-                        ? '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50'
-                        : ''
+                :class="{
+                        '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50' : isMenuOpen,
+                        'hover:!tw-bg-slate-50 hover:!tw-text-slate-900 !tw-border-slate-50 !tw-text-slate-50' : contactViewStore.isReached
+                    }
                 "
             />
         </div>
@@ -145,7 +141,7 @@ const scrollToContact = () => {
                         <Link :class="[getActiveClasses('home'), menuLinkClasses]" @click="checkActiveLink('home')" :href="route('home')">Home</Link>
                         <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" @click="checkActiveLink('article.index')" :href="route('article.index')">Articles</Link>
                         <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
-                        <button v-show="!!contact" :class="[getContactClasses, menuLinkClasses]" @click="scrollToContact">Contact</button>
+                        <button :class="[getContactClasses, menuLinkClasses]" @click="scrollToContact">Contact</button>
                         <template v-if="route().has('admin.dashboard')">
                             <hr
                                 class="tw-bg-slate-300 tw-border-0 tw-h-px"
