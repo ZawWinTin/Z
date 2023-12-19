@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-    <section class="tw-container">
+    <section class="tw-pt-4 tw-container">
         <Head title="Home" />
         <div class="tw-text-center">
             <h1 class="tw-font-bold tw-text-2xl tw-text-primary">

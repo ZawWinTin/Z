@@ -81,33 +81,29 @@ const disableClearChoseCategories = computed(() => {
 });
 </script>
 <template>
-    <section>
+    <section class="tw-pt-16 tw-pb-8 tw-h-screen">
         <Head title="Article" />
-        <div class="tw-container tw-flex tw-flex-row tw-space-x-4 tw-mt-8">
+        <div class="tw-container tw-flex tw-flex-row tw-space-x-4 tw-h-full">
             <!-- Article Section -->
             <div
-                class="tw-w-full !tw-bg-opacity-60 tw-rounded-lg tw-py-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
+                class="tw-w-full !tw-bg-opacity-60 tw-rounded-lg tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
             >
+                <!-- Search -->
                 <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
-                    <div
-                        class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
-                    >
-                        <div class="tw-w-full">
-                            <span class="p-input-icon-left tw-w-64">
-                                <i
-                                    class="pi pi-search tw-left-3 main-text"
-                                />
-                                <InputText
-                                    class="tw-pl-10 tw-w-full"
-                                    v-model="articleFilters['global'].value"
-                                    placeholder="Search"
-                                />
-                            </span>
-                        </div>
-                    </div>
+                    <span class="p-input-icon-left">
+                        <i
+                            class="pi pi-search tw-left-3 main-text"
+                        />
+                        <InputText
+                            class="tw-pl-10 tw-w-full"
+                            v-model="articleFilters['global'].value"
+                            placeholder="Search"
+                        />
+                    </span>
                 </div>
+                <!-- Articles -->
                 <div
-                    class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-around tw-h-[70vh] tw-transition tw-duration-300 tw-pt-2 primary-scrollbar"
+                    class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-around tw-h-full tw-transition tw-duration-300 primary-scrollbar"
                 >
                     <template
                         v-for="article in getFilteredArticles"
@@ -146,7 +142,7 @@ const disableClearChoseCategories = computed(() => {
                     />
                 </div>
                 <div
-                    class="tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-mx-2 primary-scrollbar tw-max-h-[70vh] tw-transition tw-duration-300"
+                    class="tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-mx-2 primary-scrollbar tw-transition tw-duration-300"
                 >
                     <template
                         v-for="category in filteredCategories"

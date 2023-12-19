@@ -332,22 +332,22 @@ const restoreArticle = () => {
 };
 </script>
 <template>
-    <section>
+    <section class="tw-h-full tw-flex tw-flex-col tw-space-y-4">
         <Head title="Article - Admin" />
         <h1
-            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-mb-4"
+            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-h-8"
         >
             Articles
         </h1>
         <Toast />
         <div
-            class="tw-w-full main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-duration-300 tw-transition tw-flex tw-flex-col"
+            class="tw-w-full tw-h-[calc(100%-3rem)] main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-duration-300 tw-transition"
         >
             <DataTable
                 removableSort
                 :value="currentArticles?.data"
                 scrollable
-                scrollHeight="52vh"
+                scrollHeight="flex"
                 lazy
                 paginator
                 :rows="10"
@@ -464,238 +464,238 @@ const restoreArticle = () => {
                 </Column>
                 <template #footer> In total, there are <b>{{ currentArticles?.total || 0 }}</b> articles.</template>
             </DataTable>
+        </div>
 
-            <!-- Filter Dialog -->
-            <Dialog
-                v-model:visible="openArticleFilterDialog"
-                modal
-                header="Advanced Search">
-            </Dialog>
+        <!-- Filter Dialog -->
+        <Dialog
+            v-model:visible="openArticleFilterDialog"
+            modal
+            header="Advanced Search">
+        </Dialog>
 
-            <!-- Create/Update Dialog -->
-            <Dialog maximizable :style="{ width: '90vw' }"
-                v-model:visible="openArticleSaveDialog"
-                modal
-                :closeOnEscape="false"
-                header="Article Details">
-                <div class="tw-flex tw-flex-col tw-space-y-4">
-                    <div>
-                        <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
-                            <!-- Placeholder -->
-                            <div :ref="coverImage.placeholder"
-                                class="tw-absolute main-bg-3 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
-                                <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl main-text !tw-text-opacity-60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
-                            </div>
-                            <!-- PreviewImage -->
-                            <img :ref="coverImage.preview" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
-                                :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
-                            <!-- Clickable, Drag & Drop Area -->
-                            <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
-                                @dragenter="onDragEnterCoverImage"
-                                @dragleave="onDragLeaveCoverImage"
-                                @drop="onDragLeaveCoverImage"
-                                @change="onCoverImageUpload($event)"
-                                required
-                                :ref="coverImage.inputUpload" type="file" accept="image/*">
-                            <!-- Reposition Area -->
-                            <transition
-                                :enter-from-class="Transitions.overlay.enterFromClass"
-                                :enter-active-class="
-                                    Transitions.overlay.enterActiveClass
-                                "
-                                :leave-active-class="
-                                    Transitions.overlay.leaveActiveClass
-                                "
-                                :leave-to-class="Transitions.overlay.leaveToClass"
-                            >
-                                <template v-if="coverImage.isRepositionMode.value">
-                                    <div
-                                        @mousedown="mouseDownRepositionCoverImage($event)"
-                                        class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-cursor-move">
-                                        <transition
-                                            :enter-from-class="Transitions.overlay.enterFromClass"
-                                            :enter-active-class="
-                                                Transitions.overlay.enterActiveClass
-                                            "
-                                            :leave-active-class="
-                                                Transitions.overlay.leaveActiveClass
-                                            "
-                                            :leave-to-class="Transitions.overlay.leaveToClass"
-                                        >
-                                            <span v-if="!coverImage.isRepositioning.value" class="tw-px-4 tw-py-2 tw-bg-primary/80 tw-rounded-full tw-text-slate-50 tw-select-none">Drag Image to Reposition</span>
-                                        </transition>
-                                    </div>
-                                </template>
-                            </transition>
-                            <template v-if="coverImage.isRepositionMode.value && coverImage.isRepositioning.value">
-                                <div class="tw-fixed tw-left-[-50%] tw-top-[-9%] tw-w-screen tw-h-screen  tw-cursor-move"
-                                    @mousemove="mouseMoveRepositionCoverImage($event)"
-                                    @mouseup="mouseUpRepositionCoverImage">
+        <!-- Create/Update Dialog -->
+        <Dialog maximizable :style="{ width: '90vw' }"
+            v-model:visible="openArticleSaveDialog"
+            modal
+            :closeOnEscape="false"
+            header="Article Details">
+            <div class="tw-flex tw-flex-col tw-space-y-4">
+                <div>
+                    <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
+                        <!-- Placeholder -->
+                        <div :ref="coverImage.placeholder"
+                            class="tw-absolute main-bg-3 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
+                            <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl main-text !tw-text-opacity-60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
+                        </div>
+                        <!-- PreviewImage -->
+                        <img :ref="coverImage.preview" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
+                            :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
+                        <!-- Clickable, Drag & Drop Area -->
+                        <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
+                            @dragenter="onDragEnterCoverImage"
+                            @dragleave="onDragLeaveCoverImage"
+                            @drop="onDragLeaveCoverImage"
+                            @change="onCoverImageUpload($event)"
+                            required
+                            :ref="coverImage.inputUpload" type="file" accept="image/*">
+                        <!-- Reposition Area -->
+                        <transition
+                            :enter-from-class="Transitions.overlay.enterFromClass"
+                            :enter-active-class="
+                                Transitions.overlay.enterActiveClass
+                            "
+                            :leave-active-class="
+                                Transitions.overlay.leaveActiveClass
+                            "
+                            :leave-to-class="Transitions.overlay.leaveToClass"
+                        >
+                            <template v-if="coverImage.isRepositionMode.value">
+                                <div
+                                    @mousedown="mouseDownRepositionCoverImage($event)"
+                                    class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-cursor-move">
+                                    <transition
+                                        :enter-from-class="Transitions.overlay.enterFromClass"
+                                        :enter-active-class="
+                                            Transitions.overlay.enterActiveClass
+                                        "
+                                        :leave-active-class="
+                                            Transitions.overlay.leaveActiveClass
+                                        "
+                                        :leave-to-class="Transitions.overlay.leaveToClass"
+                                    >
+                                        <span v-if="!coverImage.isRepositioning.value" class="tw-px-4 tw-py-2 tw-bg-primary/80 tw-rounded-full tw-text-slate-50 tw-select-none">Drag Image to Reposition</span>
+                                    </transition>
                                 </div>
                             </template>
-                            <span class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300 tw-flex">
-                                <template v-if="!coverImage.isRepositionMode.value">
-                                    <Button
-                                        icon="pi pi-upload"
-                                        size="small"
-                                        severity="secondary"
-                                        @click="uploadCoverImage"
-                                        :class="coverImage.isFileExist.value ? 'tw-rounded-s-full tw-border-r-slate-300/10' : '!tw-rounded-full'"
-                                        :label="coverImage.isFileExist.value ? 'Change Cover' : 'Add Cover'"/>
-                                    <Button
-                                        icon="pi pi-arrows-alt"
-                                        size="small"
-                                        class="tw-rounded-e-full"
-                                        severity="secondary"
-                                        @click="startRepositionCoverImage"
-                                        :class="{ 'tw-hidden' : !coverImage.isFileExist.value }"
-                                        label="Reposition"/>
-                                </template>
-                                <template v-if="coverImage.isRepositionMode.value">
-                                    <Button
-                                        icon="pi pi-check"
-                                        size="small"
-                                        class="tw-rounded-s-full tw-border-r-slate-300/10"
-                                        severity="secondary"
-                                        @click="saveRepositionCoverImage"
-                                        label="Save Position"/>
-                                    <Button
-                                        icon="pi pi-times"
-                                        size="small"
-                                        class="tw-rounded-e-full"
-                                        severity="secondary"
-                                        @click="cancelRepositionCoverImage"
-                                        label="Cancel"/>
-                                </template>
-                            </span>
-                        </div>
-                        <InputError class="tw-text-center" :message="form.errors.cover_image" />
+                        </transition>
+                        <template v-if="coverImage.isRepositionMode.value && coverImage.isRepositioning.value">
+                            <div class="tw-fixed tw-left-[-50%] tw-top-[-9%] tw-w-screen tw-h-screen  tw-cursor-move"
+                                @mousemove="mouseMoveRepositionCoverImage($event)"
+                                @mouseup="mouseUpRepositionCoverImage">
+                            </div>
+                        </template>
+                        <span class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300 tw-flex">
+                            <template v-if="!coverImage.isRepositionMode.value">
+                                <Button
+                                    icon="pi pi-upload"
+                                    size="small"
+                                    severity="secondary"
+                                    @click="uploadCoverImage"
+                                    :class="coverImage.isFileExist.value ? 'tw-rounded-s-full tw-border-r-slate-300/10' : '!tw-rounded-full'"
+                                    :label="coverImage.isFileExist.value ? 'Change Cover' : 'Add Cover'"/>
+                                <Button
+                                    icon="pi pi-arrows-alt"
+                                    size="small"
+                                    class="tw-rounded-e-full"
+                                    severity="secondary"
+                                    @click="startRepositionCoverImage"
+                                    :class="{ 'tw-hidden' : !coverImage.isFileExist.value }"
+                                    label="Reposition"/>
+                            </template>
+                            <template v-if="coverImage.isRepositionMode.value">
+                                <Button
+                                    icon="pi pi-check"
+                                    size="small"
+                                    class="tw-rounded-s-full tw-border-r-slate-300/10"
+                                    severity="secondary"
+                                    @click="saveRepositionCoverImage"
+                                    label="Save Position"/>
+                                <Button
+                                    icon="pi pi-times"
+                                    size="small"
+                                    class="tw-rounded-e-full"
+                                    severity="secondary"
+                                    @click="cancelRepositionCoverImage"
+                                    label="Cancel"/>
+                            </template>
+                        </span>
                     </div>
-                    <div class="tw-flex tw-flex-col tw-space-y-1">
-                        <label class="tw-font-bold">Title</label>
-                        <Textarea v-model.trim="form.title" autoResize rows="1" autofocus />
-                        <InputError :message="form.errors.title" />
-                    </div>
-                    <div class="tw-flex tw-flex-col tw-space-y-1">
-                        <label class="tw-font-bold">Description</label>
-                        <Textarea v-model.trim="form.description" autoResize rows="2" />
-                        <InputError :message="form.errors.description" />
-                    </div>
-                    <div class="tw-flex tw-flex-col tw-space-y-1">
-                        <label class="tw-font-bold">Categories</label>
-                        <MultiSelect v-model="form.categories"
-                            display="chip" filter
-                            :options="allCategories"
-                            optionLabel="name"
-                            optionValue="id"
-                            optionDisabled="deleted_at"
-                            :selectionLimit="props.categoryLimit"
-                            :maxSelectedLabels="props.categoryLimit"/>
-                        <InputError :message="form.errors.categories" />
-                    </div>
-                    <div class="tw-flex tw-flex-col tw-space-y-1">
-                        <label class="tw-font-bold">Content</label>
-                        <InputError :message="form.errors.content" />
-                        <div ref="contentEditor"
-                            class="
-                            tw-rounded-md
-                            tw-w-full
-                            tw-min-h-[6rem]
-                            tw-border
-                            tw-transition
-                            tw-duration-300
-                            tw-shadow-sm
-                            main-input-border
-                            main-bg-3
-                            focus-within:main-primary-focus
-                            main-text-for-input"
-                        >
-                        </div>
+                    <InputError class="tw-text-center" :message="form.errors.cover_image" />
+                </div>
+                <div class="tw-flex tw-flex-col tw-space-y-1">
+                    <label class="tw-font-bold">Title</label>
+                    <Textarea v-model.trim="form.title" autoResize rows="1" autofocus />
+                    <InputError :message="form.errors.title" />
+                </div>
+                <div class="tw-flex tw-flex-col tw-space-y-1">
+                    <label class="tw-font-bold">Description</label>
+                    <Textarea v-model.trim="form.description" autoResize rows="2" />
+                    <InputError :message="form.errors.description" />
+                </div>
+                <div class="tw-flex tw-flex-col tw-space-y-1">
+                    <label class="tw-font-bold">Categories</label>
+                    <MultiSelect v-model="form.categories"
+                        display="chip" filter
+                        :options="allCategories"
+                        optionLabel="name"
+                        optionValue="id"
+                        optionDisabled="deleted_at"
+                        :selectionLimit="props.categoryLimit"
+                        :maxSelectedLabels="props.categoryLimit"/>
+                    <InputError :message="form.errors.categories" />
+                </div>
+                <div class="tw-flex tw-flex-col tw-space-y-1">
+                    <label class="tw-font-bold">Content</label>
+                    <InputError :message="form.errors.content" />
+                    <div ref="contentEditor"
+                        class="
+                        tw-rounded-md
+                        tw-w-full
+                        tw-min-h-[6rem]
+                        tw-border
+                        tw-transition
+                        tw-duration-300
+                        tw-shadow-sm
+                        main-input-border
+                        main-bg-3
+                        focus-within:main-primary-focus
+                        main-text-for-input"
+                    >
                     </div>
                 </div>
-                <template #footer>
-                    <Button
-                        :loading="form.processing"
-                        rounded
-                        label="Save"
-                        icon="pi pi-check"
-                        :disabled="coverImage.isRepositionMode.value"
-                        @click="saveArticle" />
-                    <Button
-                        rounded
-                        label="Cancel"
-                        icon="pi pi-times"
-                        outlined
-                        @click="closeDialog(SAVE_DIALOG)" />
-                </template>
-            </Dialog>
-            <!-- Delete Dialog -->
-            <Dialog
-                v-model:visible="openArticleDeleteDialog"
-                modal
-                header="Confirm"
-                class="tw-w-2/5">
-                <div
-                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                    <i
-                        class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
-                    <span>
-                        Are you sure you want to delete
-                        <b>{{ form.title }}</b> ?
-                    </span>
-                </div>
-                <template #footer>
-                    <Button
-                        :loading="form.processing"
-                        rounded
-                        label="Delete"
-                        icon="pi pi-check"
-                        autofocus
-                        @click="deleteArticle"
-                        severity="danger" />
-                    <Button
-                        rounded
-                        label="Cancel"
-                        icon="pi pi-times"
-                        outlined
-                        severity="danger"
-                        @click="closeDialog(DELETE_DIALOG)" />
-                </template>
-            </Dialog>
+            </div>
+            <template #footer>
+                <Button
+                    :loading="form.processing"
+                    rounded
+                    label="Save"
+                    icon="pi pi-check"
+                    :disabled="coverImage.isRepositionMode.value"
+                    @click="saveArticle" />
+                <Button
+                    rounded
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    @click="closeDialog(SAVE_DIALOG)" />
+            </template>
+        </Dialog>
+        <!-- Delete Dialog -->
+        <Dialog
+            v-model:visible="openArticleDeleteDialog"
+            modal
+            header="Confirm"
+            class="tw-w-2/5">
+            <div
+                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                <i
+                    class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
+                <span>
+                    Are you sure you want to delete
+                    <b>{{ form.title }}</b> ?
+                </span>
+            </div>
+            <template #footer>
+                <Button
+                    :loading="form.processing"
+                    rounded
+                    label="Delete"
+                    icon="pi pi-check"
+                    autofocus
+                    @click="deleteArticle"
+                    severity="danger" />
+                <Button
+                    rounded
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="danger"
+                    @click="closeDialog(DELETE_DIALOG)" />
+            </template>
+        </Dialog>
 
-            <!-- Restore Dialog -->
-            <Dialog
-                v-model:visible="openArticleRestoreDialog"
-                modal
-                header="Confirm"
-                class="tw-w-2/5">
-                <div
-                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                    <i
-                        class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
-                    <span>
-                        Are you sure you want to restore
-                        <b>{{ form.title }}</b> ?
-                    </span>
-                </div>
-                <template #footer>
-                    <Button
-                        :loading="form.processing"
-                        rounded
-                        label="Restore"
-                        icon="pi pi-check"
-                        autofocus
-                        @click="restoreArticle"
-                        severity="success" />
-                    <Button
-                        rounded
-                        label="Cancel"
-                        icon="pi pi-times"
-                        outlined
-                        severity="success"
-                        @click="closeDialog(RESTORE_DIALOG)" />
-                </template>
-            </Dialog>
-        </div>
+        <!-- Restore Dialog -->
+        <Dialog
+            v-model:visible="openArticleRestoreDialog"
+            modal
+            header="Confirm"
+            class="tw-w-2/5">
+            <div
+                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                <i
+                    class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                <span>
+                    Are you sure you want to restore
+                    <b>{{ form.title }}</b> ?
+                </span>
+            </div>
+            <template #footer>
+                <Button
+                    :loading="form.processing"
+                    rounded
+                    label="Restore"
+                    icon="pi pi-check"
+                    autofocus
+                    @click="restoreArticle"
+                    severity="success" />
+                <Button
+                    rounded
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="success"
+                    @click="closeDialog(RESTORE_DIALOG)" />
+            </template>
+        </Dialog>
     </section>
 </template>

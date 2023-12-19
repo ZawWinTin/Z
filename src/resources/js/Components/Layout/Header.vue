@@ -37,9 +37,10 @@ const initializeScrolling = () => {
     });
 };
 
-const toggleMainMenu = (event: MouseEvent) => {
+const toggleMainMenu = (event: MouseEvent, openMainMenu: boolean | null = null) => {
     event.stopPropagation();
-    isMenuOpen.value = !isMenuOpen.value;
+
+    isMenuOpen.value = (openMainMenu === null) ? !isMenuOpen.value : openMainMenu;
     if (isMenuOpen.value) {
         document.body.classList.add('tw-overflow-hidden');
     } else {
@@ -105,7 +106,7 @@ const scrollToContact = () => {
                 tw-justify-between
                 "
         >
-            <Link class="tw-pointer-events-auto tw-py-0.5" :href="route('home')">
+            <Link class="tw-pointer-events-auto tw-py-0.5" @click="toggleMainMenu($event, false)" :href="route('home')">
                 <ApplicationLogo
                     class="tw-h-6 tw-w-6 tw-transition tw-duration-300 "
                     :class="
@@ -118,10 +119,10 @@ const scrollToContact = () => {
             <MainMenuButton
                 class="tw-transition tw-duration-300 tw-pointer-events-auto"
                 @click="toggleMainMenu"
-                :class="
-                    (isMenuOpen || isContactViewReached)
-                        ? '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50'
-                        : ''
+                :class="{
+                        '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50' : isMenuOpen,
+                        'hover:!tw-bg-slate-50 hover:!tw-text-slate-900 !tw-border-slate-50 !tw-text-slate-50' : isContactViewReached
+                    }
                 "
             />
         </div>

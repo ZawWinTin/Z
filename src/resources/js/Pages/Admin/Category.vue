@@ -249,21 +249,21 @@ const restoreCategory = () => {
 };
 </script>
 <template>
-    <section>
+    <section class="tw-h-full tw-flex tw-flex-col tw-space-y-4">
         <Head title="Category - Admin" />
         <h1
-            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-mb-4">
+            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-h-8">
             Categories
         </h1>
         <Toast />
         <div
-            class="main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            class="main-bg-2 tw-h-[calc(100%-3rem)] tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
             <DataTable
                 removableSort
                 v-model:filters="filters"
                 :value="getCategories"
                 scrollable
-                scrollHeight="53vh"
+                scrollHeight="flex"
                 paginator
                 :rows="10"
                 :rowsPerPageOptions="[5, 10, 20]"
@@ -364,181 +364,181 @@ const restoreCategory = () => {
                 </Column>
                 <template #footer> In total, there are <b>{{ getCategories ? getCategories.length : 0 }}</b> categories.</template>
             </DataTable>
-
-            <!-- Create/Update Dialog -->
-            <Dialog
-                v-model:visible="openCategorySaveDialog"
-                modal
-                header="Category Details">
-                <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
-                    <div
-                        class="tw-py-12 tw-flex tw-justify-center tw-rounded-md tw-border-primary tw-shadow tw-relative tw-transition tw-duration-300"
-                        :class="isCategoryPreviewBgDark ? 'main-bg-3-dark-only' : 'main-bg-3-light-only'">
-                        <CategoryBadge :category="{
-                                name: form.name || 'Text',
-                                text_color: form.text_color,
-                                background_color: form.background_color,
-                        }" />
-                        <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300 focus:main-primary-focus"
-                            :class="isCategoryPreviewBgDark ? 'main-bg-3-light-only tw-text-slate-900' : 'main-bg-3-dark-only tw-text-slate-50'"
-                        @click="toggleCategoryPreviewBg">
-                            <span>
-                                <MoonIcon class="tw-w-5 tw-h-5" />
-                            </span>
-                        </button>
-                    </div>
-                    <div class="tw-flex tw-flex-col tw-space-y-4">
-                        <div class="tw-flex tw-flex-col tw-space-y-1">
-                            <label class="tw-font-bold">Name</label>
-                            <InputText
-                                v-model.trim="form.name"
-                                autofocus />
-                            <InputError :message="form.errors.name" />
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-space-y-1">
-                            <div
-                                class="tw-flex tw-flex-row tw-justify-between">
-                                <label class="tw-font-bold">Color</label>
-                                <Checkbox
-                                    v-tooltip.left="{ value: 'Set background and text color same', pt: Tooltip }"
-                                    v-model="isSameColor"
-                                    :binary="true"
-                                    @change="setSameColor" />
-                            </div>
-                            <div
-                                class="tw-flex tw-flex-col sm:tw-flex-row tw-space-y-2 sm:tw-space-y-0 tw-space-x-0 sm:tw-space-x-2">
-                                <div
-                                    class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
-                                    <label class="text-sm tw-font-semibold">Text Color</label>
-                                    <div
-                                        class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
-                                        <ColorPicker
-                                            v-model="form.text_color"
-                                            @change="
-                                                changeColor(TEXT_COLOR)
-                                                " />
-                                        <InputText
-                                            v-model="form.text_color"
-                                            class="tw-w-full"
-                                            required="true"
-                                            @change="
-                                                changeColor(TEXT_COLOR)
-                                                " />
-                                    </div>
-                                    <InputError :message="form.errors.text_color" />
-                                </div>
-                                <div
-                                    class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
-                                    <label class="text-sm tw-font-semibold">Background Color</label>
-                                    <div
-                                        class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
-                                        <ColorPicker
-                                            v-model="form.background_color"
-                                            @change="
-                                                changeColor(
-                                                    BACKGROUND_COLOR,
-                                                )
-                                                " />
-                                        <InputText
-                                            v-model="form.background_color"
-                                            class="tw-w-full"
-                                            required="true"
-                                            @change="
-                                                changeColor(
-                                                    BACKGROUND_COLOR,
-                                                )
-                                                " />
-                                    </div>
-                                    <InputError :message="form.errors.background_color" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tw-flex tw-flex-row tw-justify-end tw-space-x-2">
-                        <Button
-                            :loading="form.processing"
-                            type="submit"
-                            rounded
-                            label="Save"
-                            icon="pi pi-check" />
-                        <Button
-                            rounded
-                            type="button"
-                            label="Cancel"
-                            icon="pi pi-times"
-                            outlined
-                            @click="closeDialog(SAVE_DIALOG)" />
-                    </div>
-                </form>
-            </Dialog>
-
-            <!-- Delete Dialog -->
-            <Dialog
-                v-model:visible="openCategoryDeleteDialog"
-                modal
-                header="Confirm"
-                class="tw-w-2/5">
-                <div
-                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                    <i
-                        class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
-                    <span>
-                        Are you sure you want to delete
-                        <b>{{ form.name }}</b> ?
-                    </span>
-                </div>
-                <template #footer>
-                    <Button
-                        :loading="form.processing"
-                        rounded
-                        label="Delete"
-                        icon="pi pi-check"
-                        autofocus
-                        @click="deleteCategory"
-                        severity="danger" />
-                    <Button
-                        rounded
-                        label="Cancel"
-                        icon="pi pi-times"
-                        outlined
-                        severity="danger"
-                        @click="closeDialog(DELETE_DIALOG)" />
-                </template>
-            </Dialog>
-
-            <!-- Restore Dialog -->
-            <Dialog
-                v-model:visible="openCategoryRestoreDialog"
-                modal
-                header="Confirm"
-                class="tw-w-2/5">
-                <div
-                    class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
-                    <i
-                        class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
-                    <span>
-                        Are you sure you want to restore
-                        <b>{{ form.name }}</b> ?
-                    </span>
-                </div>
-                <template #footer>
-                    <Button
-                        :loading="form.processing"
-                        rounded
-                        label="Restore"
-                        icon="pi pi-check"
-                        autofocus
-                        @click="restoreCategory"
-                        severity="success" />
-                    <Button
-                        rounded
-                        label="Cancel"
-                        icon="pi pi-times"
-                        outlined
-                        severity="success"
-                        @click="closeDialog(RESTORE_DIALOG)" />
-                </template>
-            </Dialog>
         </div>
+
+        <!-- Create/Update Dialog -->
+        <Dialog
+            v-model:visible="openCategorySaveDialog"
+            modal
+            header="Category Details">
+            <form @submit.prevent="saveCategory" class="tw-flex tw-flex-col tw-space-y-6">
+                <div
+                    class="tw-py-12 tw-flex tw-justify-center tw-rounded-md tw-border-primary tw-shadow tw-relative tw-transition tw-duration-300"
+                    :class="isCategoryPreviewBgDark ? 'main-bg-3-dark-only' : 'main-bg-3-light-only'">
+                    <CategoryBadge :category="{
+                            name: form.name || 'Text',
+                            text_color: form.text_color,
+                            background_color: form.background_color,
+                    }" />
+                    <button type="button" class="tw-absolute tw-top-3 tw-right-3 tw-rounded-full tw-p-1 tw-transition tw-duration-300 focus:main-primary-focus"
+                        :class="isCategoryPreviewBgDark ? 'main-bg-3-light-only tw-text-slate-900' : 'main-bg-3-dark-only tw-text-slate-50'"
+                    @click="toggleCategoryPreviewBg">
+                        <span>
+                            <MoonIcon class="tw-w-5 tw-h-5" />
+                        </span>
+                    </button>
+                </div>
+                <div class="tw-flex tw-flex-col tw-space-y-4">
+                    <div class="tw-flex tw-flex-col tw-space-y-1">
+                        <label class="tw-font-bold">Name</label>
+                        <InputText
+                            v-model.trim="form.name"
+                            autofocus />
+                        <InputError :message="form.errors.name" />
+                    </div>
+                    <div class="tw-flex tw-flex-col tw-space-y-1">
+                        <div
+                            class="tw-flex tw-flex-row tw-justify-between">
+                            <label class="tw-font-bold">Color</label>
+                            <Checkbox
+                                v-tooltip.left="{ value: 'Set background and text color same', pt: Tooltip }"
+                                v-model="isSameColor"
+                                :binary="true"
+                                @change="setSameColor" />
+                        </div>
+                        <div
+                            class="tw-flex tw-flex-col sm:tw-flex-row tw-space-y-2 sm:tw-space-y-0 tw-space-x-0 sm:tw-space-x-2">
+                            <div
+                                class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
+                                <label class="text-sm tw-font-semibold">Text Color</label>
+                                <div
+                                    class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
+                                    <ColorPicker
+                                        v-model="form.text_color"
+                                        @change="
+                                            changeColor(TEXT_COLOR)
+                                            " />
+                                    <InputText
+                                        v-model="form.text_color"
+                                        class="tw-w-full"
+                                        required="true"
+                                        @change="
+                                            changeColor(TEXT_COLOR)
+                                            " />
+                                </div>
+                                <InputError :message="form.errors.text_color" />
+                            </div>
+                            <div
+                                class="tw-flex tw-flex-col tw-space-y-1 tw-w-full">
+                                <label class="text-sm tw-font-semibold">Background Color</label>
+                                <div
+                                    class="tw-flex tw-flex-row tw-w-full tw-items-center tw-space-x-1">
+                                    <ColorPicker
+                                        v-model="form.background_color"
+                                        @change="
+                                            changeColor(
+                                                BACKGROUND_COLOR,
+                                            )
+                                            " />
+                                    <InputText
+                                        v-model="form.background_color"
+                                        class="tw-w-full"
+                                        required="true"
+                                        @change="
+                                            changeColor(
+                                                BACKGROUND_COLOR,
+                                            )
+                                            " />
+                                </div>
+                                <InputError :message="form.errors.background_color" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw-flex tw-flex-row tw-justify-end tw-space-x-2">
+                    <Button
+                        :loading="form.processing"
+                        type="submit"
+                        rounded
+                        label="Save"
+                        icon="pi pi-check" />
+                    <Button
+                        rounded
+                        type="button"
+                        label="Cancel"
+                        icon="pi pi-times"
+                        outlined
+                        @click="closeDialog(SAVE_DIALOG)" />
+                </div>
+            </form>
+        </Dialog>
+
+        <!-- Delete Dialog -->
+        <Dialog
+            v-model:visible="openCategoryDeleteDialog"
+            modal
+            header="Confirm"
+            class="tw-w-2/5">
+            <div
+                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                <i
+                    class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
+                <span>
+                    Are you sure you want to delete
+                    <b>{{ form.name }}</b> ?
+                </span>
+            </div>
+            <template #footer>
+                <Button
+                    :loading="form.processing"
+                    rounded
+                    label="Delete"
+                    icon="pi pi-check"
+                    autofocus
+                    @click="deleteCategory"
+                    severity="danger" />
+                <Button
+                    rounded
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="danger"
+                    @click="closeDialog(DELETE_DIALOG)" />
+            </template>
+        </Dialog>
+
+        <!-- Restore Dialog -->
+        <Dialog
+            v-model:visible="openCategoryRestoreDialog"
+            modal
+            header="Confirm"
+            class="tw-w-2/5">
+            <div
+                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                <i
+                    class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                <span>
+                    Are you sure you want to restore
+                    <b>{{ form.name }}</b> ?
+                </span>
+            </div>
+            <template #footer>
+                <Button
+                    :loading="form.processing"
+                    rounded
+                    label="Restore"
+                    icon="pi pi-check"
+                    autofocus
+                    @click="restoreCategory"
+                    severity="success" />
+                <Button
+                    rounded
+                    label="Cancel"
+                    icon="pi pi-times"
+                    outlined
+                    severity="success"
+                    @click="closeDialog(RESTORE_DIALOG)" />
+            </template>
+        </Dialog>
     </section>
 </template>

@@ -25,7 +25,7 @@ const adminMenuStore = useAdminMenuStore();
             tw-items-center
             tw-justify-center
             tw-px-2
-            tw-py-0.5
+            tw-py-1
             tw-rounded-full
             tw-text-slate-900
             tw-transition
