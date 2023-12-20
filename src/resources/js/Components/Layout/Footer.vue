@@ -92,7 +92,7 @@ const submitContact = () => {
                     :leave-active-class="Transitions.overlay.leaveActiveClass"
                     :leave-to-class="Transitions.overlay.leaveToClass"
                 >
-                    <form v-show="contactViewStore.isReached"
+                    <form v-show="contactViewStore.isShow"
                         class="tw-flex tw-flex-col tw-gap-8 tw-p-8 main-bg-2-dark-only tw-rounded-md tw-transition tw-duration-300 tw-shadow-lg hover:tw-shadow-primary"
                         @submit.prevent="submitContact"
                     >
@@ -170,7 +170,7 @@ const submitContact = () => {
                             type="submit"
                             rounded raised
                             label="Send"
-                            icon="pi pi-chevron-circle-right"
+                            icon="pi pi-arrow-up-right"
                             iconPos="right"
                             class="tw-uppercase focus:tw-ring-offset-slate-800"
                             :loading="form.processing"

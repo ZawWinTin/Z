@@ -33,6 +33,7 @@ const initializeScrolling = () => {
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         contactViewStore.setReach(!!(contact.value && scrollTop >= (contact.value.offsetTop - 50)));
+        contactViewStore.setShow(!!(contact.value && scrollTop >= (contact.value.offsetTop - 300)));
     });
 };
 
