@@ -26,6 +26,9 @@ const scrollOverlayEffect = () => {
             newActiveSection.style.position = 'relative';
             newActiveSection.style.zIndex = '0';
             newActiveSection.style.marginTop = '0';
+            if (activeSection + 1 < offsets.value.length) {
+                sections.value[activeSection + 1].style.marginTop = '0';
+            }
             if (activeSection > 0 && oldActiveSection && (scrollTop < offsets.value[activeSection].top)) {
                 newActiveSection.style.marginTop = offsets.value[activeSection - 1].top + offsets.value[activeSection - 1].height + 'px';
                 oldActiveSection.style.position = 'fixed';
