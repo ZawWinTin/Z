@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
@@ -13,6 +13,13 @@ const isMenuOpen = ref(false);
 
 const contact = ref<HTMLElement | null>(null);
 const contactViewStore = useContactViewStore();
+
+const fragments = {
+    home: { url: 'home', element: ref<HTMLElement | null>(null) },
+    articles: { url: 'article.index', element: ref<HTMLElement | null>(null) },
+    about: { url: 'home', element: ref<HTMLElement | null>(null) },
+    contact: { url: 'contact', element: ref<HTMLElement | null>(null) },
+};
 
 const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
 const menuCardClasses =
@@ -146,9 +153,12 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                             <hr
                                 class="tw-bg-slate-300 tw-border-0 tw-h-px"
                             />
-                            <Link :class="menuLinkClasses" :href="route('admin.dashboard')"
-                                >Overview Dashboard</Link
-                            >
+                            <a class="tw-flex tw-flex-row tw-justify-between tw-items-center"
+                                :class="menuLinkClasses" :href="route('admin.dashboard')"
+                                target="_blank">
+                                <span>Overview Dashboard</span>
+                                <i class="pi pi-arrow-up-right main-text-light-only" />
+                            </a>
                             <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
                                 >Logout</Link
                             >
