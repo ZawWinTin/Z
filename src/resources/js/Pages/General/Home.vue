@@ -37,7 +37,7 @@ const props = defineProps<{
             tw-bg-center
             before:tw-absolute
             before:tw-inset-0
-            before:block
+            before:tw-block
             before:tw-bg-gradient-to-l
             before:tw-from-indigo-500/40
             before:tw-via-purple-500

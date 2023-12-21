@@ -4,6 +4,8 @@ type OffsetType = {top: number, height: number};
 const sections = ref<HTMLCollection | null>(null);
 const offsets = ref<Array<OffsetType>>([]);
 
+const addShadow = ref<boolean>(false);
+
 const getSection = (scrollBottom: number) => {
     for(let i = 0; i < offsets.value.length; i++) {
         if (scrollBottom >= offsets.value[i].top && scrollBottom <= (offsets.value[i].top + offsets.value[i].height)) {
@@ -26,14 +28,38 @@ const scrollOverlayEffect = () => {
             newActiveSection.style.position = 'relative';
             newActiveSection.style.zIndex = '0';
             newActiveSection.style.marginTop = '0';
-            if (activeSection + 1 < offsets.value.length) {
-                sections.value[activeSection + 1].style.marginTop = '0';
+            if (activeSection + 1 < offsets.value.length && sections.value) {
+                (sections.value[activeSection + 1] as HTMLElement).style.marginTop = '0';
             }
             if (activeSection > 0 && oldActiveSection && (scrollTop < offsets.value[activeSection].top)) {
                 newActiveSection.style.marginTop = offsets.value[activeSection - 1].top + offsets.value[activeSection - 1].height + 'px';
                 oldActiveSection.style.position = 'fixed';
                 oldActiveSection.style.bottom = '0';
                 oldActiveSection.style.zIndex = '-1';
+
+                if (addShadow.value) {
+                    let shadowElement = document.querySelector('.shadow-scroll-js') as HTMLElement;
+                    if (!shadowElement) {
+                        shadowElement = document.createElement('div') as HTMLElement;
+                        shadowElement.classList.add(
+                            'shadow-scroll-js',
+                            'tw-absolute',
+                            'tw-inset-0',
+                            'tw-block',
+                            'tw-z-10',
+                            'tw-bg-slate-950',
+                        );
+                    }
+                    let opacity = ((scrollBottom - offsets.value[activeSection].top) / window.innerHeight) * 0.5;
+                    console.log(opacity);
+                    shadowElement.style.opacity = opacity + '';
+                    oldActiveSection.appendChild(shadowElement);
+                }
+            } else if (addShadow.value) {
+                let shadowElements = document.querySelectorAll('.shadow-scroll-js');
+                shadowElements.forEach(element => {
+                    element.remove();
+                });
             }
         }
     }
@@ -59,10 +85,16 @@ export const loadOverlayScroll =  (parentSection: HTMLElement | null) => {
         section.style.zIndex = '0';
         section.style.marginTop = '0';
     }
+
+    let shadowElements = document.querySelectorAll('.shadow-scroll-js');
+    shadowElements.forEach(element => {
+        element.remove();
+    });
 };
 
-export const intializeOverlayScroll = (parentSection: HTMLElement | null) => {
+export const intializeOverlayScroll = (parentSection: HTMLElement | null, addShadowOnScroll: boolean = false) => {
     loadOverlayScroll(parentSection);
+    addShadow.value = addShadowOnScroll;
 
     window.addEventListener('scroll', scrollOverlayEffect);
 }

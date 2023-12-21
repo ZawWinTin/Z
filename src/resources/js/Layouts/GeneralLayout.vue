@@ -18,7 +18,7 @@ const props = withDefaults(
 const articleSection = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-    intializeOverlayScroll(articleSection.value);
+    intializeOverlayScroll(articleSection.value, true);
 });
 
 onUpdated(() => {
