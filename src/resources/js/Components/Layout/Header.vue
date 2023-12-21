@@ -31,9 +31,8 @@ const initializeScrolling = () => {
     contact.value = document.querySelector('footer');
 
     window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        contactViewStore.setReach(!!(contact.value && scrollTop >= (contact.value.offsetTop - 50)));
-        contactViewStore.setShow(!!(contact.value && scrollTop >= (contact.value.offsetTop - 300)));
+        contactViewStore.setReach(!!(contact.value && window.scrollY >= (contact.value.offsetTop - 48)));
+        contactViewStore.setShow(!!(contact.value && window.scrollY >= (contact.value.offsetTop - (window.innerHeight / 2))));
     });
 };
 

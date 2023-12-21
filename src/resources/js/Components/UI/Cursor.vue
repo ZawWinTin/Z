@@ -13,10 +13,10 @@ let lightX = 0;
 let lightY = 0;
 
 onMounted(() => {
-    window.onmousemove = (event: MouseEvent) => {
+    window.addEventListener('mousemove', (event: MouseEvent) => {
         updateCursor(event);
         updateCursorLight(event);
-    };
+    });
 });
 
 const updateCursor = (event: MouseEvent) => {
