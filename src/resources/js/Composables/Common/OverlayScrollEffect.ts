@@ -51,8 +51,8 @@ const scrollOverlayEffect = () => {
                         );
                     }
                     let opacity = ((scrollBottom - offsets.value[activeSection].top) / window.innerHeight) * 0.5;
-                    console.log(opacity);
-                    shadowElement.style.opacity = opacity + '';
+
+                    shadowElement.style.opacity = opacity.toString();
                     oldActiveSection.appendChild(shadowElement);
                 }
             } else if (addShadow.value) {
