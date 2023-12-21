@@ -3,6 +3,8 @@ import Header from '@/Components/Layout/Header.vue';
 import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
+import { ref, onMounted, onUpdated } from 'vue';
+import { intializeOverlayScroll, loadOverlayScroll } from '@/Composables/Common/OverlayScrollEffect';
 
 const props = withDefaults(
     defineProps<{
@@ -12,6 +14,16 @@ const props = withDefaults(
         showFooter: true,
     }
 );
+
+const articleSection = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    intializeOverlayScroll(articleSection.value);
+});
+
+onUpdated(() => {
+    loadOverlayScroll(articleSection.value);
+});
 </script>
 <template>
     <main
@@ -25,11 +37,11 @@ const props = withDefaults(
     >
         <Cursor />
         <Header></Header>
-        <article class="tw-z-[1]">
+        <article ref="articleSection" class="tw-z-[1]">
             <div class="tw-min-h-screen">
                 <slot />
             </div>
-            <Footer v-show="$props.showFooter" />
+            <Footer v-show="props.showFooter" />
         </article>
         <Preloader />
     </main>

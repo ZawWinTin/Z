@@ -84,8 +84,8 @@ const submitContact = () => {
             </template>
         </Toast>
         <div class="tw-container tw-flex tw-flex-row tw-items-center tw-h-full tw-py-12">
-            <div class="tw-w-2/3 tw-flex tw-flex-col tw-gap-8 tw-p-4"></div>
-            <div class="tw-w-1/2 lg:tw-w-1/3 tw-h-full tw-flex tw-flex-col tw-justify-center tw-gap-8 tw-relative">
+            <div class="tw-w-1/2 lg:tw-w-3/5 tw-flex tw-flex-col tw-gap-8 tw-p-4"></div>
+            <div class="tw-w-1/2 lg:tw-w-2/5 tw-h-full tw-flex tw-flex-col tw-justify-center tw-gap-8 tw-relative">
                 <transition
                     :enter-from-class="Transitions.overlay.enterFromClass"
                     :enter-active-class="Transitions.overlay.enterActiveClass"
@@ -98,7 +98,7 @@ const submitContact = () => {
                     >
                         <h3 class="tw-text-3xl main-text-gradient tw-uppercase">Contact Us</h3>
                         <div class="tw-w-full tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-4">
-                            <div>
+                            <div class="tw-w-full">
                                 <span
                                     class="p-float-label p-input-icon-right tw-w-full"
                                 >
@@ -120,7 +120,7 @@ const submitContact = () => {
                                     :message="form.errors.name"
                                 />
                             </div>
-                            <div>
+                            <div class="tw-w-full">
                                 <span
                                     class="p-float-label p-input-icon-right tw-w-full"
                                 >

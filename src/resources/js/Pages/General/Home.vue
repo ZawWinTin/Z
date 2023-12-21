@@ -62,6 +62,6 @@ const props = defineProps<{
                     </div>
                 </div>
         </div>
-        <div class="tw-h-screen"></div>
+        <div class="tw-h-[50vh]"></div>
     </section>
 </template>
