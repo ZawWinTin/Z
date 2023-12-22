@@ -116,7 +116,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => 'default', // TODO:
 
         'paths' => [
             resource_path('views/vendor/mail'),
