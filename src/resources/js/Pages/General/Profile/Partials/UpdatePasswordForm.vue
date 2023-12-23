@@ -120,7 +120,7 @@ const updatePassword = () => {
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">
-                <Button label="Save" :loading="form.processing" />
+                <Button type="submit" rounded label="Save" :loading="form.processing" />
 
                 <Transition
                     enter-active-class="tw-transition tw-ease-in-out"

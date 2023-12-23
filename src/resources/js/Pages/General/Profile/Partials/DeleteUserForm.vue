@@ -55,8 +55,7 @@ const closeModal = () => {
             <p
                 class="
                     tw-mt-1
-                    dark:tw-text-slate-400
-                    tw-text-slate-600
+                    main-text
                     tw-text-sm
                     "
             >
@@ -66,7 +65,7 @@ const closeModal = () => {
             </p>
         </header>
 
-        <Button label="Delete Account" severity="danger" @click="confirmUserDeletion" />
+        <Button rounded label="Delete Account" severity="danger" @click="confirmUserDeletion" />
 
         <Dialog v-model:visible="confirmingUserDeletion" modal header="Confirm">
             <div class="tw-p-6">
