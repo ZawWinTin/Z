@@ -50,7 +50,7 @@ const submit = () => {
                         type="email"
                         class="tw-block tw-w-full"
                         autofocus
-                        autocomplete="username email"
+                        :inputProps="{ autocomplete: 'username email' }"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>

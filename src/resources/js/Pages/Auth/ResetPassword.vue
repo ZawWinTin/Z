@@ -34,47 +34,53 @@ const submit = () => {
         <Head title="Reset Password" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <InputText
-                    id="email"
-                    v-model="props.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    disabled
-                    autocomplete="username"
-                />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <InputText
+                        id="email"
+                        v-model="props.email"
+                        type="email"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        autofocus
+                        disabled
+                        :inputProps="{ autocomplete: 'username' }"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="password" value="Password" />
-                <Password
-                    id="password"
-                    v-model="form.password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    :inputProps="{ autocomplete: 'new-password' }"
-                    toggleMask
-                    feedback
-                />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        v-model="form.password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel for="password" value="Password" class="tw-ml-4" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-                <Password
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    :inputProps="{ autocomplete: 'new-password' }"
-                    toggleMask
-                    feedback
-                />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel
+                        class="tw-ml-4"
+                        for="password_confirmation"
+                        value="Confirm Password"
+                    />
+                </span>
 
                 <InputError
                     class="tw-mt-2"

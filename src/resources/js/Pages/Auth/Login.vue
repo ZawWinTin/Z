@@ -71,7 +71,7 @@ const hidePassword = () => {
                         type="email"
                         class="tw-block tw-w-full"
                         autofocus
-                        autocomplete="username email"
+                        :inputProps="{ autocomplete: 'username email' }"
                         @input="hidePassword"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
@@ -137,6 +137,7 @@ const hidePassword = () => {
                     v-if="canResetPassword"
                     :href="route('password.request')"
                     class="tw-transition
+                    tw-rounded-md
                     tw-duration-300
                     focus:main-primary-focus
                     main-text
@@ -154,5 +155,30 @@ const hidePassword = () => {
                 />
             </div>
         </form>
+        <!-- TODO: Google Login -->
+        <div class="tw-relative tw-mt-8">
+            <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-h-px">
+            <span class="tw-uppercase main-text main-bg-2 tw-px-4 tw-py-2 tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-rounded-full tw-absolute tw-translate-y-[-50%] tw-translate-x-[50%] tw-right-1/2">OR</span>
+            <div class="
+                tw-flex
+                tw-items-center
+                tw-justify-center
+                tw-mt-8
+                ">
+                <Link
+                    :href="route('register')"
+                    class="tw-transition
+                    tw-rounded-md
+                    tw-duration-300
+                    focus:main-primary-focus
+                    main-text
+                    hover:tw-text-primary
+                    tw-text-sm
+                    tw-underline"
+                >
+                    Don't have an account?
+                </Link>
+            </div>
+        </div>
     </section>
 </template>

@@ -47,26 +47,21 @@ const verificationLinkSent = computed(
                 tw-justify-between
                 tw-mt-4
                 ">
-                <Button label="Resend Verification Email"
+                <Button type="submit" rounded label="Resend Verification Email"
                     :loading="form.processing" />
 
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="
-                        tw-rounded-md
-                        dark:focus:tw-ring-offset-slate-800
-                        dark:hover:tw-text-slate-100
-                        dark:tw-text-slate-400
-                        focus:tw-outline-none
-                        focus:tw-ring-2
-                        focus:tw-ring-indigo-500
-                        focus:tw-ring-offset-2
-                        hover:tw-text-slate-900
-                        tw-text-slate-600
-                        tw-text-sm
-                        tw-underline
+                    class="tw-transition
+                    tw-rounded-md
+                    tw-duration-300
+                    focus:main-primary-focus
+                    main-text
+                    hover:tw-text-primary
+                    tw-text-sm
+                    tw-underline
                         "
                     >Log Out</Link
                 >

@@ -4,6 +4,7 @@ import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm<{
@@ -30,67 +31,71 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <InputText
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <InputText
+                        id="name"
+                        v-model="form.name"
+                        type="text"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        autofocus
+                        :inputProps="{ autocomplete: 'name' }"
+                    />
+                    <InputLabel for="name" value="Name" class="tw-ml-4" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.name" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <InputText
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="username"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <InputText
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        :inputProps="{ autocomplete: 'username' }"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <InputText
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        toggleMask
+                        feedback
+                        :inputProps="{ autocomplete: 'new-password' }"
+                    />
+                    <InputLabel for="password" value="Password" class="tw-ml-4" />
+                </span>
                 <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <InputText
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
-                />
-
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        type="password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        toggleMask
+                        feedback
+                        :inputProps="{ autocomplete: 'new-password' }"
+                    />
+                    <InputLabel class="tw-ml-4"
+                        for="password_confirmation"
+                        value="Confirm Password"
+                    />
+                </span>
                 <InputError
                     class="tw-mt-2"
                     :message="form.errors.password_confirmation"
@@ -100,31 +105,24 @@ const submit = () => {
             <div class="
                 tw-flex
                 tw-items-center
-                tw-justify-end
+                tw-justify-between
                 tw-mt-4
                 ">
                 <Link
                     :href="route('login')"
-                    class="
-                        tw-rounded-md
-                        dark:focus:tw-ring-offset-slate-800
-                        dark:hover:tw-text-slate-100
-                        dark:tw-text-slate-400
-                        focus:tw-outline-none
-                        focus:tw-ring-2
-                        focus:tw-ring-indigo-500
-                        focus:tw-ring-offset-2
-                        hover:tw-text-slate-900
-                        tw-text-slate-600
-                        tw-text-sm
-                        tw-underline
-                        "
+                    class="tw-transition
+                    tw-rounded-md
+                    tw-duration-300
+                    focus:main-primary-focus
+                    main-text
+                    hover:tw-text-primary
+                    tw-text-sm
+                    tw-underline"
                 >
                     Already registered?
                 </Link>
 
-                <Button label="Register"
-                    class="tw-ml-4"
+                <Button type="submit" rounded label="Register"
                     :loading="form.processing"
                 />
             </div>

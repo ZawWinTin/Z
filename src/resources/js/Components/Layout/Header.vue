@@ -39,7 +39,7 @@ onMounted(() => {
 
 const initializeFlashMessage = () => {
     const message = usePage().props.flash.message;
-    if (message && message.type == 'auth') {
+    if (message && ['auth', 'email'].includes(message.type)) {
         showFlashMessage(message.details);
     }
 };
@@ -225,7 +225,11 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
             <template #container="{ message }">
                 <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow tw-shadow-primary tw-rounded-full tw-justify-center tw-items-center" >
                     <div class="tw-flex tw-flex-row tw-gap-4 tw-justify-center">
-                        <i class="pi tw-text-primary tw-text-2xl" :class="$page.props.auth.user ? 'pi-sign-in' : 'pi-sign-out'"></i>
+                        <i class="pi tw-text-primary tw-text-2xl" :class="{
+                            'pi-sign-in': $page.props.flash.message?.type == 'auth' && $page.props.auth.user,
+                            'pi-sign-out': $page.props.flash.message?.type == 'auth' && !$page.props.auth.user,
+                            'pi-check': $page.props.flash.message?.type == 'email',
+                        }"></i>
                         <p class="tw-font-semibold tw-text-base tw-text-slate-50">{{ message.summary }}</p>
                     </div>
                     <template v-if="!!message.detail">

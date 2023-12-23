@@ -14,7 +14,7 @@ import ToastService from 'primevue/toastservice';
 import MainDesignSystem from '@/Composables/UI/MainDesignSystem';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
 import TailwindConfig from '../../tailwind.config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -36,7 +36,7 @@ createInertiaApp({
                     layout = AdminLayout;
                     break;
                 case name.startsWith('Auth/'):
-                    layout = GuestLayout;
+                    layout = AuthLayout;
                     break;
                 default:
                     layout = GeneralLayout;
