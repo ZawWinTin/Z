@@ -4,7 +4,7 @@ import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
 import { ref, onMounted, onUpdated } from 'vue';
-import { intializeOverlayScroll, loadOverlayScroll } from '@/Composables/Common/OverlayScrollEffect';
+import { initializeOverlayScroll, loadOverlayScroll } from '@/Composables/Common/OverlayScrollEffect';
 
 const props = withDefaults(
     defineProps<{
@@ -18,7 +18,7 @@ const props = withDefaults(
 const articleSection = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-    intializeOverlayScroll(articleSection.value, true);
+    initializeOverlayScroll(articleSection.value, true);
 });
 
 onUpdated(() => {

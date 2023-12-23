@@ -25,6 +25,7 @@ const form = useForm<{
 
 const toast = useToast();
 const toastVisible = ref(false);
+const isContactSuccess = ref(false);
 const contactViewStore = useContactViewStore();
 
 const footerInputTheme = 'tw-text-slate-300 !tw-bg-slate-900 !tw-border-slate-700 focus:tw-ring-offset-slate-800';
@@ -35,20 +36,22 @@ const submitContact = () => {
         preserveScroll: true,
         onSuccess: () => {
             toastVisible.value = true;
+            isContactSuccess.value = true;
             toast.add({
                 summary: 'Contact Successful',
                 detail: '',
-                group: 'success',
+                group: 'contact',
                 life: 3000,
             });
             form.reset();
         },
         onError: () => {
             toastVisible.value = true;
+            isContactSuccess.value = false;
             toast.add({
-                summary: 'Error',
-                detail: 'Something went wrong!',
-                group: 'error',
+                summary: 'Something went wrong!',
+                detail: '',
+                group: 'contact',
                 life: 3000,
             });
         },
@@ -57,25 +60,15 @@ const submitContact = () => {
 </script>
 <template>
     <footer class="main-bg-3-dark-only tw-h-screen tw-mt-auto">
-        <Toast position="bottom-center" group="success" @close="toastVisible = false">
+        <Toast position="bottom-center" group="contact" @close="toastVisible = false" :pt="{ transition: Transitions.overlay }">
             <template #container="{ message }">
-                <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow-lg tw-rounded-full tw-justify-center tw-items-center" >
+                <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow tw-shadow-primary tw-rounded-full tw-justify-center tw-items-center" >
                     <div class="tw-flex tw-flex-row tw-gap-4 tw-justify-center">
-                        <i class="pi pi-envelope tw-text-primary tw-text-2xl"></i>
-                        <p class="tw-font-semibold tw-text-base tw-text-slate-50">{{ message.summary }}</p>
-                    </div>
-                    <template v-if="!!message.detail">
-                        <p class="tw-m-0 tw-text-base main-text-dark-only">{{ message.detail }}</p>
-                    </template>
-                </section>
-            </template>
-        </Toast>
-        <Toast position="bottom-center" group="error" @close="toastVisible = false">
-            <template #container="{ message }">
-                <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow-lg tw-rounded-full tw-justify-center tw-items-center" >
-                    <div class="tw-flex tw-flex-row tw-gap-4 tw-justify-center">
-                        <i class="pi pi-times tw-text-red-500 tw-text-2xl"></i>
-                        <p class="tw-font-semibold tw-text-base tw-text-red-500">{{ message.summary }}</p>
+                        <i class="pi tw-text-2xl" :class="isContactSuccess ? 'pi-envelope tw-text-primary' : 'pi-times tw-text-red-500'"></i>
+                        <p class="tw-font-semibold tw-text-base"
+                            :class="isContactSuccess ? 'tw-text-slate-50' : 'tw-text-red-500'">
+                            {{ message.summary }}
+                        </p>
                     </div>
                     <template v-if="!!message.detail">
                         <p class="tw-m-0 tw-text-base main-text-dark-only">{{ message.detail }}</p>

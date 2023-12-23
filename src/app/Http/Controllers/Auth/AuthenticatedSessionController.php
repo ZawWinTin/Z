@@ -34,7 +34,8 @@ class AuthenticatedSessionController extends Controller
         if (!$isPasswordNeeded) {
             $request->session()->regenerate();
 
-            return redirect()->intended(auth()->user()?->isAdmin() ? route('admin.dashboard') : route('home'));
+            return redirect()->intended(auth()->user()?->isAdmin() ? route('admin.dashboard') : route('home'))
+                ->with('message', ['type' => 'auth', 'details' => 'Login Successful']);
         }
 
         return back();
@@ -51,6 +52,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('message', ['type' => 'auth', 'details' => 'Logout Successful']);
     }
 }
