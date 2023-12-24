@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import route from '@/Composables/Common/Route';
 import Button from 'primevue/button';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 const props = defineProps<{
     status?: string,

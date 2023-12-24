@@ -48,9 +48,9 @@ export default {
                 'tw-transition tw-duration-300', // Transition duration style.
                 'focus:tw-outline-none focus:outline-offset-0', // Focus styles.
                 {
-                    'tw-border-slate-300 tw-bg-slate-50 tw-text-slate-700 hover:tw-bg-slate-50 hover:tw-border-slate-400 dark:tw-bg-slate-800 dark:tw-border-primary/40 dark:tw-text-slate-50/80 dark:hover:tw-bg-slate-800/80':
+                    'tw-border-slate-300 tw-text-slate-700 hover:tw-border-slate-400 dark:tw-border-primary/40 dark:tw-text-slate-50/80':
                         parent.state.d_activeIndex !== context.index, // Condition-based hover styles.
-                    'tw-bg-slate-50 tw-border-primary tw-text-primary dark:tw-bg-slate-800 dark:tw-border-primary dark:tw-text-primary':
+                    'tw-border-primary tw-text-primary dark:tw-border-primary dark:tw-text-primary':
                         parent.state.d_activeIndex === context.index, // Condition-based active styles.
                 },
             ],
@@ -62,7 +62,7 @@ export default {
         content: {
             class: [
                 'tw-transition tw-duration-300',
-                'main-bg-2 tw-p-5 tw-border-0 tw-text-slate-700 tw-rounded-bl-md tw-rounded-br-md',
+                'tw-p-5 tw-border-0 tw-text-slate-700 tw-rounded-bl-md tw-rounded-br-md',
                 'dark:tw-border-primary/40 dark:text-slate-50/80',
             ], // Background, padding, tw-border, and text styles.
         },

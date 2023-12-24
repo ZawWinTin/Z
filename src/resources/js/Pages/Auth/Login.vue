@@ -12,7 +12,7 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
-    canResetPassword?: boolean,
+    isGeneralLogin?: boolean,
     status?: string,
 }>();
 
@@ -71,7 +71,7 @@ const hidePassword = () => {
                         type="email"
                         class="tw-block tw-w-full"
                         autofocus
-                        :inputProps="{ autocomplete: 'username email' }"
+                        autocomplete='username email'
                         @input="hidePassword"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
@@ -132,9 +132,9 @@ const hidePassword = () => {
             </transition>
 
             <div class="tw-flex tw-items-center tw-mt-4"
-                :class="canResetPassword ? 'tw-justify-between' : 'tw-justify-end'">
+                :class="isGeneralLogin ? 'tw-justify-between' : 'tw-justify-end'">
                 <Link
-                    v-if="canResetPassword"
+                    v-if="isGeneralLogin"
                     :href="route('password.request')"
                     class="tw-transition
                     tw-rounded-md
@@ -156,29 +156,31 @@ const hidePassword = () => {
             </div>
         </form>
         <!-- TODO: Google Login -->
-        <div class="tw-relative tw-mt-8">
-            <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-h-px">
-            <span class="tw-uppercase main-text main-bg-2 tw-px-4 tw-py-2 tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-rounded-full tw-absolute tw-translate-y-[-50%] tw-translate-x-[50%] tw-right-1/2">OR</span>
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-center
-                tw-mt-8
-                ">
-                <Link
-                    :href="route('register')"
-                    class="tw-transition
-                    tw-rounded-md
-                    tw-duration-300
-                    focus:main-primary-focus
-                    main-text
-                    hover:tw-text-primary
-                    tw-text-sm
-                    tw-underline"
-                >
-                    Don't have an account?
-                </Link>
+        <template v-if="isGeneralLogin">
+            <div class="tw-relative tw-mt-8">
+                <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-h-px">
+                <span class="tw-uppercase main-text main-bg-2 tw-px-4 tw-py-2 tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-rounded-full tw-absolute tw-translate-y-[-50%] tw-translate-x-[50%] tw-right-1/2">OR</span>
+                <div class="
+                    tw-flex
+                    tw-items-center
+                    tw-justify-center
+                    tw-mt-8
+                    ">
+                    <Link
+                        :href="route('register')"
+                        class="tw-transition
+                        tw-rounded-md
+                        tw-duration-300
+                        focus:main-primary-focus
+                        main-text
+                        hover:tw-text-primary
+                        tw-text-sm
+                        tw-underline"
+                    >
+                        Don't have an account?
+                    </Link>
+                </div>
             </div>
-        </div>
+        </template>
     </section>
 </template>

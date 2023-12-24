@@ -6,7 +6,7 @@ import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref<HTMLInputElement | null>(null);
@@ -21,14 +21,15 @@ const confirmUserDeletion = () => {
     form.reset();
     confirmingUserDeletion.value = true;
 
-    nextTick(() => passwordInput.value?.focus());
+    //TODO:
+    // nextTick(() => passwordInput.value?.focus());
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
-        preserveScroll: true,
+        preserveScroll: false,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value?.focus(),
+        // onError: () => passwordInput.value?.focus(),
         onFinish: () => form.reset(),
     });
 };
@@ -43,10 +44,10 @@ const closeModal = () => {
         <header>
             <h2
                 class="
-                    tw-font-medium
-                    dark:tw-text-slate-100
+                    tw-font-semibold
                     tw-text-lg
-                    tw-text-slate-900
+                    tw-text-red-500
+                    dark:tw-text-red-400
                     "
             >
                 Delete Account
@@ -65,26 +66,14 @@ const closeModal = () => {
             </p>
         </header>
 
-        <Button rounded label="Delete Account" severity="danger" @click="confirmUserDeletion" />
+        <Button rounded label="Delete Account" severity="danger"
+            icon="pi pi-trash" @click="confirmUserDeletion" />
 
-        <Dialog v-model:visible="confirmingUserDeletion" modal header="Confirm">
-            <div class="tw-p-6">
-                <h2
-                    class="
-                        tw-font-medium
-                        dark:tw-text-slate-100
-                        tw-text-lg
-                        tw-text-slate-900
-                        "
-                >
-                    Are you sure you want to delete your account?
-                </h2>
-
+        <Dialog v-model:visible="confirmingUserDeletion" modal header="Are you sure you want to delete your account?">
+            <div>
                 <p
                     class="
-                        tw-mt-1
-                        dark:tw-text-slate-400
-                        tw-text-slate-600
+                        main-text
                         tw-text-sm
                         "
                 >
@@ -92,46 +81,49 @@ const closeModal = () => {
                     will be permanently deleted. Please enter your password to
                     confirm you would like to permanently delete your account.
                 </p>
-
-                <div class="tw-mt-6">
-                    <InputLabel
-                        for="password"
-                        value="Password"
-                        class="tw-sr-only"
-                    />
-
-                    <InputText
-                        id="password"
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
-                        class="
-                            tw-block
-                            tw-mt-1
-                            tw-w-3/4
-                            "
-                        placeholder="Password"
-                        @keyup.enter="deleteUser"
-                    />
-
+                <div class="tw-mt-7">
+                    <span class="p-float-label">
+                        <Password
+                            id="delete-confirm-password"
+                            ref="passwordInput"
+                            v-model="form.password"
+                            class="
+                                tw-block
+                                tw-mt-1
+                                tw-w-3/4
+                                "
+                            toggleMask
+                            autofocus
+                            :feedback="false"
+                            @keyup.enter="deleteUser"
+                        />
+                        <InputLabel
+                            for="delete-confirm-password"
+                            value="Password"
+                            class="tw-ml-4"
+                        />
+                    </span>
                     <InputError
                         :message="form.errors.password"
-                        class="tw-mt-2"
-                    />
-                </div>
-
-                <div class="tw-flex tw-justify-end tw-mt-6">
-                    <Button label="Cancel" severity="secondary" @click="closeModal" />
-
-                    <Button
-                        class="tw-ml-3"
-                        :loading="form.processing"
-                        severity="danger"
-                        label="Delete Account"
-                        @click="deleteUser"
+                        class="tw-mt-2 tw-ml-4"
                     />
                 </div>
             </div>
+            <template #footer>
+                <Button rounded
+                    class="tw-ml-3"
+                    :loading="form.processing"
+                    severity="danger"
+                    label="Delete Account"
+                    @click="deleteUser"
+                    icon="pi pi-trash"
+                />
+                <Button rounded label="Cancel"
+                    severity="danger"
+                    icon="pi pi-times"
+                    outlined
+                    @click="closeModal" />
+            </template>
         </Dialog>
     </section>
 </template>

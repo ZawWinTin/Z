@@ -36,15 +36,14 @@ const submit = () => {
                     <InputText
                         id="name"
                         v-model="form.name"
-                        type="text"
                         class="tw-block tw-mt-1 tw-w-full"
                         required
                         autofocus
-                        :inputProps="{ autocomplete: 'name' }"
+                        autocomplete="name"
                     />
                     <InputLabel for="name" value="Name" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2" :message="form.errors.name" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.name" />
             </div>
 
             <div class="tw-mt-7">
@@ -55,11 +54,11 @@ const submit = () => {
                         type="email"
                         class="tw-block tw-mt-1 tw-w-full"
                         required
-                        :inputProps="{ autocomplete: 'username' }"
+                        autocomplete="username"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2" :message="form.errors.email" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
             </div>
 
             <div class="tw-mt-7">
@@ -67,7 +66,6 @@ const submit = () => {
                     <Password
                         id="password"
                         v-model="form.password"
-                        type="password"
                         class="tw-block tw-mt-1 tw-w-full"
                         required
                         toggleMask
@@ -76,7 +74,7 @@ const submit = () => {
                     />
                     <InputLabel for="password" value="Password" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2" :message="form.errors.password" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
             </div>
 
             <div class="tw-mt-7">
@@ -84,7 +82,6 @@ const submit = () => {
                     <Password
                         id="password_confirmation"
                         v-model="form.password_confirmation"
-                        type="password"
                         class="tw-block tw-mt-1 tw-w-full"
                         required
                         toggleMask
@@ -97,7 +94,7 @@ const submit = () => {
                     />
                 </span>
                 <InputError
-                    class="tw-mt-2"
+                    class="tw-mt-2 tw-ml-4"
                     :message="form.errors.password_confirmation"
                 />
             </div>

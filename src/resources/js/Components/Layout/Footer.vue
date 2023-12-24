@@ -96,14 +96,13 @@ const submitContact = () => {
                                     class="p-float-label p-input-icon-right tw-w-full"
                                 >
                                     <InputText
-                                        id="name"
+                                        id="contact-name"
                                         v-model="form.name"
-                                        type="text"
                                         :class="footerInputTheme"
                                         required
                                     />
                                     <InputLabel
-                                        for="name"
+                                        for="contact-name"
                                         value="Name"
                                         class="tw-ml-4 !tw-text-primary/80"
                                     />
@@ -118,14 +117,14 @@ const submitContact = () => {
                                     class="p-float-label p-input-icon-right tw-w-full"
                                 >
                                     <InputText
-                                        id="email"
+                                        id="contact-email"
                                         v-model="form.email"
                                         type="email"
                                         :class="footerInputTheme"
                                         required
                                     />
                                     <InputLabel
-                                        for="email"
+                                        for="contact-email"
                                         value="Email"
                                         class="tw-ml-4 !tw-text-primary/80"
                                     />

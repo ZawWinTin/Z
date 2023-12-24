@@ -44,7 +44,7 @@ const submit = () => {
                         required
                         autofocus
                         disabled
-                        :inputProps="{ autocomplete: 'username' }"
+                        autocomplete="username"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>
@@ -62,7 +62,7 @@ const submit = () => {
                     />
                     <InputLabel for="password" value="Password" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2" :message="form.errors.password" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
             </div>
 
             <div class="tw-mt-7">
@@ -83,7 +83,7 @@ const submit = () => {
                 </span>
 
                 <InputError
-                    class="tw-mt-2"
+                    class="tw-mt-2 tw-ml-4"
                     :message="form.errors.password_confirmation"
                 />
             </div>

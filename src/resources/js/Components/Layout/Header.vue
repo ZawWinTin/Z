@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed, ref, watchEffect } from 'vue';
+import { onMounted, onUnmounted, computed, ref, watchEffect } from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
@@ -37,9 +37,13 @@ onMounted(() => {
     initializeFlashMessage();
 });
 
+onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll);
+});
+
 const initializeFlashMessage = () => {
     const message = usePage().props.flash.message;
-    if (message && ['auth', 'email'].includes(message.type)) {
+    if (message && ['auth', 'email', 'account_delete'].includes(message.type)) {
         showFlashMessage(message.details);
     }
 };
@@ -64,10 +68,12 @@ const initializeScrolling = () => {
 
     contact.value = document.querySelector('footer');
 
-    window.addEventListener('scroll', () => {
-        contactViewStore.setReach(!!(contact.value && window.scrollY >= (contact.value.offsetTop - 48)));
-        contactViewStore.setShow(!!(contact.value && window.scrollY >= (contact.value.offsetTop - (window.innerHeight / 2))));
-    });
+    window.addEventListener('scroll', onScroll);
+};
+
+const onScroll = () => {
+    contactViewStore.setReach(!!(contact.value && window.scrollY >= (contact.value.offsetTop - 48)));
+    contactViewStore.setShow(!!(contact.value && window.scrollY >= (contact.value.offsetTop - (window.innerHeight / 2))));
 };
 
 const toggleMainMenu = (event: MouseEvent, openMainMenu: boolean | null = null) => {
@@ -229,6 +235,7 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                             'pi-sign-in': $page.props.flash.message?.type == 'auth' && $page.props.auth.user,
                             'pi-sign-out': $page.props.flash.message?.type == 'auth' && !$page.props.auth.user,
                             'pi-check': $page.props.flash.message?.type == 'email',
+                            'pi-trash': $page.props.flash.message?.type == 'account_delete',//TODO:
                         }"></i>
                         <p class="tw-font-semibold tw-text-base tw-text-slate-50">{{ message.summary }}</p>
                     </div>

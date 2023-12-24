@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): Response
     {
         return Inertia::render('Auth/Login', [
-            'canResetPassword' => (Route::currentRouteName() !== 'admin.login'),
+            'isGeneralLogin' => (Route::currentRouteName() !== 'admin.login'),
             'status' => session('status'),
         ]);
     }

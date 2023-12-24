@@ -5,6 +5,8 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import Transitions from '@/Composables/UI/Transitions';
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
     mustVerifyEmail?: boolean,
@@ -27,10 +29,9 @@ const form = useForm<{
         <header>
             <h2
                 class="
-                    tw-font-medium
-                    dark:tw-text-slate-100
+                    tw-font-semibold
                     tw-text-lg
-                    tw-text-slate-900
+                    main-text-for-input
                     "
             >
                 Profile Information
@@ -39,8 +40,7 @@ const form = useForm<{
             <p
                 class="
                     tw-mt-1
-                    dark:tw-text-slate-400
-                    tw-text-slate-600
+                    main-text
                     tw-text-sm
                     "
             >
@@ -49,40 +49,41 @@ const form = useForm<{
         </header>
 
         <form
-            class="tw-mt-6 tw-space-y-6"
+            class="tw-mt-7 tw-space-y-7"
             @submit.prevent="form.patch(route('profile.update'))"
         >
             <div>
-                <InputLabel for="name" value="Name" />
-
-                <InputText
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.name" />
+                <span class="p-float-label">
+                    <InputText
+                        id="name"
+                        v-model="form.name"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        autofocus
+                        autocomplete="name"
+                    />
+                    <InputLabel for="name" value="Name" class="tw-ml-4" />
+                </span>
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.name" />
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <span class="p-float-label">
+                    <InputText
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        autocomplete="username"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
 
-                <InputText
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.email" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
             </div>
 
+            //TODO: check
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p
                     class="
@@ -121,25 +122,21 @@ const form = useForm<{
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">
-                <Button type="submit" rounded label="Save" :loading="form.processing" />
+                <Button type="submit" rounded label="Save" icon="pi pi-check" :loading="form.processing" />
 
-                <Transition
-                    enter-active-class="tw-transition tw-ease-in-out"
-                    enter-from-class="tw-opacity-0"
-                    leave-active-class="tw-transition tw-ease-in-out"
-                    leave-to-class="tw-opacity-0"
+                <transition
+                    :enter-from-class="Transitions.overlay.enterFromClass"
+                    :enter-active-class="Transitions.overlay.enterActiveClass"
+                    :leave-active-class="Transitions.overlay.leaveActiveClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="
-                            tw-text-slate-600
-                            dark:tw-text-slate-400
-                            tw-text-sm
-                            "
+                        class="main-text tw-text-sm"
                     >
                         Saved.
                     </p>
-                </Transition>
+                </transition>
             </div>
         </form>
     </section>

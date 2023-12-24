@@ -18,14 +18,19 @@ export const useDarkModeStore = defineStore('darkMode', () => {
 export const useContactViewStore = defineStore('contactView', () => {
     const isReached = ref<boolean>(false);
     const isShow = ref<boolean>(false);
+    const isExist = ref<boolean>(false);
 
     const setReach = (newValue: boolean) => {
-        isReached.value = newValue;
+        isReached.value = newValue && isExist.value;
     };
 
     const setShow = (newValue: boolean) => {
-        isShow.value = newValue;
+        isShow.value = newValue && isExist.value;
     };
 
-    return { isReached, setReach, isShow, setShow };
+    const setExist = (newValue: boolean) => {
+        isExist.value = newValue;
+    };
+
+    return { isReached, setReach, isShow, setShow, isExist, setExist };
 });

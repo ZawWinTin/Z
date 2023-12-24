@@ -5,7 +5,8 @@ import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Transitions from '@/Composables/UI/Transitions';
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
@@ -27,11 +28,11 @@ const updatePassword = () => {
         onError: () => {
             if (form.errors.password) {
                 form.reset('password', 'password_confirmation');
-                passwordInput.value?.focus();
+                // passwordInput.value?.focus();
             }
             if (form.errors.current_password) {
                 form.reset('current_password');
-                currentPasswordInput.value?.focus();
+                // currentPasswordInput.value?.focus();
             }
         },
     });
@@ -43,10 +44,9 @@ const updatePassword = () => {
         <header>
             <h2
                 class="
-                    tw-font-medium
-                    dark:tw-text-slate-100
+                    tw-font-semibold
                     tw-text-lg
-                    tw-text-slate-900
+                    main-text-for-input
                     "
             >
                 Update Password
@@ -55,8 +55,7 @@ const updatePassword = () => {
             <p
                 class="
                     tw-mt-1
-                    dark:tw-text-slate-400
-                    tw-text-slate-600
+                    main-text
                     tw-text-sm
                     "
             >
@@ -65,80 +64,86 @@ const updatePassword = () => {
             </p>
         </header>
 
-        <form class="tw-mt-6 tw-space-y-6" @submit.prevent="updatePassword">
+        <form class="tw-mt-7 tw-space-y-7" @submit.prevent="updatePassword">
             <div>
-                <InputLabel for="current_password" value="Current Password" />
-
-                <InputText
-                    id="current_password"
-                    ref="currentPasswordInput"
-                    v-model="form.current_password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    autocomplete="current-password"
-                />
+                <span class="p-float-label">
+                    <Password
+                        id="current_password"
+                        ref="currentPasswordInput"
+                        v-model="form.current_password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'current-password' }"
+                        toggleMask
+                        autofocus
+                        :feedback="false"
+                    />
+                    <InputLabel for="current_password" value="Current Password" class="tw-ml-4" />
+                </span>
 
                 <InputError
                     :message="form.errors.current_password"
-                    class="tw-mt-2"
+                    class="tw-mt-2 tw-ml-4"
                 />
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        ref="passwordInput"
+                        v-model="form.password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel for="password" value="New Password" class="tw-ml-4" />
+                </span>
 
-                <InputText
-                    id="password"
-                    ref="passwordInput"
-                    v-model="form.password"
-                    type="password"
+                <InputError :message="form.errors.password" class="tw-mt-2 tw-ml-4" />
+            </div>
+
+            <div>
+                <span class="p-float-label">
+                <Password
+                    id="password_confirmation"
+                    v-model="form.password_confirmation"
                     class="tw-block tw-mt-1 tw-w-full"
-                    autocomplete="new-password"
+                    :inputProps="{ autocomplete: 'new-password' }"
+                    toggleMask
+                    feedback
                 />
-
-                <InputError :message="form.errors.password" class="tw-mt-2" />
-            </div>
-
-            <div>
-                <InputLabel
+                <InputLabel class="tw-ml-4"
                     for="password_confirmation"
                     value="Confirm Password"
                 />
 
-                <InputText
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    autocomplete="new-password"
-                />
-
+                </span>
                 <InputError
                     :message="form.errors.password_confirmation"
-                    class="tw-mt-2"
+                    class="tw-mt-2 tw-ml-4"
                 />
             </div>
 
             <div class="tw-flex tw-gap-4 tw-items-center">
-                <Button type="submit" rounded label="Save" :loading="form.processing" />
+                <Button type="submit" rounded label="Save" icon="pi pi-check" :loading="form.processing" />
 
-                <Transition
-                    enter-active-class="tw-transition tw-ease-in-out"
-                    enter-from-class="tw-opacity-0"
-                    leave-active-class="tw-transition tw-ease-in-out"
-                    leave-to-class="tw-opacity-0"
+                <transition
+                    :enter-from-class="Transitions.overlay.enterFromClass"
+                    :enter-active-class="Transitions.overlay.enterActiveClass"
+                    :leave-active-class="Transitions.overlay.leaveActiveClass"
+                    :leave-to-class="Transitions.overlay.leaveToClass"
                 >
                     <p
                         v-if="form.recentlySuccessful"
                         class="
-                            tw-text-slate-600
-                            dark:tw-text-slate-400
+                            main-text
                             tw-text-sm
                             "
                     >
                         Saved.
                     </p>
-                </Transition>
+                </transition>
             </div>
         </form>
     </section>

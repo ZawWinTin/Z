@@ -18,7 +18,7 @@ const getSection = (scrollBottom: number) => {
     return -1;
 };
 
-const scrollOverlayEffect = () => {
+export const scrollOverlayEffect = () => {
     let scrollTop = window.scrollY;
     let scrollBottom = scrollTop + window.innerHeight;
     let activeSection = getSection(scrollBottom);
@@ -122,6 +122,4 @@ export const initializeOverlayScroll = (
 ) => {
     loadOverlayScroll(parentSection);
     addShadow.value = addShadowOnScroll;
-
-    window.addEventListener('scroll', scrollOverlayEffect);
 };

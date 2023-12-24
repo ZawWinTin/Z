@@ -41,7 +41,6 @@ const submit = () => {
                 <Password
                     id="password"
                     v-model="form.password"
-                    type="password"
                     class="tw-block tw-mt-1 tw-w-full"
                     required
                     :inputProps="{ autocomplete: 'current-password' }"
@@ -51,7 +50,7 @@ const submit = () => {
                 />
                 <InputLabel for="password" value="Password" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2" :message="form.errors.password" />
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
             </div>
 
             <div class="tw-flex tw-justify-end tw-mt-4">
