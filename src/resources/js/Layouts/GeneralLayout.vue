@@ -36,6 +36,7 @@ onUpdated(() => {
     if (props.showFooter) {
         loadOverlayScroll(articleSection.value);
     }
+    contactViewStore.setExist(props.showFooter);
 });
 </script>
 <template>
