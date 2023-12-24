@@ -83,7 +83,6 @@ const form = useForm<{
                 <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
             </div>
 
-            <!-- TODO: check -->
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p
                     class="
@@ -98,20 +97,14 @@ const form = useForm<{
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="
-                            tw-rounded-md
-                            dark:focus:tw-ring-offset-slate-800
-                            dark:hover:tw-text-slate-100
-                            dark:tw-text-slate-400
-                            focus:tw-outline-none
-                            focus:tw-ring-2
-                            focus:tw-ring-indigo-500
-                            focus:tw-ring-offset-2
-                            hover:tw-text-slate-900
-                            tw-text-slate-600
-                            tw-text-sm
-                            tw-underline
-                            "
+                        class="tw-transition
+                        tw-rounded-md
+                        tw-duration-300
+                        focus:main-primary-focus
+                        main-text
+                        hover:tw-text-primary
+                        tw-text-sm
+                        tw-underline"
                     >
                         Click here to re-send the verification email.
                     </Link>

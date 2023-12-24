@@ -240,7 +240,7 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                             'pi-sign-in': $page.props.flash.message?.type == 'auth' && $page.props.auth.user,
                             'pi-sign-out': $page.props.flash.message?.type == 'auth' && !$page.props.auth.user,
                             'pi-check': $page.props.flash.message?.type == 'email',
-                            'pi-trash': $page.props.flash.message?.type == 'account_delete',//TODO:
+                            'pi-trash': $page.props.flash.message?.type == 'account_delete',
                         }"></i>
                         <p class="tw-font-semibold tw-text-base tw-text-slate-50">{{ message.summary }}</p>
                     </div>
