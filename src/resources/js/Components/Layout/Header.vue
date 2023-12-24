@@ -194,6 +194,11 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                             </a>
                         </template>
                         <template v-if="$page.props.auth.user">
+                            <!-- TODO:Fix Design -->
+                            <Link :class="[getActiveClasses('profile.edit'), menuLinkClasses]"
+                                @click="checkActiveLink('profile.edit')" :href="route('profile.edit')">
+                                Profile
+                            </Link>
                             <Link :class="menuLinkClasses"
                                 :href="route('logout')"
                                 method="post" as="button">

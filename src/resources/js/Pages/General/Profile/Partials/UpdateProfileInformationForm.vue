@@ -83,7 +83,7 @@ const form = useForm<{
                 <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
             </div>
 
-            //TODO: check
+            <!-- TODO: check -->
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p
                     class="
