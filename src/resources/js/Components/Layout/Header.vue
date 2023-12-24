@@ -10,6 +10,7 @@ import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import { useContactViewStore } from '@/Composables/Common/PiniaStore';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+import { UserRole } from '@/Constants/UserRole';
 
 const isMenuOpen = ref(false);
 
@@ -195,10 +196,12 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                         </template>
                         <template v-if="$page.props.auth.user">
                             <!-- TODO:Fix Design -->
-                            <Link :class="[getActiveClasses('profile.edit'), menuLinkClasses]"
-                                @click="checkActiveLink('profile.edit')" :href="route('profile.edit')">
-                                Profile
-                            </Link>
+                            <template v-if="$page.props.auth.user.role === UserRole.USER">
+                                <Link :class="[getActiveClasses('profile.edit'), menuLinkClasses]"
+                                    @click="checkActiveLink('profile.edit')" :href="route('profile.edit')">
+                                    Profile
+                                </Link>
+                            </template>
                             <Link :class="menuLinkClasses"
                                 :href="route('logout')"
                                 method="post" as="button">
