@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): Response
     {
         return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
+            'isGeneralLogin' => (Route::currentRouteName() !== 'admin.login'),
             'status' => session('status'),
         ]);
     }
@@ -34,7 +34,8 @@ class AuthenticatedSessionController extends Controller
         if (!$isPasswordNeeded) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(auth()->user()?->isAdmin() ? route('admin.dashboard') : route('home'))
+                ->with('message', ['type' => 'auth', 'details' => 'Login Successful']);
         }
 
         return back();
@@ -51,6 +52,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('message', ['type' => 'auth', 'details' => 'Logout Successful']);
     }
 }

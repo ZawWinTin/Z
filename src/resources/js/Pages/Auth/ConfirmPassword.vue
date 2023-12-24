@@ -3,7 +3,7 @@ import route from '@/Composables/Common/Route';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm<{
@@ -36,22 +36,25 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="password" value="Password" />
-                <InputText
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                <Password
                     id="password"
                     v-model="form.password"
-                    type="password"
                     class="tw-block tw-mt-1 tw-w-full"
                     required
-                    autocomplete="current-password"
+                    :inputProps="{ autocomplete: 'current-password' }"
                     autofocus
+                    toggleMask
+                    :feedback="false"
                 />
-                <InputError class="tw-mt-2" :message="form.errors.password" />
+                <InputLabel for="password" value="Password" class="tw-ml-4" />
+                </span>
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
             </div>
 
             <div class="tw-flex tw-justify-end tw-mt-4">
-                <Button label="Confirm"
+                <Button type="submit" label="Confirm" rounded
                     class="tw-ml-4"
                     :loading="form.processing"
                 />

@@ -9,9 +9,10 @@ import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
-    canResetPassword?: boolean,
+    isGeneralLogin?: boolean,
     status?: string,
 }>();
 
@@ -54,12 +55,7 @@ const hidePassword = () => {
     <section>
         <Head title="Log in" />
 
-        <div
-            v-if="status"
-            class="tw-font-medium tw-mb-4 tw-text-green-600 tw-text-sm"
-        >
-            {{ status }}
-        </div>
+        <StatusMessage class="tw-mb-4" :show="!!status" :message="status" />
 
         <form @submit.prevent="submit">
             <div class="tw-mt-7">
@@ -75,7 +71,7 @@ const hidePassword = () => {
                         type="email"
                         class="tw-block tw-w-full"
                         autofocus
-                        autocomplete="username email"
+                        autocomplete='username email'
                         @input="hidePassword"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
@@ -135,11 +131,19 @@ const hidePassword = () => {
                 </div>
             </transition>
 
-            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
+            <div class="tw-flex tw-items-center tw-mt-4"
+                :class="isGeneralLogin ? 'tw-justify-between' : 'tw-justify-end'">
                 <Link
-                    v-if="canResetPassword"
+                    v-if="isGeneralLogin"
                     :href="route('password.request')"
-                    class="tw-rounded-md focus:main-primary-focus dark:hover:tw-text-slate-100 dark:tw-text-slate-400 hover:tw-text-slate-900 tw-text-slate-600 tw-text-sm tw-underline"
+                    class="tw-transition
+                    tw-rounded-md
+                    tw-duration-300
+                    focus:main-primary-focus
+                    main-text
+                    hover:tw-text-primary
+                    tw-text-sm
+                    tw-underline"
                 >
                     Forgot your password?
                 </Link>
@@ -151,5 +155,32 @@ const hidePassword = () => {
                 />
             </div>
         </form>
+        <!-- TODO: Google Login -->
+        <template v-if="isGeneralLogin">
+            <div class="tw-relative tw-mt-8">
+                <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-h-px">
+                <span class="tw-uppercase main-text main-bg-2 tw-px-4 tw-py-2 tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-rounded-full tw-absolute tw-translate-y-[-50%] tw-translate-x-[50%] tw-right-1/2">OR</span>
+                <div class="
+                    tw-flex
+                    tw-items-center
+                    tw-justify-center
+                    tw-mt-8
+                    ">
+                    <Link
+                        :href="route('register')"
+                        class="tw-transition
+                        tw-rounded-md
+                        tw-duration-300
+                        focus:main-primary-focus
+                        main-text
+                        hover:tw-text-primary
+                        tw-text-sm
+                        tw-underline"
+                    >
+                        Don't have an account?
+                    </Link>
+                </div>
+            </div>
+        </template>
     </section>
 </template>

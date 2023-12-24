@@ -8,14 +8,14 @@ const darkModeStore = useDarkModeStore();
 const faviconPathPattern = /light|dark/g;
 
 onMounted(() => {
-    intializeThemeMode();
+    initializeThemeMode();
 });
 
 onUpdated(() => {
-    intializeThemeMode();
+    initializeThemeMode();
 });
 
-const intializeThemeMode = () => {
+const initializeThemeMode = () => {
     if (
         localStorage.theme === Theme.DARK_MODE ||
         (!(Theme.THEME_KEY in localStorage) &&

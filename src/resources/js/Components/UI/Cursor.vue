@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 let cursor = null;
 let mouseX = 0;
@@ -14,6 +14,13 @@ let lightY = 0;
 
 onMounted(() => {
     window.addEventListener('mousemove', (event: MouseEvent) => {
+        updateCursor(event);
+        updateCursorLight(event);
+    });
+});
+
+onUnmounted(() => {
+    window.removeEventListener('mousemove', (event: MouseEvent) => {
         updateCursor(event);
         updateCursorLight(event);
     });

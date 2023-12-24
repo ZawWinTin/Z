@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Enums\UserRole;
 use App\Enums\SessionKey;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
@@ -51,7 +53,10 @@ class LoginRequest extends FormRequest
         }
 
         if (
-            !Auth::attemptWhen($this->only('email', 'password'), function () {
+            !Auth::attemptWhen([
+                ...$this->only('email', 'password'),
+                'role' => (Route::currentRouteName() === 'admin.login') ? UserRole::ADMIN : UserRole::USER,
+            ], function () {
                 return session()->get(SessionKey::LOGIN_EMAIL->value) === $this->input('email');
             }, $this->boolean('remember'))
         ) {

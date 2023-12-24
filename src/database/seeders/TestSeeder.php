@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
+use App\Models\User;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,8 @@ class TestSeeder extends Seeder
 
         $categoriesCount = 8;
         $articlesCount = 23;
+
+        User::factory(5)->create();
 
         $categories = Category::factory($categoriesCount)->create();
 

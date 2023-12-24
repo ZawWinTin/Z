@@ -11,7 +11,8 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
     Route::middleware('guest')->group(function () {
         Route::get('login', [AuthenticatedSessionController::class, 'create'])
             ->name('login');
-        Route::post('login', [AuthenticatedSessionController::class, 'store']);
+        Route::post('login', [AuthenticatedSessionController::class, 'store'])
+            ->name('login');
     });
 
     Route::middleware(['auth', 'can:admin'])->group(function () {
@@ -28,8 +29,5 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
 
         Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
         Route::post('/setting', [SettingController::class, 'save'])->name('setting.save');
-
-        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-            ->name('logout');
     });
 });

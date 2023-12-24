@@ -34,10 +34,10 @@ const toast = useToast();
 const currentValue = ref<any>(null);
 
 onMounted(() => {
-    intializeValue(props);
+    initializeValue(props);
 })
 
-const intializeValue = (data: SettingCardData) => {
+const initializeValue = (data: SettingCardData) => {
     switch (data.setting.type) {
         case DataType.NUMBER:
             currentValue.value = parseInt(data.setting.value);

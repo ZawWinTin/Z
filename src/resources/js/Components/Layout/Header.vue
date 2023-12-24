@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue';
-import { Link, router } from '@inertiajs/vue3';
+import { onMounted, onUnmounted, computed, ref, watchEffect } from 'vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
@@ -8,8 +8,13 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 
 const isMenuOpen = ref(false);
+
+const toast = useToast();
+const toastVisible = ref(false);
 
 const contact = ref<HTMLElement | null>(null);
 const contactViewStore = useContactViewStore();
@@ -29,6 +34,32 @@ const activeClasses= 'main-text-gradient tw-pointer-events-none tw-select-none';
 
 onMounted(() => {
     initializeScrolling();
+    initializeFlashMessage();
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll);
+});
+
+const initializeFlashMessage = () => {
+    const message = usePage().props.flash.message;
+    if (message && ['auth', 'email', 'account_delete'].includes(message.type)) {
+        showFlashMessage(message.details);
+    }
+};
+
+const showFlashMessage = (message: string) => {
+    toastVisible.value = true;
+    toast.add({
+        summary: message,
+        detail: '',
+        group: 'auth',
+        life: 8000,
+    });
+};
+
+watchEffect(() => {
+    initializeFlashMessage();
 });
 
 const initializeScrolling = () => {
@@ -37,10 +68,12 @@ const initializeScrolling = () => {
 
     contact.value = document.querySelector('footer');
 
-    window.addEventListener('scroll', () => {
-        contactViewStore.setReach(!!(contact.value && window.scrollY >= (contact.value.offsetTop - 48)));
-        contactViewStore.setShow(!!(contact.value && window.scrollY >= (contact.value.offsetTop - (window.innerHeight / 2))));
-    });
+    window.addEventListener('scroll', onScroll);
+};
+
+const onScroll = () => {
+    contactViewStore.setReach(!!(contact.value && window.scrollY >= (contact.value.offsetTop - 48)));
+    contactViewStore.setShow(!!(contact.value && window.scrollY >= (contact.value.offsetTop - (window.innerHeight / 2))));
 };
 
 const toggleMainMenu = (event: MouseEvent, openMainMenu: boolean | null = null) => {
@@ -149,19 +182,32 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                         <Link :class="[getActiveClasses('article.index'), menuLinkClasses]" @click="checkActiveLink('article.index')" :href="route('article.index')">Articles</Link>
                         <Link :class="[getActiveClasses('about'), menuLinkClasses]" href="#">About</Link>
                         <button :class="[getContactClasses, menuLinkClasses]" @click="scrollToContact">Contact</button>
+                        <hr
+                            class="tw-bg-slate-300 tw-border-0 tw-h-px"
+                        />
                         <template v-if="route().has('admin.dashboard')">
-                            <hr
-                                class="tw-bg-slate-300 tw-border-0 tw-h-px"
-                            />
                             <a class="tw-flex tw-flex-row tw-justify-between tw-items-center"
                                 :class="menuLinkClasses" :href="route('admin.dashboard')"
                                 target="_blank">
                                 <span>Overview Dashboard</span>
                                 <i class="pi pi-arrow-up-right main-text-light-only" />
                             </a>
-                            <Link :class="menuLinkClasses" :href="route('admin.logout')" method="post" as="button"
-                                >Logout</Link
-                            >
+                        </template>
+                        <template v-if="$page.props.auth.user">
+                            <!-- TODO:Fix Design -->
+                            <Link :class="[getActiveClasses('profile.edit'), menuLinkClasses]"
+                                @click="checkActiveLink('profile.edit')" :href="route('profile.edit')">
+                                Profile
+                            </Link>
+                            <Link :class="menuLinkClasses"
+                                :href="route('logout')"
+                                method="post" as="button">
+                                Log Out
+                            </Link>
+                        </template>
+                        <template v-if="!$page.props.auth.user">
+                            <Link :class="menuLinkClasses" :href="route('login')">Log In</Link>
+                            <Link :class="menuLinkClasses" :href="route('register')">Sign In</Link>
                         </template>
                     </div>
                     <div :class="menuCardClasses">
@@ -184,5 +230,25 @@ const scrollToContact = () => {//TODO: Universal (Scroll)
                 <section :class="sectionClasses" class="tw-pr-4"></section>
             </div>
         </transition>
+
+        <!-- Auth Flash Message (Login/Logout) -->
+        <Toast position="bottom-center" group="auth" @close="toastVisible = false" :pt="{ transition: Transitions.overlay }">
+            <template #container="{ message }">
+                <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow tw-shadow-primary tw-rounded-full tw-justify-center tw-items-center" >
+                    <div class="tw-flex tw-flex-row tw-gap-4 tw-justify-center">
+                        <i class="pi tw-text-primary tw-text-2xl" :class="{
+                            'pi-sign-in': $page.props.flash.message?.type == 'auth' && $page.props.auth.user,
+                            'pi-sign-out': $page.props.flash.message?.type == 'auth' && !$page.props.auth.user,
+                            'pi-check': $page.props.flash.message?.type == 'email',
+                            'pi-trash': $page.props.flash.message?.type == 'account_delete',//TODO:
+                        }"></i>
+                        <p class="tw-font-semibold tw-text-base tw-text-slate-50">{{ message.summary }}</p>
+                    </div>
+                    <template v-if="!!message.detail">
+                        <p class="tw-m-0 tw-text-base main-text-dark-only">{{ message.detail }}</p>
+                    </template>
+                </section>
+            </template>
+        </Toast>
     </div>
 </template>

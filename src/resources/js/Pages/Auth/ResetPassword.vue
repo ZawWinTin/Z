@@ -4,6 +4,7 @@ import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
@@ -13,12 +14,10 @@ const props = defineProps<{
 
 const form = useForm<{
     token: string,
-    email: string,
     password: string,
     password_confirmation: string,
 }>({
     token: props.token,
-    email: props.email,
     password: '',
     password_confirmation: '',
 });
@@ -35,54 +34,56 @@ const submit = () => {
         <Head title="Reset Password" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <InputText
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.email" />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <InputText
+                        id="email"
+                        v-model="props.email"
+                        type="email"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        required
+                        autofocus
+                        disabled
+                        autocomplete="username"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <InputText
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.password" />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        v-model="form.password"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel for="password" value="Password" class="tw-ml-4" />
+                </span>
+                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <InputText
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
-                />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        class="tw-block tw-mt-1 tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel
+                        class="tw-ml-4"
+                        for="password_confirmation"
+                        value="Confirm Password"
+                    />
+                </span>
 
                 <InputError
-                    class="tw-mt-2"
+                    class="tw-mt-2 tw-ml-4"
                     :message="form.errors.password_confirmation"
                 />
             </div>
@@ -93,7 +94,7 @@ const submit = () => {
                 tw-justify-end
                 tw-mt-4
                 ">
-                <Button label="Reset Password" :loading="form.processing" />
+                <Button type="submit" rounded label="Reset Password" :loading="form.processing" />
             </div>
         </form>
     </section>
