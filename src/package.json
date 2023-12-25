@@ -34,6 +34,7 @@
         "@heroicons/vue": "^2.0.18",
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.4.0",
+        "chart.js": "^4.4.1",
         "moment": "^2.29.4",
         "pinia": "^2.1.7",
         "primeicons": "^6.0.1",
