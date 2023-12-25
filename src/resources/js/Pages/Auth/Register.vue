@@ -107,14 +107,7 @@ const submit = () => {
                 ">
                 <Link
                     :href="route('login')"
-                    class="tw-transition
-                    tw-rounded-md
-                    tw-duration-300
-                    focus:main-primary-focus
-                    main-text
-                    hover:tw-text-primary
-                    tw-text-sm
-                    tw-underline"
+                    class="main-link"
                 >
                     Already registered?
                 </Link>

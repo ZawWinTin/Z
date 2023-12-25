@@ -55,15 +55,7 @@ const verificationLinkSent = computed(
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="tw-transition
-                    tw-rounded-md
-                    tw-duration-300
-                    focus:main-primary-focus
-                    main-text
-                    hover:tw-text-primary
-                    tw-text-sm
-                    tw-underline
-                        "
+                    class="main-link"
                     >Log Out</Link
                 >
             </div>

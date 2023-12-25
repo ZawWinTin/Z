@@ -104,7 +104,7 @@ export default {
             'max-h-[200px]',
 
             // Misc
-            'tw-overflow-auto',
+            'primary-scrollbar',
         ],
     },
     list: {

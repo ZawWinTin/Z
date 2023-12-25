@@ -19,6 +19,7 @@ class Contact extends Model
         'email',
         'content',
         'is_checked',
+        'is_favorite',
     ];
 
     /**
@@ -28,5 +29,18 @@ class Contact extends Model
      */
     protected $casts = [
         'is_checked' => 'boolean',
+        'is_favorite' => 'boolean',
     ];
+
+    public function setRead($isRead = true)
+    {
+        $this->is_checked = $isRead;
+        $this->update();
+    }
+
+    public function toggleFavorite()
+    {
+        $this->is_favorite = !$this->is_favorite;
+        $this->update();
+    }
 }

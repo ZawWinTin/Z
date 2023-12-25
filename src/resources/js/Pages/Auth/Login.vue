@@ -136,14 +136,7 @@ const hidePassword = () => {
                 <Link
                     v-if="isGeneralLogin"
                     :href="route('password.request')"
-                    class="tw-transition
-                    tw-rounded-md
-                    tw-duration-300
-                    focus:main-primary-focus
-                    main-text
-                    hover:tw-text-primary
-                    tw-text-sm
-                    tw-underline"
+                    class="main-link"
                 >
                     Forgot your password?
                 </Link>
@@ -168,14 +161,7 @@ const hidePassword = () => {
                     ">
                     <Link
                         :href="route('register')"
-                        class="tw-transition
-                        tw-rounded-md
-                        tw-duration-300
-                        focus:main-primary-focus
-                        main-text
-                        hover:tw-text-primary
-                        tw-text-sm
-                        tw-underline"
+                        class="main-link"
                     >
                         Don't have an account?
                     </Link>

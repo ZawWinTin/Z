@@ -162,7 +162,7 @@ const submitContact = () => {
                             type="submit"
                             rounded raised
                             label="Send"
-                            icon="pi pi-arrow-up-right"
+                            icon="pi pi-send"
                             iconPos="right"
                             class="tw-uppercase focus:tw-ring-offset-slate-800"
                             :loading="form.processing"

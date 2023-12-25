@@ -401,7 +401,7 @@ const restoreCategory = () => {
                             class="tw-flex tw-flex-row tw-justify-between">
                             <label class="tw-font-bold">Color</label>
                             <Checkbox
-                                v-tooltip.left="{ value: 'Set background and text color same', pt: Tooltip }"
+                                v-tooltip.left="{ value: 'Set background and text color same', showDelay: 500, pt: Tooltip }"
                                 v-model="isSameColor"
                                 :binary="true"
                                 @change="setSameColor" />

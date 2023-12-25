@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('content');
             $table->boolean('is_checked')->default(false);
+            $table->boolean('is_favorite')->default(false);
             $table->timestamps();
         });
     }

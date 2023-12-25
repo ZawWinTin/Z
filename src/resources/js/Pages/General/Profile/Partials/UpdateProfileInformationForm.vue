@@ -97,14 +97,7 @@ const form = useForm<{
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="tw-transition
-                        tw-rounded-md
-                        tw-duration-300
-                        focus:main-primary-focus
-                        main-text
-                        hover:tw-text-primary
-                        tw-text-sm
-                        tw-underline"
+                        class="main-link"
                     >
                         Click here to re-send the verification email.
                     </Link>

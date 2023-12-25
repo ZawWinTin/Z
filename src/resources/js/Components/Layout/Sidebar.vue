@@ -10,6 +10,7 @@ import {
     PresentationChartLineIcon as PresentationChartLineSolidIcon,
     NewspaperIcon as NewspaperSolidIcon,
     TagIcon as TagSolidIcon,
+    EnvelopeIcon as EnvelopeSolidIcon,
     HomeIcon as HomeSolidIcon,
     WrenchScrewdriverIcon as WrenchScrewdriverSolidIcon,
     ArrowUpOnSquareIcon as ArrowUpOnSquareSolidIcon,
@@ -19,6 +20,7 @@ import {
     PresentationChartLineIcon as PresentationChartLineOutlineIcon,
     NewspaperIcon as NewspaperOutlineIcon,
     TagIcon as TagOutlineIcon,
+    EnvelopeIcon as EnvelopeOutlineIcon,
     HomeIcon as HomeOutlineIcon,
     WrenchScrewdriverIcon as WrenchScrewdriverOutlineIcon,
     ArrowUpOnSquareIcon as ArrowUpOnSquareOutlineIcon,
@@ -108,6 +110,15 @@ const getActiveClasses = (routeName: string) => {
                 <TagOutlineIcon class="tw-w-6 tw-h-6" />
             </span>
             <span class="tw-ml-4" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">Categories</span>
+        </Link>
+        <Link class="tw-group" :class="[getActiveClasses('admin.contact.index'), menuLinkClasses]" :href="route('admin.contact.index')">
+            <span class="group-hover:tw-block" :class="isActiveRoute('admin.contact.index') ? 'tw-block' : 'tw-hidden'">
+                <EnvelopeSolidIcon class="tw-w-6 tw-h-6" />
+            </span>
+            <span class="group-hover:tw-hidden" :class="isActiveRoute('admin.contact.index') ? 'tw-hidden' : 'tw-block'">
+                <EnvelopeOutlineIcon class="tw-w-6 tw-h-6" />
+            </span>
+            <span class="tw-ml-4" :class="adminMenuStore.isAdminMenuCollapse ? 'tw-hidden' : 'tw-block'">Contacts</span>
         </Link>
         <hr class="tw-bg-slate-700 tw-border-0 tw-h-px tw-mx-2 !tw-mt-auto"/>
         <a class="tw-group" :class="[menuLinkClasses]" :href="route('home')" target="_blank">

@@ -69,4 +69,8 @@
     .main-input-border {
         @apply tw-border-slate-300 dark:tw-border-slate-700 hover:tw-border-primary-dark;
     }
+
+    .main-link {
+        @apply tw-transition tw-rounded-md tw-duration-300 focus:main-primary-focus main-text hover:tw-text-primary/80 tw-text-sm tw-underline;
+    }
 }

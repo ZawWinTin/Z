@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -26,6 +27,11 @@ Route::prefix(config('superadmin.auth.route_prefix'))->name('admin.')->group(fun
         Route::post('/category', [CategoryController::class, 'save'])->name('category.save');
         Route::delete('/category', [CategoryController::class, 'destroy'])->name('category.destroy');
         Route::put('/category', [CategoryController::class, 'restore'])->name('category.restore');
+
+        Route::get('/contacts', [ContactController::class, 'index'])->name('contact.index');
+        Route::post('/contact/read/{id}', [ContactController::class, 'read'])->name('contact.read');
+        Route::post('/contact/unread/{id}', [ContactController::class, 'unread'])->name('contact.unread');
+        Route::post('/contact/favorite/{id}', [ContactController::class, 'favorite'])->name('contact.favorite');
 
         Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
         Route::post('/setting', [SettingController::class, 'save'])->name('setting.save');
