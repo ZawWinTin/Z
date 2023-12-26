@@ -25,8 +25,8 @@ import {
 const toast = useToast();
 
 type ContactData = {
-    contacts: Array<Contact>,
-    errors: any,
+    contacts: Array<Contact>;
+    errors: any;
 };
 
 const props = defineProps<ContactData>();
@@ -53,28 +53,28 @@ const initialDetail = {
 const currentDetail = ref<Contact>(initialDetail);
 
 type DataModeType = {
-    name: string,
-    component: any,
+    name: string;
+    component: any;
 };
 const currentMode = ref<DataModeType | null>(null);
 const DataMode = <Array<DataModeType>>[
-    {name: 'All', component: InboxStackIcon },
-    {name: 'Favorite', component: StarIcon },
-    {name: 'Read', component: EnvelopeOpenIcon },
-    {name: 'Unread', component: EnvelopeIcon },
+    { name: 'All', component: InboxStackIcon },
+    { name: 'Favorite', component: StarIcon },
+    { name: 'Read', component: EnvelopeOpenIcon },
+    { name: 'Unread', component: EnvelopeIcon },
 ];
 
 const loadContacts = (data: ContactData) => {
     currentContacts.value = data.contacts;
     if (currentDetail.value.id != -1) {
-        currentDetail.value = currentContacts.value.find((contact) => {
+        currentDetail.value = currentContacts.value.find(contact => {
             return contact.id == currentDetail.value.id;
         }) as Contact;
     }
 };
 
 const getContacts = computed(() => {
-    return currentContacts.value.filter((contact) => {
+    return currentContacts.value.filter(contact => {
         switch (currentMode.value?.name) {
             case 'All':
                 return true;
@@ -93,7 +93,7 @@ onMounted(() => {
     currentMode.value = DataMode[0];
 });
 
-const openDetailDialog = (data : Contact) => {
+const openDetailDialog = (data: Contact) => {
     openContactDetailDialog.value = true;
     currentDetail.value = initialDetail;
     currentDetail.value = data;
@@ -111,7 +111,7 @@ const contactClassesForRead = (isRead: boolean) => {
 const setRead = (id: number) => {
     form.post(route('admin.contact.read', id), {
         preserveScroll: true,
-        onSuccess: (data) => {
+        onSuccess: data => {
             loadContacts(data.props);
         },
         onError: () => {
@@ -128,7 +128,7 @@ const setRead = (id: number) => {
 const setUnread = (id: number) => {
     form.post(route('admin.contact.unread', id), {
         preserveScroll: true,
-        onSuccess: (data) => {
+        onSuccess: data => {
             loadContacts(data.props);
             openContactDetailDialog.value = false;
         },
@@ -146,7 +146,7 @@ const setUnread = (id: number) => {
 const toggleFavorite = (id: number) => {
     form.post(route('admin.contact.favorite', id), {
         preserveScroll: true,
-        onSuccess: (data) => {
+        onSuccess: data => {
             loadContacts(data.props);
         },
         onError: () => {
@@ -165,15 +165,17 @@ const replyMail = () => {
 };
 </script>
 <template>
-    <section class="tw-h-full tw-flex tw-flex-col tw-space-y-4">
+    <section class="tw-flex tw-h-full tw-flex-col tw-space-y-4">
         <Head title="Category - Admin" />
         <h1
-            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-h-8">
+            class="tw-h-8 tw-text-2xl tw-font-bold tw-uppercase tw-text-primary"
+        >
             Contacts
         </h1>
         <Toast />
         <div
-            class="main-bg-2 tw-h-[calc(100%-3rem)] tw-shadow-lg tw-rounded-lg tw-p-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition">
+            class="main-bg-2 tw-h-[calc(100%-3rem)] tw-rounded-lg tw-p-4 tw-text-slate-900 tw-shadow-lg tw-transition tw-duration-300 dark:tw-text-slate-100"
+        >
             <DataTable
                 removableSort
                 v-model:filters="filters"
@@ -184,30 +186,52 @@ const replyMail = () => {
                 :rows="10"
                 :rowsPerPageOptions="[5, 10, 20]"
                 dataKey="id"
-                :globalFilterFields="['id', 'name', 'email', 'content']">
+                :globalFilterFields="['id', 'name', 'email', 'content']"
+            >
                 <template #header>
-                    <div class="tw-flex tw-justify-between tw-items-center">
-                        <div class="tw-flex tw-justify-start tw-items-center tw-space-x-4">
-                            <Dropdown v-model="currentMode" :options="DataMode" :pt="{input: 'tw-py-2 tw-px-4'}">
+                    <div class="tw-flex tw-items-center tw-justify-between">
+                        <div
+                            class="tw-flex tw-items-center tw-justify-start tw-space-x-4"
+                        >
+                            <Dropdown
+                                v-model="currentMode"
+                                :options="DataMode"
+                                :pt="{ input: 'tw-py-2 tw-px-4' }"
+                            >
                                 <template #value="slotProps">
-                                    <div v-if="slotProps.value" class="tw-flex tw-items-center tw-space-x-2 main-text-for-input">
-                                        <component class="tw-w-5 tw-h-5" :is="slotProps.value.component" />
+                                    <div
+                                        v-if="slotProps.value"
+                                        class="main-text-for-input tw-flex tw-items-center tw-space-x-2"
+                                    >
+                                        <component
+                                            class="tw-h-5 tw-w-5"
+                                            :is="slotProps.value.component"
+                                        />
                                         <div>{{ slotProps.value.name }}</div>
                                     </div>
                                 </template>
                                 <template #option="slotProps">
-                                    <div class="tw-flex tw-items-center tw-space-x-2 main-text">
-                                        <component class="tw-w-5 tw-h-5" :is="slotProps.option.component" />
+                                    <div
+                                        class="main-text tw-flex tw-items-center tw-space-x-2"
+                                    >
+                                        <component
+                                            class="tw-h-5 tw-w-5"
+                                            :is="slotProps.option.component"
+                                        />
                                         <div>{{ slotProps.option.name }}</div>
                                     </div>
                                 </template>
                             </Dropdown>
                             <div class="tw-w-full">
                                 <span class="p-input-icon-left">
-                                    <i class="pi pi-search tw-left-3 main-text" />
-                                    <InputText class="tw-pl-10"
+                                    <i
+                                        class="pi pi-search main-text tw-left-3"
+                                    />
+                                    <InputText
+                                        class="tw-pl-10"
                                         v-model="filters['global'].value"
-                                        placeholder="Search" />
+                                        placeholder="Search"
+                                    />
                                 </span>
                             </div>
                         </div>
@@ -216,36 +240,47 @@ const replyMail = () => {
                 <template #empty> No contacts exist.</template>
                 <Column field="id" header="ID" class="tw-w-1/6" sortable>
                     <template #body="slotProps">
-                        <div :class="contactClassesForRead(slotProps.data.is_checked)">
+                        <div
+                            :class="
+                                contactClassesForRead(slotProps.data.is_checked)
+                            "
+                        >
                             {{ slotProps.data.id }}
                         </div>
                     </template>
                 </Column>
                 <Column headerStyle="width: 3rem">
                     <template #body="slotProps">
-                        <div :class="contactClassesForRead(slotProps.data.is_checked)">
-                            <Star :checked="slotProps.data.is_favorite" @clicked="toggleFavorite(slotProps.data.id)" />
+                        <div
+                            :class="
+                                contactClassesForRead(slotProps.data.is_checked)
+                            "
+                        >
+                            <Star
+                                :checked="slotProps.data.is_favorite"
+                                @clicked="toggleFavorite(slotProps.data.id)"
+                            />
                         </div>
                     </template>
                 </Column>
-                <Column
-                    field="name"
-                    header="Name"
-                    class="tw-w-1/6"
-                    sortable>
+                <Column field="name" header="Name" class="tw-w-1/6" sortable>
                     <template #body="slotProps">
-                        <div :class="contactClassesForRead(slotProps.data.is_checked)">
+                        <div
+                            :class="
+                                contactClassesForRead(slotProps.data.is_checked)
+                            "
+                        >
                             {{ slotProps.data.name }}
                         </div>
                     </template>
                 </Column>
-                <Column
-                    field="email"
-                    header="Email"
-                    class="tw-w-1/6"
-                    sortable>
+                <Column field="email" header="Email" class="tw-w-1/6" sortable>
                     <template #body="slotProps">
-                        <div :class="contactClassesForRead(slotProps.data.is_checked)">
+                        <div
+                            :class="
+                                contactClassesForRead(slotProps.data.is_checked)
+                            "
+                        >
                             {{ slotProps.data.email }}
                         </div>
                     </template>
@@ -254,10 +289,17 @@ const replyMail = () => {
                     field="content"
                     header="Content"
                     class="tw-w-1/6"
-                    sortable>
+                    sortable
+                >
                     <template #body="slotProps">
                         <div class="tw-line-clamp-3">
-                            <div :class="contactClassesForRead(slotProps.data.is_checked)">
+                            <div
+                                :class="
+                                    contactClassesForRead(
+                                        slotProps.data.is_checked,
+                                    )
+                                "
+                            >
                                 {{ slotProps.data.content }}
                             </div>
                         </div>
@@ -267,16 +309,19 @@ const replyMail = () => {
                     field="created_at"
                     header="Created Date"
                     class="tw-w-1/6"
-                    sortable>
+                    sortable
+                >
                     <template #body="slotProps">
-                        <div :class="contactClassesForRead(slotProps.data.is_checked)">
+                        <div
+                            :class="
+                                contactClassesForRead(slotProps.data.is_checked)
+                            "
+                        >
                             {{ getDate(slotProps.data.created_at) }}
                         </div>
                     </template>
                 </Column>
-                <Column
-                    header="Options"
-                    class="tw-w-1/6">
+                <Column header="Options" class="tw-w-1/6">
                     <template #body="slotProps">
                         <div class="tw-flex tw-flex-row tw-space-x-2">
                             <Button
@@ -284,54 +329,65 @@ const replyMail = () => {
                                 outlined
                                 rounded
                                 severity="info"
-                                class="tw-w-10 tw-h-10"
-                                @click="openDetailDialog(slotProps.data)" />
+                                class="tw-h-10 tw-w-10"
+                                @click="openDetailDialog(slotProps.data)"
+                            />
                         </div>
                     </template>
                 </Column>
-                <template #footer> In total, there are <b>{{ getContacts ? getContacts.length : 0 }}</b> contacts.</template>
+                <template #footer>
+                    In total, there are
+                    <b>{{ getContacts ? getContacts.length : 0 }}</b>
+                    contacts.</template
+                >
             </DataTable>
         </div>
-        <Dialog maximizable
+        <Dialog
+            maximizable
             v-model:visible="openContactDetailDialog"
             modal
-            header="Contact Details">
-            <div class="tw-flex tw-flex-col tw-space-y-4 tw-h-full">
+            header="Contact Details"
+        >
+            <div class="tw-flex tw-h-full tw-flex-col tw-space-y-4">
                 <div class="tw-flex tw-flex-row tw-justify-between">
                     <div>
                         <span class="main-text">ID:&nbsp;</span>
                         <b>{{ currentDetail.id }}</b>
                     </div>
-                    <div class="tw-flex tw-flex-row tw-space-x-2 tw-items-center tw-justify-center">
-                        <UnreadEnvelope @clicked="setUnread(currentDetail.id)" />
-                        <Star :checked="currentDetail.is_favorite" @clicked="toggleFavorite(currentDetail.id)" />
+                    <div
+                        class="tw-flex tw-flex-row tw-items-center tw-justify-center tw-space-x-2"
+                    >
+                        <UnreadEnvelope
+                            @clicked="setUnread(currentDetail.id)"
+                        />
+                        <Star
+                            :checked="currentDetail.is_favorite"
+                            @clicked="toggleFavorite(currentDetail.id)"
+                        />
                     </div>
                 </div>
-                <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-mx-2 tw-h-px" />
+                <hr
+                    class="tw-mx-2 tw-h-px tw-border-0 tw-bg-slate-300 dark:tw-bg-slate-700"
+                />
                 <div class="tw-flex tw-flex-row tw-justify-between">
                     <div class="tw-flex tw-flex-col tw-space-y-1">
                         <span>{{ currentDetail.name }}</span>
-                        <a class="main-link" :href="'mailto:'+currentDetail.email">
+                        <a
+                            class="main-link"
+                            :href="'mailto:' + currentDetail.email"
+                        >
                             {{ currentDetail.email }}
                         </a>
                     </div>
                     <div class="tw-flex tw-flex-col tw-space-y-1">
-                        <span class="main-text">{{ getDate(currentDetail.created_at) }}</span>
+                        <span class="main-text">{{
+                            getDate(currentDetail.created_at)
+                        }}</span>
                     </div>
                 </div>
-                <div class="
-                        tw-rounded-md
-                        tw-w-full
-                        tw-h-full
-                        tw-border
-                        tw-transition
-                        tw-duration-300
-                        tw-shadow-sm
-                        main-input-border
-                        main-bg-3
-                        main-text-for-input
-                        tw-p-4"
-                    >
+                <div
+                    class="main-input-border main-bg-3 main-text-for-input tw-h-full tw-w-full tw-rounded-md tw-border tw-p-4 tw-shadow-sm tw-transition tw-duration-300"
+                >
                     {{ currentDetail.content }}
                 </div>
             </div>
@@ -341,13 +397,15 @@ const replyMail = () => {
                     label="Reply"
                     icon="pi pi-send"
                     autofocus
-                    @click="replyMail" />
+                    @click="replyMail"
+                />
                 <Button
                     rounded
                     label="Close"
                     icon="pi pi-times"
                     outlined
-                    @click="openContactDetailDialog = false" />
+                    @click="openContactDetailDialog = false"
+                />
             </template>
         </Dialog>
     </section>

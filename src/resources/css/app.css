@@ -52,14 +52,14 @@
             tw-to-primary;
     }
     .main-text-gradient {
-        @apply tw-bg-clip-text
-            tw-text-transparent
-            main-bg-gradient
-            tw-font-bold;
+        @apply main-bg-gradient
+            tw-bg-clip-text
+            tw-font-bold
+            tw-text-transparent;
     }
 
     .main-primary-focus {
-        @apply tw-ring-primary/80 tw-outline-none tw-ring-2 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
+        @apply tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
     }
 
     .main-secondary-hover {
@@ -67,10 +67,10 @@
     }
 
     .main-input-border {
-        @apply tw-border-slate-300 dark:tw-border-slate-700 hover:tw-border-primary-dark;
+        @apply tw-border-slate-300 hover:tw-border-primary-dark dark:tw-border-slate-700;
     }
 
     .main-link {
-        @apply tw-transition tw-rounded-md tw-duration-300 focus:main-primary-focus main-text hover:tw-text-primary/80 tw-text-sm tw-underline;
+        @apply focus:main-primary-focus main-text tw-rounded-md tw-text-sm tw-underline tw-transition tw-duration-300 hover:tw-text-primary/80;
     }
 }
