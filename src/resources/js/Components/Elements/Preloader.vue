@@ -3,11 +3,11 @@ import { ref, onMounted } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        isAdminLayout?: boolean,
+        isAdminLayout?: boolean;
     }>(),
     {
         isAdminLayout: false,
-    }
+    },
 );
 
 let process = 1;
@@ -18,20 +18,20 @@ const preloader = ref<HTMLElement | null>(null);
 const loadingBar = ref<HTMLElement | null>(null);
 const loadingBarContainer = ref<HTMLElement | null>(null);
 const counterContainer = {
-    ones : ref<HTMLElement | null>(null),
-    tens : ref<HTMLElement | null>(null),
-    hundreds : ref<HTMLElement | null>(null),
+    ones: ref<HTMLElement | null>(null),
+    tens: ref<HTMLElement | null>(null),
+    hundreds: ref<HTMLElement | null>(null),
 };
 
 const end = async () => {
     document.body.classList.add('tw-overflow-hidden');
     await setLoading(100, 250);
     setTimeout(() => {
-        let duration = 1000;
+        const duration = 1000;
 
         let counterDuration = duration * 0.9;
-        for (let key in counterContainer) {
-            let counter = counterContainer[key].value;
+        for (const key in counterContainer) {
+            const counter = counterContainer[key].value;
             counter.querySelector('.next-js').textContent = null;
             counter.animate(
                 {
@@ -43,39 +43,39 @@ const end = async () => {
                 },
             );
             counterDuration *= 0.6;
-        };
+        }
 
-        let barDuration = duration * 0.5;
+        const barDuration = duration * 0.5;
         loadingBarContainer.value?.animate(
             {
                 width: '14rem',
-                transform: 'rotate(125deg)'
+                transform: 'rotate(125deg)',
             },
             {
                 duration: barDuration,
-                fill: 'forwards'
+                fill: 'forwards',
             },
         );
-        let zBars = preloader.value?.querySelectorAll('.z-bar-js');
+        const zBars = preloader.value?.querySelectorAll('.z-bar-js');
         for (let i = 0; i < zBars.length; i++) {
-            let bar = zBars[i];
+            const bar = zBars[i];
             bar.animate(
                 {
                     opacity: 1,
-                    transform: 'translateX(0)'
+                    transform: 'translateX(0)',
                 },
                 {
                     duration: barDuration,
-                    fill: 'forwards'
+                    fill: 'forwards',
                 },
             );
         }
         setTimeout(() => {
-            let preloaderEndAnimation = preloader.value?.animate(
+            const preloaderEndAnimation = preloader.value?.animate(
                 {
                     opacity: 0,
                     scale: 100,
-                    transform: 'rotate(270deg)'
+                    transform: 'rotate(270deg)',
                 },
                 {
                     duration: 1000,
@@ -86,16 +86,16 @@ const end = async () => {
                 preloader.value?.remove();
                 document.body.classList.remove('tw-overflow-hidden');
             });
-        }, duration)
+        }, duration);
     }, 250);
 };
 
-const setLoading = async (steps : number = 40, duration : number = 250) => {
-    duration = (duration < 250) ? 250 : duration;
+const setLoading = async (steps: number = 40, duration: number = 250) => {
+    duration = duration < 250 ? 250 : duration;
     steps = Math.min(Math.max(steps, 0), 100);
 
     if (steps > 0) {
-        let rate = duration / steps;
+        const rate = duration / steps;
 
         for (process; process <= steps; process++) {
             await animateLoading(rate);
@@ -106,8 +106,8 @@ const setLoading = async (steps : number = 40, duration : number = 250) => {
 };
 
 const resetLoading = () => {
-    for (let key in counterContainer) {
-        let counter = counterContainer[key].value;
+    for (const key in counterContainer) {
+        const counter = counterContainer[key].value;
         counter.querySelector('.current-js').textContent = 0;
         counter.querySelector('.next-js').textContent = 1;
     }
@@ -122,9 +122,9 @@ const resetLoading = () => {
     );
 };
 
-const animateLoading = async (rate : number, decimal : number = 0) => {
+const animateLoading = async (rate: number, decimal: number = 0) => {
     return new Promise(resolve => {
-        let counter = Object.values(counterContainer)[decimal].value;
+        const counter = Object.values(counterContainer)[decimal].value;
         if (!counter) {
             resolve();
             return;
@@ -138,13 +138,13 @@ const animateLoading = async (rate : number, decimal : number = 0) => {
                 (counter.querySelectorAll('div').length - 1) * numHeight;
         }
 
-        let nextNum = parseInt(counter.querySelector('.next-js').textContent);
+        const nextNum = parseInt(counter.querySelector('.next-js').textContent);
 
         if (nextNum == 0) {
             animateLoading(rate, decimal + 1);
         }
 
-        let counterAnimation = counter.animate(
+        const counterAnimation = counter.animate(
             {
                 transform: `translateY(-${totalDistance}px)`,
             },
@@ -177,7 +177,7 @@ const animateLoading = async (rate : number, decimal : number = 0) => {
     });
 };
 
-onMounted(() => end())
+onMounted(() => end());
 // router.on('start', () => {
 //     start();
 // });
@@ -199,28 +199,38 @@ onMounted(() => end())
 // });
 </script>
 <template>
-    <div ref="preloader" class="main-bg-1-dark-only tw-w-full tw-h-full tw-fixed tw-z-[99] tw-transition tw-ease-in-out tw-duration-300 tw-flex tw-items-center tw-justify-center tw-overflow-hidden">
+    <div
+        ref="preloader"
+        class="main-bg-1-dark-only tw-fixed tw-z-[99] tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-overflow-hidden tw-transition tw-duration-300 tw-ease-in-out"
+    >
         <!-- Loading Bar -->
-        <div ref="loadingBarContainer"
-            class="main-bg-3-dark-only tw-w-80 tw-h-12"
+        <div
+            ref="loadingBarContainer"
+            class="main-bg-3-dark-only tw-h-12 tw-w-80"
         >
             <div
                 ref="loadingBar"
-                class="main-bg-3-light-only tw-w-0 tw-h-full"
+                class="main-bg-3-light-only tw-h-full tw-w-0"
             ></div>
         </div>
-        <div class="z-bar-js tw-absolute tw-translate-x-[60vw] tw-mt-[12.75rem] main-bg-3-light-only tw-w-[10.5rem] tw-h-12 tw-opacity-0">
+        <div
+            class="z-bar-js main-bg-3-light-only tw-absolute tw-mt-[12.75rem] tw-h-12 tw-w-[10.5rem] tw-translate-x-[60vw] tw-opacity-0"
+        >
             <template v-if="props.isAdminLayout">
-                <span class="tw-italic tw-text-slate-950 tw-font-semibold tw-absolute tw-right-5 tw-bottom-0 tw-mb-[-0.6rem] tw-text-lg tw-uppercase">
+                <span
+                    class="tw-absolute tw-bottom-0 tw-right-5 tw-mb-[-0.6rem] tw-text-lg tw-font-semibold tw-uppercase tw-italic tw-text-slate-950"
+                >
                     Admin
                 </span>
             </template>
         </div>
-        <div class="z-bar-js tw-absolute tw-translate-x-[-60vw] tw-mt-[-12.75rem] main-bg-3-light-only tw-w-[10.5rem] tw-h-12 tw-opacity-0"></div>
+        <div
+            class="z-bar-js main-bg-3-light-only tw-absolute tw-mt-[-12.75rem] tw-h-12 tw-w-[10.5rem] tw-translate-x-[-60vw] tw-opacity-0"
+        ></div>
 
         <!-- Counter -->
         <div
-            class="counter tw-flex tw-flex-row-reverse tw-text-7xl tw-select-none tw-fixed tw-left-4 tw-bottom-4 tw-font-bold tw-text-slate-50 tw-font-mono"
+            class="counter tw-fixed tw-bottom-4 tw-left-4 tw-flex tw-select-none tw-flex-row-reverse tw-font-mono tw-text-7xl tw-font-bold tw-text-slate-50"
         >
             <div :ref="counterContainer.ones">
                 <div class="current-js">0</div>

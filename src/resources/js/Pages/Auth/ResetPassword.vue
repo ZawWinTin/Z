@@ -6,20 +6,28 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import { Head, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
 
 const props = defineProps<{
-    email: string,
-    token: string,
+    email: string;
+    token: string;
 }>();
 
+const resetEmail = ref<string>('');
+
 const form = useForm<{
-    token: string,
-    password: string,
-    password_confirmation: string,
+    token: string;
+    password: string;
+    password_confirmation: string;
 }>({
     token: props.token,
     password: '',
     password_confirmation: '',
+});
+
+onMounted(() => {
+    resetEmail.value = props.email;
 });
 
 const submit = () => {
@@ -38,9 +46,9 @@ const submit = () => {
                 <span class="p-float-label">
                     <InputText
                         id="email"
-                        v-model="props.email"
+                        v-model="resetEmail"
                         type="email"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         required
                         autofocus
                         disabled
@@ -55,14 +63,21 @@ const submit = () => {
                     <Password
                         id="password"
                         v-model="form.password"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         :inputProps="{ autocomplete: 'new-password' }"
                         toggleMask
                         feedback
                     />
-                    <InputLabel for="password" value="Password" class="tw-ml-4" />
+                    <InputLabel
+                        for="password"
+                        value="Password"
+                        class="tw-ml-4"
+                    />
                 </span>
-                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.password"
+                />
             </div>
 
             <div class="tw-mt-7">
@@ -70,7 +85,7 @@ const submit = () => {
                     <Password
                         id="password_confirmation"
                         v-model="form.password_confirmation"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         :inputProps="{ autocomplete: 'new-password' }"
                         toggleMask
                         feedback
@@ -83,18 +98,18 @@ const submit = () => {
                 </span>
 
                 <InputError
-                    class="tw-mt-2 tw-ml-4"
+                    class="tw-ml-4 tw-mt-2"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-end
-                tw-mt-4
-                ">
-                <Button type="submit" rounded label="Reset Password" :loading="form.processing" />
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-end">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Reset Password"
+                    :loading="form.processing"
+                />
             </div>
         </form>
     </section>

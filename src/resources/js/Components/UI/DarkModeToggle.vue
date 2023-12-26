@@ -27,17 +27,23 @@ const initializeThemeMode = () => {
     }
 };
 
-const toggleThemeMode = (mode: string = '', event: MouseEvent | null = null) => {
+const toggleThemeMode = (
+    mode: string = '',
+    event: MouseEvent | null = null,
+) => {
     if (event) {
         event.stopPropagation();
     }
-    let setMode = localStorage.theme === Theme.DARK_MODE ? Theme.LIGHT_MODE : Theme.DARK_MODE;
+    let setMode =
+        localStorage.theme === Theme.DARK_MODE
+            ? Theme.LIGHT_MODE
+            : Theme.DARK_MODE;
     if (mode) {
         setMode = mode;
     }
 
-    let favicon = $('#favicon');
-    let faviconPath = favicon.attr('href');
+    const favicon = $('#favicon');
+    const faviconPath = favicon.attr('href');
 
     localStorage.theme = setMode;
     if (setMode === Theme.DARK_MODE) {
@@ -53,30 +59,13 @@ const toggleThemeMode = (mode: string = '', event: MouseEvent | null = null) => 
 </script>
 <template>
     <div
-        class="
-            tw-cursor-pointer
-            tw-duration-500
-            tw-ease-in-out
-            tw-h-[16em]
-            tw-relative
-            tw-rounded-full
-            tw-text-[12%]
-            tw-transition-all
-            tw-w-[30em]
-            focus:main-primary-focus
-            "
+        class="focus:main-primary-focus tw-relative tw-h-[16em] tw-w-[30em] tw-cursor-pointer tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
         tabindex="0"
         :class="darkModeStore.isDarkMode ? 'night-mode' : 'day-mode'"
         @click="toggleThemeMode('', $event)"
     >
         <span
-            class="
-                tw-absolute
-                tw-duration-500
-                tw-ease-in-out
-                tw-rounded-full
-                tw-transition-all
-                "
+            class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"
         ></span>
     </div>
 </template>

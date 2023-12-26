@@ -12,14 +12,14 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
-    isGeneralLogin?: boolean,
-    status?: string,
+    isGeneralLogin?: boolean;
+    status?: string;
 }>();
 
 const form = useForm<{
-    email: string,
-    password: string,
-    remember: boolean,
+    email: string;
+    password: string;
+    remember: boolean;
 }>({
     email: '',
     password: '',
@@ -71,13 +71,13 @@ const hidePassword = () => {
                         type="email"
                         class="tw-block tw-w-full"
                         autofocus
-                        autocomplete='username email'
+                        autocomplete="username email"
                         @input="hidePassword"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>
                 <InputError
-                    class="tw-mt-2 tw-ml-4"
+                    class="tw-ml-4 tw-mt-2"
                     :message="form.errors.email"
                 />
             </div>
@@ -95,7 +95,9 @@ const hidePassword = () => {
                                 id="password"
                                 v-model="form.password"
                                 class="tw-block tw-w-full"
-                                :inputProps="{ autocomplete: 'current-password' }"
+                                :inputProps="{
+                                    autocomplete: 'current-password',
+                                }"
                                 toggleMask
                                 :feedback="false"
                             />
@@ -106,18 +108,18 @@ const hidePassword = () => {
                             />
                         </span>
                         <InputError
-                            class="tw-mt-2 tw-ml-4"
+                            class="tw-ml-4 tw-mt-2"
                             :message="form.errors.password"
                         />
                     </div>
 
-                    <div class="tw-block tw-mt-4">
+                    <div class="tw-mt-4 tw-block">
                         <div
                             class="tw-flex tw-flex-row-reverse tw-items-center tw-justify-end"
                         >
                             <label
                                 for="remember"
-                                class="tw-ml-2 dark:tw-text-slate-400 tw-text-slate-600 tw-text-sm tw-cursor-pointer"
+                                class="tw-ml-2 tw-cursor-pointer tw-text-sm tw-text-slate-600 dark:tw-text-slate-400"
                                 >Remember me</label
                             >
                             <Checkbox
@@ -131,8 +133,12 @@ const hidePassword = () => {
                 </div>
             </transition>
 
-            <div class="tw-flex tw-items-center tw-mt-4"
-                :class="isGeneralLogin ? 'tw-justify-between' : 'tw-justify-end'">
+            <div
+                class="tw-mt-4 tw-flex tw-items-center"
+                :class="
+                    isGeneralLogin ? 'tw-justify-between' : 'tw-justify-end'
+                "
+            >
                 <Link
                     v-if="isGeneralLogin"
                     :href="route('password.request')"
@@ -151,18 +157,15 @@ const hidePassword = () => {
         <!-- TODO: Google Login -->
         <template v-if="isGeneralLogin">
             <div class="tw-relative tw-mt-8">
-                <hr class="tw-bg-slate-300 dark:tw-bg-slate-700 tw-border-0 tw-h-px">
-                <span class="tw-uppercase main-text main-bg-2 tw-px-4 tw-py-2 tw-border tw-border-slate-300 dark:tw-border-slate-700 tw-rounded-full tw-absolute tw-translate-y-[-50%] tw-translate-x-[50%] tw-right-1/2">OR</span>
-                <div class="
-                    tw-flex
-                    tw-items-center
-                    tw-justify-center
-                    tw-mt-8
-                    ">
-                    <Link
-                        :href="route('register')"
-                        class="main-link"
-                    >
+                <hr
+                    class="tw-h-px tw-border-0 tw-bg-slate-300 dark:tw-bg-slate-700"
+                />
+                <span
+                    class="main-text main-bg-2 tw-absolute tw-right-1/2 tw-translate-x-[50%] tw-translate-y-[-50%] tw-rounded-full tw-border tw-border-slate-300 tw-px-4 tw-py-2 tw-uppercase dark:tw-border-slate-700"
+                    >OR</span
+                >
+                <div class="tw-mt-8 tw-flex tw-items-center tw-justify-center">
+                    <Link :href="route('register')" class="main-link">
                         Don't have an account?
                     </Link>
                 </div>

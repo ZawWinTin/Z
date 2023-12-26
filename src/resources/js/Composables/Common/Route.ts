@@ -3,7 +3,7 @@ import route from 'ziggy-js';
 
 export default function useRoute(
     name: string,
-    params?:  Object,
+    params?: object,
     absolute?: boolean,
     config = usePage().props.ziggy,
 ) {

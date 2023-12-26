@@ -28,7 +28,8 @@ const toastVisible = ref(false);
 const isContactSuccess = ref(false);
 const contactViewStore = useContactViewStore();
 
-const footerInputTheme = 'tw-text-slate-300 !tw-bg-slate-900 !tw-border-slate-700 focus:tw-ring-offset-slate-800';
+const footerInputTheme =
+    'tw-text-slate-300 !tw-bg-slate-900 !tw-border-slate-700 focus:tw-ring-offset-slate-800';
 
 const submitContact = () => {
     form.clearErrors();
@@ -59,38 +60,71 @@ const submitContact = () => {
 };
 </script>
 <template>
-    <footer class="main-bg-3-dark-only tw-h-screen tw-mt-auto">
-        <Toast position="bottom-center" group="contact" @close="toastVisible = false" :pt="{ transition: Transitions.overlay }">
+    <footer class="main-bg-3-dark-only tw-mt-auto tw-h-screen">
+        <Toast
+            position="bottom-center"
+            group="contact"
+            @close="toastVisible = false"
+            :pt="{ transition: Transitions.overlay }"
+        >
             <template #container="{ message }">
-                <section class="tw-flex tw-flex-col tw-p-3 tw-gap-2 tw-w-full tw-bg-slate-950 tw-shadow tw-shadow-primary tw-rounded-full tw-justify-center tw-items-center" >
-                    <div class="tw-flex tw-flex-row tw-gap-4 tw-justify-center">
-                        <i class="pi tw-text-2xl" :class="isContactSuccess ? 'pi-envelope tw-text-primary' : 'pi-times tw-text-red-500'"></i>
-                        <p class="tw-font-semibold tw-text-base"
-                            :class="isContactSuccess ? 'tw-text-slate-50' : 'tw-text-red-500'">
+                <section
+                    class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-slate-950 tw-p-3 tw-shadow tw-shadow-primary"
+                >
+                    <div class="tw-flex tw-flex-row tw-justify-center tw-gap-4">
+                        <i
+                            class="pi tw-text-2xl"
+                            :class="
+                                isContactSuccess
+                                    ? 'pi-envelope tw-text-primary'
+                                    : 'pi-times tw-text-red-500'
+                            "
+                        ></i>
+                        <p
+                            class="tw-text-base tw-font-semibold"
+                            :class="
+                                isContactSuccess
+                                    ? 'tw-text-slate-50'
+                                    : 'tw-text-red-500'
+                            "
+                        >
                             {{ message.summary }}
                         </p>
                     </div>
                     <template v-if="!!message.detail">
-                        <p class="tw-m-0 tw-text-base main-text-dark-only">{{ message.detail }}</p>
+                        <p class="main-text-dark-only tw-m-0 tw-text-base">
+                            {{ message.detail }}
+                        </p>
                     </template>
                 </section>
             </template>
         </Toast>
-        <div class="tw-container tw-flex tw-flex-row tw-items-center tw-h-full tw-py-12">
-            <div class="tw-w-1/2 lg:tw-w-3/5 tw-flex tw-flex-col tw-gap-8 tw-p-4"></div>
-            <div class="tw-w-1/2 lg:tw-w-2/5 tw-h-full tw-flex tw-flex-col tw-justify-center tw-gap-8 tw-relative">
+        <div
+            class="tw-container tw-flex tw-h-full tw-flex-row tw-items-center tw-py-12"
+        >
+            <div
+                class="tw-flex tw-w-1/2 tw-flex-col tw-gap-8 tw-p-4 lg:tw-w-3/5"
+            ></div>
+            <div
+                class="tw-relative tw-flex tw-h-full tw-w-1/2 tw-flex-col tw-justify-center tw-gap-8 lg:tw-w-2/5"
+            >
                 <transition
                     :enter-from-class="Transitions.overlay.enterFromClass"
                     :enter-active-class="Transitions.overlay.enterActiveClass"
                     :leave-active-class="Transitions.overlay.leaveActiveClass"
                     :leave-to-class="Transitions.overlay.leaveToClass"
                 >
-                    <form v-show="contactViewStore.isShow"
-                        class="tw-flex tw-flex-col tw-gap-8 tw-p-8 main-bg-2-dark-only tw-rounded-md tw-transition tw-duration-300 tw-shadow-lg hover:tw-shadow-primary"
+                    <form
+                        v-show="contactViewStore.isShow"
+                        class="main-bg-2-dark-only tw-flex tw-flex-col tw-gap-8 tw-rounded-md tw-p-8 tw-shadow-lg tw-transition tw-duration-300 hover:tw-shadow-primary"
                         @submit.prevent="submitContact"
                     >
-                        <h3 class="tw-text-3xl main-text-gradient tw-uppercase">Contact Us</h3>
-                        <div class="tw-w-full tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-4">
+                        <h3 class="main-text-gradient tw-text-3xl tw-uppercase">
+                            Contact Us
+                        </h3>
+                        <div
+                            class="tw-flex tw-w-full tw-flex-col tw-gap-8 lg:tw-flex-row lg:tw-gap-4"
+                        >
                             <div class="tw-w-full">
                                 <span
                                     class="p-float-label p-input-icon-right tw-w-full"
@@ -108,7 +142,7 @@ const submitContact = () => {
                                     />
                                 </span>
                                 <InputError
-                                    class="tw-mt-2 tw-ml-4"
+                                    class="tw-ml-4 tw-mt-2"
                                     :message="form.errors.name"
                                 />
                             </div>
@@ -130,7 +164,7 @@ const submitContact = () => {
                                     />
                                 </span>
                                 <InputError
-                                    class="tw-mt-2 tw-ml-4"
+                                    class="tw-ml-4 tw-mt-2"
                                     :message="form.errors.email"
                                 />
                             </div>
@@ -154,13 +188,14 @@ const submitContact = () => {
                                 />
                             </span>
                             <InputError
-                                class="tw-mt-2 tw-ml-4"
+                                class="tw-ml-4 tw-mt-2"
                                 :message="form.errors.content"
                             />
                         </div>
                         <Button
                             type="submit"
-                            rounded raised
+                            rounded
+                            raised
                             label="Send"
                             icon="pi pi-send"
                             iconPos="right"
@@ -175,15 +210,13 @@ const submitContact = () => {
                     :leave-active-class="Transitions.floatIn.leaveActiveClass"
                     :leave-to-class="Transitions.floatIn.leaveToClass"
                 >
-                    <Button rounded raised @click="scrollToTop"
-                        class="!tw-absolute tw-transition tw-duration-300
-                        tw-right-0 tw-bottom-0
-                        motion-safe:tw-animate-bounce
-                        !tw-w-12 !tw-h-12
-                        tw-border-none focus:tw-ring-offset-slate-800
-                    !tw-bg-slate-950/80 !tw-text-primary
-                    hover:!tw-bg-primary hover:!tw-text-slate-950"
-                        icon="pi pi-chevron-up" />
+                    <Button
+                        rounded
+                        raised
+                        @click="scrollToTop"
+                        class="!tw-absolute tw-bottom-0 tw-right-0 !tw-h-12 !tw-w-12 tw-border-none !tw-bg-slate-950/80 !tw-text-primary tw-transition tw-duration-300 hover:!tw-bg-primary hover:!tw-text-slate-950 focus:tw-ring-offset-slate-800 motion-safe:tw-animate-bounce"
+                        icon="pi pi-chevron-up"
+                    />
                 </transition>
             </div>
         </div>

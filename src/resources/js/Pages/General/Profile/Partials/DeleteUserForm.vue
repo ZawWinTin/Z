@@ -12,7 +12,7 @@ const confirmingUserDeletion = ref(false);
 const passwordInput = ref<HTMLInputElement | null>(null);
 
 const form = useForm<{
-    password: string,
+    password: string;
 }>({
     password: '',
 });
@@ -43,40 +43,33 @@ const closeModal = () => {
     <section class="tw-space-y-6">
         <header>
             <h2
-                class="
-                    tw-font-semibold
-                    tw-text-lg
-                    tw-text-red-500
-                    dark:tw-text-red-400
-                    "
+                class="tw-text-lg tw-font-semibold tw-text-red-500 dark:tw-text-red-400"
             >
                 Delete Account
             </h2>
 
-            <p
-                class="
-                    tw-mt-1
-                    main-text
-                    tw-text-sm
-                    "
-            >
+            <p class="main-text tw-mt-1 tw-text-sm">
                 Once your account is deleted, all of its resources and data will
                 be permanently deleted. Before deleting your account, please
                 download any data or information that you wish to retain.
             </p>
         </header>
 
-        <Button rounded label="Delete Account" severity="danger"
-            icon="pi pi-trash" @click="confirmUserDeletion" />
+        <Button
+            rounded
+            label="Delete Account"
+            severity="danger"
+            icon="pi pi-trash"
+            @click="confirmUserDeletion"
+        />
 
-        <Dialog v-model:visible="confirmingUserDeletion" modal header="Are you sure you want to delete your account?">
+        <Dialog
+            v-model:visible="confirmingUserDeletion"
+            modal
+            header="Are you sure you want to delete your account?"
+        >
             <div>
-                <p
-                    class="
-                        main-text
-                        tw-text-sm
-                        "
-                >
+                <p class="main-text tw-text-sm">
                     Once your account is deleted, all of its resources and data
                     will be permanently deleted. Please enter your password to
                     confirm you would like to permanently delete your account.
@@ -87,11 +80,7 @@ const closeModal = () => {
                             id="delete-confirm-password"
                             ref="passwordInput"
                             v-model="form.password"
-                            class="
-                                tw-block
-                                tw-mt-1
-                                tw-w-3/4
-                                "
+                            class="tw-mt-1 tw-block tw-w-3/4"
                             toggleMask
                             autofocus
                             :feedback="false"
@@ -105,12 +94,13 @@ const closeModal = () => {
                     </span>
                     <InputError
                         :message="form.errors.password"
-                        class="tw-mt-2 tw-ml-4"
+                        class="tw-ml-4 tw-mt-2"
                     />
                 </div>
             </div>
             <template #footer>
-                <Button rounded
+                <Button
+                    rounded
                     class="tw-ml-3"
                     :loading="form.processing"
                     severity="danger"
@@ -118,11 +108,14 @@ const closeModal = () => {
                     @click="deleteUser"
                     icon="pi pi-trash"
                 />
-                <Button rounded label="Cancel"
+                <Button
+                    rounded
+                    label="Cancel"
                     severity="danger"
                     icon="pi pi-times"
                     outlined
-                    @click="closeModal" />
+                    @click="closeModal"
+                />
             </template>
         </Dialog>
     </section>

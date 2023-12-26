@@ -19,21 +19,24 @@ export function createButton(text: string, onClick: () => void) {
     });
 
     return element;
-};
+}
 
 export function getDialogPos(dialog?: HTMLElement | null) {
     let dialogTop = 0;
     let dialogLeft = 0;
     if (dialog) {
-        let dialogRect = dialog.getBoundingClientRect();
+        const dialogRect = dialog.getBoundingClientRect();
         dialogTop = dialogRect.top;
         dialogLeft = dialogRect.left;
     }
 
     return { top: dialogTop, left: dialogLeft };
-};
+}
 
-export function adjustAdditionalHeight(elementHeight: number, container: HTMLElement): number {
+export function adjustAdditionalHeight(
+    elementHeight: number,
+    container: HTMLElement,
+): number {
     let additionalHeight = 0;
     if (
         window.innerHeight - container.getBoundingClientRect().bottom <
@@ -45,4 +48,4 @@ export function adjustAdditionalHeight(elementHeight: number, container: HTMLEle
     }
 
     return additionalHeight;
-};
+}

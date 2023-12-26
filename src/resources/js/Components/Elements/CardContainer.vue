@@ -1,15 +1,7 @@
 <script setup lang="ts"></script>
 <template>
     <div
-        class="
-            card-container
-            tw-flex
-            tw-flex-row-reverse
-            tw-gap-2
-            tw-justify-center
-            tw-px-24
-            tw-py-4
-            "
+        class="card-container tw-flex tw-flex-row-reverse tw-justify-center tw-gap-2 tw-px-24 tw-py-4"
     >
         <slot />
     </div>
@@ -20,7 +12,7 @@
         position: relative;
         right: 0;
         margin-top: 0;
-        box-shadow: 1rem 0 2rem 0 rgba(0,0,0,0.5);
+        box-shadow: 1rem 0 2rem 0 rgba(0, 0, 0, 0.5);
 
         &:not(:first-child) {
             margin-right: -5rem;

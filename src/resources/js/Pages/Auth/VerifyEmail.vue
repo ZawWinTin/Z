@@ -6,7 +6,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 const props = defineProps<{
-    status?: string,
+    status?: string;
 }>();
 
 const form = useForm({});
@@ -24,32 +24,26 @@ const verificationLinkSent = computed(
     <section>
         <Head title="Email Verification" />
 
-        <div
-            class="
-                tw-mb-4
-                main-text
-                tw-text-sm
-                text-justify
-                "
-        >
+        <div class="main-text text-justify tw-mb-4 tw-text-sm">
             Thanks for signing up! Before getting started, could you verify your
             email address by clicking on the link we just emailed to you? If you
             didn't receive the email, we will gladly send you another.
         </div>
 
-        <StatusMessage :show="verificationLinkSent"
+        <StatusMessage
+            :show="verificationLinkSent"
             message="A new verification link has been sent to the email address you
-                provided during registration." />
+                provided during registration."
+        />
 
         <form @submit.prevent="submit">
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-between
-                tw-mt-4
-                ">
-                <Button type="submit" rounded label="Resend Verification Email"
-                    :loading="form.processing" />
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-between">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Resend Verification Email"
+                    :loading="form.processing"
+                />
 
                 <Link
                     :href="route('logout')"

@@ -3,9 +3,9 @@ import { Head } from '@inertiajs/vue3';
 </script>
 <template>
     <section class="tw-container">
-        <Head title="Dashboard - Admin"/>
+        <Head title="Dashboard - Admin" />
         <div class="tw-text-center">
-            <h1 class="tw-font-bold tw-text-2xl tw-text-primary">
+            <h1 class="tw-text-2xl tw-font-bold tw-text-primary">
                 Hello from Dashboard!
             </h1>
             <p class="tw-text-slate-500 dark:tw-text-slate-400">

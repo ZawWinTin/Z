@@ -8,11 +8,11 @@ import { Head, useForm } from '@inertiajs/vue3';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
 
 defineProps<{
-    status?: string,
+    status?: string;
 }>();
 
 const form = useForm<{
-    email: string,
+    email: string;
 }>({
     email: '',
 });
@@ -26,14 +26,7 @@ const submit = () => {
     <section>
         <Head title="Forgot Password" />
 
-        <div
-            class="
-                tw-mb-4
-                main-text
-                tw-text-sm
-                tw-text-justify
-                "
-        >
+        <div class="main-text tw-mb-4 tw-text-justify tw-text-sm">
             Forgot your password? No problem. Just let us know your email
             address and we will email you a password reset link that will allow
             you to choose a new one.
@@ -54,17 +47,19 @@ const submit = () => {
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.email"
+                />
             </div>
 
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-end
-                tw-mt-4
-                ">
-                <Button type="submit" rounded label="Email Password Reset Link"
-                    :loading="form.processing" />
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-end">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Email Password Reset Link"
+                    :loading="form.processing"
+                />
             </div>
         </form>
     </section>

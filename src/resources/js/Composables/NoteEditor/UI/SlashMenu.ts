@@ -2,20 +2,26 @@ import {
     BaseSlashMenuItem,
     BlockNoteEditor,
     DefaultBlockSchema,
-  } from "@blocknote/core";
+} from '@blocknote/core';
 import {
     createButton,
     getDialogPos,
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addSlashMenu = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog?: HTMLElement | null) => {
+export const addSlashMenu = (
+    editor: BlockNoteEditor,
+    editorContainer: HTMLElement,
+    dialog?: HTMLElement | null,
+) => {
     let element: HTMLElement;
 
     function updateItems(
         items: BaseSlashMenuItem<DefaultBlockSchema, any, any>[],
-        onClick: (item: BaseSlashMenuItem<DefaultBlockSchema, any, any>) => void,
-        selected: number
+        onClick: (
+            item: BaseSlashMenuItem<DefaultBlockSchema, any, any>,
+        ) => void,
+        selected: number,
     ) {
         element.innerHTML = '';
         const domItems = items.map((val, i) => {
@@ -57,7 +63,7 @@ export const addSlashMenu = (editor: BlockNoteEditor, editorContainer: HTMLEleme
         }
 
         if (slashMenuState.show) {
-            let dialogPos = getDialogPos(dialog);
+            const dialogPos = getDialogPos(dialog);
 
             updateItems(
                 slashMenuState.filteredItems,

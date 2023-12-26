@@ -19,15 +19,15 @@ const getSection = (scrollBottom: number) => {
 };
 
 export const scrollOverlayEffect = () => {
-    let scrollTop = window.scrollY;
-    let scrollBottom = scrollTop + window.innerHeight;
-    let activeSection = getSection(scrollBottom);
+    const scrollTop = window.scrollY;
+    const scrollBottom = scrollTop + window.innerHeight;
+    const activeSection = getSection(scrollBottom);
 
     if (activeSection >= 0) {
-        let oldActiveSection = sections.value
+        const oldActiveSection = sections.value
             ? (sections.value[activeSection - 1] as HTMLElement)
             : null;
-        let newActiveSection = sections.value
+        const newActiveSection = sections.value
             ? (sections.value[activeSection] as HTMLElement)
             : null;
 
@@ -69,7 +69,7 @@ export const scrollOverlayEffect = () => {
                             'tw-bg-slate-950',
                         );
                     }
-                    let opacity =
+                    const opacity =
                         ((scrollBottom - offsets.value[activeSection].top) /
                             window.innerHeight) *
                         0.5;
@@ -78,7 +78,7 @@ export const scrollOverlayEffect = () => {
                     oldActiveSection.appendChild(shadowElement);
                 }
             } else if (addShadow.value) {
-                let shadowElements =
+                const shadowElements =
                     document.querySelectorAll('.shadow-scroll-js');
                 shadowElements.forEach(element => {
                     element.remove();
@@ -99,8 +99,8 @@ export const loadOverlayScroll = (parentSection: HTMLElement | null) => {
     sections.value = parentSection.children;
 
     for (let i = 0; i < sections.value.length; i++) {
-        let section = sections.value[i] as HTMLElement;
-        let currentTop =
+        const section = sections.value[i] as HTMLElement;
+        const currentTop =
             i == 0 ? 0 : offsets.value[i - 1].top + offsets.value[i - 1].height;
         offsets.value[i] = { top: currentTop, height: section.offsetHeight };
 
@@ -110,7 +110,7 @@ export const loadOverlayScroll = (parentSection: HTMLElement | null) => {
         section.style.marginTop = '0';
     }
 
-    let shadowElements = document.querySelectorAll('.shadow-scroll-js');
+    const shadowElements = document.querySelectorAll('.shadow-scroll-js');
     shadowElements.forEach(element => {
         element.remove();
     });

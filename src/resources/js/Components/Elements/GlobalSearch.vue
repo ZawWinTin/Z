@@ -4,11 +4,11 @@ import { watch } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        show: boolean,
+        show: boolean;
     }>(),
     {
         show: false,
-    }
+    },
 );
 
 watch(
@@ -24,17 +24,12 @@ watch(
 </script>
 <template>
     <div
-        class="tw-fixed tw-inset-0 tw-w-screen tw-h-screen main-bg-1-dark-only !tw-bg-opacity-40 tw-flex tw-flex-col tw-justify-center"
+        class="main-bg-1-dark-only tw-fixed tw-inset-0 tw-flex tw-h-screen tw-w-screen tw-flex-col tw-justify-center !tw-bg-opacity-40"
         v-show="props.show"
     >
         <span class="p-input-icon-left">
-            <i
-                class="pi pi-search tw-left-3 main-text"
-            />
-            <InputText
-                class="tw-pl-10"
-                placeholder="Search"
-            />
+            <i class="pi pi-search main-text tw-left-3" />
+            <InputText class="tw-pl-10" placeholder="Search" />
             //TODO:
         </span>
     </div>

@@ -30,27 +30,33 @@ const back = () => {
 };
 </script>
 <template>
-    <section class="tw-relative tw-flex tw-h-screen tw-justify-center tw-items-center">
+    <section
+        class="tw-relative tw-flex tw-h-screen tw-items-center tw-justify-center"
+    >
         <Head title="404" />
         <div
-            class="tw-flex tw-max-w-md tw-h-full tw-justify-center tw-items-center tw-flex-col"
+            class="tw-flex tw-h-full tw-max-w-md tw-flex-col tw-items-center tw-justify-center"
         >
-            <h1 class="tw-font-bold tw-text-2xl tw-text-primary tw-text-center">
+            <h1 class="tw-text-center tw-text-2xl tw-font-bold tw-text-primary">
                 {{ title }}
             </h1>
             <p class="main-text tw-mt-1">
                 {{ description }}
             </p>
-            <div class="tw-mt-4 tw-flex tw-flex-row tw-space-x-4 tw-justify-around">
+            <div
+                class="tw-mt-4 tw-flex tw-flex-row tw-justify-around tw-space-x-4"
+            >
                 <Link :href="route('home')">
-                    <Button size="small"
+                    <Button
+                        size="small"
                         class="tw-uppercase"
                         rounded
                         label="Go to Home"
                         icon="pi pi-home"
                     />
                 </Link>
-                <Button size="small"
+                <Button
+                    size="small"
                     class="tw-uppercase"
                     rounded
                     outlined
@@ -60,7 +66,9 @@ const back = () => {
                 />
             </div>
         </div>
-        <div class="tw-absolute tw-bottom-8 tw-max-w-md tw-flex tw-flex-col tw-space-y-2">
+        <div
+            class="tw-absolute tw-bottom-8 tw-flex tw-max-w-md tw-flex-col tw-space-y-2"
+        >
             <Link :href="route('home')">
                 <Button
                     class="tw-mx-auto tw-uppercase"

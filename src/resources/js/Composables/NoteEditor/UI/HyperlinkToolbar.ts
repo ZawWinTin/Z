@@ -1,11 +1,15 @@
-import { BlockNoteEditor } from "@blocknote/core";
+import { BlockNoteEditor } from '@blocknote/core';
 import {
     createButton,
     getDialogPos,
     adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
-export const addHyperlinkToolbar = (editor: BlockNoteEditor, editorContainer: HTMLElement, dialog?: HTMLElement | null) => {
+export const addHyperlinkToolbar = (
+    editor: BlockNoteEditor,
+    editorContainer: HTMLElement,
+    dialog?: HTMLElement | null,
+) => {
     let element: HTMLElement;
 
     editor.hyperlinkToolbar.onUpdate(hyperlinkToolbarState => {
@@ -49,7 +53,7 @@ export const addHyperlinkToolbar = (editor: BlockNoteEditor, editorContainer: HT
         }
 
         if (hyperlinkToolbarState.show) {
-            let dialogPos = getDialogPos(dialog);
+            const dialogPos = getDialogPos(dialog);
 
             element.style.display = 'block';
             element.style.top =

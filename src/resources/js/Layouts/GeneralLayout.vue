@@ -4,16 +4,20 @@ import Footer from '@/Components/Layout/Footer.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import Preloader from '@/Components/Elements/Preloader.vue';
 import { ref, onMounted, onUpdated, onUnmounted } from 'vue';
-import { initializeOverlayScroll, loadOverlayScroll, scrollOverlayEffect } from '@/Composables/Common/OverlayScrollEffect';
+import {
+    initializeOverlayScroll,
+    loadOverlayScroll,
+    scrollOverlayEffect,
+} from '@/Composables/Common/OverlayScrollEffect';
 import { useContactViewStore } from '@/Composables/Common/PiniaStore';
 
 const props = withDefaults(
     defineProps<{
-        showFooter?: boolean,
+        showFooter?: boolean;
     }>(),
     {
         showFooter: true,
-    }
+    },
 );
 
 const contactViewStore = useContactViewStore();
@@ -40,15 +44,7 @@ onUpdated(() => {
 });
 </script>
 <template>
-    <main
-        class="
-            main-bg-1
-            tw-duration-300
-            tw-ease-in-out
-            tw-flex
-            tw-flex-col
-            "
-    >
+    <main class="main-bg-1 tw-flex tw-flex-col tw-duration-300 tw-ease-in-out">
         <Cursor />
         <Header></Header>
         <article ref="articleSection" class="tw-z-[1]">

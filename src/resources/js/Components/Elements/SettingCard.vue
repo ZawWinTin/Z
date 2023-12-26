@@ -13,16 +13,16 @@ import SystemSetting from '@/Interfaces/SystemSetting';
 import EnvSetting from '@/Interfaces/EnvSetting';
 
 type SettingCardData = {
-    setting: SystemSetting | EnvSetting,
-    type: string,
+    setting: SystemSetting | EnvSetting;
+    type: string;
 };
 
 const props = defineProps<SettingCardData>();
 
 const form = useForm<{
-    setting_type: string,
-    key: any,
-    value: any,
+    setting_type: string;
+    key: any;
+    value: any;
 }>({
     setting_type: '',
     key: null,
@@ -35,7 +35,7 @@ const currentValue = ref<any>(null);
 
 onMounted(() => {
     initializeValue(props);
-})
+});
 
 const initializeValue = (data: SettingCardData) => {
     switch (data.setting.type) {
@@ -49,7 +49,7 @@ const initializeValue = (data: SettingCardData) => {
             currentValue.value = data.setting.value;
             break;
     }
-}
+};
 const updateSettings = () => {
     form.setting_type = props.type;
     switch (props.type) {
@@ -84,23 +84,26 @@ const updateSettings = () => {
 };
 </script>
 <template>
-    <div class="tw-rounded-2xl tw-shadow hover:tw-shadow-primary tw-w-[calc(33.33%-1rem)] tw-flex tw-flex-col tw-p-5 main-bg-3 tw-transition tw-duration-300 tw-space-y-4 tw-justify-between">
+    <div
+        class="main-bg-3 tw-flex tw-w-[calc(33.33%-1rem)] tw-flex-col tw-justify-between tw-space-y-4 tw-rounded-2xl tw-p-5 tw-shadow tw-transition tw-duration-300 hover:tw-shadow-primary"
+    >
         <Toast />
         <!-- Label -->
-        <div class="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-center tw-h-[4.5rem]">
-            <div class="tw-w-1/4
-                main-text-gradient
-                tw-text-4xl
-                tw-flex
-                tw-justify-center
-                tw-items-center">
-                    <i :class="props.setting.icon_name"></i>
+        <div
+            class="tw-flex tw-h-[4.5rem] tw-w-full tw-flex-row tw-items-center tw-justify-center"
+        >
+            <div
+                class="main-text-gradient tw-flex tw-w-1/4 tw-items-center tw-justify-center tw-text-4xl"
+            >
+                <i :class="props.setting.icon_name"></i>
             </div>
-            <div class="tw-w-3/4 tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <span class="tw-w-full main-text-gradient tw-text-xl">
+            <div
+                class="tw-flex tw-w-3/4 tw-flex-col tw-items-center tw-justify-center"
+            >
+                <span class="main-text-gradient tw-w-full tw-text-xl">
                     {{ props.setting.label }}
                 </span>
-                <span class="tw-w-full main-text">
+                <span class="main-text tw-w-full">
                     {{ props.setting.description }}
                 </span>
             </div>
@@ -109,23 +112,44 @@ const updateSettings = () => {
         <div class="tw-w-full">
             <template v-if="props.setting.type === DataType.NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
-                    <Slider v-model="currentValue" @slideend="updateSettings" :min="parseInt(props.setting.options.min)" :max="parseInt(props.setting.options.max)" class="tw-w-full" />
-                    <span class="tw-transition tw-duration-300 tw-w-24 tw-py-1 tw-text-center tw-font-semibold tw-rounded-full main-bg-2 tw-text-slate-800 dark:tw-text-primary">
+                    <Slider
+                        v-model="currentValue"
+                        @slideend="updateSettings"
+                        :min="parseInt(props.setting.options.min)"
+                        :max="parseInt(props.setting.options.max)"
+                        class="tw-w-full"
+                    />
+                    <span
+                        class="main-bg-2 tw-w-24 tw-rounded-full tw-py-1 tw-text-center tw-font-semibold tw-text-slate-800 tw-transition tw-duration-300 dark:tw-text-primary"
+                    >
                         {{ currentValue }}
                     </span>
                 </div>
             </template>
             <template v-if="props.setting.type === DataType.BOOLEAN">
-                <div class="tw-flex tw-flex-row tw-justify-end tw-items-center tw-space-x-2">
-                    <InputSwitch v-model="currentValue" @change="updateSettings" />
-                    <span class="tw-transition tw-duration-300 tw-w-6 tw-py-1 tw-text-right tw-font-semibold tw-rounded-full tw-text-primary">
+                <div
+                    class="tw-flex tw-flex-row tw-items-center tw-justify-end tw-space-x-2"
+                >
+                    <InputSwitch
+                        v-model="currentValue"
+                        @change="updateSettings"
+                    />
+                    <span
+                        class="tw-w-6 tw-rounded-full tw-py-1 tw-text-right tw-font-semibold tw-text-primary tw-transition tw-duration-300"
+                    >
                         {{ currentValue ? 'On' : 'Off' }}
                     </span>
                 </div>
             </template>
             <template v-if="props.setting.type === DataType.DROPDOWN">
-                <div class="tw-w-full lg:tw-w-1/2 tw-ml-auto">
-                    <Dropdown v-model="currentValue" @change="updateSettings" :options="props.setting.options" optionLabel="label" optionValue="value" />
+                <div class="tw-ml-auto tw-w-full lg:tw-w-1/2">
+                    <Dropdown
+                        v-model="currentValue"
+                        @change="updateSettings"
+                        :options="props.setting.options"
+                        optionLabel="label"
+                        optionValue="value"
+                    />
                 </div>
             </template>
         </div>

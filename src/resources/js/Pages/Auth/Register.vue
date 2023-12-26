@@ -8,10 +8,10 @@ import Password from 'primevue/password';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm<{
-    name: string,
-    email: string,
-    password: string,
-    password_confirmation: string,
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
 }>({
     name: '',
     email: '',
@@ -36,14 +36,17 @@ const submit = () => {
                     <InputText
                         id="name"
                         v-model="form.name"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         required
                         autofocus
                         autocomplete="name"
                     />
                     <InputLabel for="name" value="Name" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.name" />
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.name"
+                />
             </div>
 
             <div class="tw-mt-7">
@@ -52,13 +55,16 @@ const submit = () => {
                         id="email"
                         v-model="form.email"
                         type="email"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         required
                         autocomplete="username"
                     />
                     <InputLabel for="email" value="Email" class="tw-ml-4" />
                 </span>
-                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.email" />
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.email"
+                />
             </div>
 
             <div class="tw-mt-7">
@@ -66,15 +72,22 @@ const submit = () => {
                     <Password
                         id="password"
                         v-model="form.password"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         required
                         toggleMask
                         feedback
                         :inputProps="{ autocomplete: 'new-password' }"
                     />
-                    <InputLabel for="password" value="Password" class="tw-ml-4" />
+                    <InputLabel
+                        for="password"
+                        value="Password"
+                        class="tw-ml-4"
+                    />
                 </span>
-                <InputError class="tw-mt-2 tw-ml-4" :message="form.errors.password" />
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.password"
+                />
             </div>
 
             <div class="tw-mt-7">
@@ -82,37 +95,33 @@ const submit = () => {
                     <Password
                         id="password_confirmation"
                         v-model="form.password_confirmation"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         required
                         toggleMask
                         feedback
                         :inputProps="{ autocomplete: 'new-password' }"
                     />
-                    <InputLabel class="tw-ml-4"
+                    <InputLabel
+                        class="tw-ml-4"
                         for="password_confirmation"
                         value="Confirm Password"
                     />
                 </span>
                 <InputError
-                    class="tw-mt-2 tw-ml-4"
+                    class="tw-ml-4 tw-mt-2"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-between
-                tw-mt-4
-                ">
-                <Link
-                    :href="route('login')"
-                    class="main-link"
-                >
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-between">
+                <Link :href="route('login')" class="main-link">
                     Already registered?
                 </Link>
 
-                <Button type="submit" rounded label="Register"
+                <Button
+                    type="submit"
+                    rounded
+                    label="Register"
                     :loading="form.processing"
                 />
             </div>

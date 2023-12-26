@@ -1,18 +1,11 @@
 <script setup lang="ts">
 defineProps<{
-    value?: string,
+    value?: string;
 }>();
 </script>
 
 <template>
-    <label
-        class="
-            tw-block
-            main-text
-            tw-ease-in-out
-            tw-duration-300
-            "
-    >
+    <label class="main-text tw-block tw-duration-300 tw-ease-in-out">
         <span v-if="value">{{ value }}</span>
         <span v-else><slot /></span>
     </label>

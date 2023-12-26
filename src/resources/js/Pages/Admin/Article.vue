@@ -27,27 +27,24 @@ const DELETE_DIALOG = 'delete_dialog';
 const RESTORE_DIALOG = 'restore_dialog';
 
 type ArticleData = {
-    articles: Paginator<Article>,
-    categories: Array<Category>,
-    categoryLimit: number,
-    errors: any,
+    articles: Paginator<Article>;
+    categories: Array<Category>;
+    categoryLimit: number;
+    errors: any;
 };
 
-const props = withDefaults(
-    defineProps<ArticleData>(),
-    {
-        categoryLimit: 5
-    }
-);
+const props = withDefaults(defineProps<ArticleData>(), {
+    categoryLimit: 5,
+});
 
 const form = useForm<{
-    id: number | null,
-    cover_image: File | Object | null, //TODO:Fix
-    cover_image_object_position: string,
-    title: string,
-    description: string,
-    categories: Array<number>,
-    content: string,
+    id: number | null;
+    cover_image: File | object | null; //TODO:Fix
+    cover_image_object_position: string;
+    title: string;
+    description: string;
+    categories: Array<number>;
+    content: string;
 }>({
     id: null,
     cover_image: null,
@@ -59,12 +56,12 @@ const form = useForm<{
 });
 
 const filters = useForm<{
-    global: string,
-    mode: number,
-    sortField?: string | null,
-    sortOrder?: number | null,
-    page?: number | null,
-    perPage?: number | null,
+    global: string;
+    mode: number;
+    sortField?: string | null;
+    sortOrder?: number | null;
+    page?: number | null;
+    perPage?: number | null;
 }>({
     global: '',
     mode: 0,
@@ -120,9 +117,9 @@ const loadData = (data: ArticleData) => {
 const loadArticles = () => {
     filters.post(route('admin.article.index'), {
         preserveScroll: true,
-        onSuccess: (data) => {
+        onSuccess: data => {
             loadData(data.props);
-        }
+        },
     });
 };
 
@@ -142,8 +139,8 @@ const onPageOrSort = (event: any) => {
 };
 
 const updateMode = () => {
-    let updatedCurrentMode = currentMode.value + 1;
-    if (DataMode.hasOwnProperty(updatedCurrentMode)) {
+    const updatedCurrentMode = currentMode.value + 1;
+    if (Object.prototype.hasOwnProperty.call(DataMode, updatedCurrentMode)) {
         currentMode.value = updatedCurrentMode;
     } else {
         currentMode.value = 0;
@@ -152,7 +149,7 @@ const updateMode = () => {
     filters.mode = currentMode.value;
 
     loadArticles();
-}
+};
 
 const resetForm = () => {
     form.reset();
@@ -174,61 +171,78 @@ const uploadCoverImage = () => {
 
 const onDragEnterCoverImage = () => {
     coverImage.placeholder.value.classList.add('!tw-border-primary');
-    coverImage.placeholder.value.querySelector('i').classList.add('!tw-text-primary', '!tw-border-primary');
-}
+    coverImage.placeholder.value
+        .querySelector('i')
+        .classList.add('!tw-text-primary', '!tw-border-primary');
+};
 const onDragLeaveCoverImage = () => {
     coverImage.placeholder.value.classList.remove('!tw-border-primary');
-    coverImage.placeholder.value.querySelector('i').classList.remove('!tw-text-primary', '!tw-border-primary');
-}
+    coverImage.placeholder.value
+        .querySelector('i')
+        .classList.remove('!tw-text-primary', '!tw-border-primary');
+};
 
 const onCoverImageUpload = (event: Event) => {
-    let file = (event.target as HTMLInputElement)?.files?.[0];
+    const file = (event.target as HTMLInputElement)?.files?.[0];
 
     if (file) {
         fileReader.readAsDataURL(file);
     } else {
-        coverImage.preview.value.src = form.cover_image ? form.cover_image.url : '';
-        coverImage.preview.value.style.objectPosition = form.cover_image ? form.cover_image.objectPosition : 'center 50%';
+        coverImage.preview.value.src = form.cover_image
+            ? form.cover_image.url
+            : '';
+        coverImage.preview.value.style.objectPosition = form.cover_image
+            ? form.cover_image.objectPosition
+            : 'center 50%';
         coverImage.isFileExist.value = !!form.cover_image;
     }
-}
+};
 
 const startRepositionCoverImage = () => {
-    coverImage.defaultObjectPosition.value = coverImage.preview.value.style.objectPosition;
+    coverImage.defaultObjectPosition.value =
+        coverImage.preview.value.style.objectPosition;
     coverImage.isRepositionMode.value = true;
 };
 
 const mouseDownRepositionCoverImage = (event: MouseEvent) => {
-    let { clientY } = event;
+    const { clientY } = event;
     coverImage.isRepositioning.value = true;
-    let getInitialObjectPosition = coverImage.preview.value.style.objectPosition.match(/center (\d+)%/);
+    const getInitialObjectPosition =
+        coverImage.preview.value.style.objectPosition.match(/center (\d+)%/);
     coverImage.initialMousePositionY.value = clientY;
-    coverImage.initialObjectPositionY.value = getInitialObjectPosition ? parseInt(getInitialObjectPosition[1]) : 50;
-}
+    coverImage.initialObjectPositionY.value = getInitialObjectPosition
+        ? parseInt(getInitialObjectPosition[1])
+        : 50;
+};
 
 const mouseMoveRepositionCoverImage = (event: MouseEvent) => {
     if (coverImage.isRepositionMode.value && coverImage.isRepositioning.value) {
-        let { clientY } = event;
-        let result = coverImage.initialObjectPositionY.value - (((clientY - coverImage.initialMousePositionY.value) / coverImage.initialMousePositionY.value) * 100);
-        let mouseYPercentage = Math.min(Math.max(result, 0), 100);
+        const { clientY } = event;
+        const result =
+            coverImage.initialObjectPositionY.value -
+            ((clientY - coverImage.initialMousePositionY.value) /
+                coverImage.initialMousePositionY.value) *
+                100;
+        const mouseYPercentage = Math.min(Math.max(result, 0), 100);
 
         coverImage.preview.value.style.objectPosition = `center ${mouseYPercentage}%`;
     }
-}
+};
 const mouseUpRepositionCoverImage = () => {
     coverImage.isRepositioning.value = false;
-}
+};
 
 const saveRepositionCoverImage = () => {
     coverImage.isRepositionMode.value = false;
-}
+};
 
 const cancelRepositionCoverImage = () => {
-    coverImage.preview.value.style.objectPosition = coverImage.defaultObjectPosition.value;
+    coverImage.preview.value.style.objectPosition =
+        coverImage.defaultObjectPosition.value;
     coverImage.isRepositionMode.value = false;
-}
+};
 
-const closeDialog = (dialogType : string) => {
+const closeDialog = (dialogType: string) => {
     switch (dialogType) {
         case FILTER_DIALOG:
             openArticleFilterDialog.value = false;
@@ -250,7 +264,7 @@ const openFilterDialog = () => {
     openArticleFilterDialog.value = true;
 };
 
-const openSaveDialog = (data : Article | null = null) => {
+const openSaveDialog = (data: Article | null = null) => {
     resetForm();
     openArticleSaveDialog.value = true;
     coverImage.isFileExist.value = false;
@@ -265,11 +279,9 @@ const openSaveDialog = (data : Article | null = null) => {
     }
 };
 
-const saveArticle = () => {
+const saveArticle = () => {};
 
-};
-
-const openDeleteDialog = (data : Article) => {
+const openDeleteDialog = (data: Article) => {
     resetForm();
     openArticleDeleteDialog.value = true;
     form.id = data.id;
@@ -300,7 +312,7 @@ const deleteArticle = () => {
     });
 };
 
-const openRestoreDialog = (data : Article) => {
+const openRestoreDialog = (data: Article) => {
     resetForm();
     openArticleRestoreDialog.value = true;
     form.id = data.id;
@@ -332,16 +344,16 @@ const restoreArticle = () => {
 };
 </script>
 <template>
-    <section class="tw-h-full tw-flex tw-flex-col tw-space-y-4">
+    <section class="tw-flex tw-h-full tw-flex-col tw-space-y-4">
         <Head title="Article - Admin" />
         <h1
-            class="tw-font-bold tw-text-2xl tw-text-primary tw-uppercase tw-h-8"
+            class="tw-h-8 tw-text-2xl tw-font-bold tw-uppercase tw-text-primary"
         >
             Articles
         </h1>
         <Toast />
         <div
-            class="tw-w-full tw-h-[calc(100%-3rem)] main-bg-2 tw-shadow-lg tw-rounded-lg tw-p-4 tw-duration-300 tw-transition"
+            class="main-bg-2 tw-h-[calc(100%-3rem)] tw-w-full tw-rounded-lg tw-p-4 tw-shadow-lg tw-transition tw-duration-300"
         >
             <DataTable
                 removableSort
@@ -352,25 +364,38 @@ const restoreArticle = () => {
                 paginator
                 :rows="10"
                 :rowsPerPageOptions="[5, 10, 20]"
-                :totalRecords="currentArticles?.total" :loading="filters.processing || form.processing" @page="onPage($event)" @sort="onSort($event)"
-                dataKey="id">
+                :totalRecords="currentArticles?.total"
+                :loading="filters.processing || form.processing"
+                @page="onPage($event)"
+                @sort="onSort($event)"
+                dataKey="id"
+            >
                 <template #header>
-                    <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
+                    <div
+                        class="tw-flex tw-items-center tw-justify-between tw-space-x-4 tw-pb-2"
+                    >
                         <div
-                            class="tw-flex tw-justify-start tw-items-center tw-space-x-4 tw-w-full"
+                            class="tw-flex tw-w-full tw-items-center tw-justify-start tw-space-x-4"
                         >
-                            <Button :label="DataMode[currentMode].label"
+                            <Button
+                                :label="DataMode[currentMode].label"
                                 :icon="DataMode[currentMode].icon"
-                                :outlined="DataMode[currentMode].outlined" @click="updateMode" rounded />
+                                :outlined="DataMode[currentMode].outlined"
+                                @click="updateMode"
+                                rounded
+                            />
                             <Button
                                 icon="pi pi-search"
-                                class="tw-w-10 tw-h-10"
-                                rounded outlined
+                                class="tw-h-10 tw-w-10"
+                                rounded
+                                outlined
                                 @click="openFilterDialog()"
                             />
                         </div>
                         <transition
-                            :enter-from-class="Transitions.overlay.enterFromClass"
+                            :enter-from-class="
+                                Transitions.overlay.enterFromClass
+                            "
                             :enter-active-class="
                                 Transitions.overlay.enterActiveClass
                             "
@@ -379,10 +404,12 @@ const restoreArticle = () => {
                             "
                             :leave-to-class="Transitions.overlay.leaveToClass"
                         >
-                            <template v-if="DataMode[currentMode].label != 'Trash'">
+                            <template
+                                v-if="DataMode[currentMode].label != 'Trash'"
+                            >
                                 <Button
                                     icon="pi pi-plus"
-                                    class="tw-w-10 tw-h-10"
+                                    class="tw-h-10 tw-w-10"
                                     rounded
                                     @click="openSaveDialog()"
                                 />
@@ -398,23 +425,39 @@ const restoreArticle = () => {
                 </Column>
                 <Column field="cover" header="Cover Image" class="tw-w-1/7">
                     <template #body="slotProps">
-                        <Image :src="slotProps.data.cover_image.url" alt="Image" width="80" preview />
+                        <Image
+                            :src="slotProps.data.cover_image.url"
+                            alt="Image"
+                            width="80"
+                            preview
+                        />
                     </template>
                 </Column>
                 <Column field="title" header="Title" class="tw-w-1/7" sortable>
                     <template #body="slotProps">
-                        <div class="tw-text-left">{{ slotProps.data.title }}</div>
+                        <div class="tw-text-left">
+                            {{ slotProps.data.title }}
+                        </div>
                     </template>
                 </Column>
-                <Column field="description" header="Description" class="tw-w-1/7">
+                <Column
+                    field="description"
+                    header="Description"
+                    class="tw-w-1/7"
+                >
                     <template #body="slotProps">
-                        <div class="tw-text-justify">{{ slotProps.data.description }}</div>
+                        <div class="tw-text-justify">
+                            {{ slotProps.data.description }}
+                        </div>
                     </template>
                 </Column>
                 <Column field="categories" header="Categories" class="tw-w-1/7">
                     <template #body="slotProps">
                         <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-2">
-                            <template v-for="category in slotProps.data.categories" :key="category.id">
+                            <template
+                                v-for="category in slotProps.data.categories"
+                                :key="category.id"
+                            >
                                 <CategoryBadge :category="category" />
                             </template>
                         </div>
@@ -424,14 +467,13 @@ const restoreArticle = () => {
                     field="created_at"
                     header="Created Date"
                     class="tw-w-1/7"
-                    sortable>
+                    sortable
+                >
                     <template #body="slotProps">
                         {{ getDate(slotProps.data.created_at) }}
                     </template>
                 </Column>
-                <Column
-                    header="Options"
-                    class="tw-w-1/7">
+                <Column header="Options" class="tw-w-1/7">
                     <template #body="slotProps">
                         <div class="tw-flex tw-flex-row tw-space-x-2">
                             <template v-if="!slotProps.data.deleted_at">
@@ -440,15 +482,17 @@ const restoreArticle = () => {
                                     outlined
                                     rounded
                                     severity="info"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openSaveDialog(slotProps.data)" />
+                                    class="tw-h-10 tw-w-10"
+                                    @click="openSaveDialog(slotProps.data)"
+                                />
                                 <Button
                                     icon="pi pi-trash"
                                     outlined
                                     rounded
                                     severity="danger"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openDeleteDialog(slotProps.data)" />
+                                    class="tw-h-10 tw-w-10"
+                                    @click="openDeleteDialog(slotProps.data)"
+                                />
                             </template>
                             <template v-if="!!slotProps.data.deleted_at">
                                 <Button
@@ -456,13 +500,17 @@ const restoreArticle = () => {
                                     outlined
                                     rounded
                                     severity="success"
-                                    class="tw-w-10 tw-h-10"
-                                    @click="openRestoreDialog(slotProps.data)" />
+                                    class="tw-h-10 tw-w-10"
+                                    @click="openRestoreDialog(slotProps.data)"
+                                />
                             </template>
                         </div>
                     </template>
                 </Column>
-                <template #footer> In total, there are <b>{{ currentArticles?.total || 0 }}</b> articles.</template>
+                <template #footer>
+                    In total, there are
+                    <b>{{ currentArticles?.total || 0 }}</b> articles.</template
+                >
             </DataTable>
         </div>
 
@@ -470,37 +518,60 @@ const restoreArticle = () => {
         <Dialog
             v-model:visible="openArticleFilterDialog"
             modal
-            header="Advanced Search">
+            header="Advanced Search"
+        >
         </Dialog>
 
         <!-- Create/Update Dialog -->
-        <Dialog maximizable :style="{ width: '90vw' }"
+        <Dialog
+            maximizable
+            :style="{ width: '90vw' }"
             v-model:visible="openArticleSaveDialog"
             modal
             :closeOnEscape="false"
-            header="Article Details">
+            header="Article Details"
+        >
             <div class="tw-flex tw-flex-col tw-space-y-4">
                 <div>
-                    <div class="tw-relative -tw-mx-6 tw-h-48 tw-group">
+                    <div class="tw-group tw-relative -tw-mx-6 tw-h-48">
                         <!-- Placeholder -->
-                        <div :ref="coverImage.placeholder"
-                            class="tw-absolute main-bg-3 tw-inset-0 tw-flex tw-transition tw-duration-300 tw-justify-center tw-items-center tw-border-2 tw-border-dashed tw-border-transparent group-hover:dark:tw-border-slate-400/60 group-hover:tw-border-slate-700/60">
-                            <i class="pi pi-cloud-upload tw-transition tw-duration-300 tw-border-2 tw-rounded-full tw-p-5 tw-text-6xl main-text !tw-text-opacity-60 tw-border-slate-700/60 dark:tw-border-slate-400/60" />
+                        <div
+                            :ref="coverImage.placeholder"
+                            class="main-bg-3 tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-border-2 tw-border-dashed tw-border-transparent tw-transition tw-duration-300 group-hover:tw-border-slate-700/60 group-hover:dark:tw-border-slate-400/60"
+                        >
+                            <i
+                                class="pi pi-cloud-upload main-text tw-rounded-full tw-border-2 tw-border-slate-700/60 tw-p-5 tw-text-6xl !tw-text-opacity-60 tw-transition tw-duration-300 dark:tw-border-slate-400/60"
+                            />
                         </div>
                         <!-- PreviewImage -->
-                        <img :ref="coverImage.preview" class="tw-relative tw-w-full tw-h-full tw-object-cover" alt="Cover Image"
-                            :src="form.cover_image ? form.cover_image.url : ''" :style="`object-position: ${form.cover_image?.object_position || 'center 50%'}`" />
+                        <img
+                            :ref="coverImage.preview"
+                            class="tw-relative tw-h-full tw-w-full tw-object-cover"
+                            alt="Cover Image"
+                            :src="form.cover_image ? form.cover_image.url : ''"
+                            :style="`object-position: ${
+                                form.cover_image?.object_position ||
+                                'center 50%'
+                            }`"
+                        />
                         <!-- Clickable, Drag & Drop Area -->
-                        <input class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-opacity-0 tw-cursor-pointer" title="Upload Image"
+                        <input
+                            class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-cursor-pointer tw-opacity-0"
+                            title="Upload Image"
                             @dragenter="onDragEnterCoverImage"
                             @dragleave="onDragLeaveCoverImage"
                             @drop="onDragLeaveCoverImage"
                             @change="onCoverImageUpload($event)"
                             required
-                            :ref="coverImage.inputUpload" type="file" accept="image/*">
+                            :ref="coverImage.inputUpload"
+                            type="file"
+                            accept="image/*"
+                        />
                         <!-- Reposition Area -->
                         <transition
-                            :enter-from-class="Transitions.overlay.enterFromClass"
+                            :enter-from-class="
+                                Transitions.overlay.enterFromClass
+                            "
                             :enter-active-class="
                                 Transitions.overlay.enterActiveClass
                             "
@@ -511,46 +582,83 @@ const restoreArticle = () => {
                         >
                             <template v-if="coverImage.isRepositionMode.value">
                                 <div
-                                    @mousedown="mouseDownRepositionCoverImage($event)"
-                                    class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-cursor-move">
+                                    @mousedown="
+                                        mouseDownRepositionCoverImage($event)
+                                    "
+                                    class="tw-absolute tw-inset-0 tw-flex tw-h-full tw-w-full tw-cursor-move tw-items-center tw-justify-center"
+                                >
                                     <transition
-                                        :enter-from-class="Transitions.overlay.enterFromClass"
+                                        :enter-from-class="
+                                            Transitions.overlay.enterFromClass
+                                        "
                                         :enter-active-class="
                                             Transitions.overlay.enterActiveClass
                                         "
                                         :leave-active-class="
                                             Transitions.overlay.leaveActiveClass
                                         "
-                                        :leave-to-class="Transitions.overlay.leaveToClass"
+                                        :leave-to-class="
+                                            Transitions.overlay.leaveToClass
+                                        "
                                     >
-                                        <span v-if="!coverImage.isRepositioning.value" class="tw-px-4 tw-py-2 tw-bg-primary/80 tw-rounded-full tw-text-slate-50 tw-select-none">Drag Image to Reposition</span>
+                                        <span
+                                            v-if="
+                                                !coverImage.isRepositioning
+                                                    .value
+                                            "
+                                            class="tw-select-none tw-rounded-full tw-bg-primary/80 tw-px-4 tw-py-2 tw-text-slate-50"
+                                            >Drag Image to Reposition</span
+                                        >
                                     </transition>
                                 </div>
                             </template>
                         </transition>
-                        <template v-if="coverImage.isRepositionMode.value && coverImage.isRepositioning.value">
-                            <div class="tw-fixed tw-left-[-50%] tw-top-[-9%] tw-w-screen tw-h-screen  tw-cursor-move"
-                                @mousemove="mouseMoveRepositionCoverImage($event)"
-                                @mouseup="mouseUpRepositionCoverImage">
-                            </div>
+                        <template
+                            v-if="
+                                coverImage.isRepositionMode.value &&
+                                coverImage.isRepositioning.value
+                            "
+                        >
+                            <div
+                                class="tw-fixed tw-left-[-50%] tw-top-[-9%] tw-h-screen tw-w-screen tw-cursor-move"
+                                @mousemove="
+                                    mouseMoveRepositionCoverImage($event)
+                                "
+                                @mouseup="mouseUpRepositionCoverImage"
+                            ></div>
                         </template>
-                        <span class="!tw-absolute tw-ml-4 tw-bottom-4 tw-opacity-0 group-hover:tw-opacity-100 tw-transition tw-duration-300 tw-flex">
+                        <span
+                            class="!tw-absolute tw-bottom-4 tw-ml-4 tw-flex tw-opacity-0 tw-transition tw-duration-300 group-hover:tw-opacity-100"
+                        >
                             <template v-if="!coverImage.isRepositionMode.value">
                                 <Button
                                     icon="pi pi-upload"
                                     size="small"
                                     severity="secondary"
                                     @click="uploadCoverImage"
-                                    :class="coverImage.isFileExist.value ? 'tw-rounded-s-full tw-border-r-slate-300/10' : '!tw-rounded-full'"
-                                    :label="coverImage.isFileExist.value ? 'Change Cover' : 'Add Cover'"/>
+                                    :class="
+                                        coverImage.isFileExist.value
+                                            ? 'tw-rounded-s-full tw-border-r-slate-300/10'
+                                            : '!tw-rounded-full'
+                                    "
+                                    :label="
+                                        coverImage.isFileExist.value
+                                            ? 'Change Cover'
+                                            : 'Add Cover'
+                                    "
+                                />
                                 <Button
                                     icon="pi pi-arrows-alt"
                                     size="small"
                                     class="tw-rounded-e-full"
                                     severity="secondary"
                                     @click="startRepositionCoverImage"
-                                    :class="{ 'tw-hidden' : !coverImage.isFileExist.value }"
-                                    label="Reposition"/>
+                                    :class="{
+                                        'tw-hidden':
+                                            !coverImage.isFileExist.value,
+                                    }"
+                                    label="Reposition"
+                                />
                             </template>
                             <template v-if="coverImage.isRepositionMode.value">
                                 <Button
@@ -559,59 +667,65 @@ const restoreArticle = () => {
                                     class="tw-rounded-s-full tw-border-r-slate-300/10"
                                     severity="secondary"
                                     @click="saveRepositionCoverImage"
-                                    label="Save Position"/>
+                                    label="Save Position"
+                                />
                                 <Button
                                     icon="pi pi-times"
                                     size="small"
                                     class="tw-rounded-e-full"
                                     severity="secondary"
                                     @click="cancelRepositionCoverImage"
-                                    label="Cancel"/>
+                                    label="Cancel"
+                                />
                             </template>
                         </span>
                     </div>
-                    <InputError class="tw-text-center" :message="form.errors.cover_image" />
+                    <InputError
+                        class="tw-text-center"
+                        :message="form.errors.cover_image"
+                    />
                 </div>
                 <div class="tw-flex tw-flex-col tw-space-y-1">
                     <label class="tw-font-bold">Title</label>
-                    <Textarea v-model.trim="form.title" autoResize rows="1" autofocus />
+                    <Textarea
+                        v-model.trim="form.title"
+                        autoResize
+                        rows="1"
+                        autofocus
+                    />
                     <InputError :message="form.errors.title" />
                 </div>
                 <div class="tw-flex tw-flex-col tw-space-y-1">
                     <label class="tw-font-bold">Description</label>
-                    <Textarea v-model.trim="form.description" autoResize rows="2" />
+                    <Textarea
+                        v-model.trim="form.description"
+                        autoResize
+                        rows="2"
+                    />
                     <InputError :message="form.errors.description" />
                 </div>
                 <div class="tw-flex tw-flex-col tw-space-y-1">
                     <label class="tw-font-bold">Categories</label>
-                    <MultiSelect v-model="form.categories"
-                        display="chip" filter
+                    <MultiSelect
+                        v-model="form.categories"
+                        display="chip"
+                        filter
                         :options="allCategories"
                         optionLabel="name"
                         optionValue="id"
                         optionDisabled="deleted_at"
                         :selectionLimit="props.categoryLimit"
-                        :maxSelectedLabels="props.categoryLimit"/>
+                        :maxSelectedLabels="props.categoryLimit"
+                    />
                     <InputError :message="form.errors.categories" />
                 </div>
                 <div class="tw-flex tw-flex-col tw-space-y-1">
                     <label class="tw-font-bold">Content</label>
                     <InputError :message="form.errors.content" />
-                    <div ref="contentEditor"
-                        class="
-                        tw-rounded-md
-                        tw-w-full
-                        tw-min-h-[6rem]
-                        tw-border
-                        tw-transition
-                        tw-duration-300
-                        tw-shadow-sm
-                        main-input-border
-                        main-bg-3
-                        focus-within:main-primary-focus
-                        main-text-for-input"
-                    >
-                    </div>
+                    <div
+                        ref="contentEditor"
+                        class="main-input-border main-bg-3 focus-within:main-primary-focus main-text-for-input tw-min-h-[6rem] tw-w-full tw-rounded-md tw-border tw-shadow-sm tw-transition tw-duration-300"
+                    ></div>
                 </div>
             </div>
             <template #footer>
@@ -621,13 +735,15 @@ const restoreArticle = () => {
                     label="Save"
                     icon="pi pi-check"
                     :disabled="coverImage.isRepositionMode.value"
-                    @click="saveArticle" />
+                    @click="saveArticle"
+                />
                 <Button
                     rounded
                     label="Cancel"
                     icon="pi pi-times"
                     outlined
-                    @click="closeDialog(SAVE_DIALOG)" />
+                    @click="closeDialog(SAVE_DIALOG)"
+                />
             </template>
         </Dialog>
         <!-- Delete Dialog -->
@@ -635,11 +751,14 @@ const restoreArticle = () => {
             v-model:visible="openArticleDeleteDialog"
             modal
             header="Confirm"
-            class="tw-w-2/5">
+            class="tw-w-2/5"
+        >
             <div
-                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                class="tw-flex tw-flex-row tw-items-center tw-justify-center tw-space-x-2"
+            >
                 <i
-                    class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400" />
+                    class="pi pi-exclamation-triangle tw-mr-3 tw-text-4xl tw-text-red-500 dark:tw-text-red-400"
+                />
                 <span>
                     Are you sure you want to delete
                     <b>{{ form.title }}</b> ?
@@ -653,14 +772,16 @@ const restoreArticle = () => {
                     icon="pi pi-check"
                     autofocus
                     @click="deleteArticle"
-                    severity="danger" />
+                    severity="danger"
+                />
                 <Button
                     rounded
                     label="Cancel"
                     icon="pi pi-times"
                     outlined
                     severity="danger"
-                    @click="closeDialog(DELETE_DIALOG)" />
+                    @click="closeDialog(DELETE_DIALOG)"
+                />
             </template>
         </Dialog>
 
@@ -669,11 +790,14 @@ const restoreArticle = () => {
             v-model:visible="openArticleRestoreDialog"
             modal
             header="Confirm"
-            class="tw-w-2/5">
+            class="tw-w-2/5"
+        >
             <div
-                class="tw-flex tw-flex-row tw-items-center tw-space-x-2 tw-justify-center">
+                class="tw-flex tw-flex-row tw-items-center tw-justify-center tw-space-x-2"
+            >
                 <i
-                    class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400" />
+                    class="pi pi-trash tw-mr-3 tw-text-4xl tw-text-green-500 dark:tw-text-green-400"
+                />
                 <span>
                     Are you sure you want to restore
                     <b>{{ form.title }}</b> ?
@@ -687,14 +811,16 @@ const restoreArticle = () => {
                     icon="pi pi-check"
                     autofocus
                     @click="restoreArticle"
-                    severity="success" />
+                    severity="success"
+                />
                 <Button
                     rounded
                     label="Cancel"
                     icon="pi pi-times"
                     outlined
                     severity="success"
-                    @click="closeDialog(RESTORE_DIALOG)" />
+                    @click="closeDialog(RESTORE_DIALOG)"
+                />
             </template>
         </Dialog>
     </section>

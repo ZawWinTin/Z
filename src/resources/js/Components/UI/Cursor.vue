@@ -101,55 +101,16 @@ const updateCursorLight = (event: MouseEvent) => {
     <div class="tw-absolute">
         <div
             id="cursor-light"
-            class="
-                tw-aspect-square
-                main-bg-gradient
-                tw-bg-slate-50
-                tw-blur-3xl
-                tw-duration-500
-                tw-fixed
-                tw-left-1/2
-                tw-opacity-0
-                tw-pointer-events-none
-                tw-rounded-full
-                tw-select-none
-                tw-top-1/2
-                tw-transition-opacity
-                tw-w-2/5
-                "
+            class="main-bg-gradient tw-pointer-events-none tw-fixed tw-left-1/2 tw-top-1/2 tw-aspect-square tw-w-2/5 tw-select-none tw-rounded-full tw-bg-slate-50 tw-opacity-0 tw-blur-3xl tw-transition-opacity tw-duration-500"
         ></div>
-        <div class="tw-backdrop-blur-3xl tw-fixed tw-h-full tw-w-full tw-inset-0"></div>
+        <div
+            class="tw-fixed tw-inset-0 tw-h-full tw-w-full tw-backdrop-blur-3xl"
+        ></div>
         <div
             id="cursor"
-            class="
-                tw-bg-slate-800/90
-                dark:tw-bg-slate-50/90
-                dark:tw-text-slate-950
-                tw-duration-500
-                tw-fixed
-                tw-flex
-                tw-h-3
-                tw-items-center
-                tw-justify-center
-                tw-left-0
-                tw-opacity-0
-                tw-p-1
-                tw-pointer-events-none
-                tw-rounded-full
-                tw-select-none
-                tw-shadow-lg
-                tw-text-slate-50
-                tw-top-0
-                tw-transition-opacity
-                tw-w-3
-                tw-z-10
-                "
+            class="tw-pointer-events-none tw-fixed tw-left-0 tw-top-0 tw-z-10 tw-flex tw-h-3 tw-w-3 tw-select-none tw-items-center tw-justify-center tw-rounded-full tw-bg-slate-800/90 tw-p-1 tw-text-slate-50 tw-opacity-0 tw-shadow-lg tw-transition-opacity tw-duration-500 dark:tw-bg-slate-50/90 dark:tw-text-slate-950"
         >
-            <span class="
-                tw-font-extrabold
-                tw-text-[2px]
-                tw-text-center
-                "></span>
+            <span class="tw-text-center tw-text-[2px] tw-font-extrabold"></span>
         </div>
     </div>
 </template>

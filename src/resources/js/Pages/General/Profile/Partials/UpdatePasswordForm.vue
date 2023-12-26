@@ -12,9 +12,9 @@ const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
 const form = useForm<{
-    current_password: string,
-    password: string,
-    password_confirmation: string,
+    current_password: string;
+    password: string;
+    password_confirmation: string;
 }>({
     current_password: '',
     password: '',
@@ -42,23 +42,11 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2
-                class="
-                    tw-font-semibold
-                    tw-text-lg
-                    main-text-for-input
-                    "
-            >
+            <h2 class="main-text-for-input tw-text-lg tw-font-semibold">
                 Update Password
             </h2>
 
-            <p
-                class="
-                    tw-mt-1
-                    main-text
-                    tw-text-sm
-                    "
-            >
+            <p class="main-text tw-mt-1 tw-text-sm">
                 Ensure your account is using a long, random password to stay
                 secure.
             </p>
@@ -71,18 +59,22 @@ const updatePassword = () => {
                         id="current_password"
                         ref="currentPasswordInput"
                         v-model="form.current_password"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         :inputProps="{ autocomplete: 'current-password' }"
                         toggleMask
                         autofocus
                         :feedback="false"
                     />
-                    <InputLabel for="current_password" value="Current Password" class="tw-ml-4" />
+                    <InputLabel
+                        for="current_password"
+                        value="Current Password"
+                        class="tw-ml-4"
+                    />
                 </span>
 
                 <InputError
                     :message="form.errors.current_password"
-                    class="tw-mt-2 tw-ml-4"
+                    class="tw-ml-4 tw-mt-2"
                 />
             </div>
 
@@ -92,41 +84,54 @@ const updatePassword = () => {
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"
-                        class="tw-block tw-mt-1 tw-w-full"
+                        class="tw-mt-1 tw-block tw-w-full"
                         :inputProps="{ autocomplete: 'new-password' }"
                         toggleMask
                         feedback
                     />
-                    <InputLabel for="password" value="New Password" class="tw-ml-4" />
+                    <InputLabel
+                        for="password"
+                        value="New Password"
+                        class="tw-ml-4"
+                    />
                 </span>
 
-                <InputError :message="form.errors.password" class="tw-mt-2 tw-ml-4" />
+                <InputError
+                    :message="form.errors.password"
+                    class="tw-ml-4 tw-mt-2"
+                />
             </div>
 
             <div>
                 <span class="p-float-label">
-                <Password
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    :inputProps="{ autocomplete: 'new-password' }"
-                    toggleMask
-                    feedback
-                />
-                <InputLabel class="tw-ml-4"
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
+                    <Password
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        class="tw-mt-1 tw-block tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel
+                        class="tw-ml-4"
+                        for="password_confirmation"
+                        value="Confirm Password"
+                    />
                 </span>
                 <InputError
                     :message="form.errors.password_confirmation"
-                    class="tw-mt-2 tw-ml-4"
+                    class="tw-ml-4 tw-mt-2"
                 />
             </div>
 
-            <div class="tw-flex tw-gap-4 tw-items-center">
-                <Button type="submit" rounded label="Save" icon="pi pi-check" :loading="form.processing" />
+            <div class="tw-flex tw-items-center tw-gap-4">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Save"
+                    icon="pi pi-check"
+                    :loading="form.processing"
+                />
 
                 <transition
                     :enter-from-class="Transitions.overlay.enterFromClass"
@@ -136,10 +141,7 @@ const updatePassword = () => {
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="
-                            main-text
-                            tw-text-sm
-                            "
+                        class="main-text tw-text-sm"
                     >
                         Saved.
                     </p>

@@ -11,8 +11,7 @@ declare global {
 }
 
 declare module 'vue' {
-    interface ComponentCustomProperties {
-    }
+    interface ComponentCustomProperties {}
 }
 
 declare module '@inertiajs/core' {

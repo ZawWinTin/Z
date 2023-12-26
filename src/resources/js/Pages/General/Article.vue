@@ -10,9 +10,9 @@ import Article from '@/Interfaces/Article';
 import Paginator from '@/Interfaces/Paginator';
 
 const props = defineProps<{
-    articles: Paginator<Article>,
-    categories: Array<Category>,
-    errors: any,
+    articles: Paginator<Article>;
+    categories: Array<Category>;
+    errors: any;
 }>();
 
 const currentArticles = ref<Paginator<Article> | null>(null);
@@ -36,7 +36,7 @@ const getFilteredArticles = computed(() => {
     // Search by Category
     if (articleFilters.categories.value.length > 0) {
         filteredArticles = filteredArticles.filter(article => {
-            return article.categories.some((category) => {
+            return article.categories.some(category => {
                 return articleFilters.categories.value.includes(category.id);
             });
         });
@@ -45,8 +45,9 @@ const getFilteredArticles = computed(() => {
     // Search by Title
     if (articleFilters.global.value) {
         filteredArticles = filteredArticles.filter(article => {
-            return article.title.toLowerCase()
-                  .includes(articleFilters.global.value.toLowerCase());
+            return article.title
+                .toLowerCase()
+                .includes(articleFilters.global.value.toLowerCase());
         });
     }
 
@@ -64,7 +65,7 @@ const filteredCategories = computed(() => {
 });
 
 const chooseCategory = (category: Category) => {
-    let index = articleFilters.categories.value.indexOf(category.id);
+    const index = articleFilters.categories.value.indexOf(category.id);
     if (index === -1) {
         articleFilters.categories.value.push(category.id); // Add the item if it doesn't exist
     } else {
@@ -81,21 +82,21 @@ const disableClearChoseCategories = computed(() => {
 });
 </script>
 <template>
-    <section class="tw-pt-16 tw-pb-8 tw-h-screen">
+    <section class="tw-h-screen tw-pb-8 tw-pt-16">
         <Head title="Article" />
-        <div class="tw-container tw-flex tw-flex-row tw-space-x-4 tw-h-full">
+        <div class="tw-container tw-flex tw-h-full tw-flex-row tw-space-x-4">
             <!-- Article Section -->
             <div
-                class="tw-w-full !tw-bg-opacity-60 tw-rounded-lg tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col"
+                class="tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"
             >
                 <!-- Search -->
-                <div class="tw-flex tw-justify-between tw-items-center tw-space-x-4 tw-pb-2">
+                <div
+                    class="tw-flex tw-items-center tw-justify-between tw-space-x-4 tw-pb-2"
+                >
                     <span class="p-input-icon-left">
-                        <i
-                            class="pi pi-search tw-left-3 main-text"
-                        />
+                        <i class="pi pi-search main-text tw-left-3" />
                         <InputText
-                            class="tw-pl-10 tw-w-full"
+                            class="tw-w-full tw-pl-10"
                             v-model="articleFilters['global'].value"
                             placeholder="Search"
                         />
@@ -103,35 +104,36 @@ const disableClearChoseCategories = computed(() => {
                 </div>
                 <!-- Articles -->
                 <div
-                    class="tw-flex tw-flex-wrap tw-gap-4 tw-justify-around tw-h-full tw-transition tw-duration-300 primary-scrollbar"
+                    class="primary-scrollbar tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
                 >
                     <template
                         v-for="article in getFilteredArticles"
                         :key="article.id"
                     >
-                        <ArticleCard :article="article" data-cursor-type="explore" />
+                        <ArticleCard
+                            :article="article"
+                            data-cursor-type="explore"
+                        />
                     </template>
                 </div>
             </div>
 
             <!-- Category Section -->
             <div
-                class="tw-w-1/4 main-bg-2 !tw-bg-opacity-60 tw-shadow-lg tw-rounded-lg tw-py-4 tw-text-slate-900 dark:tw-text-slate-100 tw-duration-300 tw-transition tw-flex tw-flex-col tw-space-y-4"
+                class="main-bg-2 tw-flex tw-w-1/4 tw-flex-col tw-space-y-4 tw-rounded-lg !tw-bg-opacity-60 tw-py-4 tw-text-slate-900 tw-shadow-lg tw-transition tw-duration-300 dark:tw-text-slate-100"
             >
                 <div class="tw-mx-4 tw-flex tw-flex-row tw-space-x-2">
                     <span class="p-input-icon-left tw-w-full">
-                        <i
-                            class="pi pi-tags tw-left-3 main-text"
-                        />
+                        <i class="pi pi-tags main-text tw-left-3" />
                         <InputText
-                            class="tw-pl-10 tw-w-full"
+                            class="tw-w-full tw-pl-10"
                             v-model="categoryFilters"
                             placeholder="Search"
                         />
                     </span>
                     <Button
                         icon="pi pi-times"
-                        class="tw-w-10 tw-h-10"
+                        class="tw-h-10 tw-w-10"
                         outlined
                         rounded
                         @click="clearChoseCategories()"
@@ -142,14 +144,14 @@ const disableClearChoseCategories = computed(() => {
                     />
                 </div>
                 <div
-                    class="tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-mx-2 primary-scrollbar tw-transition tw-duration-300"
+                    class="primary-scrollbar tw-mx-2 tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-transition tw-duration-300"
                 >
                     <template
                         v-for="category in filteredCategories"
                         :key="category.id"
                     >
                         <div
-                            class="tw-inline-flex tw-justify-center tw-items-center tw-py-2 tw-px-2 tw-cursor-pointer tw-rounded-full tw-transition tw-duration-300 hover:main-secondary-hover"
+                            class="hover:main-secondary-hover tw-inline-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition tw-duration-300"
                             :class="
                                 articleFilters.categories.value.includes(
                                     category.id,

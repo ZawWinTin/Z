@@ -1,8 +1,8 @@
 type DataModeType = {
-    icon: string,
-    label: string,
-    outlined: boolean,
-}
+    icon: string;
+    label: string;
+    outlined: boolean;
+};
 
 export class DataMode {
     static 0: DataModeType = {
