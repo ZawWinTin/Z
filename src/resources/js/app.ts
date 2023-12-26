@@ -3,7 +3,6 @@ import '../css/app.css';
 import '../css/style.scss';
 import 'primeicons/primeicons.css';
 
-import moment from 'moment';
 import { createApp, h, DefineComponent } from 'vue';
 import { createPinia } from 'pinia';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -18,8 +17,6 @@ import AuthLayout from '@/Layouts/AuthLayout.vue';
 import TailwindConfig from '../../tailwind.config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
-window.moment = moment;
 
 createInertiaApp({
     title: title => `${title} | ${appName}`,

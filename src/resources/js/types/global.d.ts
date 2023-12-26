@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { AxiosInstance } from 'axios';
 import { PageProps as AppPageProps } from './';
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
@@ -6,7 +5,6 @@ import { PageProps as InertiaPageProps } from '@inertiajs/core';
 declare global {
     interface Window {
         axios: AxiosInstance;
-        moment: moment;
     }
 }
 
