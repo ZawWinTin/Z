@@ -28,28 +28,12 @@ import {
 
 const adminMenuStore = useAdminMenuStore();
 
-const menuLinkClasses = `
-    tw-whitespace-nowrap
-    tw-text-slate-100
-    hover:main-bg-3-dark-only
-    tw-py-2
-    tw-duration-200
-    tw-ease-in-out
-    tw-text-left
-    tw-uppercase
-    tw-px-4
-    tw-flex
-    tw-flex-row
-    tw-font-semibold
-    tw-justify-start`;
+const menuLinkClasses =
+    'tw-whitespace-nowrap tw-text-slate-100 hover:main-bg-3-dark-only tw-py-2 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase tw-px-4 tw-flex tw-flex-row tw-font-semibold tw-justify-start';
 
 const getActiveClasses = (routeName: string) => {
     if (isActiveRoute(routeName)) {
-        return `!tw-text-primary
-            tw-pointer-events-none
-            tw-select-none
-            !tw-font-bold
-            main-bg-1`;
+        return '!tw-text-primary tw-pointer-events-none tw-select-none !tw-font-bold main-bg-1';
     }
     return '';
 };
