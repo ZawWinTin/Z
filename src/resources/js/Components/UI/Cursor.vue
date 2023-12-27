@@ -1,17 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
 
-let cursor = null;
-let mouseX = 0;
-let mouseY = 0;
-let interactable = null;
-let isInteracting = false;
-let cursorText = '';
-
-let cursorLight = null;
-let lightX = 0;
-let lightY = 0;
-
 onMounted(() => {
     window.addEventListener('mousemove', (event: MouseEvent) => {
         updateCursor(event);
@@ -27,17 +16,19 @@ onUnmounted(() => {
 });
 
 const updateCursor = (event: MouseEvent) => {
-    cursor = document.getElementById('cursor');
+    const cursor = document.getElementById('cursor');
 
     if (!cursor) {
         return;
     }
 
-    interactable = (event.target as HTMLElement).closest('.interactable-js');
-    isInteracting = interactable !== null;
+    const interactable = (event.target as HTMLElement).closest(
+        '.interactable-js',
+    ) as HTMLElement;
+    const isInteracting = interactable !== null;
 
-    mouseX = event.clientX - cursor.offsetWidth / 2;
-    mouseY = event.clientY - cursor.offsetHeight / 2;
+    const mouseX = event.clientX - cursor.offsetWidth / 2;
+    const mouseY = event.clientY - cursor.offsetHeight / 2;
 
     cursor.animate(
         {
@@ -52,13 +43,15 @@ const updateCursor = (event: MouseEvent) => {
         },
     );
 
-    cursorText = cursor.querySelector('span');
-    cursorText.textContent = isInteracting
-        ? getCursorText(interactable.dataset.cursorType)
-        : '';
+    const cursorText = cursor.querySelector('span');
+    if (cursorText) {
+        cursorText.textContent = isInteracting
+            ? getCursorText(interactable.dataset.cursorType)
+            : '';
+    }
 };
 
-const getCursorText = (type: string) => {
+const getCursorText = (type?: string) => {
     let updatedCursorText = '';
     switch (type) {
         case 'project':
@@ -76,14 +69,14 @@ const getCursorText = (type: string) => {
 };
 
 const updateCursorLight = (event: MouseEvent) => {
-    cursorLight = document.getElementById('cursor-light');
+    const cursorLight = document.getElementById('cursor-light');
 
     if (!cursorLight) {
         return;
     }
 
-    lightX = event.clientX - cursorLight.offsetWidth / 2;
-    lightY = event.clientY - cursorLight.offsetHeight / 2;
+    const lightX = event.clientX - cursorLight.offsetWidth / 2;
+    const lightY = event.clientY - cursorLight.offsetHeight / 2;
 
     cursorLight.animate(
         {
