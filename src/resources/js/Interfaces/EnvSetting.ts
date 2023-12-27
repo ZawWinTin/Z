@@ -1,3 +1,9 @@
+import {
+    BooleanOption,
+    NumberOption,
+    DropdownOption,
+} from '@/Interfaces/SettingOptions';
+
 export default interface EnvSetting {
     name: string;
     value: any;
@@ -5,5 +11,5 @@ export default interface EnvSetting {
     label: string;
     description: string;
     icon_name: string;
-    options: Array<any> | [];
+    options: NumberOption | BooleanOption | Array<DropdownOption>;
 }

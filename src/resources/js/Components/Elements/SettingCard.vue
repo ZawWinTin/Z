@@ -11,6 +11,7 @@ import { onMounted, ref } from 'vue';
 import { DataType } from '@/Constants/DataType';
 import SystemSetting from '@/Interfaces/SystemSetting';
 import EnvSetting from '@/Interfaces/EnvSetting';
+import { NumberOption, DropdownOption } from '@/Interfaces/SettingOptions';
 
 type SettingCardData = {
     setting: SystemSetting | EnvSetting;
@@ -54,10 +55,10 @@ const updateSettings = () => {
     form.setting_type = props.type;
     switch (props.type) {
         case SettingType.SYSTEM:
-            form.key = props.setting.id;
+            form.key = (props.setting as SystemSetting).id;
             break;
         case SettingType.ENV:
-            form.key = props.setting.name;
+            form.key = (props.setting as EnvSetting).name;
             break;
     }
     form.value = currentValue.value;
@@ -103,7 +104,7 @@ const updateSettings = () => {
                 <span class="main-text-gradient tw-w-full tw-text-xl">
                     {{ props.setting.label }}
                 </span>
-                <span class="main-text tw-w-full">
+                <span class="main-text tw-w-full tw-text-sm">
                     {{ props.setting.description }}
                 </span>
             </div>
@@ -115,8 +116,8 @@ const updateSettings = () => {
                     <Slider
                         v-model="currentValue"
                         @slideend="updateSettings"
-                        :min="parseInt(props.setting.options.min)"
-                        :max="parseInt(props.setting.options.max)"
+                        :min="(props.setting.options as NumberOption).min"
+                        :max="(props.setting.options as NumberOption).max"
                         class="tw-w-full"
                     />
                     <span
@@ -146,7 +147,9 @@ const updateSettings = () => {
                     <Dropdown
                         v-model="currentValue"
                         @change="updateSettings"
-                        :options="props.setting.options"
+                        :options="
+                            props.setting.options as Array<DropdownOption>
+                        "
                         optionLabel="label"
                         optionValue="value"
                     />
