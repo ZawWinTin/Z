@@ -65,8 +65,8 @@ const DataMode: DataModeType[] = [
     { name: 'Unread', component: EnvelopeIcon },
 ];
 
-const loadContacts = (data: ContactData) => {
-    currentContacts.value = data.contacts;
+const loadContacts = (data: any) => {
+    currentContacts.value = data.contacts as Array<Contact>;
     if (currentDetail.value.id != -1) {
         currentDetail.value = currentContacts.value.find(contact => {
             return contact.id == currentDetail.value.id;
@@ -110,7 +110,7 @@ const contactClassesForRead = (isRead: boolean) => {
 };
 
 const setRead = (id: number) => {
-    form.post(route('admin.contact.read', id), {
+    form.post(route('admin.contact.read', { id: id }), {
         preserveScroll: true,
         onSuccess: data => {
             loadContacts(data.props);
@@ -127,7 +127,7 @@ const setRead = (id: number) => {
 };
 
 const setUnread = (id: number) => {
-    form.post(route('admin.contact.unread', id), {
+    form.post(route('admin.contact.unread', { id: id }), {
         preserveScroll: true,
         onSuccess: data => {
             loadContacts(data.props);
@@ -145,7 +145,7 @@ const setUnread = (id: number) => {
 };
 
 const toggleFavorite = (id: number) => {
-    form.post(route('admin.contact.favorite', id), {
+    form.post(route('admin.contact.favorite', { id: id }), {
         preserveScroll: true,
         onSuccess: data => {
             loadContacts(data.props);
