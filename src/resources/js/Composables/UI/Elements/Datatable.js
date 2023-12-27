@@ -1,5 +1,5 @@
-import Transitions from '@/Composables/UI/Transitions';
 import Paginator from '@/Composables/UI/Elements/Paginator';
+import Transitions from '@/Composables/UI/Transitions';
 
 export default {
     root: ({ props }) => ({

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, ref, watchEffect } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import route from '@/Composables/Common/Route';
-import Transitions from '@/Composables/UI/Transitions';
-import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
-import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
-import { useContactViewStore } from '@/Composables/Common/PiniaStore';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
+import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
+import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
+import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import route from '@/Composables/Common/Route';
+import Transitions from '@/Composables/UI/Transitions';
 import { UserRole } from '@/Constants/UserRole';
 
 const isMenuOpen = ref(false);

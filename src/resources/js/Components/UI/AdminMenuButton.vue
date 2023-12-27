@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { Bars3Icon, ChevronDoubleLeftIcon } from '@heroicons/vue/20/solid';
+
 import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
-import { Bars3Icon } from '@heroicons/vue/20/solid';
-import { ChevronDoubleLeftIcon } from '@heroicons/vue/20/solid';
 
 const adminMenuStore = useAdminMenuStore();
 </script>

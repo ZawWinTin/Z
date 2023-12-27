@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import route from '@/Composables/Common/Route';
-import InputError from '@/Components/UI/InputError.vue';
-import InputLabel from '@/Components/UI/InputLabel.vue';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
-import Transitions from '@/Composables/UI/Transitions';
+
+import InputError from '@/Components/UI/InputError.vue';
+import InputLabel from '@/Components/UI/InputLabel.vue';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
+import route from '@/Composables/Common/Route';
+import Transitions from '@/Composables/UI/Transitions';
 
 defineProps<{
     mustVerifyEmail?: boolean;

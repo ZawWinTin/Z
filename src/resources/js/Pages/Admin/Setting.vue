@@ -2,11 +2,12 @@
 import { computed, onMounted, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
-import Transitions from '@/Composables/UI/Transitions';
+
 import SettingCard from '@/Components/Elements/SettingCard.vue';
+import Transitions from '@/Composables/UI/Transitions';
 import { SettingType } from '@/Constants/SettingType';
-import SystemSetting from '@/Interfaces/SystemSetting';
 import EnvSetting from '@/Interfaces/EnvSetting';
+import SystemSetting from '@/Interfaces/SystemSetting';
 
 type SettingData = {
     systemSettings: Array<SystemSetting>;

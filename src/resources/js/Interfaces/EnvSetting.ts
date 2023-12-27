@@ -1,7 +1,7 @@
 import {
     BooleanOption,
-    NumberOption,
     DropdownOption,
+    NumberOption,
 } from '@/Interfaces/SettingOptions';
 
 export default interface EnvSetting {

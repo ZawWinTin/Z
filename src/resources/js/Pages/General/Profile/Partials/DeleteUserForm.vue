@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
-import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
+import Dialog from 'primevue/dialog';
+import Password from 'primevue/password';
+
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import Dialog from 'primevue/dialog';
-import Button from 'primevue/button';
-import Password from 'primevue/password';
+import route from '@/Composables/Common/Route';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref<HTMLInputElement | null>(null);

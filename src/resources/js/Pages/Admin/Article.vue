@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
 import { onMounted, ref, watchEffect } from 'vue';
-import { useToast } from 'primevue/usetoast';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Toast from 'primevue/toast';
-import Image from 'primevue/image';
+import { Head, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
-import Textarea from 'primevue/textarea';
+import Image from 'primevue/image';
 import MultiSelect from 'primevue/multiselect';
-import route from '@/Composables/Common/Route';
-import Transitions from '@/Composables/UI/Transitions';
-import { getDate } from '@/Composables/Common/Helper';
-import initializeEditor from '@/Composables/NoteEditor/Main';
+import Textarea from 'primevue/textarea';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
+import { getDate } from '@/Composables/Common/Helper';
+import route from '@/Composables/Common/Route';
+import initializeEditor from '@/Composables/NoteEditor/Main';
+import Transitions from '@/Composables/UI/Transitions';
 import { DataMode } from '@/Constants/DataMode';
-import Category from '@/Interfaces/Category';
 import Article from '@/Interfaces/Article';
+import Category from '@/Interfaces/Category';
 import Paginator from '@/Interfaces/Paginator';
 
 const FILTER_DIALOG = 'filter_dialog';

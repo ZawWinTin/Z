@@ -1,19 +1,22 @@
 import './bootstrap';
+
 import '../css/app.css';
 import '../css/style.scss';
 import 'primeicons/primeicons.css';
 
-import { createApp, h, DefineComponent } from 'vue';
-import { createPinia } from 'pinia';
+import { createApp, DefineComponent, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
-import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
+import Tooltip from 'primevue/tooltip';
+
 import MainDesignSystem from '@/Composables/UI/MainDesignSystem';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
+import GeneralLayout from '@/Layouts/GeneralLayout.vue';
+
 import TailwindConfig from '../../tailwind.config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import Header from '@/Components/Layout/Header.vue';
-import Footer from '@/Components/Layout/Footer.vue';
-import Cursor from '@/Components/UI/Cursor.vue';
+import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
+
 import Preloader from '@/Components/Elements/Preloader.vue';
-import { ref, onMounted, onUpdated, onUnmounted } from 'vue';
+import Footer from '@/Components/Layout/Footer.vue';
+import Header from '@/Components/Layout/Header.vue';
+import Cursor from '@/Components/UI/Cursor.vue';
 import {
     initializeOverlayScroll,
     loadOverlayScroll,

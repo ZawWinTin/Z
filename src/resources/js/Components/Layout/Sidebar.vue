@@ -1,30 +1,31 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import route from '@/Composables/Common/Route';
-import { isActiveRoute } from '@/Composables/Common/Helper';
-import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
-import AdminMenuButton from '@/Components/UI/AdminMenuButton.vue';
 import {
-    PresentationChartLineIcon as PresentationChartLineSolidIcon,
-    NewspaperIcon as NewspaperSolidIcon,
-    TagIcon as TagSolidIcon,
-    EnvelopeIcon as EnvelopeSolidIcon,
-    HomeIcon as HomeSolidIcon,
-    WrenchScrewdriverIcon as WrenchScrewdriverSolidIcon,
-    ArrowUpOnSquareIcon as ArrowUpOnSquareSolidIcon,
-} from '@heroicons/vue/24/solid';
-import {
-    MagnifyingGlassIcon,
-    PresentationChartLineIcon as PresentationChartLineOutlineIcon,
-    NewspaperIcon as NewspaperOutlineIcon,
-    TagIcon as TagOutlineIcon,
+    ArrowUpOnSquareIcon as ArrowUpOnSquareOutlineIcon,
     EnvelopeIcon as EnvelopeOutlineIcon,
     HomeIcon as HomeOutlineIcon,
+    MagnifyingGlassIcon,
+    NewspaperIcon as NewspaperOutlineIcon,
+    PresentationChartLineIcon as PresentationChartLineOutlineIcon,
+    TagIcon as TagOutlineIcon,
     WrenchScrewdriverIcon as WrenchScrewdriverOutlineIcon,
-    ArrowUpOnSquareIcon as ArrowUpOnSquareOutlineIcon,
 } from '@heroicons/vue/24/outline';
+import {
+    ArrowUpOnSquareIcon as ArrowUpOnSquareSolidIcon,
+    EnvelopeIcon as EnvelopeSolidIcon,
+    HomeIcon as HomeSolidIcon,
+    NewspaperIcon as NewspaperSolidIcon,
+    PresentationChartLineIcon as PresentationChartLineSolidIcon,
+    TagIcon as TagSolidIcon,
+    WrenchScrewdriverIcon as WrenchScrewdriverSolidIcon,
+} from '@heroicons/vue/24/solid';
+import { Link } from '@inertiajs/vue3';
+
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import AdminMenuButton from '@/Components/UI/AdminMenuButton.vue';
+import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
+import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
+import { isActiveRoute } from '@/Composables/Common/Helper';
+import route from '@/Composables/Common/Route';
 
 const adminMenuStore = useAdminMenuStore();
 

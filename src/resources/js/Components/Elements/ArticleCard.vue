@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import moment from 'moment';
 import { computed, onMounted, ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
+import moment from 'moment';
+
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import Article from '@/Interfaces/Article';
 

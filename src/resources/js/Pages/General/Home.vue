@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import CardContainer from '@/Components/Elements/CardContainer.vue';
+
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
+import CardContainer from '@/Components/Elements/CardContainer.vue';
 import Article from '@/Interfaces/Article';
 
 const props = defineProps<{

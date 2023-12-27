@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Tooltip from '@/Composables/UI/Elements/Tooltip';
-import { EnvelopeIcon as EnvelopeSolidIcon } from '@heroicons/vue/24/solid';
 import { EnvelopeIcon as EnvelopeOutlineIcon } from '@heroicons/vue/24/outline';
+import { EnvelopeIcon as EnvelopeSolidIcon } from '@heroicons/vue/24/solid';
+
+import Tooltip from '@/Composables/UI/Elements/Tooltip';
 </script>
 <template>
     <div

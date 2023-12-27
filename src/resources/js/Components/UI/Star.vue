@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Tooltip from '@/Composables/UI/Elements/Tooltip';
-import { StarIcon as StarSolidIcon } from '@heroicons/vue/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/vue/24/outline';
+import { StarIcon as StarSolidIcon } from '@heroicons/vue/24/solid';
+
+import Tooltip from '@/Composables/UI/Elements/Tooltip';
 
 defineProps<{
     checked: boolean;

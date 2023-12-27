@@ -12,7 +12,7 @@ module.exports = {
         '@vue/typescript/recommended',
         'prettier',
     ],
-    plugins: ['@typescript-eslint', 'vue', 'tailwindcss'],
+    plugins: ['@typescript-eslint', 'vue', 'tailwindcss', 'simple-import-sort'],
     parserOptions: {
         ecmaVersion: 'latest',
     },
@@ -29,5 +29,36 @@ module.exports = {
             },
         ],
         '@typescript-eslint/no-explicit-any': ['warn'],
+        'no-duplicate-imports': ['error', { includeExports: true }],
+        'simple-import-sort/imports': [
+            'error',
+            {
+                groups: [
+                    // Side effect imports.
+                    ['^\\u0000'],
+                    // Style imports.
+                    ['^.+\\.?(css|scss)$'],
+                    // Packages `vue` related packages come first.
+                    ['^vue', '^@?\\w'],
+                    // Internal packages.
+                    ['^(@)(/.*|$)'],
+                    // Parent imports. Put `..` last.
+                    ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+                    // Other relative imports. Put same-folder imports and `.` last.
+                    ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+                ],
+            },
+        ],
+        'simple-import-sort/exports': 'error',
+        'sort-imports': [
+            'error',
+            {
+                ignoreCase: true,
+                ignoreDeclarationSort: true,
+                ignoreMemberSort: false,
+                memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+                allowSeparatedGroups: true,
+            },
+        ],
     },
 };

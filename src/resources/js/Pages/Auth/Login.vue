@@ -3,13 +3,14 @@ import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
-import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
-import route from '@/Composables/Common/Route';
-import Transitions from '@/Composables/UI/Transitions';
+import Password from 'primevue/password';
+
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
+import route from '@/Composables/Common/Route';
+import Transitions from '@/Composables/UI/Transitions';
 
 defineProps<{
     isGeneralLogin?: boolean;

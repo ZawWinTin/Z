@@ -1,17 +1,18 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import Toast from 'primevue/toast';
-import { useToast } from 'primevue/usetoast';
-import Slider from 'primevue/slider';
 import Dropdown from 'primevue/dropdown';
 import InputSwitch from 'primevue/inputswitch';
+import Slider from 'primevue/slider';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
 import route from '@/Composables/Common/Route';
-import { SettingType } from '@/Constants/SettingType';
-import { onMounted, ref } from 'vue';
 import { DataType } from '@/Constants/DataType';
-import SystemSetting from '@/Interfaces/SystemSetting';
+import { SettingType } from '@/Constants/SettingType';
 import EnvSetting from '@/Interfaces/EnvSetting';
-import { NumberOption, DropdownOption } from '@/Interfaces/SettingOptions';
+import { DropdownOption, NumberOption } from '@/Interfaces/SettingOptions';
+import SystemSetting from '@/Interfaces/SystemSetting';
 
 type SettingCardData = {
     setting: SystemSetting | EnvSetting;

@@ -1,8 +1,9 @@
 import { BlockNoteEditor } from '@blocknote/core';
+
 import {
+    adjustAdditionalHeight,
     createButton,
     getDialogPos,
-    adjustAdditionalHeight,
 } from '@/Composables/NoteEditor/UI/Util';
 
 export const addFormattingToolbar = (

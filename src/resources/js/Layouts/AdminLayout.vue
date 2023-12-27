@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import Preloader from '@/Components/Elements/Preloader.vue';
 import AdminHeader from '@/Components/Layout/AdminHeader.vue';
 import Sidebar from '@/Components/Layout/Sidebar.vue';
-import Preloader from '@/Components/Elements/Preloader.vue';
 import { useAdminMenuStore } from '@/Composables/Admin/AdminMenuStore';
 
 const adminMenuStore = useAdminMenuStore();

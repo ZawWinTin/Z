@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import route from '@/Composables/Common/Route';
-import Cursor from '@/Components/UI/Cursor.vue';
+
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import Cursor from '@/Components/UI/Cursor.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
+import route from '@/Composables/Common/Route';
 </script>
 
 <template>

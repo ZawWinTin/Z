@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import route from '@/Composables/Common/Route';
 import { useForm } from '@inertiajs/vue3';
-import InputError from '@/Components/UI/InputError.vue';
-import InputLabel from '@/Components/UI/InputLabel.vue';
 import Button from 'primevue/button';
 import Password from 'primevue/password';
+
+import InputError from '@/Components/UI/InputError.vue';
+import InputLabel from '@/Components/UI/InputLabel.vue';
+import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 
 const passwordInput = ref<HTMLInputElement | null>(null);

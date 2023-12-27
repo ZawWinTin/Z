@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import route from '@/Composables/Common/Route';
-import InputError from '@/Components/UI/InputError.vue';
-import InputLabel from '@/Components/UI/InputLabel.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+
+import InputError from '@/Components/UI/InputError.vue';
+import InputLabel from '@/Components/UI/InputLabel.vue';
+import route from '@/Composables/Common/Route';
 
 const form = useForm<{
     name: string;

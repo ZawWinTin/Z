@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import InputText from 'primevue/inputtext';
-import InputLabel from '../UI/InputLabel.vue';
-import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import route from '@/Composables/Common/Route';
 import { useToast } from 'primevue/usetoast';
+
 import InputError from '@/Components/UI/InputError.vue';
+import InputLabel from '@/Components/UI/InputLabel.vue';
 import { scrollToTop } from '@/Composables/Common/Helper';
-import Transitions from '@/Composables/UI/Transitions';
 import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import route from '@/Composables/Common/Route';
+import Transitions from '@/Composables/UI/Transitions';
 
 const form = useForm<{
     email: string;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
 import { watch } from 'vue';
+import InputText from 'primevue/inputtext';
 
 const props = withDefaults(
     defineProps<{

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import route from '@/Composables/Common/Route';
-import InputError from '@/Components/UI/InputError.vue';
-import InputLabel from '@/Components/UI/InputLabel.vue';
+import { onMounted, ref } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-import { Head, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import { onMounted } from 'vue';
+
+import InputError from '@/Components/UI/InputError.vue';
+import InputLabel from '@/Components/UI/InputLabel.vue';
+import route from '@/Composables/Common/Route';
 
 const props = defineProps<{
     email: string;

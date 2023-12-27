@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import route from '@/Composables/Common/Route';
-import Button from 'primevue/button';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
+
 import StatusMessage from '@/Components/UI/StatusMessage.vue';
+import route from '@/Composables/Common/Route';
 
 const props = defineProps<{
     status?: string;

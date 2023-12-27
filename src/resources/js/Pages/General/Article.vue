@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
-import Category from '@/Interfaces/Category';
 import Article from '@/Interfaces/Article';
+import Category from '@/Interfaces/Category';
 import Paginator from '@/Interfaces/Paginator';
 
 const props = defineProps<{

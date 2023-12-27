@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { Head, Link } from '@inertiajs/vue3';
 import Button from 'primevue/button';
-import { Link } from '@inertiajs/vue3';
+
 import route from '@/Composables/Common/Route';
 
 const props = defineProps<{ status: number }>();

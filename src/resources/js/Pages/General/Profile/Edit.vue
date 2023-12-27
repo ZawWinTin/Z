@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
+import TabPanel from 'primevue/tabpanel';
+import TabView from 'primevue/tabview';
+
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
-import TabView from 'primevue/tabview';
-import TabPanel from 'primevue/tabpanel';
 
 defineProps<{
     mustVerifyEmail?: boolean;
