@@ -42,18 +42,18 @@ const toggleThemeMode = (
         setMode = mode;
     }
 
-    const favicon = $('#favicon');
-    const faviconPath = favicon.attr('href');
+    const favicon = document.getElementById('favicon') as HTMLAnchorElement;
+    const faviconPath = favicon.href;
 
     localStorage.theme = setMode;
     if (setMode === Theme.DARK_MODE) {
         document.documentElement.classList.add(Theme.DARK_MODE);
         darkModeStore.setDarkMode(true);
-        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'dark'));
+        favicon.href = faviconPath.replace(faviconPathPattern, 'dark');
     } else {
         document.documentElement.classList.remove(Theme.DARK_MODE);
         darkModeStore.setDarkMode(false);
-        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'light'));
+        favicon.href = faviconPath.replace(faviconPathPattern, 'light');
     }
 };
 </script>
