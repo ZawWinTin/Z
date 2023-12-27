@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import { useToast } from 'primevue/usetoast';
-import Toast from 'primevue/toast';
-import Column from 'primevue/column';
-import DataTable from 'primevue/datatable';
-import { getDate } from '@/Composables/Common/Helper';
-import Contact from '@/Interfaces/Contact';
-import { ref, computed, onMounted } from 'vue';
-import { FilterMatchMode } from 'primevue/api';
-import Button from 'primevue/button';
-import Dialog from 'primevue/dialog';
-import InputText from 'primevue/inputtext';
-import route from '@/Composables/Common/Route';
-import Star from '@/Components/UI/Star.vue';
-import UnreadEnvelope from '@/Components/UI/UnreadEnvelope.vue';
-import Dropdown from 'primevue/dropdown';
+import { computed, onMounted, ref } from 'vue';
 import {
+    EnvelopeIcon,
+    EnvelopeOpenIcon,
     InboxStackIcon,
     StarIcon,
-    EnvelopeOpenIcon,
-    EnvelopeIcon,
 } from '@heroicons/vue/24/solid';
+import { Head, useForm } from '@inertiajs/vue3';
+import { FilterMatchMode } from 'primevue/api';
+import Button from 'primevue/button';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
+import Dialog from 'primevue/dialog';
+import Dropdown from 'primevue/dropdown';
+import InputText from 'primevue/inputtext';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
+import Star from '@/Components/UI/Star.vue';
+import UnreadEnvelope from '@/Components/UI/UnreadEnvelope.vue';
+import { getDate } from '@/Composables/Common/Helper';
+import route from '@/Composables/Common/Route';
+import Contact from '@/Interfaces/Contact';
 
 const toast = useToast();
 
@@ -57,7 +58,7 @@ type DataModeType = {
     component: any;
 };
 const currentMode = ref<DataModeType | null>(null);
-const DataMode = <Array<DataModeType>>[
+const DataMode: DataModeType[] = [
     { name: 'All', component: InboxStackIcon },
     { name: 'Favorite', component: StarIcon },
     { name: 'Read', component: EnvelopeOpenIcon },
