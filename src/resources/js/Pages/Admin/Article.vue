@@ -136,7 +136,7 @@ const onSort = (event: DataTableSortEvent) => {
 const onPageOrSort = (event: DataTablePageEvent | DataTableSortEvent) => {
     filters.page = (event as DataTablePageEvent).page + 1;
     filters.perPage = (event as DataTableSortEvent).rows;
-    filters.sortField = (event as DataTableSortEvent).sortField;
+    filters.sortField = (event as DataTableSortEvent).sortField as string;
     filters.sortOrder = (event as DataTableSortEvent).sortOrder;
 
     loadArticles();
