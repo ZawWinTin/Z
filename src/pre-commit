@@ -1,13 +1,18 @@
 #!/bin/sh
 
+# Format using eslint
+cd src && npm run lint && npm run format && cd ..
+
 # Format js and html by prettier
 files=$(git diff --cached --name-only --diff-filter=AMCR -- '*.html' '*.css' '*.js' '*.ts' '*.vue', '*.jsx')
 if [[ -n $files ]];
 then
-	src/node_modules/.bin/prettier --config src/.prettierrc --write $files
+    cd src
+    node_modules/.bin/prettier --config .prettierrc --write $files
+    cd ..
     git add $files
 else
-	echo "There is no *.html, *.css, *.js, *.ts, *.vue, *jsx files to format."
+    echo "There is no *.html, *.css, *.js, *.ts, *.vue, *jsx files to format."
 fi
 
 
@@ -18,7 +23,7 @@ then
     src/vendor/bin/pint --config src/pint.json $files --dirty
     git add $files
 else
-	echo "There is no *.php files to format."
+    echo "There is no *.php files to format."
 fi
 
 # Format blade by blade formatter
@@ -28,5 +33,5 @@ then
     src/node_modules/.bin/blade-formatter --write $files --config src/.bladeformatterrc.json
     git add $files
 else
-	echo "There is no *.blade.php files to format."
+    echo "There is no *.blade.php files to format."
 fi
