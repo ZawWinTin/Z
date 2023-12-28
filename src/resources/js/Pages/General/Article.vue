@@ -13,7 +13,7 @@ import Paginator from '@/Interfaces/Paginator';
 const props = defineProps<{
     articles: Paginator<Article>;
     categories: Array<Category>;
-    errors: any;
+    errors: object;
 }>();
 
 const currentArticles = ref<Paginator<Article> | null>(null);

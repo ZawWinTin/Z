@@ -3,7 +3,10 @@ import { onMounted, ref, watchEffect } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import Column from 'primevue/column';
-import DataTable from 'primevue/datatable';
+import DataTable, {
+    DataTablePageEvent,
+    DataTableSortEvent,
+} from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Image from 'primevue/image';
 import MultiSelect from 'primevue/multiselect';
@@ -31,7 +34,7 @@ type ArticleData = {
     articles: Paginator<Article>;
     categories: Array<Category>;
     categoryLimit: number;
-    errors: any;
+    errors: object;
 };
 
 const props = withDefaults(defineProps<ArticleData>(), {
@@ -124,17 +127,17 @@ const loadArticles = () => {
     });
 };
 
-const onPage = (event: any) => {
+const onPage = (event: DataTablePageEvent) => {
     onPageOrSort(event);
 };
-const onSort = (event: any) => {
+const onSort = (event: DataTableSortEvent) => {
     onPageOrSort(event);
 };
-const onPageOrSort = (event: any) => {
-    filters.page = event.page + 1;
-    filters.perPage = event.rows;
-    filters.sortField = event.sortField;
-    filters.sortOrder = event.sortOrder;
+const onPageOrSort = (event: DataTablePageEvent | DataTableSortEvent) => {
+    filters.page = (event as DataTablePageEvent).page + 1;
+    filters.perPage = (event as DataTableSortEvent).rows;
+    filters.sortField = (event as DataTableSortEvent).sortField;
+    filters.sortOrder = (event as DataTableSortEvent).sortOrder;
 
     loadArticles();
 };

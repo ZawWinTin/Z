@@ -23,17 +23,17 @@ const props = defineProps<SettingCardData>();
 
 const form = useForm<{
     setting_type: string;
-    key: any;
-    value: any;
+    key: number | string;
+    value: number | string | boolean | null;
 }>({
     setting_type: '',
-    key: null,
+    key: '',
     value: null,
 });
 
 const toast = useToast();
 
-const currentValue = ref<any>(null);
+const currentValue = ref<number | string | boolean | null>(null);
 
 onMounted(() => {
     initializeValue(props);
@@ -42,7 +42,7 @@ onMounted(() => {
 const initializeValue = (data: SettingCardData) => {
     switch (data.setting.type) {
         case DataType.NUMBER:
-            currentValue.value = parseInt(data.setting.value);
+            currentValue.value = parseInt(data.setting.value as string);
             break;
         case DataType.BOOLEAN:
             currentValue.value = Boolean(data.setting.value);
@@ -115,7 +115,7 @@ const updateSettings = () => {
             <template v-if="props.setting.type === DataType.NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
                     <Slider
-                        v-model="currentValue"
+                        v-model="(currentValue as number)"
                         @slideend="updateSettings"
                         :min="(props.setting.options as NumberOption).min"
                         :max="(props.setting.options as NumberOption).max"
@@ -133,7 +133,7 @@ const updateSettings = () => {
                     class="tw-flex tw-flex-row tw-items-center tw-justify-end tw-space-x-2"
                 >
                     <InputSwitch
-                        v-model="currentValue"
+                        v-model="(currentValue as boolean)"
                         @change="updateSettings"
                     />
                     <span

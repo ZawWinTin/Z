@@ -44,7 +44,7 @@ const RESTORE_DIALOG = 'restore_dialog';
 
 type CategoryData = {
     categories: Array<Category>;
-    errors: any;
+    errors: object;
 };
 
 const props = defineProps<CategoryData>();

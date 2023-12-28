@@ -6,7 +6,7 @@ import {
 
 export default interface EnvSetting {
     name: string;
-    value: any;
+    value: number | string | boolean | null;
     type: string;
     label: string;
     description: string;

@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import {
+    computed,
+    FunctionalComponent,
+    HTMLAttributes,
+    onMounted,
+    ref,
+    VNodeProps,
+} from 'vue';
 import {
     EnvelopeIcon,
     EnvelopeOpenIcon,
@@ -27,7 +34,7 @@ const toast = useToast();
 
 type ContactData = {
     contacts: Array<Contact>;
-    errors: any;
+    errors: object;
 };
 
 const props = defineProps<ContactData>();
@@ -55,7 +62,7 @@ const currentDetail = ref<Contact>(initialDetail);
 
 type DataModeType = {
     name: string;
-    component: any;
+    component: FunctionalComponent<HTMLAttributes & VNodeProps>;
 };
 const currentMode = ref<DataModeType | null>(null);
 const DataMode: DataModeType[] = [
@@ -65,7 +72,7 @@ const DataMode: DataModeType[] = [
     { name: 'Unread', component: EnvelopeIcon },
 ];
 
-const loadContacts = (data: any) => {
+const loadContacts = (data: ContactData) => {
     currentContacts.value = data.contacts as Array<Contact>;
     if (currentDetail.value.id != -1) {
         currentDetail.value = currentContacts.value.find(contact => {

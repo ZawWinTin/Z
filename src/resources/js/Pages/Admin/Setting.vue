@@ -12,7 +12,7 @@ import SystemSetting from '@/Interfaces/SystemSetting';
 type SettingData = {
     systemSettings: Array<SystemSetting>;
     envSettings: Array<EnvSetting>;
-    errors: any;
+    errors: object;
 };
 
 const props = defineProps<SettingData>();

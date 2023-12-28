@@ -28,7 +28,7 @@ module.exports = {
                 cssFiles: ['resources/css/app.css', 'resources/css/style.scss'],
             },
         ],
-        '@typescript-eslint/no-explicit-any': ['warn'],
+        '@typescript-eslint/no-explicit-any': ['error'],
         'no-duplicate-imports': ['error', { includeExports: true }],
         'simple-import-sort/imports': [
             'error',

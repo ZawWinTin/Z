@@ -4,7 +4,11 @@ export default interface Paginator<T> {
     first_page_url: string;
     from: number;
     last_page: number;
-    links: Array<any>;
+    links: Array<{
+        active: boolean;
+        label: string;
+        url: string | null;
+    }>;
     next_page_url: string | null;
     path: string;
     per_page: number;
