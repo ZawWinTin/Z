@@ -115,7 +115,7 @@ const updateSettings = () => {
             <template v-if="props.setting.type === DataType.NUMBER">
                 <div class="tw-flex tw-flex-row tw-items-center tw-space-x-2">
                     <Slider
-                        v-model="(currentValue as number)"
+                        v-model="currentValue as number"
                         @slideend="updateSettings"
                         :min="(props.setting.options as NumberOption).min"
                         :max="(props.setting.options as NumberOption).max"
@@ -133,7 +133,7 @@ const updateSettings = () => {
                     class="tw-flex tw-flex-row tw-items-center tw-justify-end tw-space-x-2"
                 >
                     <InputSwitch
-                        v-model="(currentValue as boolean)"
+                        v-model="currentValue as boolean"
                         @change="updateSettings"
                     />
                     <span
