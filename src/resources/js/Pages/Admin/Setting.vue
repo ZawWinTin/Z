@@ -26,9 +26,9 @@ onMounted(() => {
     loadSettings(props);
 });
 
-const loadSettings = (data: SettingData) => {
-    currentSystemSettings.value = data.systemSettings;
-    currentEnvSettings.value = data.envSettings;
+const loadSettings = (data: unknown) => {
+    currentSystemSettings.value = (data as SettingData).systemSettings;
+    currentEnvSettings.value = (data as SettingData).envSettings;
 };
 
 const filteredSettings = (

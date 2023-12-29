@@ -72,8 +72,8 @@ const DataMode: DataModeType[] = [
     { name: 'Unread', component: EnvelopeIcon },
 ];
 
-const loadContacts = (data: ContactData) => {
-    currentContacts.value = data.contacts as Array<Contact>;
+const loadContacts = (data: unknown) => {
+    currentContacts.value = (data as ContactData).contacts as Array<Contact>;
     if (currentDetail.value.id != -1) {
         currentDetail.value = currentContacts.value.find(contact => {
             return contact.id == currentDetail.value.id;

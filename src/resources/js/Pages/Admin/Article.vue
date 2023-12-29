@@ -113,9 +113,9 @@ watchEffect(() => {
     }
 });
 
-const loadData = (data: ArticleData) => {
-    currentArticles.value = data.articles;
-    allCategories.value = data.categories;
+const loadData = (data: unknown) => {
+    currentArticles.value = (data as ArticleData).articles;
+    allCategories.value = (data as ArticleData).categories;
 };
 
 const loadArticles = () => {

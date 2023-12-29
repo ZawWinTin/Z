@@ -69,8 +69,8 @@ onMounted(() => {
     loadCategories(props);
 });
 
-const loadCategories = (data: CategoryData) => {
-    currentCategories.value = data.categories;
+const loadCategories = (data: unknown) => {
+    currentCategories.value = (data as CategoryData).categories;
 };
 
 const getCategories = computed(() => {
