@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { nextTick, ref, VNodeRef } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -10,7 +10,7 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import route from '@/Composables/Common/Route';
 
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref<HTMLInputElement | null>(null);
+const passwordInput = ref<VNodeRef | null>(null);
 
 const form = useForm<{
     password: string;
@@ -22,15 +22,17 @@ const confirmUserDeletion = () => {
     form.reset();
     confirmingUserDeletion.value = true;
 
-    //TODO:
-    // nextTick(() => passwordInput.value?.focus());
+    nextTick(() => {
+        (passwordInput.value?.$el.firstChild as HTMLInputElement).focus();
+    });
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: false,
         onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value?.focus(),
+        onError: () =>
+            (passwordInput.value?.$el.firstChild as HTMLInputElement).focus(),
         onFinish: () => form.reset(),
     });
 };

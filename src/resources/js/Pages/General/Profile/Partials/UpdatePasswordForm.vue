@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, VNodeRef } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import Password from 'primevue/password';
@@ -9,8 +9,8 @@ import InputLabel from '@/Components/UI/InputLabel.vue';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 
-const passwordInput = ref<HTMLInputElement | null>(null);
-const currentPasswordInput = ref<HTMLInputElement | null>(null);
+const passwordInput = ref<VNodeRef | null>(null);
+const currentPasswordInput = ref<VNodeRef | null>(null);
 
 const form = useForm<{
     current_password: string;
@@ -29,11 +29,16 @@ const updatePassword = () => {
         onError: () => {
             if (form.errors.password) {
                 form.reset('password', 'password_confirmation');
-                // passwordInput.value?.focus();
+                (
+                    passwordInput.value?.$el.firstChild as HTMLInputElement
+                ).focus();
             }
             if (form.errors.current_password) {
                 form.reset('current_password');
-                // currentPasswordInput.value?.focus();
+                (
+                    currentPasswordInput.value?.$el
+                        .firstChild as HTMLInputElement
+                ).focus();
             }
         },
     });

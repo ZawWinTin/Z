@@ -59,7 +59,7 @@
     }
 
     .main-primary-focus {
-        @apply tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
+        @apply tw-border-primary tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
     }
 
     .main-secondary-hover {
