@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
 
 const props = withDefaults(
     defineProps<{
@@ -17,7 +17,7 @@ let totalDistance = 0;
 const preloader = ref<HTMLElement | null>(null);
 const loadingBar = ref<HTMLElement | null>(null);
 const loadingBarContainer = ref<HTMLElement | null>(null);
-const counterContainer = {
+const counterContainer: Record<string, Ref<HTMLElement | null>> = {
     ones: ref<HTMLElement | null>(null),
     tens: ref<HTMLElement | null>(null),
     hundreds: ref<HTMLElement | null>(null),
@@ -31,18 +31,21 @@ const end = async () => {
 
         let counterDuration = duration * 0.9;
         for (const key in counterContainer) {
-            const counter = counterContainer[key].value;
-            counter.querySelector('.next-js').textContent = null;
-            counter.animate(
-                {
-                    transform: `translateY(-${totalDistance}px)`,
-                },
-                {
-                    duration: counterDuration,
-                    fill: 'forwards',
-                },
-            );
-            counterDuration *= 0.6;
+            const counter = counterContainer[key].value as HTMLElement;
+            if (counter) {
+                (counter.querySelector('.next-js') as Element).textContent =
+                    null;
+                counter.animate(
+                    {
+                        transform: `translateY(-${totalDistance}px)`,
+                    },
+                    {
+                        duration: counterDuration,
+                        fill: 'forwards',
+                    },
+                );
+                counterDuration *= 0.6;
+            }
         }
 
         const barDuration = duration * 0.5;
@@ -56,7 +59,7 @@ const end = async () => {
                 fill: 'forwards',
             },
         );
-        const zBars = preloader.value?.querySelectorAll('.z-bar-js');
+        const zBars = preloader.value?.querySelectorAll('.z-bar-js') || [];
         for (let i = 0; i < zBars.length; i++) {
             const bar = zBars[i];
             bar.animate(
@@ -82,10 +85,12 @@ const end = async () => {
                     fill: 'forwards',
                 },
             );
-            preloaderEndAnimation.finished.then(() => {
-                preloader.value?.remove();
-                document.body.classList.remove('tw-overflow-hidden');
-            });
+            if (preloaderEndAnimation) {
+                preloaderEndAnimation.finished.then(() => {
+                    preloader.value?.remove();
+                    document.body.classList.remove('tw-overflow-hidden');
+                });
+            }
         }, duration);
     }, 250);
 };
@@ -107,9 +112,9 @@ const setLoading = async (steps: number = 40, duration: number = 250) => {
 
 const resetLoading = () => {
     for (const key in counterContainer) {
-        const counter = counterContainer[key].value;
-        counter.querySelector('.current-js').textContent = 0;
-        counter.querySelector('.next-js').textContent = 1;
+        const counter = counterContainer[key].value as HTMLElement;
+        (counter.querySelector('.current-js') as Element).textContent = '0';
+        (counter.querySelector('.next-js') as Element).textContent = '1';
     }
     loadingBar.value?.animate(
         {
@@ -123,22 +128,25 @@ const resetLoading = () => {
 };
 
 const animateLoading = async (rate: number, decimal: number = 0) => {
-    return new Promise(resolve => {
-        const counter = Object.values(counterContainer)[decimal].value;
+    return new Promise<void>(resolve => {
+        const counter = Object.values(counterContainer)[decimal]
+            .value as HTMLElement;
         if (!counter) {
             resolve();
             return;
         }
 
         if (numHeight == 0) {
-            numHeight = counter.querySelector('div').clientHeight;
+            numHeight = (counter.querySelector('div') as Element).clientHeight;
         }
         if (totalDistance == 0) {
             totalDistance =
                 (counter.querySelectorAll('div').length - 1) * numHeight;
         }
 
-        const nextNum = parseInt(counter.querySelector('.next-js').textContent);
+        const nextNum = parseInt(
+            (counter.querySelector('.next-js') as Element).textContent || '',
+        );
 
         if (nextNum == 0) {
             animateLoading(rate, decimal + 1);
@@ -167,8 +175,12 @@ const animateLoading = async (rate: number, decimal: number = 0) => {
             resolve();
         }
         counterAnimation.finished.then(() => {
-            counter.querySelector('.current-js').textContent = nextNum;
-            counter.querySelector('.next-js').textContent = (nextNum + 1) % 10;
+            (counter.querySelector('.current-js') as Element).textContent =
+                nextNum.toString();
+            (counter.querySelector('.next-js') as Element).textContent = (
+                (nextNum + 1) %
+                10
+            ).toString();
 
             if (decimal == 0) {
                 resolve();
