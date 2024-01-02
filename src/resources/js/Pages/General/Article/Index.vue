@@ -1,34 +1,64 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
+import { Head, router } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
+import route from '@/Composables/Common/Route';
 import Article from '@/Interfaces/Article';
 import Category from '@/Interfaces/Category';
 import Paginator from '@/Interfaces/Paginator';
 
 const props = defineProps<{
-    articles: Paginator<Article>;
+    articles: Paginator<Article>; //TODO: Infinite Scroll with Filter
     categories: Array<Category>;
     errors: object;
 }>();
 
-const currentArticles = ref<Paginator<Article> | null>(null);
+const currentArticles = ref<Array<Article>>([]);
 const currentCategories = ref<Array<Category>>([]);
 
-const articleFilters = reactive({
+const articleContainer = ref<HTMLElement | null>(null);
+const loadMoreFragment = ref<HTMLElement | null>(null);
+
+const articleFilters = reactive<{
+    global: {
+        value: string | null;
+    };
+    categories: {
+        value: number[];
+    };
+}>({
     global: { value: null },
 
     categories: { value: [] },
 });
-const categoryFilters = ref(null);
+
+const categoryFilters = ref<string>('');
+
+const callToLoadArticles = () => {
+    const observer = new IntersectionObserver(entries =>
+        entries.forEach(entry => entry.isIntersecting && loadMoreArticles(), {
+            rootMargin: '0px 0px 0px 0px',
+        }),
+    );
+
+    if (loadMoreFragment.value) {
+        observer.observe(loadMoreFragment.value);
+    }
+};
 
 onMounted(() => {
-    currentArticles.value = props.articles;
+    currentArticles.value = props.articles.data;
     currentCategories.value = props.categories;
+
+    articleContainer.value?.addEventListener('scroll', callToLoadArticles);
+});
+
+onUnmounted(() => {
+    articleContainer.value?.remvoEventListener('scroll', callToLoadArticles);
 });
 
 const getFilteredArticles = computed(() => {
@@ -36,7 +66,7 @@ const getFilteredArticles = computed(() => {
 
     // Search by Category
     if (articleFilters.categories.value.length > 0) {
-        filteredArticles = filteredArticles.filter(article => {
+        filteredArticles = filteredArticles?.filter(article => {
             return article.categories.some(category => {
                 return articleFilters.categories.value.includes(category.id);
             });
@@ -45,15 +75,40 @@ const getFilteredArticles = computed(() => {
 
     // Search by Title
     if (articleFilters.global.value) {
-        filteredArticles = filteredArticles.filter(article => {
+        filteredArticles = filteredArticles?.filter(article => {
             return article.title
                 .toLowerCase()
-                .includes(articleFilters.global.value.toLowerCase());
+                .includes(
+                    (articleFilters.global.value as string).toLowerCase(),
+                );
         });
     }
 
     return filteredArticles;
 });
+
+const loadMoreArticles = () => {
+    if (props.articles.next_page_url === null) {
+        return;
+    }
+
+    router.visit(props.articles.next_page_url, {
+        preserveState: true,
+        preserveScroll: true,
+        only: ['articles'],
+        onSuccess: data => {
+            currentArticles.value = [
+                ...currentArticles.value,
+                ...(data.props.articles as Paginator<Article>).data,
+            ];
+            window.history.replaceState(
+                {},
+                '',
+                route('article.index', {}, true),
+            );
+        },
+    });
+};
 
 const filteredCategories = computed(() => {
     return categoryFilters.value
@@ -105,6 +160,7 @@ const disableClearChoseCategories = computed(() => {
                 </div>
                 <!-- Articles -->
                 <div
+                    ref="articleContainer"
                     class="primary-scrollbar tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
                 >
                     <template
@@ -116,6 +172,15 @@ const disableClearChoseCategories = computed(() => {
                             data-cursor-type="explore"
                         />
                     </template>
+
+                    <div
+                        ref="loadMoreFragment"
+                        v-if="!!props.articles.next_page_url"
+                        class="main-text tw-mt-7 tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-center tw-space-x-2 tw-opacity-80"
+                    >
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <span>Loading</span>
+                    </div>
                 </div>
             </div>
 
