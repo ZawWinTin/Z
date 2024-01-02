@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
+import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import { getDate } from '@/Composables/Common/Helper';
 import Article from '@/Interfaces/Article';
 
@@ -22,13 +23,23 @@ const props = defineProps<{
                 }`"
             />
         </div>
-        <div class="tw-container tw-flex tw-flex-col tw-space-y-2 tw-pt-8">
+        <div class="tw-container tw-flex tw-flex-col tw-space-y-4 tw-pt-8">
             <h1 class="main-text-gradient tw-text-5xl">
                 {{ props.article.title }}
             </h1>
-            <span class="main-text tw-ml-auto">
-                {{ getDate(props.article.created_at) }}
-            </span>
+            <div class="tw-flex tw-flex-row tw-items-start tw-justify-between">
+                <div class="tw-flex tw-flex-row tw-flex-wrap tw-gap-2">
+                    <template
+                        v-for="category in props.article.categories"
+                        :key="category.id"
+                    >
+                        <CategoryBadge :category="category" />
+                    </template>
+                </div>
+                <span class="main-text tw-ml-auto">
+                    {{ getDate(props.article.created_at) }}
+                </span>
+            </div>
         </div>
     </section>
 </template>
