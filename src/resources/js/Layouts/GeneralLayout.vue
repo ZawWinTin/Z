@@ -39,7 +39,8 @@ onUnmounted(() => {
 
 onUpdated(() => {
     if (props.showFooter) {
-        loadOverlayScroll(articleSection.value);
+        initializeOverlayScroll(articleSection.value, true);
+        window.addEventListener('scroll', scrollOverlayEffect);
     }
     contactViewStore.setExist(props.showFooter);
 });

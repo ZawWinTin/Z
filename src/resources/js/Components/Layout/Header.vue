@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import {
+    computed,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    watchEffect,
+} from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
@@ -8,7 +15,10 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
 import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
 import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
-import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import {
+    useAboutViewStore,
+    useContactViewStore,
+} from '@/Composables/Common/PiniaStore';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 import { UserRole } from '@/Constants/UserRole';
@@ -18,14 +28,12 @@ const isMenuOpen = ref(false);
 const toast = useToast();
 const toastVisible = ref(false);
 
-const contact = ref<HTMLElement | null>(null);
+const aboutViewStore = useAboutViewStore();
 const contactViewStore = useContactViewStore();
 
 const fragments = {
-    home: { url: 'home', element: ref<HTMLElement | null>(null) },
-    articles: { url: 'article.index', element: ref<HTMLElement | null>(null) },
-    about: { url: 'home', element: ref<HTMLElement | null>(null) },
-    contact: { url: 'contact', element: ref<HTMLElement | null>(null) },
+    about: ref<HTMLElement | null>(null),
+    contact: ref<HTMLElement | null>(null),
 };
 
 const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
@@ -62,29 +70,73 @@ const showFlashMessage = (message: string) => {
     });
 };
 
-watchEffect(() => {
-    initializeFlashMessage();
-});
-
 const initializeScrolling = () => {
     isMenuOpen.value = false;
     document.body.classList.remove('tw-overflow-hidden');
 
-    contact.value = document.querySelector('footer');
+    initializeFragments();
 
     window.addEventListener('scroll', onScroll);
+
+    setScroll();
+};
+
+const setScroll = () => {
+    const view = usePage().props.flash.view;
+
+    nextTick(() => {
+        switch (view) {
+            case 'about':
+                scrollToAbout();
+                break;
+            case 'contact':
+                scrollToContact();
+                break;
+            default:
+                return;
+        }
+    });
+};
+
+const initializeFragments = () => {
+    fragments.contact.value = document.querySelector('footer');
+    //TODO: add About
 };
 
 const onScroll = () => {
+    onContactScroll();
+};
+
+const onContactScroll = () => {
     contactViewStore.setReach(
-        !!(contact.value && window.scrollY >= contact.value.offsetTop - 48),
+        !!(
+            fragments.contact.value &&
+            window.scrollY >= fragments.contact.value.offsetTop - 48
+        ),
     );
     contactViewStore.setShow(
         !!(
-            contact.value &&
-            window.scrollY >= contact.value.offsetTop - window.innerHeight / 2
+            fragments.contact.value &&
+            window.scrollY >=
+                fragments.contact.value.offsetTop - window.innerHeight / 2
         ),
     );
+};
+
+const scrollToAbout = () => {
+    if (aboutViewStore.isExist) {
+        fragments.about.value?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        router.visit(route('redirect', { view: 'about' }));
+    }
+};
+
+const scrollToContact = () => {
+    if (contactViewStore.isExist) {
+        fragments.contact.value?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        router.visit(route('redirect', { view: 'contact' }));
+    }
 };
 
 const toggleMainMenu = (
@@ -102,7 +154,11 @@ const toggleMainMenu = (
 };
 
 const getActiveClasses = (routeName: string) => {
-    if (isActiveRoute(routeName) && !contactViewStore.isReached) {
+    if (
+        isActiveRoute(routeName) &&
+        !contactViewStore.isReached &&
+        !aboutViewStore.isReached
+    ) {
         return activeClasses;
     }
     return '';
@@ -111,18 +167,23 @@ const getActiveClasses = (routeName: string) => {
 const checkActiveLink = (routeName: string) => {
     if (isActiveRoute(routeName)) {
         scrollToTop();
+    } else {
+        router.visit(route(routeName));
     }
 };
 
+const getAboutClasses = computed(() => {
+    return aboutViewStore.isReached ? activeClasses : '';
+});
+
 const getContactClasses = computed(() => {
-    //TODO: Universal (Scroll)
     return contactViewStore.isReached ? activeClasses : '';
 });
 
-const scrollToContact = () => {
-    //TODO: Universal (Scroll)
-    contact.value?.scrollIntoView({ behavior: 'smooth' });
-};
+watchEffect(() => {
+    setScroll();
+    initializeFlashMessage();
+});
 </script>
 <template>
     <div
@@ -175,29 +236,27 @@ const scrollToContact = () => {
             >
                 <section :class="sectionClasses" class="tw-pl-4">
                     <div :class="menuCardClasses">
-                        <Link
+                        <button
                             :class="[getActiveClasses('home'), menuLinkClasses]"
                             @click="checkActiveLink('home')"
-                            :href="route('home')"
-                            >Home</Link
                         >
-                        <Link
+                            Home
+                        </button>
+                        <button
                             :class="[
                                 getActiveClasses('article.index'),
                                 menuLinkClasses,
                             ]"
                             @click="checkActiveLink('article.index')"
-                            :href="route('article.index')"
-                            >Articles</Link
                         >
-                        <Link
-                            :class="[
-                                getActiveClasses('about'),
-                                menuLinkClasses,
-                            ]"
-                            href="#"
-                            >About</Link
+                            Articles
+                        </button>
+                        <button
+                            :class="[getAboutClasses, menuLinkClasses]"
+                            @click="scrollToAbout"
                         >
+                            About
+                        </button>
                         <button
                             :class="[getContactClasses, menuLinkClasses]"
                             @click="scrollToContact"

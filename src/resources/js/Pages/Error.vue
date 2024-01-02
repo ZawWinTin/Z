@@ -69,7 +69,7 @@ const back = () => {
         <div
             class="tw-absolute tw-bottom-8 tw-flex tw-max-w-md tw-flex-col tw-space-y-2"
         >
-            <Link :href="route('home')">
+            <Link :href="route('redirect', { view: 'contact' })" as="button">
                 <Button
                     class="tw-mx-auto tw-uppercase"
                     rounded

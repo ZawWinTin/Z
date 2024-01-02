@@ -15,6 +15,27 @@ export const useDarkModeStore = defineStore('darkMode', () => {
     return { isDarkMode, toggleDarkMode, setDarkMode };
 });
 
+// View
+export const useAboutViewStore = defineStore('aboutView', () => {
+    const isReached = ref<boolean>(false);
+    const isShow = ref<boolean>(false);
+    const isExist = ref<boolean>(false);
+
+    const setReach = (newValue: boolean) => {
+        isReached.value = newValue && isExist.value;
+    };
+
+    const setShow = (newValue: boolean) => {
+        isShow.value = newValue && isExist.value;
+    };
+
+    const setExist = (newValue: boolean) => {
+        isExist.value = newValue;
+    };
+
+    return { isReached, setReach, isShow, setShow, isExist, setExist };
+});
+
 export const useContactViewStore = defineStore('contactView', () => {
     const isReached = ref<boolean>(false);
     const isShow = ref<boolean>(false);

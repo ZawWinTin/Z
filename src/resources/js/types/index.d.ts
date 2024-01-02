@@ -11,5 +11,6 @@ export type PageProps<
             type: string;
             details: string;
         };
+        view?: string;
     };
 };
