@@ -14,4 +14,11 @@ class ArticleRepository
 
         return compact('articles', 'categories');
     }
+
+    public function show($id)
+    {
+        $article = Article::with(['categories', 'coverImage'])->findOrFail($id);
+
+        return compact('article');
+    }
 }

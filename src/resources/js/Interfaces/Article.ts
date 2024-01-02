@@ -6,7 +6,9 @@ export default interface Article {
     title: string;
     description: string;
     content: string;
+
     created_at: string;
+    deleted_at: string | null;
 
     categories: Array<Category>;
     cover_image: Image;

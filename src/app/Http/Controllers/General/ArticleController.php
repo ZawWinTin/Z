@@ -19,6 +19,13 @@ class ArticleController extends Controller
     {
         $data = $this->articleService->getAll();
 
-        return Inertia::render('General/Article', $data);
+        return Inertia::render('General/Article/Index', $data);
+    }
+
+    public function show($id)
+    {
+        $data = $this->articleService->show($id);
+
+        return Inertia::render('General/Article/Show', $data);
     }
 }

@@ -75,7 +75,7 @@ const loadCategories = (data: unknown) => {
 
 const getCategories = computed(() => {
     return currentCategories.value.filter(category => {
-        switch (DataMode[currentMode.value].label) {
+        switch (DataMode.modes[currentMode.value].label) {
             case 'Active':
                 return category.deleted_at == null;
             case 'Trash':
@@ -88,7 +88,9 @@ const getCategories = computed(() => {
 
 const updateMode = () => {
     const updatedCurrentMode = currentMode.value + 1;
-    if (Object.prototype.hasOwnProperty.call(DataMode, updatedCurrentMode)) {
+    if (
+        Object.prototype.hasOwnProperty.call(DataMode.modes, updatedCurrentMode)
+    ) {
         currentMode.value = updatedCurrentMode;
     } else {
         currentMode.value = 0;
@@ -279,9 +281,9 @@ const restoreCategory = () => {
                             class="tw-flex tw-items-center tw-justify-start tw-space-x-4"
                         >
                             <Button
-                                :label="DataMode[currentMode].label"
-                                :icon="DataMode[currentMode].icon"
-                                :outlined="DataMode[currentMode].outlined"
+                                :label="DataMode.modes[currentMode].label"
+                                :icon="DataMode.modes[currentMode].icon"
+                                :outlined="DataMode.modes[currentMode].outlined"
                                 @click="updateMode"
                                 rounded
                             />
@@ -311,7 +313,9 @@ const restoreCategory = () => {
                             :leave-to-class="Transitions.overlay.leaveToClass"
                         >
                             <template
-                                v-if="DataMode[currentMode].label != 'Trash'"
+                                v-if="
+                                    DataMode.modes[currentMode].label != 'Trash'
+                                "
                             >
                                 <Button
                                     icon="pi pi-plus"
@@ -416,9 +420,12 @@ const restoreCategory = () => {
                 >
                     <CategoryBadge
                         :category="{
+                            id: 0,
                             name: form.name || 'Text',
                             text_color: form.text_color,
                             background_color: form.background_color,
+                            created_at: '',
+                            deleted_at: null,
                         }"
                     />
                     <button

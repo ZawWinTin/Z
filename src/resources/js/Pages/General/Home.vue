@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
+import Button from 'primevue/button';
 
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CardContainer from '@/Components/Elements/CardContainer.vue';
+import route from '@/Composables/Common/Route';
 import Article from '@/Interfaces/Article';
 
 const props = defineProps<{
@@ -20,7 +22,9 @@ const props = defineProps<{
                 This is a Vue component in a Laravel app using Inertia.js.
             </p>
         </div>
-        <div class="tw-container tw-h-screen">
+        <div
+            class="tw-container tw-flex tw-h-screen tw-flex-col tw-items-center tw-space-y-3"
+        >
             <CardContainer>
                 <template v-for="article in props.articles" :key="article.id">
                     <ArticleCard
@@ -29,6 +33,15 @@ const props = defineProps<{
                     />
                 </template>
             </CardContainer>
+            <Link class="tw-ml-auto" :href="route('article.index')">
+                <Button
+                    rounded
+                    outlined
+                    label="Dive More"
+                    icon="pi pi-angle-double-right"
+                    iconPos="right"
+                />
+            </Link>
         </div>
         <div
             class="tw-relative tw-flex tw-h-[50vh] tw-w-full tw-flex-col tw-items-center tw-justify-center tw-bg-[url('https://images.unsplash.com/photo-1559963110-71b394e7494d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] tw-bg-fixed tw-bg-center before:tw-absolute before:tw-inset-0 before:tw-block before:tw-bg-gradient-to-l before:tw-from-indigo-500/40 before:tw-via-purple-500 before:tw-to-primary/95 hover:tw-bg-blend-darken"

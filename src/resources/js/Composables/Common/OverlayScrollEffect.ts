@@ -67,6 +67,7 @@ export const scrollOverlayEffect = () => {
                             'tw-block',
                             'tw-z-10',
                             'tw-bg-slate-950',
+                            'tw-pointer-events-none',
                         );
                     }
                     const opacity =

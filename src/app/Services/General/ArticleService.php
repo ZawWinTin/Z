@@ -17,4 +17,9 @@ class ArticleService
     {
         return $this->articleRepository->getAll();
     }
+
+    public function show($id)
+    {
+        return $this->articleRepository->show($id);
+    }
 }

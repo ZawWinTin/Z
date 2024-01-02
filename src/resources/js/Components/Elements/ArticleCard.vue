@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/vue3';
 import moment from 'moment';
 
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
+import route from '@/Composables/Common/Route';
 import Article from '@/Interfaces/Article';
 
 const props = withDefaults(
@@ -12,7 +13,7 @@ const props = withDefaults(
         link?: string;
     }>(),
     {
-        link: location.href,
+        link: '',
     },
 );
 
@@ -42,11 +43,15 @@ const loadImage = () => {
     );
     imageContainer.value?.appendChild(uploadImage);
 };
+
+const getLink = computed(() => {
+    return props.link || route('article.show', { id: props.article.id });
+});
 </script>
 <template>
     <Link
         ref="card"
-        :href="props.link"
+        :href="getLink"
         class="card interactable-js tw-group tw-relative tw-flex tw-h-[22rem] tw-items-center tw-justify-center tw-transition-all tw-duration-300 tw-ease-in-out"
     >
         <div

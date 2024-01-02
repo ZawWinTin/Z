@@ -140,7 +140,9 @@ const disableClearChoseCategories = computed(() => {
                         @click="clearChoseCategories()"
                         :disabled="disableClearChoseCategories"
                         :severity="
-                            disableClearChoseCategories ? 'secondary' : null
+                            disableClearChoseCategories
+                                ? 'secondary'
+                                : undefined
                         "
                     />
                 </div>

@@ -144,7 +144,9 @@ const onPageOrSort = (event: DataTablePageEvent | DataTableSortEvent) => {
 
 const updateMode = () => {
     const updatedCurrentMode = currentMode.value + 1;
-    if (Object.prototype.hasOwnProperty.call(DataMode, updatedCurrentMode)) {
+    if (
+        Object.prototype.hasOwnProperty.call(DataMode.modes, updatedCurrentMode)
+    ) {
         currentMode.value = updatedCurrentMode;
     } else {
         currentMode.value = 0;
@@ -382,9 +384,9 @@ const restoreArticle = () => {
                             class="tw-flex tw-w-full tw-items-center tw-justify-start tw-space-x-4"
                         >
                             <Button
-                                :label="DataMode[currentMode].label"
-                                :icon="DataMode[currentMode].icon"
-                                :outlined="DataMode[currentMode].outlined"
+                                :label="DataMode.modes[currentMode].label"
+                                :icon="DataMode.modes[currentMode].icon"
+                                :outlined="DataMode.modes[currentMode].outlined"
                                 @click="updateMode"
                                 rounded
                             />
@@ -409,7 +411,9 @@ const restoreArticle = () => {
                             :leave-to-class="Transitions.overlay.leaveToClass"
                         >
                             <template
-                                v-if="DataMode[currentMode].label != 'Trash'"
+                                v-if="
+                                    DataMode.modes[currentMode].label != 'Trash'
+                                "
                             >
                                 <Button
                                     icon="pi pi-plus"
@@ -481,11 +485,26 @@ const restoreArticle = () => {
                     <template #body="slotProps">
                         <div class="tw-flex tw-flex-row tw-space-x-2">
                             <template v-if="!slotProps.data.deleted_at">
+                                <a
+                                    target="_blank"
+                                    :href="
+                                        route('article.show', {
+                                            id: slotProps.data.id,
+                                        })
+                                    "
+                                >
+                                    <Button
+                                        icon="pi pi-directions"
+                                        outlined
+                                        rounded
+                                        severity="info"
+                                        class="tw-h-10 tw-w-10"
+                                    />
+                                </a>
                                 <Button
                                     icon="pi pi-cog"
                                     outlined
                                     rounded
-                                    severity="info"
                                     class="tw-h-10 tw-w-10"
                                     @click="openSaveDialog(slotProps.data)"
                                 />
@@ -733,6 +752,21 @@ const restoreArticle = () => {
                 </div>
             </div>
             <template #footer>
+                <template v-if="form.id">
+                    <a
+                        target="_blank"
+                        class="tw-mr-auto"
+                        :href="route('article.show', { id: form.id })"
+                    >
+                        <Button
+                            rounded
+                            outlined
+                            label="Visit"
+                            icon="pi pi-directions"
+                            severity="info"
+                        />
+                    </a>
+                </template>
                 <Button
                     :loading="form.processing"
                     rounded

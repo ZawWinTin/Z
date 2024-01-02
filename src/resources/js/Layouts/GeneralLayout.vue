@@ -7,7 +7,6 @@ import Header from '@/Components/Layout/Header.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
 import {
     initializeOverlayScroll,
-    loadOverlayScroll,
     scrollOverlayEffect,
 } from '@/Composables/Common/OverlayScrollEffect';
 import { useContactViewStore } from '@/Composables/Common/PiniaStore';
