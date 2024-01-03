@@ -21,7 +21,7 @@ class ArticleRepository
         $other_articles = Article::with(['categories', 'coverImage'])
             ->other($article)
             ->latest()
-            ->limit(5)
+            ->limit(6)
             ->get();
 
         return compact('article', 'other_articles');

@@ -34,7 +34,6 @@ const loadImage = () => {
     const uploadImage = new Image();
     uploadImage.src = props.article.cover_image.url;
     uploadImage.classList.add(
-        'tw-absolute',
         'tw-h-full',
         'tw-w-full',
         'tw-rounded-t-2xl',
@@ -52,20 +51,20 @@ const getLink = computed(() => {
     <Link
         ref="card"
         :href="getLink"
-        class="card interactable-js tw-group tw-relative tw-flex tw-h-[22rem] tw-items-center tw-justify-center tw-transition-all tw-duration-300 tw-ease-in-out"
+        class="card interactable-js tw-group tw-relative tw-flex tw-h-[23rem] tw-flex-col tw-items-center tw-overflow-hidden tw-transition-all tw-duration-300 tw-ease-in-out"
     >
+        <!-- Image -->
         <div
-            class="main-bg-3 tw-relative tw-mt-[20%] tw-flex tw-h-[65%] tw-w-80 tw-flex-col tw-items-center tw-rounded-2xl tw-p-5 tw-shadow tw-transition-all tw-duration-300 tw-ease-in-out group-hover:tw-mt-[40%] group-hover:tw-h-[78%]"
+            ref="imageContainer"
+            class="tw-relative tw-z-[1] tw-mt-[8%] tw-h-36 tw-w-[88%] tw-rounded-b-sm tw-rounded-t-2xl tw-border-slate-50 tw-shadow-lg tw-transition-all tw-duration-300 group-hover:tw-mt-0 dark:tw-border-slate-900"
+        ></div>
+        <!-- Background -->
+        <div
+            class="main-bg-3 tw-relative tw-mt-[-30%] tw-flex tw-h-[61.5%] tw-w-80 tw-flex-col tw-items-center tw-rounded-2xl tw-p-5 tw-pt-[32%] tw-shadow tw-transition-all tw-duration-300 tw-ease-in-out group-hover:tw-mt-[-17%] group-hover:tw-h-[73%] group-hover:tw-pt-[18%]"
         >
-            <!-- Image -->
-            <div
-                ref="imageContainer"
-                class="tw-absolute tw-top-[-20%] tw-z-[1] tw-h-36 tw-w-[88%] tw-rounded-b-sm tw-rounded-t-2xl tw-border-slate-50 tw-shadow-lg tw-transition-all tw-duration-300 group-hover:tw-top-[-32%] dark:tw-border-slate-900"
-            ></div>
-
             <!-- Text -->
             <div
-                class="tw-relative tw-mt-[32%] tw-flex tw-flex-col tw-space-y-2 tw-transition-all tw-duration-300 tw-ease-in-out group-hover:tw-mt-[16%]"
+                class="tw-relative tw-flex tw-flex-col tw-space-y-2 tw-transition-all tw-duration-300 tw-ease-in-out"
             >
                 <h5
                     class="card-title main-text-gradient tw-line-clamp-2 tw-h-16 tw-text-2xl tw-tracking-tight"
@@ -73,7 +72,7 @@ const getLink = computed(() => {
                     {{ props.article.title }}
                 </h5>
                 <div
-                    class="tw-flex tw-max-h-[32px] tw-flex-row tw-items-center tw-justify-between tw-overflow-hidden"
+                    class="tw-flex tw-flex-row tw-items-center tw-justify-between tw-overflow-hidden"
                 >
                     <template
                         v-for="(category, index) in props.article.categories"
@@ -93,7 +92,7 @@ const getLink = computed(() => {
                     </span>
                 </div>
                 <p
-                    class="main-text tw-invisible tw-top-[-8rem] tw-mt-0 tw-line-clamp-3 tw-text-justify tw-tracking-tight tw-opacity-0 tw-transition-all tw-duration-150 tw-ease-in group-hover:tw-visible group-hover:tw-mt-4 group-hover:tw-opacity-100"
+                    class="main-text tw-invisible tw-top-[-8rem] !tw-mt-0 tw-line-clamp-3 tw-h-0 tw-text-justify tw-tracking-tight tw-opacity-0 tw-transition-all tw-duration-150 tw-ease-in group-hover:tw-visible group-hover:!tw-mt-4 group-hover:tw-h-auto group-hover:tw-opacity-100"
                 >
                     {{ props.article.description }}
                 </p>

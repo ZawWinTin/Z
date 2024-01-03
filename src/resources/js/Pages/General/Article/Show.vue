@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
+import ArticleCard from '@/Components/Elements/ArticleCard.vue';
+import CardCarousel from '@/Components/Elements/CardCarousel.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import { getDate } from '@/Composables/Common/Helper';
 import Article from '@/Interfaces/Article';
@@ -41,6 +43,28 @@ const props = defineProps<{
                     {{ getDate(props.article.created_at) }}
                 </span>
             </div>
+        </div>
+        <div class="tw-flex tw-w-full tw-flex-col tw-space-y-4 tw-pb-8">
+            <div class="tw-container">
+                <h3 class="tw-text-3xl tw-font-bold tw-text-primary">
+                    Other Articles
+                </h3>
+            </div>
+            <CardCarousel>
+                <template #content>
+                    <template
+                        v-for="article in props.other_articles"
+                        :key="article.id"
+                    >
+                        <div class="panel tw-mx-0 tw-overflow-y-visible">
+                            <ArticleCard
+                                :article="article"
+                                data-cursor-type="explore"
+                            />
+                        </div>
+                    </template>
+                </template>
+            </CardCarousel>
         </div>
     </section>
 </template>
