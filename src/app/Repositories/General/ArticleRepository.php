@@ -18,7 +18,12 @@ class ArticleRepository
     public function show($id)
     {
         $article = Article::with(['categories', 'coverImage'])->findOrFail($id);
+        $other_articles = Article::with(['categories', 'coverImage'])
+            ->other($article)
+            ->latest()
+            ->limit(5)
+            ->get();
 
-        return compact('article');
+        return compact('article', 'other_articles');
     }
 }

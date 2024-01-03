@@ -54,4 +54,14 @@ class Article extends Model
             $query->orderBy($sortField, $filters['sortOrder'] === 1 ? 'ASC' : 'DESC');
         });
     }
+
+    public function scopeOther($query, $article)
+    {
+        $query->where('id', '<>', $article->id)
+            ->when($article->categories->pluck('id')->toArray() ?: false, function ($query, $ids) {
+                $query->whereHas('categories', function ($query) use ($ids) {
+                    $query->whereIn('id', $ids);
+                });
+            });
+    }
 }

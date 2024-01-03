@@ -7,6 +7,7 @@ import Article from '@/Interfaces/Article';
 
 const props = defineProps<{
     article: Article;
+    other_articles: Array<Article>;
 }>();
 </script>
 <template>

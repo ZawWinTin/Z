@@ -169,7 +169,6 @@ const disableClearChoseCategories = computed(() => {
                     >
                         <ArticleCard
                             :article="article"
-                            data-cursor-type="explore"
                         />
                     </template>
 
