@@ -167,9 +167,7 @@ const disableClearChoseCategories = computed(() => {
                         v-for="article in getFilteredArticles"
                         :key="article.id"
                     >
-                        <ArticleCard
-                            :article="article"
-                        />
+                        <ArticleCard :article="article" />
                     </template>
 
                     <div

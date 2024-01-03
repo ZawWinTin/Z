@@ -26,7 +26,9 @@ const updateCursor = (event: MouseEvent) => {
         '.interactable-js',
     ) as HTMLElement;
     const isInteracting = interactable !== null;
-    const cursorText = isInteracting ? getCursorText(interactable.dataset.cursorType) : '';
+    const cursorText = isInteracting
+        ? getCursorText(interactable.dataset.cursorType)
+        : '';
 
     const mouseX = event.clientX - cursor.offsetWidth / 2;
     const mouseY = event.clientY - cursor.offsetHeight / 2;
@@ -35,8 +37,8 @@ const updateCursor = (event: MouseEvent) => {
         {
             left: `${mouseX}px`,
             top: `${mouseY}px`,
-            scale: (isInteracting && cursorText) ? 8 : 1,
-            opacity: (isInteracting && cursorText) ? '1' : '0',
+            scale: isInteracting && cursorText ? 8 : 1,
+            opacity: isInteracting && cursorText ? '1' : '0',
         },
         {
             duration: 800,
