@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
 
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
 import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
@@ -21,24 +19,19 @@ const currentArticles = ref<Array<Article>>([]);
 const currentCategories = ref<Array<Category>>([]);
 
 const articleContainer = ref<HTMLElement | null>(null);
+const nextPageUrl = ref<string | null>(null);
 const loadMoreFragment = ref<HTMLElement | null>(null);
+const searchLoading = ref<boolean>(false);
 
-const articleFilters = reactive<{
-    global: {
-        value: string | null;
-    };
+const filters = reactive<{
     categories: {
         value: number[];
     };
 }>({
-    global: { value: null },
-
     categories: { value: [] },
 });
 
-const categoryFilters = ref<string>('');
-
-const callToLoadArticles = () => {
+const callToLoadMoreArticles = () => {
     const observer = new IntersectionObserver(entries =>
         entries.forEach(entry => entry.isIntersecting && loadMoreArticles(), {
             rootMargin: '0px 0px 0px 0px',
@@ -54,45 +47,23 @@ onMounted(() => {
     currentArticles.value = props.articles.data;
     currentCategories.value = props.categories;
 
-    articleContainer.value?.addEventListener('scroll', callToLoadArticles);
+    nextPageUrl.value = props.articles.next_page_url;
+    articleContainer.value?.addEventListener('scroll', callToLoadMoreArticles);
 });
 
 onUnmounted(() => {
-    articleContainer.value?.remvoEventListener('scroll', callToLoadArticles);
-});
-
-const getFilteredArticles = computed(() => {
-    let filteredArticles = currentArticles.value;
-
-    // Search by Category
-    if (articleFilters.categories.value.length > 0) {
-        filteredArticles = filteredArticles?.filter(article => {
-            return article.categories.some(category => {
-                return articleFilters.categories.value.includes(category.id);
-            });
-        });
-    }
-
-    // Search by Title
-    if (articleFilters.global.value) {
-        filteredArticles = filteredArticles?.filter(article => {
-            return article.title
-                .toLowerCase()
-                .includes(
-                    (articleFilters.global.value as string).toLowerCase(),
-                );
-        });
-    }
-
-    return filteredArticles;
+    articleContainer.value?.removeEventListener(
+        'scroll',
+        callToLoadMoreArticles,
+    );
 });
 
 const loadMoreArticles = () => {
-    if (props.articles.next_page_url === null) {
+    if (!nextPageUrl.value) {
         return;
     }
 
-    router.visit(props.articles.next_page_url, {
+    router.visit(nextPageUrl.value, {
         preserveState: true,
         preserveScroll: true,
         only: ['articles'],
@@ -101,6 +72,7 @@ const loadMoreArticles = () => {
                 ...currentArticles.value,
                 ...(data.props.articles as Paginator<Article>).data,
             ];
+            nextPageUrl.value = props.articles.next_page_url;
             window.history.replaceState(
                 {},
                 '',
@@ -110,32 +82,38 @@ const loadMoreArticles = () => {
     });
 };
 
-const filteredCategories = computed(() => {
-    return categoryFilters.value
-        ? currentCategories.value.filter(category =>
-              category.name
-                  .toLowerCase()
-                  .includes(categoryFilters.value.toLowerCase()),
-          )
-        : currentCategories.value;
-});
-
 const chooseCategory = (category: Category) => {
-    const index = articleFilters.categories.value.indexOf(category.id);
+    searchLoading.value = true;
+    const index = filters.categories.value.indexOf(category.id);
     if (index === -1) {
-        articleFilters.categories.value.push(category.id); // Add the item if it doesn't exist
+        filters.categories.value.push(category.id); // Add the item if it doesn't exist
     } else {
-        articleFilters.categories.value.splice(index, 1); // Remove the item if it exists
+        filters.categories.value.splice(index, 1); // Remove the item if it exists
     }
-};
 
-const clearChoseCategories = () => {
-    articleFilters.categories.value = [];
+    router.visit(
+        route('article.index', { categories: filters.categories.value }),
+        {
+            preserveState: true,
+            preserveScroll: true,
+            only: ['articles'],
+            onSuccess: data => {
+                currentArticles.value = (
+                    data.props.articles as Paginator<Article>
+                ).data;
+                nextPageUrl.value = props.articles.next_page_url;
+                window.history.replaceState(
+                    {},
+                    '',
+                    route('article.index', {}, true),
+                );
+            },
+            onFinish: () => {
+                searchLoading.value = false;
+            },
+        },
+    );
 };
-
-const disableClearChoseCategories = computed(() => {
-    return !articleFilters.categories.value.length;
-});
 </script>
 <template>
     <section class="tw-h-screen tw-pb-8 tw-pt-16">
@@ -145,26 +123,13 @@ const disableClearChoseCategories = computed(() => {
             <div
                 class="tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"
             >
-                <!-- Search -->
-                <div
-                    class="tw-flex tw-items-center tw-justify-between tw-space-x-4 tw-pb-2"
-                >
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search main-text tw-left-3" />
-                        <InputText
-                            class="tw-w-full tw-pl-10"
-                            v-model="articleFilters['global'].value"
-                            placeholder="Search"
-                        />
-                    </span>
-                </div>
                 <!-- Articles -->
                 <div
                     ref="articleContainer"
-                    class="primary-scrollbar tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
+                    class="primary-scrollbar tw-relative tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
                 >
                     <template
-                        v-for="article in getFilteredArticles"
+                        v-for="article in currentArticles"
                         :key="article.id"
                     >
                         <ArticleCard :article="article" />
@@ -172,11 +137,36 @@ const disableClearChoseCategories = computed(() => {
 
                     <div
                         ref="loadMoreFragment"
-                        v-if="!!props.articles.next_page_url"
+                        v-if="!!nextPageUrl"
                         class="main-text tw-mt-7 tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-center tw-space-x-2 tw-opacity-80"
                     >
                         <i class="pi pi-spin pi-spinner"></i>
                         <span>Loading</span>
+                    </div>
+
+                    <template v-if="!currentArticles.length">
+                        <div
+                            class="tw-flex tw-h-full tw-w-full tw-animate-pulse tw-flex-col tw-items-center tw-justify-center"
+                        >
+                            <div class="tw-w-1/3">
+                                <img
+                                    class="tw-h-full tw-w-full"
+                                    src="/404.svg"
+                                    alt="404"
+                                />
+                            </div>
+                            <span class="main-text tw-font-semibold tw-italic"
+                                >No Articles Exist.</span
+                            >
+                        </div>
+                    </template>
+
+                    <div
+                        v-show="searchLoading"
+                        class="main-text tw-absolute tw-z-10 tw-flex tw-h-full tw-w-full tw-flex-row tw-items-center tw-justify-center tw-space-x-4 tw-rounded-lg tw-text-xl tw-font-semibold"
+                    >
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <span>Processing...</span>
                     </div>
                 </div>
             </div>
@@ -186,41 +176,21 @@ const disableClearChoseCategories = computed(() => {
                 class="main-bg-2 tw-flex tw-w-1/4 tw-flex-col tw-space-y-4 tw-rounded-lg !tw-bg-opacity-60 tw-py-4 tw-text-slate-900 tw-shadow-lg tw-transition tw-duration-300 dark:tw-text-slate-100"
             >
                 <div class="tw-mx-4 tw-flex tw-flex-row tw-space-x-2">
-                    <span class="p-input-icon-left tw-w-full">
-                        <i class="pi pi-tags main-text tw-left-3" />
-                        <InputText
-                            class="tw-w-full tw-pl-10"
-                            v-model="categoryFilters"
-                            placeholder="Search"
-                        />
-                    </span>
-                    <Button
-                        icon="pi pi-times"
-                        class="tw-h-10 tw-w-10"
-                        outlined
-                        rounded
-                        @click="clearChoseCategories()"
-                        :disabled="disableClearChoseCategories"
-                        :severity="
-                            disableClearChoseCategories
-                                ? 'secondary'
-                                : undefined
-                        "
-                    />
+                    <h3 class="tw-font-semibold tw-text-primary">
+                        Popular Categories
+                    </h3>
                 </div>
                 <div
                     class="primary-scrollbar tw-mx-2 tw-flex tw-flex-row tw-flex-wrap tw-gap-1 tw-transition tw-duration-300"
                 >
                     <template
-                        v-for="category in filteredCategories"
+                        v-for="category in currentCategories"
                         :key="category.id"
                     >
                         <div
                             class="hover:main-secondary-hover tw-inline-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition tw-duration-300"
                             :class="
-                                articleFilters.categories.value.includes(
-                                    category.id,
-                                )
+                                filters.categories.value.includes(category.id)
                                     ? 'tw-bg-primary/80 hover:!tw-bg-primary'
                                     : ''
                             "

@@ -32,6 +32,11 @@ class Article extends Model
         return $this->belongsToMany(Category::class)->withTrashed()->orderByPivot('priority', 'asc');
     }
 
+    public function liked_users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
     public function coverImage(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -49,6 +54,12 @@ class Article extends Model
                     break;
             }
         }
+
+        $query->when($filters['categories'] ?? false, function ($query, $ids) {
+            $query->whereHas('categories', function ($query) use ($ids) {
+                $query->whereIn('id', $ids);
+            });
+        });
 
         $query->when($filters['sortField'] ?? false, function ($query, $sortField) use ($filters) {
             $query->orderBy($sortField, $filters['sortOrder'] === 1 ? 'ASC' : 'DESC');

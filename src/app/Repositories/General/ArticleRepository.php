@@ -9,8 +9,11 @@ class ArticleRepository
 {
     public function getAll()
     {
-        $articles = fn () => Article::with(['categories', 'coverImage'])->latest()->paginate(12);
-        $categories = Category::orderByName()->get();
+        $articles = fn () => Article::with(['categories', 'coverImage'])
+            ->filter(request([
+                'categories',
+            ]))->latest()->paginate(12)->withQueryString();
+        $categories = Category::orderByUserLikes()->get();
 
         return compact('articles', 'categories');
     }

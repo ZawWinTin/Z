@@ -20,15 +20,17 @@ class TestSeeder extends Seeder
 
         $categoriesCount = 8;
         $articlesCount = 23;
+        $usersCount = 5;
 
-        User::factory(5)->create();
         Contact::factory(15)->create();
+
+        $users = User::factory($usersCount)->create();
 
         $categories = Category::factory($categoriesCount)->create();
 
         $articles = Article::factory($articlesCount)->create();
 
-        $articles->each(function ($article) use ($categories, $faker) {
+        $articles->each(function ($article) use ($users, $usersCount, $categories, $faker) {
             $imageTopDownPercent = rand(0, 100);
 
             $article->coverImage()->create([
@@ -47,6 +49,13 @@ class TestSeeder extends Seeder
                     ['priority' => $priority]
                 );
             });
+
+            $randomUsers = $users->random(rand(0, 2) ? rand(1, $usersCount) : 0)->shuffle();
+            if ($randomUsers->count() > 0) {
+                $randomUsers->each(function ($user) use ($article) {
+                    $article->liked_users()->save($user);
+                });
+            }
         });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -54,5 +55,19 @@ class Category extends Model
     public function scopeOrderByName($query)
     {
         $query->orderBy('name', 'asc');
+    }
+
+    public function scopeOrderByUserLikes($query)
+    {
+        if (is_null($query->getQuery()->columns)) {
+            $query->select($this->qualifyColumn('*'));
+        }
+
+        $query->addSelect(DB::raw('COUNT(likes.user_id) as liked_users_count'))
+            ->leftJoin('article_category', 'categories.id', '=', 'article_category.category_id')
+            ->leftJoin('articles', 'article_category.article_id', '=', 'articles.id')
+            ->leftJoin('likes', 'articles.id', '=', 'likes.article_id')
+            ->groupBy('categories.id')
+            ->orderByDesc('liked_users_count');
     }
 }

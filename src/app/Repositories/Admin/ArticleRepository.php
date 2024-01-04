@@ -25,7 +25,7 @@ class ArticleRepository
                 'sortField',
                 'sortOrder',
             ]))
-            ->paginate(request('perPage', 10));
+            ->paginate(request('perPage', 10))->withQueryString();
 
         $categories = Category::withCount('articles')->withTrashed()->orderByName()->get();
 
