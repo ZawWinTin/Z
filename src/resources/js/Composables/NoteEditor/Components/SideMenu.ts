@@ -1,6 +1,9 @@
 import { BlockNoteEditor } from '@blocknote/core';
 
-import { createButton, getDialogPos } from '@/Composables/NoteEditor/UI/Util';
+import {
+    createButton,
+    getDialogPos,
+} from '@/Composables/NoteEditor/Components/Util';
 
 export const addSideMenu = (
     editor: BlockNoteEditor,

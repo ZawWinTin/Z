@@ -4,7 +4,7 @@ import {
     adjustAdditionalHeight,
     createButton,
     getDialogPos,
-} from '@/Composables/NoteEditor/UI/Util';
+} from '@/Composables/NoteEditor/Components/Util';
 
 export const addFormattingToolbar = (
     editor: BlockNoteEditor,
