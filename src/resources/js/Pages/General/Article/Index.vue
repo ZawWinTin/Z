@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 
 import ArticleCard from '@/Components/Elements/ArticleCard.vue';
