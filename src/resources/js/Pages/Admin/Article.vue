@@ -18,7 +18,7 @@ import CategoryBadge from '@/Components/Elements/CategoryBadge.vue';
 import InputError from '@/Components/UI/InputError.vue';
 import { getDate } from '@/Composables/Common/Helper';
 import route from '@/Composables/Common/Route';
-import initializeEditor from '@/Composables/NoteEditor/Main';
+import initializeEditor from '@/Composables/NoteEditor/Index';
 import Transitions from '@/Composables/UI/Transitions';
 import { DataMode } from '@/Constants/DataMode';
 import Article from '@/Interfaces/Article';

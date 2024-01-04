@@ -2,12 +2,12 @@ import '@blocknote/core/style.css';
 
 import { BlockNoteEditor } from '@blocknote/core';
 
-import { addFormattingToolbar } from '@/Composables/NoteEditor/Components/FormattingToolbar';
-import { addHyperlinkToolbar } from '@/Composables/NoteEditor/Components/HyperlinkToolbar';
-import { addImageToolbar } from '@/Composables/NoteEditor/Components/ImageToolbar';
-import { addSideMenu } from '@/Composables/NoteEditor/Components/SideMenu';
-import { addSlashMenu } from '@/Composables/NoteEditor/Components/SlashMenu';
-import { addTableHandles } from '@/Composables/NoteEditor/Components/TableHandles';
+import { addFormattingToolbar } from '@/Composables/NoteEditor/Components/FormattingToolbar/DefaultFormattingToolbar';
+import { addHyperlinkToolbar } from '@/Composables/NoteEditor/Components/HyperlinkToolbar/DefaultHyperlinkToolbar';
+import { addImageToolbar } from '@/Composables/NoteEditor/Components/ImageToolbar/DefaultImageToolbar';
+import { addSideMenu } from '@/Composables/NoteEditor/Components/SideMenu/DefaultSideMenu';
+import { addSlashMenu } from '@/Composables/NoteEditor/Components/SlashMenu/DefaultSlashMenu';
+import { addTableHandles } from '@/Composables/NoteEditor/Components/TableHandles/DefaultTableHandles';
 
 export default function initializeEditor(editorContainer: HTMLElement) {
     editorContainer.classList.add('tw-p-2');
