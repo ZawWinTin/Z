@@ -44,6 +44,7 @@ const props = defineProps<{
                 </span>
             </div>
         </div>
+        <!-- TODO: Add HeartIcon -->
         <div class="tw-flex tw-w-full tw-flex-col tw-space-y-4 tw-pb-8">
             <div class="tw-container">
                 <h3 class="tw-text-3xl tw-font-bold tw-text-primary">
