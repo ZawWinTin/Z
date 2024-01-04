@@ -31,12 +31,13 @@ const flickingWheelEvent = (event: WheelEvent) => {
     if (flicking.value?.animating) {
         return;
     }
-    const delta = event.deltaY;
+    const deltaX = event.deltaX;
+    const deltaY = event.deltaY;
 
-    if (Math.abs(delta) > 40) {
-        if (delta > 0) {
+    if (Math.abs(deltaX) > 40 || Math.abs(deltaY) > 40) {
+        if (deltaX > 0 || deltaY > 0) {
             flicking.value?.next();
-        } else if (delta < 0) {
+        } else if (deltaX < 0 || deltaY < 0) {
             flicking.value?.prev();
         }
     }
