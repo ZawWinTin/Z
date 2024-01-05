@@ -25,7 +25,9 @@ defineProps<{
         />
         <HeartSolidIcon
             class="tw-h-5 tw-w-5 group-hover:!tw-inline-block"
-            :class="checked ? '!tw-inline-block !tw-text-[#D4004A]' : '!tw-hidden'"
+            :class="
+                checked ? '!tw-inline-block !tw-text-[#D4004A]' : '!tw-hidden'
+            "
         />
     </div>
 </template>
