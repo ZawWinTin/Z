@@ -1,11 +1,25 @@
 import { usePage } from '@inertiajs/vue3';
 import route from 'ziggy-js';
+import { Config, RouteName, RouteParams, Router } from 'ziggy-js';
 
-export default function useRoute(
+export default function useRoute(): Router;
+export default function useRoute<T extends RouteName>(
     name: string,
-    params?: object,
+    params?: RouteParams<T> | undefined,
+    absolute?: boolean,
+    config?: Config,
+): string;
+export default function useRoute(
+    name: undefined,
+    params: undefined,
+    absolute?: boolean,
+    config?: Config,
+): Router;
+export default function useRoute(
+    name?: string & {},
+    params?: RouteParams<string & {}> | undefined,
     absolute?: boolean,
     config = usePage().props.ziggy,
-) {
-    return route(name, params, absolute, config);
+): unknown {
+    return route(name as string & {}, params, absolute, config);
 }

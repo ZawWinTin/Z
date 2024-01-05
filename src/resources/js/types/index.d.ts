@@ -1,3 +1,5 @@
+import { Config } from 'ziggy-js';
+
 import User from '@/Interfaces/AuthUser';
 
 export type PageProps<
@@ -6,6 +8,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    ziggy: Config;
     flash: {
         message?: {
             type: string;
