@@ -15,10 +15,15 @@ export default function useRoute(
     config?: Config,
 ): Router;
 export default function useRoute(
-    name?: string & {},
-    params?: RouteParams<string & {}> | undefined,
+    name?: string & NonNullable<unknown>,
+    params?: RouteParams<string & NonNullable<unknown>> | undefined,
     absolute?: boolean,
     config = usePage().props.ziggy,
 ): unknown {
-    return route(name as string & {}, params, absolute, config);
+    return route(
+        name as string & NonNullable<unknown>,
+        params,
+        absolute,
+        config,
+    );
 }
