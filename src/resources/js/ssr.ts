@@ -8,8 +8,6 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createServer(page =>
@@ -42,12 +40,7 @@ createServer(page =>
             return page;
         },
         setup({ App, props, plugin }) {
-            return createSSRApp({ render: () => h(App, props) })
-                .use(plugin)
-                .use(ZiggyVue, {
-                    ...page.props.ziggy,
-                    location: new URL(page.props.ziggy.location),
-                });
+            return createSSRApp({ render: () => h(App, props) }).use(plugin);
         },
     }),
 );

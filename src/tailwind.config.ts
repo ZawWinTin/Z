@@ -1,7 +1,8 @@
 import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
-/** @type {import('tailwindcss').Config} */
 export default {
     prefix: 'tw-',
     darkMode: 'class',
@@ -48,5 +49,5 @@ export default {
         },
     },
 
-    plugins: [forms],
-};
+    plugins: [forms, typography],
+} satisfies Config;

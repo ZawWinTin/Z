@@ -11,13 +11,14 @@ import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
+import resolveConfig from 'tailwindcss/resolveConfig';
 
 import MainDesignSystem from '@/Composables/UI/MainDesignSystem';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 
-import TailwindConfig from '../../tailwind.config';
+import tailwindConfig from '../../tailwind.config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -64,7 +65,7 @@ createInertiaApp({
         // The delay after which the progress bar will appear, in milliseconds...
         delay: 250,
         // The color of the progress bar...
-        color: TailwindConfig.theme.extend.colors.primary.DEFAULT,
+        color: resolveConfig(tailwindConfig).theme.colors.primary.DEFAULT,
         // Whether to include the default NProgress styles...
         includeCSS: true,
         // Whether the NProgress spinner will be shown...
