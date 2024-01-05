@@ -8,7 +8,7 @@
         "format": "prettier  ./ --ext .vue,.js,.cjs,.ts --write --ignore-path .gitignore"
     },
     "devDependencies": {
-        "@inertiajs/vue3": "^1.0.0",
+        "@inertiajs/vue3": "^1.0.14",
         "@rushstack/eslint-patch": "^1.6.1",
         "@tailwindcss/forms": "^0.5.7",
         "@typescript-eslint/eslint-plugin": "^6.16.0",
@@ -43,7 +43,6 @@
         "@egjs/flicking-plugins": "^4.7.1",
         "@egjs/vue3-flicking": "^4.11.2",
         "@heroicons/vue": "^2.0.18",
-        "@inertiajs/vue3": "^1.0.14",
         "@tailwindcss/typography": "^0.5.10",
         "@vitejs/plugin-vue": "^4.4.0",
         "chart.js": "^4.4.1",
