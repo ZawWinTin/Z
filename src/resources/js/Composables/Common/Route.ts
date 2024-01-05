@@ -1,6 +1,5 @@
 import { usePage } from '@inertiajs/vue3';
-import route from 'ziggy-js';
-import { Config, RouteName, RouteParams, Router } from 'ziggy-js';
+import route, { Config, RouteName, RouteParams, Router } from 'ziggy-js';
 
 export default function useRoute(): Router;
 export default function useRoute<T extends RouteName>(
