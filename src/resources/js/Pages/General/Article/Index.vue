@@ -121,12 +121,12 @@ const chooseCategory = (category: Category) => {
         <div class="tw-container tw-flex tw-h-full tw-flex-row tw-space-x-4">
             <!-- Article Section -->
             <div
-                class="tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"
+                class="tw-relative tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"
             >
                 <!-- Articles -->
                 <div
                     ref="articleContainer"
-                    class="primary-scrollbar tw-relative tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
+                    class="primary-scrollbar tw-flex tw-h-full tw-flex-wrap tw-justify-around tw-gap-4 tw-transition tw-duration-300"
                 >
                     <template
                         v-for="article in currentArticles"
@@ -160,14 +160,14 @@ const chooseCategory = (category: Category) => {
                             >
                         </div>
                     </template>
+                </div>
 
-                    <div
-                        v-show="searchLoading"
-                        class="main-text tw-absolute tw-z-10 tw-flex tw-h-full tw-w-full tw-flex-row tw-items-center tw-justify-center tw-space-x-4 tw-rounded-lg tw-text-xl tw-font-semibold"
-                    >
-                        <i class="pi pi-spin pi-spinner"></i>
-                        <span>Processing...</span>
-                    </div>
+                <div
+                    v-show="searchLoading"
+                    class="main-text tw-absolute tw-z-10 tw-flex tw-h-full tw-w-full tw-flex-row tw-items-center tw-justify-center tw-space-x-4 tw-rounded-lg tw-text-xl tw-font-semibold"
+                >
+                    <i class="pi pi-spin pi-spinner"></i>
+                    <span>Processing...</span>
                 </div>
             </div>
 
