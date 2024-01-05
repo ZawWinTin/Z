@@ -5,8 +5,8 @@ import { renderToString } from '@vue/server-renderer';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
@@ -16,7 +16,7 @@ createServer(page =>
     createInertiaApp({
         page,
         render: renderToString,
-        title: title => `${title} | ${appName}`,
+        title: title => (title ? `${title} | ${appName}` : `${appName}`),
         resolve: name => {
             const page = resolvePageComponent(
                 `./Pages/${name}.vue`,
@@ -30,7 +30,7 @@ createServer(page =>
                         layout = AdminLayout;
                         break;
                     case name.startsWith('Auth/'):
-                        layout = GuestLayout;
+                        layout = AuthLayout;
                         break;
                     default:
                         layout = GeneralLayout;
