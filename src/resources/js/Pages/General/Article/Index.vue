@@ -116,9 +116,12 @@ const chooseCategory = (category: Category) => {
 };
 </script>
 <template>
-    <section class="tw-h-screen tw-pb-8 tw-pt-16">
+    <section class="tw-h-screen tw-pb-8 tw-pt-4">
         <Head title="Article" />
-        <div class="tw-container tw-flex tw-h-full tw-flex-row tw-space-x-4">
+        <h3 class="tw-text-3xl tw-font-semibold tw-italic tw-text-primary tw-text-center">
+            #Articles
+        </h3>
+        <div class="tw-container tw-flex tw-h-full tw-flex-row tw-space-x-4 tw-mt-4">
             <!-- Article Section -->
             <div
                 class="tw-relative tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"
