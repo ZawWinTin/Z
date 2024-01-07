@@ -9,7 +9,7 @@ import {
     initializeOverlayScroll,
     scrollOverlayEffect,
 } from '@/Composables/Common/OverlayScrollEffect';
-import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import { useContactViewStore, usePreloaderStore } from '@/Composables/Common/PiniaStore';
 
 const props = withDefaults(
     defineProps<{
@@ -21,6 +21,7 @@ const props = withDefaults(
 );
 
 const contactViewStore = useContactViewStore();
+const preloaderStore = usePreloaderStore();
 
 const articleSection = ref<HTMLElement | null>(null);
 
@@ -46,14 +47,16 @@ onUpdated(() => {
 </script>
 <template>
     <main class="main-bg-1 tw-flex tw-flex-col tw-duration-300 tw-ease-in-out">
-        <Cursor />
-        <Header></Header>
-        <article ref="articleSection" class="tw-z-[1]">
-            <div class="tw-min-h-screen">
-                <slot />
-            </div>
-            <Footer v-show="props.showFooter" />
-        </article>
+        <template v-if="!preloaderStore.isLoading">
+            <Cursor />
+            <Header></Header>
+            <article ref="articleSection" class="tw-z-[1]">
+                <div class="tw-min-h-screen">
+                    <slot />
+                </div>
+                <Footer v-show="props.showFooter" />
+            </article>
+        </template>
         <Preloader />
     </main>
 </template>

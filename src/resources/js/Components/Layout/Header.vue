@@ -66,7 +66,7 @@ const showFlashMessage = (message: string) => {
         summary: message,
         detail: '',
         group: 'auth',
-        life: 8000,
+        life: 3000,
     });
 };
 

@@ -15,6 +15,16 @@ export const useDarkModeStore = defineStore('darkMode', () => {
     return { isDarkMode, toggleDarkMode, setDarkMode };
 });
 
+export const usePreloaderStore = defineStore('preloader', () => {
+    const isLoading = ref<boolean>(true);
+
+    const setLoading = (newValue: boolean) => {
+        isLoading.value = newValue;
+    };
+
+    return { isLoading, setLoading };
+});
+
 // View
 export const useAboutViewStore = defineStore('aboutView', () => {
     const isReached = ref<boolean>(false);

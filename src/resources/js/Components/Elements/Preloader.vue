@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, Ref, ref } from 'vue';
+import { usePreloaderStore } from '@/Composables/Common/PiniaStore';
 
 const props = withDefaults(
     defineProps<{
@@ -9,6 +10,8 @@ const props = withDefaults(
         isAdminLayout: false,
     },
 );
+
+const preloaderStore = usePreloaderStore();
 
 let process = 1;
 let numHeight = 0;
@@ -24,6 +27,7 @@ const counterContainer: Record<string, Ref<HTMLElement | null>> = {
 };
 
 const end = async () => {
+    preloaderStore.setLoading(true);
     document.body.classList.add('tw-overflow-hidden');
     await setLoading(100, 250);
     setTimeout(() => {
@@ -86,6 +90,7 @@ const end = async () => {
                 },
             );
             if (preloaderEndAnimation) {
+                preloaderStore.setLoading(false);
                 preloaderEndAnimation.finished.then(() => {
                     preloader.value?.remove();
                     document.body.classList.remove('tw-overflow-hidden');
