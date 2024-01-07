@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { Scene } from 'vue-scenejs';
 
-const content = ['love to ', 'am passionate to '];
+const content = [' love to', ' am passionate to'];
 const contentIndex = ref<number>(0);
 
 const currentText = ref<string>('');
@@ -10,11 +10,14 @@ const currentTextIndex = ref<number>(0);
 
 const typingSpeed = 150;
 const erasingSpeed = 100;
-const waitingSpeed = 1000;
+const waitingSpeed = 1200;
+
+const isWaiting = ref<boolean>(true);
 
 const typingEffect = () => {
     setTimeout(() => {
         if (currentTextIndex.value < content[contentIndex.value].length) {
+            isWaiting.value = false;
             currentTextIndex.value = currentTextIndex.value + 1;
             currentText.value = content[contentIndex.value].substring(
                 0,
@@ -22,6 +25,7 @@ const typingEffect = () => {
             );
             typingEffect();
         } else {
+            isWaiting.value = true;
             currentTextIndex.value = 0;
             setTimeout(() => {
                 erasingEffect();
@@ -33,9 +37,11 @@ const typingEffect = () => {
 const erasingEffect = () => {
     setTimeout(() => {
         if (currentText.value.length > 0) {
+            isWaiting.value = false;
             currentText.value = currentText.value.slice(0, -1);
             erasingEffect();
         } else {
+            isWaiting.value = true;
             updateContentIndex();
             typingEffect();
         }
@@ -96,10 +102,10 @@ onMounted(() => {
             <span
                 class="main-text-for-input tw-select-none tw-text-4xl tw-transition tw-duration-300"
             >
-                <span>I&nbsp;</span>
+                <span>I</span>
                 <span>{{ currentText }}</span>
-                <span class="cursor"></span>
-                <span>develop web applications.</span>
+                <span class="cursor" :class="{ 'cursor-blink': isWaiting }"></span>
+                <span>&nbsp;develop web applications.</span>
             </span>
         </div>
         <div
@@ -114,8 +120,10 @@ onMounted(() => {
     width: 3px;
     height: 1.25em;
     background-color: theme('colors.primary.DEFAULT');
-    animation: blink 800ms ease-out infinite;
     transform: rotate(2.5deg);
+}
+.cursor-blink {
+    animation: blink 800ms ease-out infinite;
 }
 @keyframes blink {
     from,
