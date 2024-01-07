@@ -11,8 +11,7 @@
     <link id="favicon" type="image/svg+xml" href="{{ URL::asset('favicon-dark.svg') }}" rel="icon" sizes="any" />
 
     <!-- Fonts -->
-    <link href="https://fonts.bunny.net" rel="preconnect">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Fira Code' rel='stylesheet'>
 
     <!-- Scripts -->
     @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
