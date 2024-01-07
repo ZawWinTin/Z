@@ -20,7 +20,7 @@ class HomeController extends Controller
     {
         $data = $this->homeService->getAll();
 
-        return Inertia::render('General/Home', $data);
+        return Inertia::render('General/Home/Index', $data);
     }
 
     public function redirect(Request $request)
