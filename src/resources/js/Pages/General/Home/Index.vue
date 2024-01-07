@@ -29,11 +29,18 @@ const mainWheelEvent = (event: WheelEvent) => {
         if (deltaY > 0) {
             if (flicking.value?.index! < flicking.value?.panelCount! - 1) {
                 flicking.value?.next();
+            } else {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth',
+                });
             }
         } else if (deltaY < 0) {
             if (flicking.value?.index! > 0) {
                 flicking.value?.prev();
             }
+            //TODO: Fix Scroll for Contact and GotoTop Button Too
+            //TODO: Show Active in Menu
         }
     }
 };
@@ -49,7 +56,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-    <section ref="container" class="tw-flex tw-w-full tw-flex-col">
+    <section ref="container" class="tw-flex tw-h-screen tw-w-full tw-flex-col">
         <Head title="Home" />
         <Flicking
             ref="flicking"
