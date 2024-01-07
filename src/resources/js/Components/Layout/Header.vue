@@ -18,6 +18,7 @@ import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
 import {
     useAboutViewStore,
     useContactViewStore,
+    useScrollToTopStore,
 } from '@/Composables/Common/PiniaStore';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
@@ -167,6 +168,7 @@ const getActiveClasses = (routeName: string) => {
 const checkActiveLink = (routeName: string) => {
     if (isActiveRoute(routeName)) {
         scrollToTop();
+        useScrollToTopStore().flicking?.moveTo(0);
     } else {
         router.visit(route(routeName));
     }

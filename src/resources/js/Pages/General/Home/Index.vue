@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import Flicking from '@egjs/vue3-flicking';
 import { Head } from '@inertiajs/vue3';
 
+import { useScrollToTopStore } from '@/Composables/Common/PiniaStore';
 import { default as ArticleType } from '@/Interfaces/Article';
 
 import About from './Partials/About.vue';
@@ -13,6 +14,8 @@ const props = defineProps<{
     name: string;
     articles: Array<ArticleType>;
 }>();
+
+const scrollToTopStore = useScrollToTopStore();
 
 const container = ref<HTMLElement | null>(null);
 
@@ -46,12 +49,14 @@ const mainWheelEvent = (event: WheelEvent) => {
 };
 
 onMounted(() => {
+    scrollToTopStore.setFlicking(flicking.value);
     container.value?.addEventListener('wheel', mainWheelEvent, {
         passive: false,
     });
 });
 
 onUnmounted(() => {
+    scrollToTopStore.setFlicking(null);
     container.value?.removeEventListener('wheel', mainWheelEvent);
 });
 </script>

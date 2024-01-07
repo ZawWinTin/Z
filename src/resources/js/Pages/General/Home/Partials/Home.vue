@@ -101,7 +101,7 @@ onMounted(() => {
                 class="main-text-for-input tw-select-none tw-text-6xl tw-font-bold tw-transition tw-duration-300"
             >
                 Hi, I'm
-                <span class="tw-select-all tw-text-primary tw-text-nowrap">{{
+                <span class="tw-select-all tw-text-nowrap tw-text-primary">{{
                     props.name
                 }}</span
                 >.

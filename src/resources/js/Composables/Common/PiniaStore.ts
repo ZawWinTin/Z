@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import Flicking from '@egjs/vue3-flicking';
 import { defineStore } from 'pinia';
 
 export const useDarkModeStore = defineStore('darkMode', () => {
@@ -25,6 +26,15 @@ export const usePreloaderStore = defineStore('preloader', () => {
     return { isLoading, setLoading };
 });
 
+export const useScrollToTopStore = defineStore('scrollToTop', () => {
+    const flicking = ref<Flicking | null>(null);
+
+    const setFlicking = (newFlicking: Flicking | null) => {
+        flicking.value = newFlicking;
+    };
+
+    return { flicking, setFlicking };
+});
 // View
 export const useAboutViewStore = defineStore('aboutView', () => {
     const isReached = ref<boolean>(false);

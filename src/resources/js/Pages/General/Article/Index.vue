@@ -15,6 +15,8 @@ const props = defineProps<{
     errors: object;
 }>();
 
+const articleSection = ref<HTMLElement | null>(null);
+
 const currentArticles = ref<Array<Article>>([]);
 const currentCategories = ref<Array<Category>>([]);
 
@@ -31,7 +33,7 @@ const filters = reactive<{
     categories: { value: [] },
 });
 
-const callToLoadMoreArticles = () => {
+const callToLoadMoreArticles = (event: Event) => {
     const observer = new IntersectionObserver(entries =>
         entries.forEach(entry => entry.isIntersecting && loadMoreArticles(), {
             rootMargin: '0px 0px 0px 0px',
@@ -43,12 +45,32 @@ const callToLoadMoreArticles = () => {
     }
 };
 
+const goToBottom = (event: WheelEvent) => {
+    event.preventDefault();
+
+    const deltaY = event.deltaY;
+
+    if (Math.abs(deltaY) > 40) {
+        if (deltaY > 0) {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth',
+            });
+        }
+    }
+};
+
 onMounted(() => {
     currentArticles.value = props.articles.data;
     currentCategories.value = props.categories;
 
     nextPageUrl.value = props.articles.next_page_url;
+    //TODO: Update Wheel Event to Scroll to Fix
     articleContainer.value?.addEventListener('scroll', callToLoadMoreArticles);
+
+    articleSection.value?.addEventListener('wheel', goToBottom, {
+        passive: false,
+    });
 });
 
 onUnmounted(() => {
@@ -56,6 +78,8 @@ onUnmounted(() => {
         'scroll',
         callToLoadMoreArticles,
     );
+
+    articleSection.value?.removeEventListener('wheel', goToBottom);
 });
 
 const loadMoreArticles = () => {
@@ -116,12 +140,16 @@ const chooseCategory = (category: Category) => {
 };
 </script>
 <template>
-    <section class="tw-h-screen tw-pb-8 tw-pt-4">
+    <section ref="articleSection" class="tw-h-screen tw-pb-8 tw-pt-4">
         <Head title="Article" />
-        <h3 class="tw-text-3xl tw-font-semibold tw-italic tw-text-primary tw-text-center">
+        <h3
+            class="tw-text-center tw-text-3xl tw-font-semibold tw-italic tw-text-primary"
+        >
             #Articles
         </h3>
-        <div class="tw-container tw-flex tw-h-full tw-flex-row tw-space-x-4 tw-mt-4">
+        <div
+            class="tw-container tw-mt-4 tw-flex tw-h-full tw-flex-row tw-space-x-4"
+        >
             <!-- Article Section -->
             <div
                 class="tw-relative tw-flex tw-w-full tw-flex-col tw-rounded-lg !tw-bg-opacity-60 tw-text-slate-900 tw-transition tw-duration-300 dark:tw-text-slate-100"

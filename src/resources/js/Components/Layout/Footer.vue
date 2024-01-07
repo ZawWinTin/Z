@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -10,7 +10,10 @@ import { useToast } from 'primevue/usetoast';
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
 import { scrollToTop } from '@/Composables/Common/Helper';
-import { useContactViewStore } from '@/Composables/Common/PiniaStore';
+import {
+    useContactViewStore,
+    useScrollToTopStore,
+} from '@/Composables/Common/PiniaStore';
 import route from '@/Composables/Common/Route';
 import Transitions from '@/Composables/UI/Transitions';
 
@@ -28,6 +31,8 @@ const toast = useToast();
 const toastVisible = ref(false);
 const isContactSuccess = ref(false);
 const contactViewStore = useContactViewStore();
+
+const contact = ref<HTMLElement | null>(null);
 
 const footerInputTheme =
     'tw-text-slate-300 !tw-bg-slate-900 !tw-border-slate-700 focus:tw-ring-offset-slate-800';
@@ -59,9 +64,35 @@ const submitContact = () => {
         },
     });
 };
+
+const goToTop = () => {
+    scrollToTop();
+    useScrollToTopStore().flicking?.moveTo(0);
+};
+
+const contactScrollY = (event: WheelEvent) => {
+    event.preventDefault();
+
+    const deltaY = event.deltaY;
+
+    if (Math.abs(deltaY) > 40) {
+        if (deltaY < 0) {
+            scrollToTop();
+        }
+    }
+};
+
+onMounted(() => {
+    contact.value?.addEventListener('wheel', contactScrollY, {
+        passive: false,
+    });
+});
+onUnmounted(() => {
+    contact.value?.removeEventListener('wheel', contactScrollY);
+});
 </script>
 <template>
-    <footer class="main-bg-3-dark-only tw-mt-auto tw-h-screen">
+    <footer ref="contact" class="main-bg-3-dark-only tw-mt-auto tw-h-screen">
         <Toast
             position="bottom-center"
             group="contact"
@@ -214,7 +245,7 @@ const submitContact = () => {
                     <Button
                         rounded
                         raised
-                        @click="scrollToTop"
+                        @click="goToTop"
                         class="!tw-absolute tw-bottom-0 tw-right-0 !tw-h-12 !tw-w-12 tw-border-none !tw-bg-slate-950/80 !tw-text-primary tw-transition tw-duration-300 hover:!tw-bg-primary hover:!tw-text-slate-950 focus:tw-ring-offset-slate-800 motion-safe:tw-animate-bounce"
                         icon="pi pi-chevron-up"
                     />
