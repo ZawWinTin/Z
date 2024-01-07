@@ -9,7 +9,10 @@ import {
     initializeOverlayScroll,
     scrollOverlayEffect,
 } from '@/Composables/Common/OverlayScrollEffect';
-import { useContactViewStore, usePreloaderStore } from '@/Composables/Common/PiniaStore';
+import {
+    useContactViewStore,
+    usePreloaderStore,
+} from '@/Composables/Common/PiniaStore';
 
 const props = withDefaults(
     defineProps<{

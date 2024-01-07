@@ -12,7 +12,12 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-    <div class="tw-flex tw-h-screen tw-flex-col tw-items-center">
+    <div
+        class="tw-flex tw-h-screen tw-flex-col tw-items-center tw-justify-between tw-pb-8 tw-pt-4"
+    >
+        <h3 class="tw-text-3xl tw-font-semibold tw-italic tw-text-primary">
+            #Articles
+        </h3>
         <CardCarousel>
             <template #content>
                 <template v-for="article in props.articles" :key="article.id">

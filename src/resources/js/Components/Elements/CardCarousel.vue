@@ -28,6 +28,7 @@ const flickingPlugins = [
 
 const flickingWheelEvent = (event: WheelEvent) => {
     event.preventDefault();
+    event.stopPropagation();
     if (flicking.value?.animating) {
         return;
     }

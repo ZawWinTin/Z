@@ -2,6 +2,10 @@
 import { onMounted, ref } from 'vue';
 import { Scene } from 'vue-scenejs';
 
+const props = defineProps<{
+    name: string;
+}>();
+
 const content = [' love to', ' am passionate to'];
 const contentIndex = ref<number>(0);
 
@@ -97,14 +101,20 @@ onMounted(() => {
                 class="main-text-for-input tw-select-none tw-text-6xl tw-font-bold tw-transition tw-duration-300"
             >
                 Hi, I'm
-                <span class="tw-select-all tw-text-primary">Zaw Win Tin</span>.
+                <span class="tw-select-all tw-text-primary">{{
+                    props.name
+                }}</span
+                >.
             </h1>
             <span
-                class="main-text-for-input tw-select-none tw-text-4xl tw-transition tw-duration-300"
+                class="main-text-for-input tw-select-none tw-text-4xl tw-opacity-90 tw-transition tw-duration-300"
             >
                 <span>I</span>
                 <span>{{ currentText }}</span>
-                <span class="cursor" :class="{ 'cursor-blink': isWaiting }"></span>
+                <span
+                    class="cursor"
+                    :class="{ 'cursor-blink': isWaiting }"
+                ></span>
                 <span>&nbsp;develop web applications.</span>
             </span>
         </div>
