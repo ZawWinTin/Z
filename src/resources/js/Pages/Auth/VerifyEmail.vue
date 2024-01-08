@@ -1,15 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
-import route from '@/Composables/Route';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
 
-const props = defineProps({
-    status: {
-        type: String,
-    },
-});
+import StatusMessage from '@/Components/UI/StatusMessage.vue';
+import route from '@/Composables/Common/Route';
+
+const props = defineProps<{
+    status?: string;
+}>();
 
 const form = useForm({});
 
@@ -23,71 +22,38 @@ const verificationLinkSent = computed(
 </script>
 
 <template>
-    <GuestLayout>
+    <section>
         <Head title="Email Verification" />
 
-        <div
-            class="
-                tw-mb-4
-                dark:tw-text-slate-400
-                tw-text-slate-600
-                tw-text-sm
-                "
-        >
+        <div class="main-text text-justify tw-mb-4 tw-text-sm">
             Thanks for signing up! Before getting started, could you verify your
             email address by clicking on the link we just emailed to you? If you
             didn't receive the email, we will gladly send you another.
         </div>
 
-        <div
-            v-if="verificationLinkSent"
-            class="
-                tw-font-medium
-                dark:tw-text-green-400
-                tw-mb-4
-                tw-text-green-600
-                tw-text-sm
-                "
-        >
-            A new verification link has been sent to the email address you
-            provided during registration.
-        </div>
+        <StatusMessage
+            :show="verificationLinkSent"
+            message="A new verification link has been sent to the email address you
+                provided during registration."
+        />
 
         <form @submit.prevent="submit">
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-between
-                tw-mt-4
-                ">
-                <PrimaryButton
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Resend Verification Email
-                </PrimaryButton>
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-between">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Resend Verification Email"
+                    :loading="form.processing"
+                />
 
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="
-                        tw-rounded-md
-                        dark:focus:tw-ring-offset-slate-800
-                        dark:hover:tw-text-slate-100
-                        dark:tw-text-slate-400
-                        focus:tw-outline-none
-                        focus:tw-ring-2
-                        focus:tw-ring-indigo-500
-                        focus:tw-ring-offset-2
-                        hover:tw-text-slate-900
-                        tw-text-slate-600
-                        tw-text-sm
-                        tw-underline
-                        "
+                    class="main-link"
                     >Log Out</Link
                 >
             </div>
         </form>
-    </GuestLayout>
+    </section>
 </template>

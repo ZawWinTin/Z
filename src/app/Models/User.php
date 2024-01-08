@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -24,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,15 +48,43 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role' => UserRole::class,
     ];
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => Hash::make($value),
+        );
+    }
 
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function articles(): HasMany
+    public function liked_articles(): BelongsToMany
     {
-        return $this->hasMany(Article::class);
+        return $this->belongsToMany(Article::class, 'likes');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === UserRole::USER;
+    }
+
+    public function scopeAdmin($query)
+    {
+        $query->where('role', UserRole::ADMIN->value);
+    }
+
+    public function scopeUser($query)
+    {
+        $query->where('role', UserRole::USER->value);
     }
 }

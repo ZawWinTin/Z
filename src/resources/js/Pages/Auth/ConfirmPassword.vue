@@ -1,13 +1,15 @@
-<script setup>
-import route from '@/Composables/Route';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+<script setup lang="ts">
+import { Head, useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
+import Password from 'primevue/password';
+
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import route from '@/Composables/Common/Route';
 
-const form = useForm({
+const form = useForm<{
+    password: string;
+}>({
     password: '',
 });
 
@@ -19,45 +21,50 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <section>
         <Head title="Confirm Password" />
 
         <div
-            class="
-                tw-mb-4
-                dark:tw-text-slate-400
-                tw-text-slate-600
-                tw-text-sm
-                "
+            class="tw-mb-4 tw-text-sm tw-text-slate-600 dark:tw-text-slate-400"
         >
             This is a secure area of the application. Please confirm your
             password before continuing.
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="current-password"
-                    autofocus
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        v-model="form.password"
+                        class="tw-mt-1 tw-block tw-w-full"
+                        required
+                        :inputProps="{ autocomplete: 'current-password' }"
+                        autofocus
+                        toggleMask
+                        :feedback="false"
+                    />
+                    <InputLabel
+                        for="password"
+                        value="Password"
+                        class="tw-ml-4"
+                    />
+                </span>
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.password"
                 />
-                <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-flex tw-justify-end tw-mt-4">
-                <PrimaryButton
+            <div class="tw-mt-4 tw-flex tw-justify-end">
+                <Button
+                    type="submit"
+                    label="Confirm"
+                    rounded
                     class="tw-ml-4"
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Confirm
-                </PrimaryButton>
+                    :loading="form.processing"
+                />
             </div>
         </form>
-    </GuestLayout>
+    </section>
 </template>

@@ -1,133 +1,378 @@
-<script setup>
-import { onMounted, ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
-import route from '@/Composables/Route';
+<script setup lang="ts">
+import {
+    computed,
+    nextTick,
+    onMounted,
+    onUnmounted,
+    ref,
+    watchEffect,
+} from 'vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import MainMenuButton from '@/Components/Buttons/MainMenuButton.vue';
 import DarkModeToggle from '@/Components/UI/DarkModeToggle.vue';
+import MainMenuButton from '@/Components/UI/MainMenuButton.vue';
+import { isActiveRoute, scrollToTop } from '@/Composables/Common/Helper';
+import {
+    useAboutViewStore,
+    useContactViewStore,
+    useScrollToTopStore,
+} from '@/Composables/Common/PiniaStore';
+import route from '@/Composables/Common/Route';
+import Transitions from '@/Composables/UI/Transitions';
+import { UserRole } from '@/Constants/UserRole';
 
-// TODO:If not use, remove and background click not working
-let headerContainer = ref(null);
-let navBar = ref(null);
-let mainMenuScreen = ref(null);
+const isMenuOpen = ref(false);
 
-let isMenuOpen = ref(false);
+const toast = useToast();
+const toastVisible = ref(false);
 
-let sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
-let menuCardClasses =
-    'tw-bg-slate-50 tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase';
+const aboutViewStore = useAboutViewStore();
+const contactViewStore = useContactViewStore();
+
+const fragments = {
+    about: ref<HTMLElement | null>(null),
+    contact: ref<HTMLElement | null>(null),
+};
+
+const sectionClasses = 'tw-flex tw-flex-col tw-h-full tw-space-y-4 tw-w-1/3';
+const menuCardClasses =
+    'main-bg-3-light-only tw-duration-300 tw-flex tw-flex-col tw-p-4 tw-rounded-lg tw-text-slate-900 tw-transition tw-font-semibold tw-uppercase tw-space-y-1';
+const menuLinkClasses =
+    'hover:tw-bg-slate-200 tw-py-2 tw-rounded-full tw-px-4 tw-duration-200 tw-ease-in-out tw-text-left tw-uppercase';
+const activeClasses =
+    'main-text-gradient tw-pointer-events-none tw-select-none';
 
 onMounted(() => {
     initializeScrolling();
+    initializeFlashMessage();
 });
 
-let initializeScrolling = () => {
-    isMenuOpen.value = false;
-    document.querySelector('body').classList.remove('tw-overflow-hidden');
-};
+onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll);
+});
 
-let toggleMainMenu = () => {
-    let body = document.querySelector('body');
-    isMenuOpen.value = !isMenuOpen.value;
-    if (isMenuOpen.value) {
-        body.classList.add('tw-overflow-hidden');
-    } else {
-        body.classList.remove('tw-overflow-hidden');
+const initializeFlashMessage = () => {
+    const message = usePage().props.flash.message;
+    if (message && ['auth', 'email', 'account_delete'].includes(message.type)) {
+        showFlashMessage(message.details);
     }
 };
+
+const showFlashMessage = (message: string) => {
+    toastVisible.value = true;
+    toast.add({
+        summary: message,
+        detail: '',
+        group: 'auth',
+        life: 3000,
+    });
+};
+
+const initializeScrolling = () => {
+    isMenuOpen.value = false;
+    document.body.classList.remove('tw-overflow-hidden');
+
+    initializeFragments();
+
+    window.addEventListener('scroll', onScroll);
+
+    setScroll();
+};
+
+const setScroll = () => {
+    const view = usePage().props.flash.view;
+
+    nextTick(() => {
+        switch (view) {
+            case 'about':
+                scrollToAbout();
+                break;
+            case 'contact':
+                scrollToContact();
+                break;
+            default:
+                return;
+        }
+    });
+};
+
+const initializeFragments = () => {
+    fragments.contact.value = document.querySelector('footer');
+    //TODO: add About
+};
+
+const onScroll = () => {
+    onContactScroll();
+};
+
+const onContactScroll = () => {
+    contactViewStore.setReach(
+        !!(
+            fragments.contact.value &&
+            window.scrollY >= fragments.contact.value.offsetTop - 48
+        ),
+    );
+    contactViewStore.setShow(
+        !!(
+            fragments.contact.value &&
+            window.scrollY >=
+                fragments.contact.value.offsetTop - window.innerHeight / 2
+        ),
+    );
+};
+
+const scrollToAbout = () => {
+    if (aboutViewStore.isExist) {
+        fragments.about.value?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        router.visit(route('redirect', { view: 'about' }));
+    }
+};
+
+const scrollToContact = () => {
+    if (contactViewStore.isExist) {
+        fragments.contact.value?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        router.visit(route('redirect', { view: 'contact' }));
+    }
+};
+
+const toggleMainMenu = (
+    event: MouseEvent,
+    openMainMenu: boolean | null = null,
+) => {
+    event.stopPropagation();
+
+    isMenuOpen.value = openMainMenu === null ? !isMenuOpen.value : openMainMenu;
+    if (isMenuOpen.value) {
+        document.body.classList.add('tw-overflow-hidden');
+    } else {
+        document.body.classList.remove('tw-overflow-hidden');
+    }
+};
+
+const getActiveClasses = (routeName: string) => {
+    if (
+        isActiveRoute(routeName) &&
+        !contactViewStore.isReached &&
+        !aboutViewStore.isReached
+    ) {
+        return activeClasses;
+    }
+    return '';
+};
+
+const checkActiveLink = (routeName: string) => {
+    if (isActiveRoute(routeName)) {
+        scrollToTop();
+        useScrollToTopStore().flicking?.moveTo(0);
+    } else {
+        router.visit(route(routeName));
+    }
+};
+
+const getAboutClasses = computed(() => {
+    return aboutViewStore.isReached ? activeClasses : '';
+});
+
+const getContactClasses = computed(() => {
+    return contactViewStore.isReached ? activeClasses : '';
+});
+
+watchEffect(() => {
+    setScroll();
+    initializeFlashMessage();
+});
 </script>
 <template>
     <div
-        ref="headerContainer"
-        @click.self="toggleMainMenu"
-        class="
-            tw-bg-slate-950
-            tw-duration-300
-            tw-fixed
-            tw-flex
-            tw-flex-col
-            tw-inset-0
-            tw-overflow-hidden
-            tw-pb-8
-            tw-pt-2
-            tw-space-y-2
-            tw-transition-all
-            tw-w-full
-            tw-z-[99]
-            "
+        @click="toggleMainMenu"
+        class="tw-fixed tw-inset-0 tw-z-[90] tw-flex tw-w-full tw-flex-col tw-space-y-3 tw-overflow-hidden tw-bg-slate-950 tw-pb-8 tw-pt-4 tw-transition-all tw-duration-300"
         :class="
             isMenuOpen
                 ? 'tw-pointer-events-auto tw-h-screen tw-bg-opacity-80'
-                : 'tw-pointer-events-none tw-h-auto tw-bg-opacity-10'
+                : 'tw-pointer-events-none tw-h-auto tw-bg-opacity-0'
         "
     >
         <!-- Navigation Bar -->
-        <div
-            ref="navBar"
-            class="
-                tw-container
-                tw-flex
-                tw-items-center
-                tw-justify-between
-                tw-py-2
-                "
-        >
-            <Link class="tw-pointer-events-auto" :href="route('home')">
+        <div class="tw-container tw-flex tw-items-center tw-justify-between">
+            <Link
+                class="tw-pointer-events-auto tw-py-0.5"
+                @click="toggleMainMenu($event, false)"
+                :href="route('home')"
+            >
                 <ApplicationLogo
-                    class="tw-h-6 tw-w-6"
+                    class="tw-h-6 tw-w-6 tw-transition tw-duration-300"
                     :class="
-                        isMenuOpen
+                        isMenuOpen || contactViewStore.isReached
                             ? '!tw-stroke-slate-50 !tw-text-slate-50'
                             : ''
                     "
                 />
             </Link>
             <MainMenuButton
-                class="tw-pointer-events-auto"
+                class="tw-pointer-events-auto tw-transition tw-duration-300"
                 @click="toggleMainMenu"
-                :class="
-                    isMenuOpen
-                        ? '!tw-bg-slate-50 !tw-text-slate-900 !tw-border-slate-50'
-                        : ''
-                "
+                :is-menu-open="isMenuOpen"
+                :class="{
+                    '!tw-border-slate-50 !tw-text-slate-50 hover:!tw-bg-slate-50 hover:!tw-text-slate-900':
+                        contactViewStore.isReached,
+                }"
             />
         </div>
 
         <!-- Main Menu Screen -->
-        <div
-            ref="mainMenuScreen"
-            class="tw-container tw-flex-row-reverse tw-h-full"
-            :class="isMenuOpen ? 'tw-flex' : 'tw-hidden'"
+        <transition
+            :enter-from-class="Transitions.floatIn.enterFromClass"
+            :enter-active-class="Transitions.floatIn.enterActiveClass"
+            :leave-active-class="Transitions.floatIn.leaveActiveClass"
+            :leave-to-class="Transitions.floatIn.leaveToClass"
         >
-            <section :class="sectionClasses" class="tw-pl-4">
-                <div :class="menuCardClasses">
-                    <Link :href="route('home')">Home</Link>
-                    <template v-if="route().has('admin.dashboard')">
-                        <hr
-                            class="tw-bg-slate-300 tw-border-0 tw-h-px tw-my-8"
-                        />
-                        <Link :href="route('admin.dashboard')"
-                            >Overview Dashboard</Link
+            <div
+                v-show="isMenuOpen"
+                class="tw-container tw-flex tw-h-full tw-flex-row-reverse"
+            >
+                <section :class="sectionClasses" class="tw-pl-4">
+                    <div :class="menuCardClasses">
+                        <button
+                            :class="[getActiveClasses('home'), menuLinkClasses]"
+                            @click="checkActiveLink('home')"
                         >
-                    </template>
-                </div>
-                <div :class="menuCardClasses">
-                    <div
-                        class="
-                            tw-flex
-                            tw-flex-row
-                            tw-items-center
-                            tw-justify-between
-                            tw-w-full
-                            "
-                    >
-                        <span class="tw-select-none">Appearance</span>
-                        <DarkModeToggle />
+                            Home
+                        </button>
+                        <button
+                            :class="[
+                                getActiveClasses('article.index'),
+                                menuLinkClasses,
+                            ]"
+                            @click="checkActiveLink('article.index')"
+                        >
+                            Articles
+                        </button>
+                        <button
+                            :class="[getAboutClasses, menuLinkClasses]"
+                            @click="scrollToAbout"
+                        >
+                            About
+                        </button>
+                        <button
+                            :class="[getContactClasses, menuLinkClasses]"
+                            @click="scrollToContact"
+                        >
+                            Contact
+                        </button>
+                        <hr class="tw-h-px tw-border-0 tw-bg-slate-300" />
+                        <template v-if="route().has('admin.dashboard')">
+                            <a
+                                class="tw-flex tw-flex-row tw-items-center tw-justify-between"
+                                :class="menuLinkClasses"
+                                :href="route('admin.dashboard')"
+                                target="_blank"
+                            >
+                                <span>Overview Dashboard</span>
+                                <i
+                                    class="pi pi-arrow-up-right main-text-light-only"
+                                />
+                            </a>
+                        </template>
+                        <template v-if="$page.props.auth.user">
+                            <!-- TODO:Fix Design -->
+                            <template
+                                v-if="
+                                    $page.props.auth.user.role === UserRole.USER
+                                "
+                            >
+                                <Link
+                                    :class="[
+                                        getActiveClasses('profile.edit'),
+                                        menuLinkClasses,
+                                    ]"
+                                    @click="checkActiveLink('profile.edit')"
+                                    :href="route('profile.edit')"
+                                >
+                                    Profile
+                                </Link>
+                            </template>
+                            <Link
+                                :class="menuLinkClasses"
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                            >
+                                Log Out
+                            </Link>
+                        </template>
+                        <template v-if="!$page.props.auth.user">
+                            <Link
+                                :class="menuLinkClasses"
+                                :href="route('login')"
+                                >Log In</Link
+                            >
+                            <Link
+                                :class="menuLinkClasses"
+                                :href="route('register')"
+                                >Sign In</Link
+                            >
+                        </template>
                     </div>
-                </div>
-            </section>
-            <section :class="sectionClasses" class="tw-px-4"></section>
-            <section :class="sectionClasses" class="tw-pr-4"></section>
-        </div>
+                    <div :class="menuCardClasses">
+                        <div
+                            class="tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-px-4"
+                        >
+                            <span class="tw-select-none">Appearance</span>
+                            <DarkModeToggle />
+                        </div>
+                    </div>
+                </section>
+                <section :class="sectionClasses" class="tw-px-4"></section>
+                <section :class="sectionClasses" class="tw-pr-4"></section>
+            </div>
+        </transition>
+
+        <!-- Auth Flash Message (Login/Logout) -->
+        <Toast
+            position="bottom-center"
+            group="auth"
+            @close="toastVisible = false"
+            :pt="{ transition: Transitions.overlay }"
+        >
+            <template #container="{ message }">
+                <section
+                    class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-slate-950 tw-p-3 tw-shadow tw-shadow-primary"
+                >
+                    <div class="tw-flex tw-flex-row tw-justify-center tw-gap-4">
+                        <i
+                            class="pi tw-text-2xl tw-text-primary"
+                            :class="{
+                                'pi-sign-in':
+                                    $page.props.flash.message?.type == 'auth' &&
+                                    $page.props.auth.user,
+                                'pi-sign-out':
+                                    $page.props.flash.message?.type == 'auth' &&
+                                    !$page.props.auth.user,
+                                'pi-check':
+                                    $page.props.flash.message?.type == 'email',
+                                'pi-trash':
+                                    $page.props.flash.message?.type ==
+                                    'account_delete',
+                            }"
+                        ></i>
+                        <p
+                            class="tw-text-base tw-font-semibold tw-text-slate-50"
+                        >
+                            {{ message.summary }}
+                        </p>
+                    </div>
+                    <template v-if="!!message.detail">
+                        <p class="main-text-dark-only tw-m-0 tw-text-base">
+                            {{ message.detail }}
+                        </p>
+                    </template>
+                </section>
+            </template>
+        </Toast>
     </div>
 </template>

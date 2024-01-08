@@ -1,28 +1,33 @@
-<script setup>
-import route from '@/Composables/Route';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+
 import InputError from '@/Components/UI/InputError.vue';
 import InputLabel from '@/Components/UI/InputLabel.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
-import TextInput from '@/Components/UI/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import route from '@/Composables/Common/Route';
 
-const props = defineProps({
-    email: {
-        type: String,
-        required: true,
-    },
-    token: {
-        type: String,
-        required: true,
-    },
-});
+const props = defineProps<{
+    email: string;
+    token: string;
+}>();
 
-const form = useForm({
+const resetEmail = ref<string>('');
+
+const form = useForm<{
+    token: string;
+    password: string;
+    password_confirmation: string;
+}>({
     token: props.token,
-    email: props.email,
     password: '',
     password_confirmation: '',
+});
+
+onMounted(() => {
+    resetEmail.value = props.email;
 });
 
 const submit = () => {
@@ -33,75 +38,79 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <section>
         <Head title="Reset Password" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="tw-mt-2" :message="form.errors.email" />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <InputText
+                        id="email"
+                        v-model="resetEmail"
+                        type="email"
+                        class="tw-mt-1 tw-block tw-w-full"
+                        required
+                        autofocus
+                        disabled
+                        autocomplete="username"
+                    />
+                    <InputLabel for="email" value="Email" class="tw-ml-4" />
+                </span>
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password"
+                        v-model="form.password"
+                        class="tw-mt-1 tw-block tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel
+                        for="password"
+                        value="Password"
+                        class="tw-ml-4"
+                    />
+                </span>
+                <InputError
+                    class="tw-ml-4 tw-mt-2"
+                    :message="form.errors.password"
                 />
-
-                <InputError class="tw-mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="tw-mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="tw-block tw-mt-1 tw-w-full"
-                    required
-                    autocomplete="new-password"
-                />
+            <div class="tw-mt-7">
+                <span class="p-float-label">
+                    <Password
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        class="tw-mt-1 tw-block tw-w-full"
+                        :inputProps="{ autocomplete: 'new-password' }"
+                        toggleMask
+                        feedback
+                    />
+                    <InputLabel
+                        class="tw-ml-4"
+                        for="password_confirmation"
+                        value="Confirm Password"
+                    />
+                </span>
 
                 <InputError
-                    class="tw-mt-2"
+                    class="tw-ml-4 tw-mt-2"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
-            <div class="
-                tw-flex
-                tw-items-center
-                tw-justify-end
-                tw-mt-4
-                ">
-                <PrimaryButton
-                    :class="{ 'tw-opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Reset Password
-                </PrimaryButton>
+            <div class="tw-mt-4 tw-flex tw-items-center tw-justify-end">
+                <Button
+                    type="submit"
+                    rounded
+                    label="Reset Password"
+                    :loading="form.processing"
+                />
             </div>
         </form>
-    </GuestLayout>
+    </section>
 </template>

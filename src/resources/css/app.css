@@ -2,16 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide Scrollbar */
-/* Firefox */
-html {
-    scrollbar-width: none;
-}
-/* Edge */
-body {
-    -ms-overflow-style: none;
-}
-/* Chrome */
-body::-webkit-scrollbar {
-    display: none;
+@layer components {
+    .main-text-light-only {
+        @apply tw-text-slate-700;
+    }
+    .main-text-dark-only {
+        @apply tw-text-slate-400;
+    }
+    .main-text {
+        @apply main-text-light-only dark:main-text-dark-only;
+    }
+    .main-text-for-input {
+        @apply tw-text-slate-900 dark:tw-text-slate-300;
+    }
+
+    .main-bg-1-light-only {
+        @apply tw-bg-slate-50;
+    }
+    .main-bg-1-dark-only {
+        @apply tw-bg-slate-950;
+    }
+    .main-bg-1 {
+        @apply main-bg-1-light-only dark:main-bg-1-dark-only;
+    }
+
+    .main-bg-2-light-only {
+        @apply tw-bg-slate-100;
+    }
+    .main-bg-2-dark-only {
+        @apply tw-bg-slate-800;
+    }
+    .main-bg-2 {
+        @apply main-bg-2-light-only dark:main-bg-2-dark-only;
+    }
+
+    .main-bg-3-light-only {
+        @apply tw-bg-slate-50;
+    }
+    .main-bg-3-dark-only {
+        @apply tw-bg-slate-900;
+    }
+    .main-bg-3 {
+        @apply main-bg-3-light-only dark:main-bg-3-dark-only;
+    }
+
+    .main-bg-gradient {
+        @apply tw-bg-gradient-to-r
+            tw-from-indigo-500
+            tw-to-primary;
+    }
+    .main-text-gradient {
+        @apply main-bg-gradient
+            tw-bg-clip-text
+            tw-font-bold
+            tw-text-transparent;
+    }
+
+    .main-primary-focus {
+        @apply tw-border-primary tw-outline-none tw-ring-2 tw-ring-primary/80 tw-ring-offset-1 dark:tw-ring-offset-slate-800;
+    }
+
+    .main-secondary-hover {
+        @apply hover:tw-bg-slate-400/20 dark:tw-bg-slate-700/80;
+    }
+
+    .main-input-border {
+        @apply tw-border-slate-300 hover:tw-border-primary-dark dark:tw-border-slate-700;
+    }
+
+    .main-link {
+        @apply focus:main-primary-focus main-text tw-rounded-md tw-text-sm tw-underline tw-transition tw-duration-300 hover:tw-text-primary/80;
+    }
 }

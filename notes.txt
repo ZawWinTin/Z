@@ -1,0 +1,7 @@
+php artisan vendor:publish --tag=laravel-notifications
+php artisan vendor:publish --tag=laravel-mail
+php artisan storage:link
+
+# Format All Files
+./vendor/bin/pint --config ./pint.json
+node_modules/.bin/prettier --config .prettierrc --write .

@@ -1,70 +1,72 @@
-<script setup>
-import { onMounted } from 'vue';
-const DARK_MODE = 'tw-dark';
-const LIGHT_MODE = 'tw-light';
-const THEME_KEY = 'theme';
+<script setup lang="ts">
+import { onMounted, onUpdated } from 'vue';
+
+import { useDarkModeStore } from '@/Composables/Common/PiniaStore';
+import { Theme } from '@/Constants/Theme';
+
+const darkModeStore = useDarkModeStore();
+
+const faviconPathPattern = /light|dark/g;
+
 onMounted(() => {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-    if (
-        localStorage.theme === DARK_MODE ||
-        (!(THEME_KEY in localStorage) &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-        toggleThemeMode(DARK_MODE);
-    } else {
-        toggleThemeMode(LIGHT_MODE);
-    }
+    initializeThemeMode();
 });
 
-const toggleThemeMode = (mode = '') => {
-    let setMode = localStorage.theme === DARK_MODE ? LIGHT_MODE : DARK_MODE;
+onUpdated(() => {
+    initializeThemeMode();
+});
+
+const initializeThemeMode = () => {
+    if (
+        localStorage.theme === Theme.DARK_MODE ||
+        (!(Theme.THEME_KEY in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+        toggleThemeMode(Theme.DARK_MODE);
+    } else {
+        toggleThemeMode(Theme.LIGHT_MODE);
+    }
+};
+
+const toggleThemeMode = (
+    mode: string = '',
+    event: MouseEvent | null = null,
+) => {
+    if (event) {
+        event.stopPropagation();
+    }
+    let setMode =
+        localStorage.theme === Theme.DARK_MODE
+            ? Theme.LIGHT_MODE
+            : Theme.DARK_MODE;
     if (mode) {
         setMode = mode;
     }
 
-    let darkModeToggleBtn = $('#dark-mode-toggle-btn');
-    let favicon = $('#favicon');
-    let faviconPath = favicon.attr('href');
-    let faviconPathPattern = /light|dark/g;
+    const favicon = document.getElementById('favicon') as HTMLAnchorElement;
+    const faviconPath = favicon.href;
 
     localStorage.theme = setMode;
-    if (setMode === DARK_MODE) {
-        document.documentElement.classList.add(DARK_MODE);
-        darkModeToggleBtn.removeClass('day-mode');
-        darkModeToggleBtn.addClass('night-mode');
-        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'dark'));
+    if (setMode === Theme.DARK_MODE) {
+        document.documentElement.classList.add(Theme.DARK_MODE);
+        darkModeStore.setDarkMode(true);
+        favicon.href = faviconPath.replace(faviconPathPattern, 'dark');
     } else {
-        document.documentElement.classList.remove(DARK_MODE);
-        darkModeToggleBtn.removeClass('night-mode');
-        darkModeToggleBtn.addClass('day-mode');
-        favicon.attr('href', faviconPath.replace(faviconPathPattern, 'light'));
+        document.documentElement.classList.remove(Theme.DARK_MODE);
+        darkModeStore.setDarkMode(false);
+        favicon.href = faviconPath.replace(faviconPathPattern, 'light');
     }
 };
 </script>
 <template>
     <div
-        id="dark-mode-toggle-btn"
-        class="
-            tw-cursor-pointer
-            tw-duration-500
-            tw-ease-in-out
-            tw-h-[16em]
-            tw-relative
-            tw-rounded-full
-            tw-text-[12%]
-            tw-transition-all
-            tw-w-[30em]
-            "
-        @click="toggleThemeMode()"
+        class="focus:main-primary-focus tw-relative tw-h-[16em] tw-w-[30em] tw-cursor-pointer tw-rounded-full tw-text-[12%] tw-transition-all tw-duration-500 tw-ease-in-out"
+        tabindex="0"
+        :class="darkModeStore.isDarkMode ? 'night-mode' : 'day-mode'"
+        @click="toggleThemeMode('', $event)"
     >
         <span
-            class="
-                tw-absolute
-                tw-duration-500
-                tw-ease-in-out
-                tw-rounded-full
-                tw-transition-all
-                "
+            class="tw-absolute tw-rounded-full tw-transition-all tw-duration-500 tw-ease-in-out"
         ></span>
     </div>
 </template>

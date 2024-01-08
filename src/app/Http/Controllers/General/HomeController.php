@@ -20,7 +20,17 @@ class HomeController extends Controller
     {
         $data = $this->homeService->getAll();
 
-        return Inertia::render('General/Home', [
-        ])->withViewData('meta', ['title' => '']);
+        return Inertia::render('General/Home/Index', $data);
+    }
+
+    public function redirect(Request $request)
+    {
+        switch ($request->view) {
+            case 'about':
+            case 'contact':
+                return to_route('home')->with('view', $request->view);
+            default:
+                return to_route('home');
+        }
     }
 }

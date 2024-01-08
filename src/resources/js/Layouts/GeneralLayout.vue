@@ -1,28 +1,65 @@
-<script setup>
-import Header from '@/Components/Layout/Header.vue';
+<script setup lang="ts">
+import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
+
+import Preloader from '@/Components/Elements/Preloader.vue';
 import Footer from '@/Components/Layout/Footer.vue';
+import Header from '@/Components/Layout/Header.vue';
 import Cursor from '@/Components/UI/Cursor.vue';
+import {
+    initializeOverlayScroll,
+    scrollOverlayEffect,
+} from '@/Composables/Common/OverlayScrollEffect';
+import {
+    useContactViewStore,
+    usePreloaderStore,
+} from '@/Composables/Common/PiniaStore';
+
+const props = withDefaults(
+    defineProps<{
+        showFooter?: boolean;
+    }>(),
+    {
+        showFooter: true,
+    },
+);
+
+const contactViewStore = useContactViewStore();
+const preloaderStore = usePreloaderStore();
+
+const articleSection = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    if (props.showFooter) {
+        initializeOverlayScroll(articleSection.value, true);
+        window.addEventListener('scroll', scrollOverlayEffect);
+    }
+    contactViewStore.setExist(props.showFooter);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', scrollOverlayEffect);
+});
+
+onUpdated(() => {
+    if (props.showFooter) {
+        initializeOverlayScroll(articleSection.value, true);
+        window.addEventListener('scroll', scrollOverlayEffect);
+    }
+    contactViewStore.setExist(props.showFooter);
+});
 </script>
 <template>
-    <main
-        class="
-            tw-bg-slate-50
-            dark:tw-bg-slate-950
-            selection:tw-bg-primary/80
-            selection:tw-text-slate-50
-            tw-duration-300
-            tw-ease-in-out
-            tw-flex
-            tw-flex-col
-            tw-min-h-screen
-            tw-scroll-smooth
-            "
-    >
-        <Cursor />
-        <Header></Header>
-        <article class="tw-pt-4 tw-z-[1]">
-            <slot />
-            <Footer></Footer>
-        </article>
+    <main class="main-bg-1 tw-flex tw-flex-col tw-duration-300 tw-ease-in-out">
+        <template v-if="!preloaderStore.isLoading">
+            <Cursor />
+            <Header></Header>
+            <article ref="articleSection" class="tw-z-[1]">
+                <div class="tw-min-h-screen">
+                    <slot />
+                </div>
+                <Footer v-show="props.showFooter && preloaderStore.isReady" />
+            </article>
+        </template>
+        <Preloader />
     </main>
 </template>

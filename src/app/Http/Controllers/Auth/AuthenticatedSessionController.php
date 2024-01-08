@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Route;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -20,7 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): Response
     {
         return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
+            'isGeneralLogin' => (Route::currentRouteName() !== 'admin.login'),
             'status' => session('status'),
         ]);
     }
@@ -30,11 +29,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $isPasswordNeeded = $request->authenticate();
 
-        $request->session()->regenerate();
+        if (!$isPasswordNeeded) {
+            $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(auth()->user()?->isAdmin() ? route('admin.dashboard') : route('home'))
+                ->with('message', ['type' => 'auth', 'details' => 'Login Successful']);
+        }
+
+        return back();
     }
 
     /**
@@ -48,6 +52,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('message', ['type' => 'auth', 'details' => 'Logout Successful']);
     }
 }

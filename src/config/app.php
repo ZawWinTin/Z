@@ -169,6 +169,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SqlLogServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,7 +186,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'InterventionImage' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
