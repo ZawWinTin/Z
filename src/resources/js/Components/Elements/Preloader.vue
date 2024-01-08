@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, Ref, ref } from 'vue';
+import { nextTick, onMounted, Ref, ref } from 'vue';
 
 import { usePreloaderStore } from '@/Composables/Common/PiniaStore';
 
@@ -95,6 +95,7 @@ const end = async () => {
                 preloaderEndAnimation.finished.then(() => {
                     preloader.value?.remove();
                     document.body.classList.remove('tw-overflow-hidden');
+                    nextTick(() => preloaderStore.setReady(true));
                 });
             }
         }, duration);

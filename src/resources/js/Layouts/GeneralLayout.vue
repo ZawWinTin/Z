@@ -57,7 +57,7 @@ onUpdated(() => {
                 <div class="tw-min-h-screen">
                     <slot />
                 </div>
-                <Footer v-show="props.showFooter" />
+                <Footer v-show="props.showFooter && preloaderStore.isReady" />
             </article>
         </template>
         <Preloader />

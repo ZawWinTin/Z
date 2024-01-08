@@ -28,9 +28,9 @@ const mainWheelEvent = (event: WheelEvent) => {
     }
     const deltaY = event.deltaY;
 
-    if (Math.abs(deltaY) > 40) {
+    if (Math.abs(deltaY) > 40 && flicking.value) {
         if (deltaY > 0) {
-            if (flicking.value?.index! < flicking.value?.panelCount! - 1) {
+            if (flicking.value?.index < flicking.value?.panelCount - 1) {
                 flicking.value?.next();
             } else {
                 window.scrollTo({
@@ -39,7 +39,7 @@ const mainWheelEvent = (event: WheelEvent) => {
                 });
             }
         } else if (deltaY < 0) {
-            if (flicking.value?.index! > 0) {
+            if (flicking.value?.index > 0) {
                 flicking.value?.prev();
             }
             //TODO: Fix Scroll for Contact and GotoTop Button Too

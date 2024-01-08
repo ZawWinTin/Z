@@ -18,12 +18,16 @@ export const useDarkModeStore = defineStore('darkMode', () => {
 
 export const usePreloaderStore = defineStore('preloader', () => {
     const isLoading = ref<boolean>(true);
+    const isReady = ref<boolean>(false);
 
     const setLoading = (newValue: boolean) => {
         isLoading.value = newValue;
     };
+    const setReady = (newValue: boolean) => {
+        isReady.value = newValue;
+    };
 
-    return { isLoading, setLoading };
+    return { isLoading, setLoading, isReady, setReady };
 });
 
 export const useScrollToTopStore = defineStore('scrollToTop', () => {
