@@ -2,6 +2,8 @@
 import { onMounted, ref } from 'vue';
 import { Scene } from 'vue-scenejs';
 
+import Character from './Character.vue';
+
 const props = defineProps<{
     name: string;
 }>();
@@ -95,8 +97,10 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div class="tw-container tw-relative tw-flex tw-h-screen tw-items-center">
-        <div class="tw-text-start">
+    <div
+        class="tw-container tw-relative tw-flex tw-h-screen tw-flex-row tw-items-center"
+    >
+        <div class="tw-w-1/2 tw-text-start">
             <h1
                 class="main-text-for-input tw-select-none tw-text-6xl tw-font-bold tw-transition tw-duration-300"
             >
@@ -117,6 +121,9 @@ onMounted(() => {
                 ></span>
                 <span>&nbsp;develop web applications.</span>
             </span>
+        </div>
+        <div class="tw-flex tw-w-1/2 tw-justify-center">
+            <Character class="tw-w-4/5" />
         </div>
         <div
             class="scroll tw-absolute tw-bottom-[5%] tw-left-1/2 tw-h-2.5 tw-w-0.5 tw-translate-x-[-50%] tw-bg-primary/80"
