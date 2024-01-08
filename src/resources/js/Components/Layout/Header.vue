@@ -216,9 +216,8 @@ watchEffect(() => {
             <MainMenuButton
                 class="tw-pointer-events-auto tw-transition tw-duration-300"
                 @click="toggleMainMenu"
+                :is-menu-open="isMenuOpen"
                 :class="{
-                    '!tw-border-slate-50 !tw-bg-slate-50 !tw-text-slate-900':
-                        isMenuOpen,
                     '!tw-border-slate-50 !tw-text-slate-50 hover:!tw-bg-slate-50 hover:!tw-text-slate-900':
                         contactViewStore.isReached,
                 }"
